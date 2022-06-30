@@ -51,11 +51,6 @@ SDL_Texture *Scene::GetTex(std::string name)
     return tex_atlas->Get(name);
 }
 
-FC_Font *Scene::GetFont(int index)
-{
-    return font_atlas->Get(index);
-}
-
 FC_Font *Scene::GetFont(std::string name)
 {
     return font_atlas->Get(name);

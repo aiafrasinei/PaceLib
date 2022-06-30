@@ -6,7 +6,6 @@ using namespace PaceLib;
 
 
 Window *win = nullptr;
-Scene *test_scene = nullptr;
 Configuration* conf = nullptr;
 Root *root;
 ScrollingBackground *scroll_background;
@@ -34,13 +33,11 @@ bool start()
 	SDL_GetRendererOutputSize(win->GetRenderer(), &w, &h);
 	SDL_RenderSetLogicalSize(win->GetRenderer(), w, h);
 
-	test_scene = new Scene("test", win->GetWindow(), win->GetRenderer());
-	test_scene->AddTex("data/texs/test_room_x90_1.png", 400, 400, w/2, h/2);
-	test_scene->AddFont("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
-	test_scene->AddTex("data/texs/bg.png", 0, 0, 400, 400);
-
 	root = &Root::GetInstance();
-	root->GetScene("Default").GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
+	root->GetScene("Default").GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
+
+	root->GetScene("Default").AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
+	root->GetScene("Default").AddTex("texs/bg.png", 0, 0, 400, 400);
 
 	Line::Create("line", root, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
 
@@ -63,16 +60,16 @@ bool start()
 	Pentagon::Create("penta", root, 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
 	root->Get("penta")->SetDrawType(DrawTypes::FILLED);
 
-	Sprite::Create("sprite", root, test_scene->GetTex(0), {750, 150, 150, 150 } );
+	Sprite::Create("sprite", root, root->GetScene("Default").GetTex("test_room_x90_1.png"), {750, 150, 150, 150 } );
 
 	//Hexagon::Create("hexa", root, 100, 300, 150, 300, 200, 450, 70, 420, 50, 330, 200, 200, {150, 50, 50, 255 } );
 	//root->Get("hexa")->SetDrawType(DrawTypes::FILLED);
 
 	//Ellipse::Create("el", root, 400, 150, 70, 20);
 	
-	scroll_background = ScrollingBackground::Create(test_scene->GetTex(1), { 0, 0, w, h } );
+	scroll_background = ScrollingBackground::Create(root->GetScene("Default").GetTex("bg.png"), { 0, 0, w, h } );
 
-	//Texture::Create({root, "background_tex"}, test_scene->GetTex(1), { 0, 0, 100, 500} );
+	//Texture::Create({root, "background_tex"}, root->GetScene("Default")->GetTex(1), { 0, 0, 100, 500} );
 
 
 	return true;
@@ -80,7 +77,6 @@ bool start()
 
 void stop()
 {	
-	test_scene->GetFontContainer()->Remove(0);
 	delete win;
 
 	ConLog::Info("Cleanup");
@@ -123,7 +119,6 @@ int main(int argc, const char *argv[])
 				}
 			}
 
-			test_scene->Update(&e);
 		}
 
 		win->Clear();
@@ -135,8 +130,6 @@ int main(int argc, const char *argv[])
 		scroll_background->Draw(timeStep);
 
 		stepTimer.Start();
-
-		test_scene->Draw();
 
 		root->Draw();
 

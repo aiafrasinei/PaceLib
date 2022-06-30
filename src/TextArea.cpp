@@ -49,7 +49,7 @@ void TextArea::Create(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector
 
 void TextArea::Create(WidgetId wid, PropDimColor dco, std::vector<std::string> tarr, Align align)
 {
-    wid.parent->Add(new TextArea(wid, dco, Root::GetInstance().GetScene("Default").GetFont(0), tarr, align));
+    wid.parent->Add(new TextArea(wid, dco, Root::GetInstance().GetScene("Default").GetFont("default"), tarr, align));
 }
 
 void TextArea::SetTextAlign(Align align)

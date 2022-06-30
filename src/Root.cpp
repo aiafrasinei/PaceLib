@@ -22,6 +22,7 @@ Root::Root()
     name = "root";
 
     scenes.push_back(Scene("Default", Window::GetWindow(), Window::GetRenderer()));
+    scenes[0].GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
 
     wtype = WidgetType::ROOT;
 }

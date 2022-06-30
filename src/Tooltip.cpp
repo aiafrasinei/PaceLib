@@ -171,7 +171,7 @@ void DefaultTooltip:: Create(WidgetId wid, PropFontText fto, SDL_Color color)
 
 void DefaultTooltip::Create(WidgetId wid, std::string text)
 {
-    wid.parent->Add(new DefaultTooltip(wid, {Root::GetInstance().GetScene("Default").GetFont(0), text }, wid.parent->GetColor()));
+    wid.parent->Add(new DefaultTooltip(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), text }, wid.parent->GetColor()));
 }
 
 void DefaultTooltip::Draw()

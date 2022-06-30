@@ -53,7 +53,7 @@ void Tabber::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 
 void Tabber::Create(WidgetId wid, PropDimColor dco)
 {
-    wid.parent->Add(new Tabber( wid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont(0), ""}));
+    wid.parent->Add(new Tabber( wid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }
 
 void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
@@ -102,7 +102,7 @@ void Tabber::AddTab(std::string text)
 {
     titles.push_back(text);
 
-    buttons.push_back(new Button({this, "h_" + std::to_string(nrtitles)}, {{xb, rect.y/99, 40, rect.y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont(0), text}, {V::MID, H::LEFT}));
+    buttons.push_back(new Button({this, "h_" + std::to_string(nrtitles)}, {{xb, rect.y/99, 40, rect.y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, {V::MID, H::LEFT}));
     Button *b = ((Button *)buttons[nrtitles]);
     b->SetRectW(b->GetTextSize() + rect.w/30);
     xb = xb + b->GetTextSize() + rect.w/30 + rect.w/99;

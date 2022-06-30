@@ -25,46 +25,15 @@ void FontContainer::ChangeName(std::string name)
     this->name = name;
 }
 
-FC_Font *FontContainer::Get(long index)
-{
-    return fonts[index];
-}
-
 FC_Font *FontContainer::Get(std::string name)
 {
-    for(int i=0; i<fonts_names.size(); i++) {
-        if(fonts_names[i] == name) {
-            return fonts[i];
-        }        
-    }
-    
-    return NULL;
+   return fnm[name];
 }
 
-bool FontContainer::Remove(long index)
+void FontContainer::Remove(std::string name)
 {
-    if(index >= fonts.size()) {
-        return false;
-    }
-
-    FC_FreeFont(fonts[index]);
-    fonts[index] = NULL;
-    fonts.erase(fonts.begin() + index);
-
-    return true;
-}
-
-bool FontContainer::Remove(std::string name)
-{
-    for(int i=0; i<fonts_names.size(); i++) {
-        if(fonts_names[i] == name) {
-            Remove(i);
-
-            return true;
-        }        
-    }
-
-    return false;
+    FC_FreeFont(fnm[name]);
+    fnm.erase(name);
 }
 
 bool FontContainer::Add(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a)
@@ -80,8 +49,7 @@ bool FontContainer::Add(std::string name, std::filesystem::path file_path, int s
     }
     else
     {
-        fonts.push_back(font);
-        fonts_names.push_back(name);
+        fnm[name] = font;
 
         ConLog::Info("Loaded font " + name + " filepath: " + file_path.filename().string());
     }

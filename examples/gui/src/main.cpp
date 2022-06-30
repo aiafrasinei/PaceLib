@@ -30,7 +30,6 @@ bool start()
 	ConLog::Info("Start");
 
 	root = &Root::GetInstance();
-	root->GetScene("Default").GetFontContainer()->Add("font20", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
 	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
@@ -48,7 +47,7 @@ bool start()
 
 	Label::Create( {root->GetTab("second_p"), "out_lbl"},
 				{ {10, 50, 150, 30}, {100, 70, 70, 255} },
-				{root->GetScene("Default").GetFont(0), "colored label"},
+				{root->GetScene("Default").GetFont("default"), "colored label"},
 				{V::MID, H::LEFT} );
 	DefaultTooltip::Create( {root->GetTab("second_p")->GetLabel("out_lbl"), "out_tooltip"}, "this is a color label");
 
@@ -70,8 +69,8 @@ bool start()
 	TextArea::Create( {root->GetTabber("third_tb")->GetTab(2), "text_ta"}, {{5, 5, 130, 130}, {70, 70, 80, 255}}, {"Help system", "how to play the game", "third line"});
 	
 	Label::Create( {root, "out1_lbl"}, { {750, 50, 250, 30}, {100, 100, 70, 255} },
-			{root->GetScene("Default").GetFont(0), "another label"},{V::MID, H::LEFT} );
-	Button::Create( {root, "astart_btn"}, { {750, 100, 100, 30}, {100, 100, 70, 255} }, {root->GetScene("Default").GetFont(0), "Start"}, {V::MID, H::LEFT});
+			{root->GetScene("Default").GetFont("default"), "another label"},{V::MID, H::LEFT} );
+	Button::Create( {root, "astart_btn"}, { {750, 100, 100, 30}, {100, 100, 70, 255} }, {root->GetScene("Default").GetFont("default"), "Start"}, {V::MID, H::LEFT});
 
 	ButtonTex::Create( {root, "gfx_button"}, { root->GetScene("Default").GetTex("sn_yellow.png"), {750, 150, 40, 40} });
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});

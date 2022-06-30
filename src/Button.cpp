@@ -92,12 +92,12 @@ void Button::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align alig
 
 void Button::Create(WidgetId wid, SDL_Rect dim, std::string text, Align align)
 {
-    wid.parent->Add(new Button( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont(0), text}, align));
+    wid.parent->Add(new Button( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, align));
 }
 
 void Button::Create(WidgetId wid, SDL_Rect dim)
 {
-    wid.parent->Add(new Button(wid, { dim, {120, 120, 120, 255} }, {Root::GetInstance().GetScene("Default").GetFont(0), ""}));
+    wid.parent->Add(new Button(wid, { dim, {120, 120, 120, 255} }, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }
 
 void Button::InternalAlign(Align align)

@@ -32,7 +32,6 @@ namespace PaceLib
 
         SDL_Texture *GetTex(std::string name);
 
-        FC_Font *GetFont(int index);
         FC_Font *GetFont(std::string name);
 
         void Update(SDL_Event *event);

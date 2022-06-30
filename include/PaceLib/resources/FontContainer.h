@@ -16,24 +16,20 @@ namespace PaceLib
     public:
         FontContainer(std::string name);    
         ~FontContainer();
+
+        bool Add(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a);
+
+        void Remove(std::string name);
+
+        FC_Font *Get(std::string name);
         
         std::string GetName();
         void ChangeName(std::string name);
 
-        bool Add(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a);
-
-        bool Remove(long index);
-        bool Remove(std::string name);
-
-        FC_Font *Get(long index);
-        FC_Font *Get(std::string name);
-        
     protected:
 
     private:
-        std::vector<FC_Font *> fonts;
-        std::vector<std::string> fonts_names;
-
+        std::map<std::string, FC_Font *> fnm;
         std::string name;
 
     };

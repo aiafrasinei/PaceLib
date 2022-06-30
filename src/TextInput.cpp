@@ -42,12 +42,12 @@ void TextInput::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 
 void TextInput::Create(WidgetId wid, SDL_Rect dim, std::string text)
 {
-    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont(0), text}));
+    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
 }
 
 void TextInput::Create(WidgetId wid, SDL_Rect dim)
 {
-    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont(0), ""}));
+    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }
 
 void TextInput::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)

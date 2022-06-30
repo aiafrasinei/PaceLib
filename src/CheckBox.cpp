@@ -117,7 +117,7 @@ void CheckBox::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 
 void CheckBox::Create(WidgetId wid, PropDimColor dco, std::string text)
 {
-    wid.parent->Add(new CheckBox(wid, dco, {Root::GetInstance().GetScene("Default").GetFont(0), text}));
+    wid.parent->Add(new CheckBox(wid, dco, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
 }
 
 void CheckBox::Create(WidgetId wid, PropTex pto)

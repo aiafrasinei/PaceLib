@@ -47,7 +47,7 @@ void Label::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align
 
 void Label::Create(WidgetId wid, SDL_Rect dim, std::string text)
 {
-    wid.parent->Add(new Label( wid, {dim, {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}}, {Root::GetInstance().GetScene("Default").GetFont(0), text}));
+    wid.parent->Add(new Label( wid, {dim, {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
 }
 
 void Label::InternalAlign(Align align)

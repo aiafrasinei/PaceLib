@@ -69,7 +69,7 @@ void Text::Create(WidgetId wid, PropFontText fto, float x, float y, SDL_Color co
 
 void Text::Create(WidgetId wid, float x, float y, SDL_Color color, std::string text)
 {
-    wid.parent->Add(new Text(wid, {Root::GetInstance().GetScene("Default").GetFont(0), text}, x, y, color));
+    wid.parent->Add(new Text(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, x, y, color));
 }
 
 Text *Text::Create(FC_Font *font,  std::string text, float x, float y, SDL_Color color)
