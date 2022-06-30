@@ -46,11 +46,6 @@ bool Scene::AddFont(std::string name, std::filesystem::path file_path, int size,
     return font_atlas->Add(name, file_path, size, r, g, b, a);
 }
 
-SDL_Texture *Scene::GetTex(int index)
-{
-    return tex_atlas->Get(index);
-}
-
 SDL_Texture *Scene::GetTex(std::string name)
 {
     return tex_atlas->Get(name);

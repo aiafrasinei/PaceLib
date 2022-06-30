@@ -30,7 +30,6 @@ namespace PaceLib
         bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
         bool AddFont(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a);
 
-        SDL_Texture *GetTex(int index);
         SDL_Texture *GetTex(std::string name);
 
         FC_Font *GetFont(int index);

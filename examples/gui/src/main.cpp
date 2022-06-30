@@ -5,9 +5,9 @@ using namespace PaceLib;
 
 
 Window *win = nullptr;
+
 Configuration* conf = nullptr;
 
-Scene *test_scene = nullptr;
 Root *root;
 
 bool init(int argc, const char *argv[])
@@ -29,13 +29,11 @@ bool start()
 {
 	ConLog::Info("Start");
 
-	test_scene = new Scene("test", win->GetWindow(), win->GetRenderer());
-	test_scene->AddTex("texs/sn_yellow.png", 0, 0, 512,512);
-	test_scene->AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
-
 	root = &Root::GetInstance();
-	root->GetScene("Default").GetFontContainer()->Add("fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
-	
+	root->GetScene("Default").GetFontContainer()->Add("font20", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
+	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
+	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
+
 	Tab::Create( {root, "first_p"} , { {50, 50, 300, 300} , {70, 80, 90, 255} } );
 	Label::Create( {root->GetTab("first_p"), "label_lbl"}, {10, 10 , 150, 30}, "Main Menu");
 	Button::Create( {root->GetTab("first_p"), "start_btn"}, {10, 50 , 150, 30}, "Start");
@@ -75,9 +73,9 @@ bool start()
 			{root->GetScene("Default").GetFont(0), "another label"},{V::MID, H::LEFT} );
 	Button::Create( {root, "astart_btn"}, { {750, 100, 100, 30}, {100, 100, 70, 255} }, {root->GetScene("Default").GetFont(0), "Start"}, {V::MID, H::LEFT});
 
-	ButtonTex::Create( {root, "gfx_button"}, { test_scene->GetTex(0), {750, 150, 40, 40} });
+	ButtonTex::Create( {root, "gfx_button"}, { root->GetScene("Default").GetTex("sn_yellow.png"), {750, 150, 40, 40} });
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});
-	ButtonTex::Create( {root, "gfx_button"}, { test_scene->GetTex(0), {800, 150, 40, 40} }, { test_scene->GetTex(1), {800, 150, 40, 40} });
+	ButtonTex::Create( {root, "gfx_button"}, { root->GetScene("Default").GetTex("sn_yellow.png"), {800, 150, 40, 40} }, { root->GetScene("Default").GetTex("sn_yellow_border.png"), {800, 150, 40, 40} });
 
 	return true;
 }
