@@ -15,6 +15,9 @@ namespace PaceLib
         public:
             ~CheckBox();
 
+            //TODO
+            static void Create(WidgetId wid);
+
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
 
             static void Create(WidgetId wid, PropDimColor dco, std::string text);

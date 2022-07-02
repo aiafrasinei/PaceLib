@@ -34,6 +34,7 @@ bool start()
 	SDL_RenderSetLogicalSize(win->GetRenderer(), w, h);
 
 	root = &Root::GetInstance();
+	
 	root->GetScene("Default").GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
 
 	root->GetScene("Default").AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);

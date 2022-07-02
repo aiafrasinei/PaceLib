@@ -13,7 +13,17 @@ namespace PaceLib
     class Button : public Widget
     {
         public:
-            //load all info from conf file ( {dim, color}, {font_name, text}, align )
+            /* Loads wconf file
+            example format:
+            {
+                "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+                "color" : [40, 40, 40, 255],
+                "scene" : "Default",
+                "font" : "default",
+                "text" : "Back",
+                "text_color" : [140, 170, 140, 255],
+                "align" : ["mid", "mid"]
+            }*/
             static void Create(WidgetId wid);
 
             static void Create(WidgetId wid, SDL_Rect dim);

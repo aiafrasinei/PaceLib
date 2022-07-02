@@ -28,8 +28,9 @@ bool init(int argc, const char *argv[])
 bool start()
 {
 	ConLog::Info("Start");
-
+	
 	root = &Root::GetInstance();
+
 	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
@@ -72,9 +73,10 @@ bool start()
 			{root->GetScene("Default").GetFont("default"), "another label"},{V::MID, H::LEFT} );
 	Button::Create( {root, "astart_btn"}, { {750, 100, 100, 30}, {100, 100, 70, 255} }, {root->GetScene("Default").GetFont("default"), "Start"}, {V::MID, H::LEFT});
 
-	ButtonTex::Create( {root, "gfx_button"}, { root->GetScene("Default").GetTex("sn_yellow.png"), {750, 150, 40, 40} });
+	ButtonTex::Create({root, "gfx_button"});
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});
-	ButtonTex::Create( {root, "gfx_button"}, { root->GetScene("Default").GetTex("sn_yellow.png"), {800, 150, 40, 40} }, { root->GetScene("Default").GetTex("sn_yellow_border.png"), {800, 150, 40, 40} });
+
+	ButtonTex::Create({root, "gfx_button_tex"});
 
 	return true;
 }

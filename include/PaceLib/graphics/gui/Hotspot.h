@@ -22,7 +22,9 @@ namespace PaceLib
         public:
             ~Hotspot();
 
+            //TODO
             static void Create(WidgetId wid);
+            
             static void Create(WidgetId wid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
 
             void SetHighlight(bool state);

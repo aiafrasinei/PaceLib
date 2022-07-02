@@ -14,6 +14,9 @@ namespace PaceLib
         public:
             ~TextInput();
 
+            //TODO
+            static void Create(WidgetId wid);
+
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
 
             static void Create(WidgetId wid, SDL_Rect dim, std::string text);

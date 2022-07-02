@@ -44,6 +44,34 @@ ButtonTex::~ButtonTex()
 
 }
 
+void ButtonTex::Create(WidgetId wid)
+{
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+        std::string scene_name = conf->Get("scene").get<std::string>();
+
+        ButtonTex *btex = nullptr;
+        if(conf->Get("over_tex_name").get<std::string>() == "") {
+            PropTex nullp = {nullptr, {0,0,0,255}};
+            btex = new ButtonTex( wid, 
+                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
+                nullp);
+        } else {
+            btex = new ButtonTex( wid, 
+                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
+                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("over_tex_name")), {dim[0], dim[1], dim[2], dim[3]}});
+        }
+
+        btex->conf = conf;
+        if(btex != nullptr) {
+            wid.parent->Add(btex);
+        }
+    }
+}
+
 void ButtonTex::Create(WidgetId wid, PropTex normal)
 {
     PropTex nullp = {nullptr, {0,0,0,255}};

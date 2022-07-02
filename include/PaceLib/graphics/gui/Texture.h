@@ -11,6 +11,9 @@ namespace PaceLib
     {
     public:
         ~Texture();
+        
+        //TODO
+        static void Create(WidgetId wid);
 
         static void Create(WidgetId wid, SDL_Texture *tex, int x, int y);
         static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim);

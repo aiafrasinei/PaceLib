@@ -13,6 +13,9 @@ namespace PaceLib
         public:
             ~TextArea();
 
+            //TODO
+            static void Create(WidgetId wid);
+
             static void Create(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
 
             static void Create(WidgetId wid, PropDimColor dco, std::vector<std::string> tarr, Align align={V::MID, H::MID});

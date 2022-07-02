@@ -16,6 +16,7 @@ SDL_Vertex *v = NULL;
 bool init(int argc, const char *argv[])
 {
 	bool success = true;
+	
 	ConLog::Info("Initialization");
 
 	ConLog::Info("Loading configuration");

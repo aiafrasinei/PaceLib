@@ -12,7 +12,11 @@ namespace PaceLib
         public:
             ~Tooltip();
 
+            //TODO
+            static void Create(WidgetId wid);
+
             static void Create(WidgetId wid, SDL_Color color, Align align={V::MID, H::MID});
+
             static void Create(WidgetId wid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
 
             void Draw();
