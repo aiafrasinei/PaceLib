@@ -34,6 +34,29 @@ Tab::~Tab()
 
 }
 
+void Tab::Create(WidgetId wid)
+{
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        PropDimColor dco;
+        dco.color.r = conf->Get("color")[0];
+        dco.color.g = conf->Get("color")[1];
+        dco.color.b = conf->Get("color")[2];
+        dco.color.a = conf->Get("color")[3];
+
+        dco.rect.x = dim[0];
+        dco.rect.y = dim[1];
+        dco.rect.w = dim[2];
+        dco.rect.h = dim[3];
+
+        wid.parent->Add(new Tab(wid, dco));
+    }
+}
+
 void Tab::Create(WidgetId wid, PropDimColor dco)
 {
     wid.parent->Add(new Tab(wid, dco));

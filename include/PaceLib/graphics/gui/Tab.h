@@ -16,6 +16,14 @@ namespace PaceLib
         public:
             ~Tab();
 
+            /* Loads wconf file
+            example format:
+            {
+                "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
+                "color" : [80, 70, 80, 255]
+            }*/
+            static void Create(WidgetId wid);
+
             static void Create(WidgetId wid, PropDimColor in);
 
             Tab(WidgetId wid, PropDimColor in);

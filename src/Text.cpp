@@ -4,7 +4,7 @@
 
 using namespace PaceLib;
 
-Text::Text(WidgetId wid, PropFontText fto, float x, float y, SDL_Color color)
+Text::Text(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color)
 {
     this->font = fto.font;
     this->text = fto.text;
@@ -25,7 +25,7 @@ Text::Text(WidgetId wid, PropFontText fto, float x, float y, SDL_Color color)
     this->name = wid.name;
 }
 
-Text::Text(FC_Font *font, float x, float y, SDL_Color color, std::string text)
+Text::Text(FC_Font *font, int x, int y, SDL_Color color, std::string text)
 {
     this->font = font;
     this->text = text;
@@ -62,17 +62,17 @@ void Text::Create(WidgetId wid)
     }
 }
 
-void Text::Create(WidgetId wid, PropFontText fto, float x, float y, SDL_Color color)
+void Text::Create(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color)
 {
     wid.parent->Add(new Text(wid, fto, x, y, color));
 }
 
-void Text::Create(WidgetId wid, float x, float y, SDL_Color color, std::string text)
+void Text::Create(WidgetId wid, int x, int y, SDL_Color color, std::string text)
 {
     wid.parent->Add(new Text(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, x, y, color));
 }
 
-Text *Text::Create(FC_Font *font,  std::string text, float x, float y, SDL_Color color)
+Text *Text::Create(FC_Font *font,  std::string text, int x, int y, SDL_Color color)
 {
     return new Text(font, x, y, color, text);
 }
@@ -85,22 +85,22 @@ void Text::Draw()
     }
 }
 
-float Text::GetWidth()
+int Text::GetWidth()
 {
     return rect.w;
 }
 
-float Text::GetHeight()
+int Text::GetHeight()
 {
     return rect.h;
 }
 
-void Text::SetX(float x)
+void Text::SetX(int x)
 {
     this->x = x;
 }
 
-void Text::SetY(float y)
+void Text::SetY(int y)
 {
     this->y = y;
 }

@@ -34,29 +34,29 @@ bool start()
 	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
-	Tab::Create( {root, "first_p"} , { {50, 50, 300, 300} , {70, 80, 90, 255} } );
-	Label::Create( {root->GetTab("first_p"), "label_lbl"}, {10, 10 , 150, 30}, "Main Menu");
-	Button::Create( {root->GetTab("first_p"), "start_btn"}, {10, 50 , 150, 30}, "Start");
-	Button::Create( {root->GetTab("first_p"), "exit_btn"}, {10, 90, 150, 30}, "Exit" );
+	Tab::Create( {root, "first_tab"});
+	Label::Create({root->GetTab("first_tab"), "label_lbl"});
+	Button::Create({root->GetTab("first_tab"), "start_btn"});
+	Button::Create({root->GetTab("first_tab"), "exit_btn"});
 	
-	root->GetTab("first_p")->GetButton("exit_btn")->onClickCallback = []() {
+	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
 		Window::running = false;
     };
 
-	Tab::Create( {root, "second_p"} , { {400, 50, 300, 350} , {80, 70, 80, 255} } );
-	Text::Create({root->GetTab("second_p"), "text"}, 10, 10, {180, 180, 180, 255}, "Text text text");
+	Tab::Create({root, "second_tab"});
+	Text::Create({root->GetTab("second_tab"), "text"});
 
-	Label::Create( {root->GetTab("second_p"), "out_lbl"},
+	Label::Create( {root->GetTab("second_tab"), "out_lbl"},
 				{ {10, 50, 150, 30}, {100, 70, 70, 255} },
 				{root->GetScene("Default").GetFont("default"), "colored label"},
 				{V::MID, H::LEFT} );
-	DefaultTooltip::Create( {root->GetTab("second_p")->GetLabel("out_lbl"), "out_tooltip"}, "this is a color label");
+	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"}, "this is a color label");
 
-	TextArea::Create( {root->GetTab("second_p"), "text_ta"}, {{10, 100, 130, 130}, {70, 70, 80, 255}}, {"first", "second line", "third line"});
+	TextArea::Create( {root->GetTab("second_tab"), "text_ta"}, {{10, 100, 130, 130}, {70, 70, 80, 255}}, {"first", "second line", "third line"});
 
-	TextInput::Create( {root->GetTab("second_p"), "tinput"}, {10, 250, 130, 30});
+	TextInput::Create( {root->GetTab("second_tab"), "tinput"}, {10, 250, 130, 30});
 
-	CheckBox::Create( {root->GetTab("second_p"), "cb"}, {{10, 300, 20, 20}, {120, 120, 120, 255}}, "Checkbox");
+	CheckBox::Create( {root->GetTab("second_tab"), "cb"}, {{10, 300, 20, 20}, {120, 120, 120, 255}}, "Checkbox");
 
 
 	Tabber::Create( {root, "third_tb"} , { {50, 450, 300, 300}, {70, 80, 70, 255} });

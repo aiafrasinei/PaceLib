@@ -38,11 +38,40 @@ Label::~Label()
 
 }
 
+void Label::Create(WidgetId wid)
+{
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        Label *lb = nullptr;
+        if (conf->Get("color") == "parent") {
+            lb = new Label( wid, 
+                {{dim[0], dim[1], dim[2], dim[3]},
+                {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}},
+                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+                {V::MID, H::MID});
+
+        } else {
+            lb = new Label( wid, 
+                {{dim[0], dim[1], dim[2], dim[3]},
+                {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
+                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+                {V::MID, H::MID});
+        }
+
+        lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+
+        lb->conf = conf;
+        wid.parent->Add(lb);
+    }
+}
+
 void Label::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align)
 {
     wid.parent->Add(new Label( wid, dco, fto, align ));
-
-    //SqlHt::GetInstance().Generate("NewButton parent_s name_s x_i y_i w_i h_i r_i g_i b_i a_i font_s text_i", true, true, false);
 }
 
 void Label::Create(WidgetId wid, SDL_Rect dim, std::string text)
@@ -80,12 +109,14 @@ void Label::SetTextAlign(Align align)
     this->align = align;
 }
 
-void Label::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void Label::SetTextColor(SDL_Color color)
 {
-    textColor.r = r;
-    textColor.g = g;
-    textColor.b = b;
-    textColor.a = a;
+    textColor.r = color.r;
+    textColor.g = color.g;
+    textColor.b = color.b;
+    textColor.a = color.a;
+
+    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
 }
 
 void Label::Draw()

@@ -13,7 +13,17 @@ namespace PaceLib
         public:
             ~Label();
 
-            //TODO
+            /* Loads wconf file
+            example format:
+            {
+                "dim" : ["W_0.5%", "W_0.5%", "W_7.5%", "H_3%"],
+                "color" : "parent",
+                "scene" : "Default",
+                "font" : "default",
+                "text" : "Main Menu",
+                "text_color" : [0, 0, 0, 255],
+                "align" : ["mid", "mid"]
+            }*/
             static void Create(WidgetId wid);
 
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
@@ -21,7 +31,7 @@ namespace PaceLib
 
             void SetTextAlign(Align align);
 
-            void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+            void SetTextColor(SDL_Color color);
 
             void Draw();
 

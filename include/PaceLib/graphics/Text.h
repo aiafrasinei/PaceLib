@@ -13,17 +13,17 @@ namespace PaceLib
         ~Text();
 
         static void Create(WidgetId wid);
-        static void Create(WidgetId wid, PropFontText fto, float x, float y, SDL_Color color);
-        static void Create(WidgetId wid, float x, float y, SDL_Color color, std::string text);
-        static Text *Create(FC_Font *font, std::string text, float x, float y, SDL_Color color);
+        static void Create(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
+        static void Create(WidgetId wid, int x, int y, SDL_Color color, std::string text);
+        static Text *Create(FC_Font *font, std::string text, int x, int y, SDL_Color color);
 
         void Draw();
 
-        float GetWidth();
-        float GetHeight();
+        int GetWidth();
+        int GetHeight();
 
-        void SetX(float x);
-        void SetY(float y);
+        void SetX(int x);
+        void SetY(int y);
 
         std::string GetText();
         void SetText(std::string text);
@@ -35,11 +35,11 @@ namespace PaceLib
         FC_Font *font;
         std::string text;
 
-        float x,y;
+        int x,y;
         SDL_Rect rect;
 
-        Text(WidgetId wid, PropFontText fto, float x, float y, SDL_Color color);
-        Text(FC_Font *font, float x, float y, SDL_Color color, std::string text);
+        Text(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
+        Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
     };
 
 }
