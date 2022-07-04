@@ -44,12 +44,19 @@ Hotspot::~Hotspot()
 
 void Hotspot::Create(WidgetId wid)
 {
-    wid.parent->Add(new Hotspot(wid, { {0, 0, 0, 0}, {0, 0, 0, 255} }));
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        wid.parent->Add(new Hotspot(wid, { {dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]} }));
+    }
 }
 
 void Hotspot::Create(WidgetId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
-    wid.parent->Add(new Hotspot(wid, dco, type));
+    wid.parent->Add(new Hotspot(wid, dco, type, tex));
 }
 
 

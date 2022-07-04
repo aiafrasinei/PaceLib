@@ -50,13 +50,14 @@ bool start()
 				{ {10, 50, 150, 30}, {100, 70, 70, 255} },
 				{root->GetScene("Default").GetFont("default"), "colored label"},
 				{V::MID, H::LEFT} );
-	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"}, "this is a color label");
+
+	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
 
 	TextArea::Create( {root->GetTab("second_tab"), "text_ta"}, {{10, 100, 130, 130}, {70, 70, 80, 255}}, {"first", "second line", "third line"});
 
 	TextInput::Create( {root->GetTab("second_tab"), "tinput"}, {10, 250, 130, 30});
 
-	CheckBox::Create( {root->GetTab("second_tab"), "cb"}, {{10, 300, 20, 20}, {120, 120, 120, 255}}, "Checkbox");
+	CheckBox::Create( {root->GetTab("second_tab"), "cb"});
 
 
 	Tabber::Create( {root, "third_tb"} , { {50, 450, 300, 300}, {70, 80, 70, 255} });

@@ -6,7 +6,7 @@
 
 using namespace PaceLib;
 
-CheckBox::CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto)
+CheckBox::CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
@@ -27,12 +27,12 @@ CheckBox::CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto)
 
     color = {dco.color.r, dco.color.g, dco.color.b, dco.color.a};
 
-    textColor = {0, 0, 0, 255};
+    this->textColor = textColor;
 
     if(wid.parent->name == "root") {
         to = Text::Create(fto.font, fto.text, rect.x + rect.w/50, rect.y, textColor);
     } else {
-        to = Text::Create(fto.font, fto.text, rect.x + 25, rect.y, textColor);
+        to = Text::Create(fto.font, fto.text, rect.x + rect.w*1.5, rect.y - rect.h/3.1, textColor);
     }
 
     this->name = wid.name;
@@ -110,14 +110,45 @@ CheckBox::~CheckBox()
 
 }
 
-void CheckBox::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
+void CheckBox::Create(WidgetId wid)
 {
-    wid.parent->Add(new CheckBox(wid, dco, fto));
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        PropDimColor dco;
+
+        dco.rect.x = dim[0];
+        dco.rect.y = dim[1];
+        dco.rect.w = dim[2];
+        dco.rect.h = dim[3];
+
+        dco.color.r = conf->Get("color")[0];
+        dco.color.g = conf->Get("color")[1];
+        dco.color.b = conf->Get("color")[2];
+        dco.color.a = conf->Get("color")[3];
+
+        PropFontText fto;
+
+        fto.font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>());
+        fto.text = conf->Get("text").get<std::string>();
+
+        SDL_Color textColor = {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]};
+
+        wid.parent->Add(new CheckBox(wid, dco, fto, textColor));
+    }
+}
+
+void CheckBox::Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
+{
+    wid.parent->Add(new CheckBox(wid, dco, fto, textColor));
 }
 
 void CheckBox::Create(WidgetId wid, PropDimColor dco, std::string text)
 {
-    wid.parent->Add(new CheckBox(wid, dco, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
+    wid.parent->Add(new CheckBox(wid, dco, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, {0, 0, 0, 255}));
 }
 
 void CheckBox::Create(WidgetId wid, PropTex pto)
@@ -206,4 +237,14 @@ void CheckBox::SetHighlightColor(SDL_Color color)
 bool CheckBox::IsChecked()
 {
     return checked;
+}
+
+void CheckBox::SetTextColor(SDL_Color color)
+{
+    textColor.r = color.r;
+    textColor.g = color.g;
+    textColor.b = color.b;
+    textColor.a = color.a;
+
+    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
 }

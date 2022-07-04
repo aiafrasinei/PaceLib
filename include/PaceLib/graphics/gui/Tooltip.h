@@ -13,6 +13,13 @@ namespace PaceLib
             ~Tooltip();
 
             //TODO
+            /*
+            {
+                "text" : "text"
+                "scene" : "Default",
+                "font" : "default"
+                "text_color" : [100, 100, 100, 255]
+            }*/
             static void Create(WidgetId wid);
 
             static void Create(WidgetId wid, SDL_Color color, Align align={V::MID, H::MID});
@@ -34,14 +41,27 @@ namespace PaceLib
     class DefaultTooltip : public Widget
     {
         public:
-            static void Create(WidgetId wid, PropFontText fto, SDL_Color color);
+            /*
+            {
+                "text" : "this is a color label",
+                "scene" : "Default",
+                "font" : "default",
+                "color" : "parent",
+                "text_color" : [0, 0, 0, 255]
+            }*/
+            static void Create(WidgetId wid);
+            
+            static void Create(WidgetId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
             static void Create(WidgetId wid, std::string text);
 
             void Draw();
+
+            void SetTextColor(SDL_Color color);
         private:
             Text *to;
+            SDL_Color textColor;
 
-            DefaultTooltip(WidgetId wid, PropFontText fto, SDL_Color color);
+            DefaultTooltip(WidgetId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
     };
 
 }

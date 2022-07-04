@@ -12,7 +12,17 @@ namespace PaceLib
     public:
         ~Text();
 
+        /* Loads wconf file
+        example format:
+        {
+            "text" : "Text text text",
+            "scene" : "Default",
+            "font" : "default",
+            "pos" : ["W_0.6%", "W_0.6%"],
+            "text_color" : [140, 140, 140, 255]
+        }*/
         static void Create(WidgetId wid);
+
         static void Create(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
         static void Create(WidgetId wid, int x, int y, SDL_Color color, std::string text);
         static Text *Create(FC_Font *font, std::string text, int x, int y, SDL_Color color);

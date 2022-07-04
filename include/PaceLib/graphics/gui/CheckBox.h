@@ -18,18 +18,20 @@ namespace PaceLib
             //TODO
             static void Create(WidgetId wid);
 
-            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
+            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
 
             static void Create(WidgetId wid, PropDimColor dco, std::string text);
 
             static void Create(WidgetId wid, PropTex pto);
 
-            CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto);
+            CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
             CheckBox(WidgetId wid, PropTex pto);
 
             void SetHighlight(bool state);
             
             void SetHighlightColor(SDL_Color color);
+
+            void SetTextColor(SDL_Color color);
 
             void Draw();
 
