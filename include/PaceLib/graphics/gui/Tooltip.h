@@ -12,8 +12,8 @@ namespace PaceLib
         public:
             ~Tooltip();
 
-            //TODO
-            /*
+            /* Loads wconf file
+            example format:
             {
                 "text" : "text"
                 "scene" : "Default",

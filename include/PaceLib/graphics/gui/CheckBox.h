@@ -15,7 +15,16 @@ namespace PaceLib
         public:
             ~CheckBox();
 
-            //TODO
+            /* Loads wconf file
+            example format:
+            {
+                "dim" : ["W_1%", "W_19%", "H_2.3%", "H_2.3%"],
+                "color" : [120, 120, 120, 255],
+                "scene" : "Default",
+                "font" : "default",
+                "text" : "CheckBox",
+                "text_color" : [0, 0, 0, 255]
+            }*/
             static void Create(WidgetId wid);
 
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);

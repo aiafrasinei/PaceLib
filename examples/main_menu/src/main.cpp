@@ -33,20 +33,13 @@ bool start()
 {
 	ConLog::Info("Start");
 
-	root = &Root::GetInstance();
-	
+	root = &Root::GetInstance();	
 	root->GetScene("Default").GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
 
-	Random *rn = new Random();
-
 	Text::Create({root, "title_txt"});
-
 	Button::Create({root, "new_btn"});
-
 	Button::Create({root, "options_btn"});
-
 	Button::Create({root, "help_btn"});
-
 	Button::Create({root, "exit_btn"});
 
 	Button::Create({root, "back_btn"});

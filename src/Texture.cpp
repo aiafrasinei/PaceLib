@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "Window.h"
 #include "ConLog.h"
+#include "Root.h"
 
 
 using namespace PaceLib;
@@ -36,6 +37,19 @@ Texture::~Texture()
 		delete ctex;
 		tex = NULL;
 	}
+}
+
+void Texture::Create(WidgetId wid)
+{
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetTex(conf->Get("tex_name").get<std::string>());
+        wid.parent->Add(new Texture(wid, tex, {dim[0], dim[1], dim[2], dim[3]}));
+    }
 }
 
 void Texture::Create(WidgetId wid, SDL_Texture *tex, int x, int y)

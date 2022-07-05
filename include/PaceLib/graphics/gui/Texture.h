@@ -12,7 +12,12 @@ namespace PaceLib
     public:
         ~Texture();
         
-        //TODO
+        /* Loads wconf file
+        example format:
+        {
+            "tex_name": "tex.png",
+            "dim" : [10, 10, 100 , 100]
+        }*/
         static void Create(WidgetId wid);
 
         static void Create(WidgetId wid, SDL_Texture *tex, int x, int y);
