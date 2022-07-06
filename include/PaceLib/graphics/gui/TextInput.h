@@ -14,7 +14,15 @@ namespace PaceLib
         public:
             ~TextInput();
 
-            //TODO
+            /* Loads wconf file
+            example format:
+            }
+                "dim" : ["W_1%", "H_28%", "W_7.5%", "H_3%"],
+                "color" : [120, 120, 120, 255],
+                "scene" : "Default",
+                "font" : "default",
+                "text" : ""
+            }*/
             static void Create(WidgetId wid);
 
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);

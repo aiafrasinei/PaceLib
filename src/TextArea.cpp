@@ -53,7 +53,7 @@ void TextArea::Create(WidgetId wid)
         PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
         FC_Font *font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>());
         
-        wid.parent->Add(new TextArea(wid, dco , font, conf->Get("tarr").get<std::vector<std::string>>(), {V::MID, H::MID}));
+        wid.parent->Add(new TextArea(wid, dco , font, conf->Get("text_arr").get<std::vector<std::string>>(), {V::MID, H::MID}));
     }
 }
 

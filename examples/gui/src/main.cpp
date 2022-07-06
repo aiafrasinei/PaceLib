@@ -45,30 +45,21 @@ bool start()
 
 	Tab::Create({root, "second_tab"});
 	Text::Create({root->GetTab("second_tab"), "text"});
-
-	Label::Create( {root->GetTab("second_tab"), "out_lbl"},
-				{ {10, 50, 150, 30}, {100, 70, 70, 255} },
-				{root->GetScene("Default").GetFont("default"), "colored label"},
-				{V::MID, H::LEFT} );
-
+	Label::Create({root->GetTab("second_tab"), "out_lbl"});
 	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
-
-	TextArea::Create( {root->GetTab("second_tab"), "text_ta"}, {{10, 100, 130, 130}, {70, 70, 80, 255}}, {"first", "second line", "third line"});
-
-	TextInput::Create( {root->GetTab("second_tab"), "tinput"}, {10, 250, 130, 30});
-
+	TextArea::Create( {root->GetTab("second_tab"), "text_ta"});
+	TextInput::Create( {root->GetTab("second_tab"), "tinput"});
 	CheckBox::Create( {root->GetTab("second_tab"), "cb"});
 
-
-	Tabber::Create( {root, "third_tb"} , { {50, 450, 300, 300}, {70, 80, 70, 255} });
+	Tabber::Create( {root, "third_tb"});
 	root->GetTabber("third_tb")->AddTab("Main");
 	root->GetTabber("third_tb")->AddTab("Options");
 	root->GetTabber("third_tb")->AddTab("Help");
 
-	Button::Create( {root->GetTabber("third_tb")->GetTab(0), "start_btn"}, {5, 5 , 150, 30}, "Start");
-	CheckBox::Create( {root->GetTabber("third_tb")->GetTab(1), "fullscreen"}, {{5, 5, 20, 20}, {120, 120, 120, 255}}, "Fullscreen");
-	CheckBox::Create( {root->GetTabber("third_tb")->GetTab(1), "vsync"}, {{5, 30, 20, 20}, {120, 120, 120, 255}}, "Vsync");
-	TextArea::Create( {root->GetTabber("third_tb")->GetTab(2), "text_ta"}, {{5, 5, 130, 130}, {70, 70, 80, 255}}, {"Help system", "how to play the game", "third line"});
+	Button::Create({root->GetTabber("third_tb")->GetTab(0), "third_tb_start_btn"});
+	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
+	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
+	TextArea::Create({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
 	
 	Label::Create( {root, "out1_lbl"}, { {750, 50, 250, 30}, {100, 100, 70, 255} },
 			{root->GetScene("Default").GetFont("default"), "another label"},{V::MID, H::LEFT} );

@@ -17,7 +17,6 @@ bool init(int argc, const char *argv[])
 {
 	bool success = true;
 	ConLog::Info("Game\n");
-	ConLog::Info("Pace Engine version " + std::string(PACE_VERSION));
 
 	ConLog::Info("Initialization");
 

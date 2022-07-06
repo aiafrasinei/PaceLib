@@ -46,6 +46,21 @@ Tabber::~Tabber()
 
 }
 
+void Tabber::Create(WidgetId wid)
+{
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
+        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), ""};
+
+        wid.parent->Add(new Tabber( wid, dco, fto));
+    }
+}
+
 void Tabber::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 {
     wid.parent->Add(new Tabber( wid, dco, fto));
