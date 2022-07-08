@@ -61,9 +61,8 @@ bool start()
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
 	TextArea::Create({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
 	
-	Label::Create( {root, "out1_lbl"}, { {750, 50, 250, 30}, {100, 100, 70, 255} },
-			{root->GetScene("Default").GetFont("default"), "another label"},{V::MID, H::LEFT} );
-	Button::Create( {root, "astart_btn"}, { {750, 100, 100, 30}, {100, 100, 70, 255} }, {root->GetScene("Default").GetFont("default"), "Start"}, {V::MID, H::LEFT});
+	Label::Create({root, "out1_lbl"});
+	Button::Create({root, "astart_btn"});
 
 	ButtonTex::Create({root, "gfx_button"});
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});

@@ -46,20 +46,37 @@ void Label::Create(WidgetId wid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
+        Align align;
+        if(conf->Get("align")[0] == "mid") {
+            align.valign = V::MID;
+        } else if(conf->Get("align")[0] == "top") {
+            align.valign = V::TOP;
+        } else if(conf->Get("align")[0] == "bottom") {
+            align.valign = V::BOTTOM;
+        }
+
+        if(conf->Get("align")[0] == "left") {
+            align.valign = V::MID;
+        } else if(conf->Get("align")[1] == "mid") {
+            align.valign = V::TOP;
+        } else if(conf->Get("align")[2] == "right") {
+            align.valign = V::BOTTOM;
+        }
+
         Label *lb = nullptr;
         if (conf->Get("color") == "parent") {
             lb = new Label( wid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
                 {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}},
                 {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
-                {V::MID, H::MID});
+                align);
 
         } else {
             lb = new Label( wid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
                 {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
                 {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
-                {V::MID, H::MID});
+                align);
         }
 
         lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
