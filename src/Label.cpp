@@ -55,12 +55,12 @@ void Label::Create(WidgetId wid)
             align.valign = V::BOTTOM;
         }
 
-        if(conf->Get("align")[0] == "left") {
-            align.valign = V::MID;
+        if(conf->Get("align")[1] == "left") {
+            align.halign = H::LEFT;
         } else if(conf->Get("align")[1] == "mid") {
-            align.valign = V::TOP;
-        } else if(conf->Get("align")[2] == "right") {
-            align.valign = V::BOTTOM;
+            align.halign = H::MID;
+        } else if(conf->Get("align")[1] == "right") {
+            align.halign = H::RIGHT;
         }
 
         Label *lb = nullptr;
