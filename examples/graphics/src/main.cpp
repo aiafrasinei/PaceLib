@@ -9,6 +9,7 @@ Window *win = nullptr;
 Configuration* conf = nullptr;
 Root *root;
 ScrollingBackground *scroll_background;
+Sprite *ex_sprite;
 
 bool init(int argc, const char *argv[])
 {
@@ -39,6 +40,7 @@ bool start()
 
 	root->GetScene("Default").AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
 	root->GetScene("Default").AddTex("texs/bg.png", 0, 0, 400, 400);
+	root->GetScene("Default").AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
 	Line::Create("line", root, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
 
@@ -61,7 +63,7 @@ bool start()
 	Pentagon::Create("penta", root, 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
 	root->Get("penta")->SetDrawType(DrawTypes::FILLED);
 
-	Sprite::Create("sprite", root, root->GetScene("Default").GetTex("test_room_x90_1.png"), {750, 150, 150, 150 } );
+	Sprite::Create("sprite", root, root->GetScene("Default").GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
 
 	//Hexagon::Create("hexa", root, 100, 300, 150, 300, 200, 450, 70, 420, 50, 330, 200, 200, {150, 50, 50, 255 } );
 	//root->Get("hexa")->SetDrawType(DrawTypes::FILLED);
