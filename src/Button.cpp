@@ -11,17 +11,13 @@ Button::Button(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V:
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
-        rect.y = dco.rect.y ;
+        rect.y = dco.rect.y;
     } else {
         rect.x = wid.parent->GetRect().x + dco.rect.x;
         rect.y = wid.parent->GetRect().y + dco.rect.y;
     }
 
-    if(wid.parent->name == "root") {
-        rect.w = dco.rect.w + rect.w/50;
-    } else {
-        rect.w = dco.rect.w + rect.w/10;
-    }
+    rect.w = dco.rect.w;
     rect.h = dco.rect.h;
 
     hidden = false;

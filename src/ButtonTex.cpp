@@ -15,6 +15,7 @@ ButtonTex::ButtonTex(WidgetId wid, PropTex normal, PropTex over)
         rect.x = wid.parent->GetRect().x + normal.rect.x;
         rect.y = wid.parent->GetRect().y + normal.rect.y;
     }
+    
     rect.w = normal.rect.w;
     rect.h = normal.rect.h;
 

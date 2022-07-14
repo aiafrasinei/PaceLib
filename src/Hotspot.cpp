@@ -15,6 +15,7 @@ Hotspot::Hotspot(WidgetId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
         this->rect.x = wid.parent->GetRect().x + dco.rect.x;
         this->rect.y = wid.parent->GetRect().y + dco.rect.y;
     }
+    
     this->rect.w = dco.rect.w;
     this->rect.h = dco.rect.h;
 

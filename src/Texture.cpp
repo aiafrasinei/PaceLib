@@ -16,6 +16,7 @@ Texture::Texture(WidgetId wid, SDL_Texture *tex, SDL_Rect dim)
         rect.x = wid.parent->GetRect().x + dim.x;
         rect.y = wid.parent->GetRect().y + dim.y;
     }
+    
     rect.w = dim.w;
     rect.h = dim.h;
 

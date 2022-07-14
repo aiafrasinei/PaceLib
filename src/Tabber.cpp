@@ -20,6 +20,7 @@ Tabber::Tabber(WidgetId wid, PropDimColor dco, PropFontText fto)
         rect.x = wid.parent->GetRect().x + dco.rect.x;
         rect.y = wid.parent->GetRect().y + dco.rect.y;
     }
+    
     rect.w = dco.rect.w;
     rect.h = dco.rect.h;
 
