@@ -44,9 +44,9 @@ bool start()
 
 	Line::Create({root, "line"}, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
 
-	HorizontalLine::Create("hline", root, 400, 200, 100, { 50, 100, 150, 255 });
+	HorizontalLine::Create({root, "hline"}, 400, 200, 100, { 50, 100, 150, 255 });
 
-	VerticalLine::Create("vline", root, 350, 300, 50, { 150, 150, 150, 255 });
+	VerticalLine::Create({root, "vline"}, 350, 300, 50, { 150, 150, 150, 255 });
 
 	Triangle::Create("tri", root, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 	root->Get("tri")->SetDrawType(DrawTypes::FILLED);
@@ -54,8 +54,8 @@ bool start()
 	Rectangle::Create("rect1", root, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
 	root->Get("rect1")->SetDrawType(DrawTypes::FILLED);
 
-	Circle::Create("cir1", root, 200, 100, 30, { 20, 20, 50, 255 });
-	Circle::Create("cir2", root, 400, 100, 30, { 50, 50, 70, 255 });
+	Circle::Create({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
+	Circle::Create({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
 	root->Get("cir2")->SetDrawType(DrawTypes::FILLED);
 
 	Text::Create({root, "text"}, 600, 100, {50, 50, 50, 255}, "some text");

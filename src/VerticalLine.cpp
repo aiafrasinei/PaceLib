@@ -4,7 +4,7 @@
 using namespace PaceLib;
 
 
-VerticalLine::VerticalLine(std::string name, float x1, float y1, float size, SDL_Color color)
+VerticalLine::VerticalLine(WidgetId wid, float x1, float y1, float size, SDL_Color color)
 {
     this->x1 = x1;
     this->y1 = y1;
@@ -15,7 +15,7 @@ VerticalLine::VerticalLine(std::string name, float x1, float y1, float size, SDL
 
     SetColor(color.r, color.g, color.b, color.a);
 
-    this->name = name;
+    this->name = wid.name;
 }
 
 VerticalLine::~VerticalLine()
@@ -23,9 +23,23 @@ VerticalLine::~VerticalLine()
 
 }
 
-void VerticalLine::Create(std::string name, Shape *parent, float x1, float y1, float size, SDL_Color color)
+void VerticalLine::Create(WidgetId wid)
 {
-    parent->Add(new VerticalLine(name, x1, y1, size, color));
+    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int x1 = conf->Get("x1");
+        int y1 = conf->Get("y1");
+        int size = conf->Get("size");
+
+        SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
+        wid.parent->Add(new VerticalLine(wid, x1, y1, size, color));
+    }
+}
+
+void VerticalLine::Create(WidgetId wid, float x1, float y1, float size, SDL_Color color)
+{
+    wid.parent->Add(new VerticalLine(wid, x1, y1, size, color));
 }
 
 void VerticalLine::Draw()

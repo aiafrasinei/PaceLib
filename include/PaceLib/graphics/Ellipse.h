@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -11,7 +12,17 @@ namespace PaceLib
     public:
         ~Ellipse();
 
-        static void Create(std::string name, Shape *parent, float x, float y, float rx, float ry , SDL_Color color);
+        /* Loads wconf file
+        example format:
+        {
+            "color" : [0, 0, 0, 255],
+            "x" : 100,
+            "y" : 100,
+            "rx" : 150,
+            "ry" : 190
+        }*/
+        static void Create(WidgetId wid);
+        static void Create(WidgetId wid, float x, float y, float rx, float ry , SDL_Color color);
         
         void SetDrawType(DrawTypes rtype);
 
@@ -22,7 +33,7 @@ namespace PaceLib
     private:
         float x, y, rx, ry;
 
-        Ellipse(std::string name, float x, float y, float rx, float ry, SDL_Color color);
+        Ellipse(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color);
     };
 
 }

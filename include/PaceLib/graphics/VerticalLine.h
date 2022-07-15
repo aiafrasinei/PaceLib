@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -11,7 +12,16 @@ namespace PaceLib
     public:
         ~VerticalLine();
 
-        static void Create(std::string name, Shape *parent, float x1, float y1, float size, SDL_Color color);
+        /* Loads wconf file
+        example format:
+        {
+            "color" : [0, 0, 0, 255],
+            "x1" : 400,
+            "y1" : 200,
+            "size" : 400
+        }*/
+        static void Create(WidgetId wid);
+        static void Create(WidgetId wid, float x1, float y1, float size, SDL_Color color);
 
 
         void Draw();
@@ -21,7 +31,7 @@ namespace PaceLib
     private:
         float x1, y1, x2, y2;
 
-        VerticalLine(std::string name, float x1, float y1, float size, SDL_Color color);
+        VerticalLine(WidgetId wid, float x1, float y1, float size, SDL_Color color);
     };
 
 }

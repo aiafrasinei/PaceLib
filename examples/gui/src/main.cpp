@@ -57,6 +57,9 @@ bool start()
 	root->GetTabber("third_tb")->AddTab("Options");
 	root->GetTabber("third_tb")->AddTab("Help");
 
+	//Test
+	Line::Create({root->GetTabber("third_tb")->GetTab(1), "line1"});
+	
 	Button::Create({root->GetTabber("third_tb")->GetTab(0), "third_tb_start_btn"});
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});

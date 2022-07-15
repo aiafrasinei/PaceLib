@@ -37,7 +37,6 @@
 #include "graphics/Ellipse.h"
 
 #include "graphics/Sprite.h"
-#include "graphics/Tex.h"
 
 //polygons
 #include "graphics/polygons/Polygon.h"

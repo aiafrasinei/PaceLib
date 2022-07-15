@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -11,7 +12,16 @@ namespace PaceLib
     public:
         ~Circle();
 
-        static void Create(std::string name, Shape *parent, float x, float y, float radius, SDL_Color color);
+        /* Loads wconf file
+        example format:
+        {
+            "color" : [0, 0, 0, 255],
+            "x" : 100,
+            "y" : 100,
+            "radius" : 100
+        }*/
+        static void Create(WidgetId wid);
+        static void Create(WidgetId wid, float x, float y, float radius, SDL_Color color);
      
         void Draw();
         
@@ -20,7 +30,7 @@ namespace PaceLib
     private:
         float x, y, radius;
 
-        Circle(std::string name, float x, float y, float radius, SDL_Color color);
+        Circle(WidgetId wid, float x, float y, float radius, SDL_Color color);
     };
 
 }

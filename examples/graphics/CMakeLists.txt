@@ -60,7 +60,6 @@ IF(UNIX)
             ../../src/SDL2_framerate.c
             ../../src/SDL2_imageFilter.c
             ../../src/SDL2_rotozoom.c
-            ../../src/Tex.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp
