@@ -9,7 +9,6 @@ var dir_9c1dffe7799c0b67aa0a05e68e000ee5 =
     [ "Line.h", "Line_8h_source.html", null ],
     [ "Shape.h", "Shape_8h_source.html", null ],
     [ "Sprite.h", "Sprite_8h_source.html", null ],
-    [ "Tex.h", "Tex_8h_source.html", null ],
     [ "Text.h", "Text_8h_source.html", null ],
     [ "VerticalLine.h", "VerticalLine_8h_source.html", null ]
 ];
