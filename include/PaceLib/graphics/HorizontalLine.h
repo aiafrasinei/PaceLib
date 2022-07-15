@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Shape.h"
 #include "Widget.h"
 
 
@@ -10,7 +9,6 @@ namespace PaceLib
     class HorizontalLine : public Shape
     {
     public:
-        ~HorizontalLine();
 
         /* Loads wconf file
         example format:
@@ -26,6 +24,8 @@ namespace PaceLib
 
         void Draw();
 
+        ~HorizontalLine();
+        
     protected:         
 
     private:

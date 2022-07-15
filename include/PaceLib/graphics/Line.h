@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Shape.h"
 #include "Widget.h"
 
 
@@ -10,7 +9,6 @@ namespace PaceLib
     class Line : public Shape
     {
     public:
-        ~Line();
 
         /* Loads wconf file
         example format:
@@ -22,9 +20,12 @@ namespace PaceLib
             "y2" : 200
         }*/
         static void Create(WidgetId wid);
+        
         static void Create(WidgetId wid, int x1, int y1, int x2, int y2, SDL_Color color);
 
         void Draw();
+
+        ~Line();
 
     protected:         
 

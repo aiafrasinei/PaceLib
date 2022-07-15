@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Shape.h"
 #include "Widget.h"
 
 
@@ -21,6 +20,7 @@ namespace PaceLib
             "nr" : 5
         }*/
         static void Create(WidgetId wid);
+        
         static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
 
         void SetTex(SDL_Texture *tex);

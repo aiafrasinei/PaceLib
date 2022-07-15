@@ -6,10 +6,17 @@ using namespace PaceLib;
 
 Ellipse::Ellipse(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color)
 {
-    this->x = x;
-    this->y = y;
-    this->rx = rx;
-    this->ry = ry;
+    if(wid.parent->name == "root") {
+        this->x = x;
+        this->y = y;
+        this->rx = rx;
+        this->ry = ry;
+    } else {
+        this->x = wid.parent->GetRect().x + x;
+        this->y = wid.parent->GetRect().y + y;
+        this->rx = wid.parent->GetRect().x + rx;
+        this->ry = wid.parent->GetRect().y + ry;
+    }
 
     hidden = false;
 
@@ -34,7 +41,7 @@ void Ellipse::Create(WidgetId wid)
         int rx = conf->Get("rx");
         int ry = conf->Get("ry");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
-        
+
         wid.parent->Add(new Ellipse(wid, x, y, rx, ry, color));
     }
 }

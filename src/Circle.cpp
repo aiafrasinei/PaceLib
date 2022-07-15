@@ -6,8 +6,14 @@ using namespace PaceLib;
 
 Circle::Circle(WidgetId wid, float x, float y, float radius, SDL_Color color)
 {
-    this->x = x;
-    this->y = y;
+    if(wid.parent->name == "root") {
+        this->x = x;
+        this->y = y;
+    } else {
+        this->x = wid.parent->GetRect().x + x;
+        this->y = wid.parent->GetRect().y + y;
+    }
+
     this->radius = radius;
 
     hidden = false;
@@ -33,7 +39,7 @@ void Circle::Create(WidgetId wid)
         int y = conf->Get("y");
         int radius = conf->Get("radius");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
-        
+
         wid.parent->Add(new Circle(wid, x, y, radius, color));
     }
 }

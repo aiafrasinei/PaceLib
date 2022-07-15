@@ -48,10 +48,10 @@ bool start()
 
 	VerticalLine::Create({root, "vline"}, 350, 300, 50, { 150, 150, 150, 255 });
 
-	Triangle::Create("tri", root, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
+	Triangle::Create({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 	root->Get("tri")->SetDrawType(DrawTypes::FILLED);
 
-	Rectangle::Create("rect1", root, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
+	Rectangle::Create({root, "rect1"}, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
 	root->Get("rect1")->SetDrawType(DrawTypes::FILLED);
 
 	Circle::Create({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
@@ -60,7 +60,7 @@ bool start()
 
 	Text::Create({root, "text"}, 600, 100, {50, 50, 50, 255}, "some text");
 
-	Pentagon::Create("penta", root, 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
+	Pentagon::Create({ root, "penta"} , 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
 	root->Get("penta")->SetDrawType(DrawTypes::FILLED);
 
 	Sprite::Create({root, "sprite"}, root->GetScene("Default").GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -9,14 +9,14 @@ namespace PaceLib
     class Polygon : public Shape
     {
     public:
-        Polygon(const float *vx, const float *vy, int n);
-        ~Polygon();
 
-        static Polygon *Create(const float *vx, const float *vy, int n);
+        static void Create(WidgetId wid, const float *vx, const float *vy, int n);
      
         void SetDrawType(DrawTypes rtype);
 
         void Draw();
+
+        ~Polygon();
         
     protected:         
 
@@ -28,6 +28,8 @@ namespace PaceLib
         int n;
 
         DrawTypes rtype;
+
+        Polygon(WidgetId wid, const float *vx, const float *vy, int n);
     };
 
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -9,9 +9,21 @@ namespace PaceLib
     class Triangle : public Shape
     {
     public:
-        ~Triangle();
 
-        static void Create(std::string name, Shape *parent, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        /* Loads wconf file
+        example format:
+        {
+            "x1" : 0,
+            "y1" : 0,
+            "x2" : 150,
+            "y2" : 0,
+            "x3" : 150,
+            "y3" : 150,
+            "color" : [40, 40, 40, 255]
+        }*/
+        static void Create(WidgetId wid);
+
+        static void Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
      
         void SetDrawType(DrawTypes rtype);
 
@@ -19,6 +31,7 @@ namespace PaceLib
 
         void DrawRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
         
+        ~Triangle();
     protected:         
 
     private:
@@ -26,7 +39,7 @@ namespace PaceLib
 
         SDL_Vertex verts[3];
 
-        Triangle(std::string name, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        Triangle(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
     };
 
 }

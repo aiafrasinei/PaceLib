@@ -13,6 +13,7 @@ namespace PaceLib
     class Button : public Widget
     {
         public:
+        
             /* Loads wconf file
             example format:
             {

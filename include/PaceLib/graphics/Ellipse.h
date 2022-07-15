@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Shape.h"
 #include "Widget.h"
 
 
@@ -10,7 +9,6 @@ namespace PaceLib
     class Ellipse : public Shape
     {
     public:
-        ~Ellipse();
 
         /* Loads wconf file
         example format:
@@ -28,6 +26,7 @@ namespace PaceLib
 
         void Draw();
         
+        ~Ellipse();
     protected:         
 
     private:

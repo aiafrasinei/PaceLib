@@ -3,21 +3,27 @@
 
 using namespace PaceLib;
 
-Rectangle::Rectangle(std::string name, Shape *parent, SDL_Rect shape, SDL_Color color)
+Rectangle::Rectangle(WidgetId wid, SDL_Rect dim, SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
 
-    rect.x = shape.x;
-    rect.y = shape.y;
-    rect.w = shape.w;
-    rect.h = shape.h;
+    if(wid.parent->name == "root") {
+        rect.x = dim.x;
+        rect.y = dim.y;
+    } else {
+        rect.x = wid.parent->GetRect().x + dim.x;
+        rect.y = wid.parent->GetRect().y + dim.y;
+    }
+
+    rect.w = dim.w;
+    rect.h = dim.h;
 
     hidden = false;
     rounded = false;
     
     rtype = DrawTypes::OUTLINE;
 
-    this->name = name;
+    this->name = wid.name;
 }
 
 Rectangle::~Rectangle()
@@ -25,15 +31,23 @@ Rectangle::~Rectangle()
 
 }
 
-void Rectangle::Create(std::string name, Shape *parent, SDL_Rect shape, SDL_Color color)
+void Rectangle::Create(WidgetId wid)
 {
-    parent->Add(new Rectangle(name, parent, shape, color));
+     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+
+        int dim[4];
+        Widget::ParseDim(dim, conf);
+
+        SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
+
+        wid.parent->Add(new Rectangle(wid, {dim[0], dim[1], dim[2], dim[3]}, color));
+    }
 }
 
-void Rectangle::CreateSquare(std::string name, Shape *parent, int x, int y, int size, SDL_Color color)
+void Rectangle::Create(WidgetId wid, SDL_Rect shape, SDL_Color color)
 {
-    SDL_Rect shape = {x , y, size , size};
-    parent->Add(new Rectangle(name, parent, shape, color));
+    wid.parent->Add(new Rectangle(wid, shape, color));
 }
 
 void Rectangle::Draw()

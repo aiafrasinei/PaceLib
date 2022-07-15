@@ -51,6 +51,7 @@ bool start()
 	TextInput::Create( {root->GetTab("second_tab"), "tinput"});
 	CheckBox::Create( {root->GetTab("second_tab"), "cb"});
 
+	//Triangle::Create({root->GetTab("second_tab"), "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 
 	Tabber::Create( {root, "third_tb"});
 	root->GetTabber("third_tb")->AddTab("Main");

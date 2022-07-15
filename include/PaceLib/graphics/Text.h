@@ -10,7 +10,6 @@ namespace PaceLib
     class Text : public Shape
     {
     public:
-        ~Text();
 
         /* Loads wconf file
         example format:
@@ -39,6 +38,9 @@ namespace PaceLib
         void SetText(std::string text);
 
         void SetTextColor(SDL_Color color);
+
+        ~Text();
+        
     protected:         
 
     private:

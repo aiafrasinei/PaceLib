@@ -3,7 +3,7 @@
 
 using namespace PaceLib;
 
-Polygon::Polygon(const float * vx, const float * vy, int n)
+Polygon::Polygon(WidgetId wid, const float * vx, const float * vy, int n)
 {
     int i, nn;
 
@@ -12,15 +12,28 @@ Polygon::Polygon(const float * vx, const float * vy, int n)
 
     for (i=0; i<n; i++)
     {
-        points[i].x = vx[i];
-        points[i].y = vy[i];
+        if(wid.parent->name == "root") {
+            points[i].x = vx[i];
+            points[i].y = vy[i];
+        } else {
+            points[i].x = wid.parent->GetRect().x + vx[i];
+            points[i].y = wid.parent->GetRect().y + vy[i];
+        }
     }
-    points[n].x = vx[0];
-    points[n].y = vy[0];
+
+    if(wid.parent->name == "root") {
+        points[n].x = vx[0];
+        points[n].y = vy[0];
+    } else {
+        points[n].x = wid.parent->GetRect().x + vx[0];
+        points[n].y = wid.parent->GetRect().y + vy[0];
+    }
 
     hidden = false;
     
     rtype = DrawTypes::OUTLINE;
+
+    name = wid.name;
 }
 
 
@@ -29,9 +42,9 @@ Polygon::~Polygon()
     free(points);
 }
 
-Polygon *Polygon::Create(const float * vx, const float * vy, int n)
+void Polygon::Create(WidgetId wid, const float * vx, const float * vy, int n)
 {
-    return new Polygon(vx, vy, n);
+    wid.parent->Add(new Polygon(wid, vx, vy, n));
 }
 
 void Polygon::Draw()

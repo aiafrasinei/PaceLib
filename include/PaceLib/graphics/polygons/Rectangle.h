@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shape.h"
+#include "Widget.h"
 
 
 namespace PaceLib
@@ -9,17 +9,24 @@ namespace PaceLib
     class Rectangle : public Shape
     {
     public:
-        ~Rectangle();
 
-        static void Create(std::string name, Shape *parent, SDL_Rect shape, SDL_Color color);
-        static void CreateSquare(std::string name, Shape *parent, int x, int y, int size, SDL_Color color);
+        /* Loads wconf file
+        example format:
+        {
+            "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+            "color" : [40, 40, 40, 255],
+        }*/
+        static void Create(WidgetId wid);
         
+        static void Create(WidgetId wid, SDL_Rect dim, SDL_Color color);
+
         void SetRect(float x, float y, float w , float h);
 
         void SetRounded(bool rounded);
 
         void Draw();
         
+        ~Rectangle();
     protected:         
 
     private:
@@ -27,7 +34,7 @@ namespace PaceLib
 
         bool rounded;
 
-        Rectangle(std::string name, Shape *parent, SDL_Rect shape, SDL_Color color);
+        Rectangle(WidgetId wid, SDL_Rect dim, SDL_Color color);
     };
 
 }
