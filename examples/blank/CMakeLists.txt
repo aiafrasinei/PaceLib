@@ -16,9 +16,12 @@ include_directories("${PACE_INCLUDE_PATH}/utils/SDL2")
 include_directories("${PACE_INCLUDE_PATH}/config")
 include_directories("${PACE_INCLUDE_PATH}/core")
 include_directories("${PACE_INCLUDE_PATH}/graphics")
+include_directories("${PACE_INCLUDE_PATH}/graphics/lines")
 include_directories("${PACE_INCLUDE_PATH}/graphics/effects")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons")
+include_directories("${PACE_INCLUDE_PATH}/graphics/polygons/quads")
 include_directories("${PACE_INCLUDE_PATH}/graphics/gui")
+include_directories("${PACE_INCLUDE_PATH}/graphics/conics")
 include_directories("${PACE_INCLUDE_PATH}/graphics/blank")
 include_directories("${PACE_INCLUDE_PATH}/resources")
 include_directories("${PACE_INCLUDE_PATH}/scene")
@@ -49,8 +52,6 @@ IF(UNIX)
         ../../src/Circle.cpp
         ../../src/Ellipse.cpp
         ../../src/Line.cpp
-        ../../src/VerticalLine.cpp
-        ../../src/HorizontalLine.cpp
         ../../src/Triangle.cpp
         ../../src/Pentagon.cpp
         ../../src/Hexagon.cpp
@@ -99,8 +100,6 @@ ELSE (WIN32)
         ../../src/Circle.cpp
         ../../src/Ellipse.cpp
         ../../src/Line.cpp
-        ../../src/VerticalLine.cpp
-        ../../src/HorizontalLine.cpp
         ../../src/Triangle.cpp
         ../../src/Pentagon.cpp
         ../../src/Hexagon.cpp

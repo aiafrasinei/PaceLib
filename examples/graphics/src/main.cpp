@@ -44,9 +44,9 @@ bool start()
 
 	Line::Create({root, "line"}, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
 
-	HorizontalLine::Create({root, "hline"}, 400, 200, 100, { 50, 100, 150, 255 });
+	Line::Create({root, "hline"}, 400, 300, 300, 300, { 50, 100, 150, 255 });
 
-	VerticalLine::Create({root, "vline"}, 350, 300, 50, { 150, 150, 150, 255 });
+	Line::Create({root, "vline"}, 350, 350, 350, 400, { 50, 100, 150, 255 });
 
 	Triangle::Create({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 	root->Get("tri")->SetDrawType(DrawTypes::FILLED);

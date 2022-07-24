@@ -29,18 +29,16 @@
 //shapes
 #include "graphics/Shape.h"
 
-#include "graphics/Line.h"
-#include "graphics/VerticalLine.h"
-#include "graphics/HorizontalLine.h"
+//lines
+#include "graphics/lines/Line.h"
 
-#include "graphics/Circle.h"
-#include "graphics/Ellipse.h"
-
-#include "graphics/Sprite.h"
+//conics
+#include "graphics/conics/Circle.h"
+#include "graphics/conics/Ellipse.h"
 
 //polygons
 #include "graphics/polygons/Polygon.h"
-#include "graphics/polygons/Rectangle.h"
+#include "graphics/polygons/quads/Rectangle.h"
 #include "graphics/polygons/Triangle.h"
 #include "graphics/polygons/Pentagon.h"
 #include "graphics/polygons/Hexagon.h"
@@ -57,11 +55,8 @@
 #include "graphics/gui/TextInput.h"
 #include "graphics/gui/Tabber.h"
 #include "graphics/gui/Texture.h"
-
+#include "graphics/gui/Text.h"
 
 //effects
 #include "graphics/effects/ScrollingBackground.h"
-
-//text
-#include "graphics/Text.h"
-
+#include "graphics/effects/Sprite.h"

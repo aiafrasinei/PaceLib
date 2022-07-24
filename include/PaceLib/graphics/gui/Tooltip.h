@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Widget.h"
-#include "../Text.h"
+#include "Text.h"
 
 
 namespace PaceLib

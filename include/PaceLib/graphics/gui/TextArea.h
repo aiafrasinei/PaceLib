@@ -2,7 +2,7 @@
 
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
-#include "../Text.h"
+#include "Text.h"
 
 
 namespace PaceLib
