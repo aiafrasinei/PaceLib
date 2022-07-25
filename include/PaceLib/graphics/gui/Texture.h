@@ -45,6 +45,7 @@ namespace PaceLib
             "dim" : [10, 10, 100 , 100]
         }*/
         static void Create(WidgetId wid);
+        static void Create(std::string name);
 
         static void Create(WidgetId wid, SDL_Texture *tex, int x, int y);
         static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim);

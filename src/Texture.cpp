@@ -194,6 +194,11 @@ void Texture::Create(WidgetId wid)
     }
 }
 
+void Texture::Create(std::string name)
+{
+    Texture::Create({&Root::GetInstance(), name});
+}
+
 void Texture::Create(WidgetId wid, SDL_Texture *tex, int x, int y)
 {
 	int wl, hl;

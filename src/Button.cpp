@@ -98,6 +98,11 @@ void Button::Create(WidgetId wid)
     }
 }
 
+void Button::Create(std::string name)
+{
+    Button::Create({&Root::GetInstance(), name});
+}
+
 void Button::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align)
 {
     wid.parent->Add(new Button(wid, dco, fto, align)); 

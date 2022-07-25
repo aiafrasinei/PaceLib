@@ -20,6 +20,7 @@ namespace PaceLib
             "nr" : 5
         }*/
         static void Create(WidgetId wid);
+        static void Create(std::string);
         
         static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
 

@@ -20,6 +20,7 @@ namespace PaceLib
                 "text_color" : [100, 100, 100, 255]
             }*/
             static void Create(WidgetId wid);
+            static void Create(std::string name);
 
             static void Create(WidgetId wid, SDL_Color color, Align align={V::MID, H::MID});
 

@@ -1,5 +1,6 @@
 #include "Tab.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -56,6 +57,11 @@ void Tab::Create(WidgetId wid)
 
         wid.parent->Add(new Tab(wid, dco));
     }
+}
+
+void Tab::Create(std::string name)
+{
+    Tab::Create({&Root::GetInstance(), name});
 }
 
 void Tab::Create(WidgetId wid, PropDimColor dco)

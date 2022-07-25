@@ -42,6 +42,11 @@ void Tooltip::Create(WidgetId wid)
     }
 }
 
+void Tooltip::Create(std::string name)
+{
+    Tooltip::Create({&Root::GetInstance(), name});
+}
+
 void Tooltip::Create(WidgetId wid, SDL_Color color, Align align)
 {
     SDL_Rect child = wid.parent->GetRect();

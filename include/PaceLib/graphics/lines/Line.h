@@ -20,6 +20,7 @@ namespace PaceLib
             "y2" : 200
         }*/
         static void Create(WidgetId wid);
+        static void Create(std::string name);
         
         static void Create(WidgetId wid, int x1, int y1, int x2, int y2, SDL_Color color);
 

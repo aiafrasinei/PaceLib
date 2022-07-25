@@ -53,6 +53,11 @@ void Sprite::Create(WidgetId wid)
     }
 }
 
+void Sprite::Create(std::string name)
+{
+    Sprite::Create({&Root::GetInstance(), name});
+}
+
 void Sprite::Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
     wid.parent->Add(new Sprite(wid, tex, dim, offset, nr));

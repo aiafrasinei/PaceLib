@@ -73,6 +73,11 @@ void ButtonTex::Create(WidgetId wid)
     }
 }
 
+void ButtonTex::Create(std::string name)
+{
+    ButtonTex::Create({&Root::GetInstance(), name});
+}
+
 void ButtonTex::Create(WidgetId wid, PropTex normal)
 {
     PropTex nullp = {nullptr, {0,0,0,255}};

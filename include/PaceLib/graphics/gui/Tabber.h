@@ -17,6 +17,7 @@ namespace PaceLib
 
             //TODO
             static void Create(WidgetId wid);
+            static void Create(std::string name);
 
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
 

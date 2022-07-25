@@ -20,6 +20,8 @@ namespace PaceLib
             "ry" : 190
         }*/
         static void Create(WidgetId wid);
+        static void Create(std::string name);
+
         static void Create(WidgetId wid, float x, float y, float rx, float ry , SDL_Color color);
         
         void SetDrawType(DrawTypes rtype);

@@ -62,6 +62,11 @@ void Tabber::Create(WidgetId wid)
     }
 }
 
+void Tabber::Create(std::string name)
+{
+    Tabber::Create({&Root::GetInstance(), name});
+}
+
 void Tabber::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 {
     wid.parent->Add(new Tabber( wid, dco, fto));

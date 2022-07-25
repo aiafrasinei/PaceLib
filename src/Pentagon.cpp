@@ -1,5 +1,6 @@
 #include "Pentagon.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -139,6 +140,11 @@ void Pentagon::Create(WidgetId wid)
 
         wid.parent->Add(new Pentagon(wid, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, color));
     }
+}
+
+void Pentagon::Create(std::string name)
+{
+    Pentagon::Create({&Root::GetInstance(), name});
 }
 
 void Pentagon::Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)

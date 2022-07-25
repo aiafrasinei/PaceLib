@@ -87,6 +87,11 @@ void Label::Create(WidgetId wid)
     }
 }
 
+void Label::Create(std::string name)
+{
+    Label::Create({&Root::GetInstance(), name});
+}
+
 void Label::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align)
 {
     wid.parent->Add(new Label( wid, dco, fto, align ));

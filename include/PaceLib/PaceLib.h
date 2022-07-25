@@ -1,9 +1,5 @@
 #pragma once
 
-#define PACE_LIB_VERSION_MAJOR 0
-#define PACE_LIB_VERSION_MINOR 1
-#define PACE_LIB_VERSION_PATCH 1
-
 //core
 #include "core/Window.h"
 
@@ -11,8 +7,6 @@
 #include "resources/FontContainer.h"
 
 //utils
-#include "config/version.h"
-#include "config/Configuration.h"
 #include "utils/ConLog.h"
 #include "utils/SDL2/SDL_FontCache.h"
 #include "utils/SDL2/SDL2_framerate.h"
@@ -21,6 +15,7 @@
 #include "utils/Timer.h"
 #include "utils/Random.h"
 #include "utils/Scale.h"
+#include "Version.h"
 
 //scenes
 #include "scene/Map.h"

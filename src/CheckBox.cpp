@@ -137,6 +137,12 @@ void CheckBox::Create(WidgetId wid)
     }
 }
 
+
+void CheckBox::Create(std::string name)
+{
+    CheckBox::Create({&Root::GetInstance(), name});
+}
+
 void CheckBox::Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
     wid.parent->Add(new CheckBox(wid, dco, fto, textColor));

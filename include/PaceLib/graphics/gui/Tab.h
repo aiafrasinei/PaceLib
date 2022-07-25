@@ -23,6 +23,7 @@ namespace PaceLib
                 "color" : [80, 70, 80, 255]
             }*/
             static void Create(WidgetId wid);
+            static void Create(std::string name);
 
             static void Create(WidgetId wid, PropDimColor in);
 

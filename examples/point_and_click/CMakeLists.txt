@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(main_menu)
+project(point_and_click)
 
 
 include_directories(source)
@@ -36,7 +36,7 @@ IF(UNIX)
 
     link_directories("/opt/homebrew/lib/")
 
-    add_executable (main_menu
+    add_executable (point_and_click
             src/main.cpp
 	        ../../src/ConLog.cpp
 	        ../../src/sdlu.cpp
@@ -74,7 +74,7 @@ IF(UNIX)
             ../../src/Configuration.cpp
             ../../src/Version.cpp)
 
-    target_link_libraries(main_menu m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(point_and_click m dl SDL2 SDL2_image SDL2_ttf pthread)
 
 ELSE (WIN32)
     include_directories("${LIBS_PATH}/windows/SDL2/include")
@@ -85,7 +85,7 @@ ELSE (WIN32)
     link_directories("${LIBS_PATH}/windows/SDL2_image/lib/x64")
     link_directories("${LIBS_PATH}/windows/SDL2_ttf/lib/x64")
 
-    add_executable (main_menu
+    add_executable (point_and_click
             src/main.cpp
 	        ../../src/ConLog.cpp
 	        ../../src/sdlu.cpp
@@ -122,7 +122,7 @@ ELSE (WIN32)
             ../../src/Texture.cpp
             ../../src/Configuration.cpp)
 
-    target_link_libraries(main_menu SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
+    target_link_libraries(point_and_click SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
 
 ENDIF (UNIX)
 

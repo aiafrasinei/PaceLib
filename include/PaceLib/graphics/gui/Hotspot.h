@@ -29,6 +29,7 @@ namespace PaceLib
                 "color" : [80, 70, 80, 255]
             }*/
             static void Create(WidgetId wid);
+            static void Create(std::string name);
             
             static void Create(WidgetId wid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
 

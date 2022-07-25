@@ -25,6 +25,7 @@ namespace PaceLib
                 "align" : ["mid", "mid"]
             }*/
             static void Create(WidgetId wid);
+            static void Create(std::string name);
 
             static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
             static void Create(WidgetId wid, SDL_Rect dim, std::string text);

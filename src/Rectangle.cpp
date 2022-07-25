@@ -1,5 +1,6 @@
 #include "Rectangle.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -43,6 +44,11 @@ void Rectangle::Create(WidgetId wid)
 
         wid.parent->Add(new Rectangle(wid, {dim[0], dim[1], dim[2], dim[3]}, color));
     }
+}
+
+void Rectangle::Create(std::string name)
+{
+    Rectangle::Create({&Root::GetInstance(), name});
 }
 
 void Rectangle::Create(WidgetId wid, SDL_Rect shape, SDL_Color color)

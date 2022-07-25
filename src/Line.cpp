@@ -1,5 +1,6 @@
 #include "Line.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -44,6 +45,11 @@ void Line::Create(WidgetId wid)
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
         wid.parent->Add(new Line(wid, x1, y1, x2, y2, color));
     }
+}
+
+void Line::Create(std::string name)
+{
+    Line::Create({&Root::GetInstance(), name});
 }
 
 void Line::Create(WidgetId wid, int x1, int y1, int x2, int y2, SDL_Color color)

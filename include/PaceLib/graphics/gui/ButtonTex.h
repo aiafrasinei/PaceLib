@@ -24,6 +24,7 @@ namespace PaceLib
                 "over_tex_name" : ""
             }*/
             static void Create(WidgetId wid);
+            static void Create(std::string name);
 
             static void Create(WidgetId wid, PropTex normal);
 

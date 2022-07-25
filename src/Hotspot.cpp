@@ -55,6 +55,11 @@ void Hotspot::Create(WidgetId wid)
     }
 }
 
+void Hotspot::Create(std::string name)
+{
+    Hotspot::Create({&Root::GetInstance(), name});
+}
+
 void Hotspot::Create(WidgetId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
     wid.parent->Add(new Hotspot(wid, dco, type, tex));

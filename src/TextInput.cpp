@@ -51,6 +51,11 @@ void TextInput::Create(WidgetId wid)
     }
 }
 
+void TextInput::Create(std::string name)
+{
+    TextInput::Create({&Root::GetInstance(), name});
+}
+
 void TextInput::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
 {
     wid.parent->Add(new TextInput( wid, dco, fto));

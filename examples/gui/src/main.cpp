@@ -34,7 +34,7 @@ bool start()
 	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
-	Tab::Create( {root, "first_tab"});
+	Tab::Create( "first_tab");
 	Label::Create({root->GetTab("first_tab"), "label_lbl"});
 	Button::Create({root->GetTab("first_tab"), "start_btn"});
 	Button::Create({root->GetTab("first_tab"), "exit_btn"});
@@ -43,7 +43,7 @@ bool start()
 		Window::running = false;
     };
 
-	Tab::Create({root, "second_tab"});
+	Tab::Create("second_tab");
 	Text::Create({root->GetTab("second_tab"), "text"});
 	Label::Create({root->GetTab("second_tab"), "out_lbl"});
 	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
@@ -53,7 +53,7 @@ bool start()
 
 	//Triangle::Create({root->GetTab("second_tab"), "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 
-	Tabber::Create( {root, "third_tb"});
+	Tabber::Create("third_tb");
 	root->GetTabber("third_tb")->AddTab("Main");
 	root->GetTabber("third_tb")->AddTab("Options");
 	root->GetTabber("third_tb")->AddTab("Help");
@@ -66,13 +66,13 @@ bool start()
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
 	TextArea::Create({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
 	
-	Label::Create({root, "out1_lbl"});
-	Button::Create({root, "astart_btn"});
+	Label::Create("out1_lbl");
+	Button::Create("astart_btn");
 
-	ButtonTex::Create({root, "gfx_button"});
+	ButtonTex::Create("gfx_button");
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});
 
-	ButtonTex::Create({root, "gfx_button_tex"});
+	ButtonTex::Create("gfx_button_tex");
 
 	return true;
 }

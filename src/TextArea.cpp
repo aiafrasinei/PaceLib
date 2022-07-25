@@ -74,6 +74,11 @@ void TextArea::Create(WidgetId wid)
     }
 }
 
+void TextArea::Create(std::string name)
+{
+    TextArea::Create({&Root::GetInstance(), name});
+}
+
 void TextArea::Create(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align)
 {
     wid.parent->Add(new TextArea(wid, dco, font, tarr, align));

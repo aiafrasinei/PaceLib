@@ -51,6 +51,7 @@ IF(UNIX)
             ../../src/Circle.cpp
             ../../src/Ellipse.cpp
             ../../src/Line.cpp
+            ../../src/ThickLine.cpp
             ../../src/Triangle.cpp
             ../../src/Pentagon.cpp
             ../../src/Hexagon.cpp
@@ -101,6 +102,7 @@ ELSE (WIN32)
         ../../src/Circle.cpp
         ../../src/Ellipse.cpp
         ../../src/Line.cpp
+        ../../src/ThickLine.cpp
         ../../src/Triangle.cpp
         ../../src/Pentagon.cpp
         ../../src/Hexagon.cpp
@@ -124,7 +126,8 @@ ELSE (WIN32)
         ../../src/TextInput.cpp
         ../../src/Tabber.cpp
         ../../src/Texture.cpp
-        ../../src/Configuration.cpp)
+        ../../src/Configuration.cpp
+        ../../src/Version.cpp)
 
     target_link_libraries(graphics SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
 

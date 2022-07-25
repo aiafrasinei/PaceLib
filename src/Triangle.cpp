@@ -1,5 +1,6 @@
 #include "Triangle.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -60,6 +61,11 @@ void Triangle::Create(WidgetId wid)
         
         wid.parent->Add(new Triangle(wid, x1, y1, x2, y2, x3, y3, color));
     }
+}
+
+void Triangle::Create(std::string name)
+{
+    Triangle::Create({&Root::GetInstance(), name});
 }
 
 void Triangle::Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)

@@ -1,5 +1,6 @@
 #include "Circle.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -42,6 +43,11 @@ void Circle::Create(WidgetId wid)
 
         wid.parent->Add(new Circle(wid, x, y, radius, color));
     }
+}
+
+void Circle::Create(std::string name)
+{
+    Circle::Create({&Root::GetInstance(), name});
 }
 
 void Circle::Create(WidgetId wid, float x, float y, float radius, SDL_Color color)

@@ -1,5 +1,6 @@
 #include "ThickLine.h"
 #include "Window.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
@@ -33,6 +34,13 @@ void ThickLine::Create(WidgetId wid)
         wid.parent->Add(new ThickLine(wid, x1, y1, x2, y2, size, color));
     }
 }
+
+
+void ThickLine::Create(std::string name)
+{
+    ThickLine::Create({&Root::GetInstance(), name});
+}
+
 
 void ThickLine::Create(WidgetId wid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {

@@ -21,6 +21,7 @@ namespace PaceLib
             "text_color" : [140, 140, 140, 255]
         }*/
         static void Create(WidgetId wid);
+        static void Create(std::string name);
 
         static void Create(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
         static void Create(WidgetId wid, int x, int y, SDL_Color color, std::string text);

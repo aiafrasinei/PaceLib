@@ -1,5 +1,6 @@
 #include "Ellipse.h"
 #include "Window.h"
+#include "Root.h"
 
 
 using namespace PaceLib;
@@ -44,6 +45,11 @@ void Ellipse::Create(WidgetId wid)
 
         wid.parent->Add(new Ellipse(wid, x, y, rx, ry, color));
     }
+}
+
+void Ellipse::Create(std::string name)
+{
+    Ellipse::Create({&Root::GetInstance(), name});
 }
 
 void Ellipse::Create(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color)

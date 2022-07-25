@@ -74,7 +74,8 @@ IF(UNIX)
             ../../src/TextArea.cpp
             ../../src/TextInput.cpp
             ../../src/Tabber.cpp
-            ../../src/Configuration.cpp)
+            ../../src/Configuration.cpp
+            ../../src/Version.cpp)
 
     target_link_libraries(gui m dl SDL2 SDL2_image SDL2_ttf pthread)
 
