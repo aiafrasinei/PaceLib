@@ -19,10 +19,10 @@ namespace PaceLib
             "offset" : 300,
             "nr" : 5
         }*/
-        static void Create(WidgetId wid);
+        static void Create(ShapeId wid);
         static void Create(std::string);
         
-        static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+        static void Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
 
         void SetTex(SDL_Texture *tex);
         void SetRect(SDL_Rect dim);
@@ -42,7 +42,7 @@ namespace PaceLib
         int offset;
         int nr;
 
-        Sprite(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+        Sprite(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
     };
 
 }

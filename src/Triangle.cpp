@@ -5,7 +5,7 @@
 using namespace PaceLib;
 
 
-Triangle::Triangle(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+Triangle::Triangle(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
 
@@ -15,10 +15,10 @@ Triangle::Triangle(WidgetId wid, float x1, float y1, float x2, float y2, float x
         points[2] = {static_cast<int>(x3), static_cast<int>(y3)};
         points[3] = {static_cast<int>(x1), static_cast<int>(y1)};
     } else {
-        points[0] = {static_cast<int>(wid.parent->GetRect().x + x1), static_cast<int>(wid.parent->GetRect().y + y1)};
-        points[1] = {static_cast<int>(wid.parent->GetRect().x + x2), static_cast<int>(wid.parent->GetRect().y + y2)};
-        points[2] = {static_cast<int>(wid.parent->GetRect().x + x3), static_cast<int>(wid.parent->GetRect().y + y3)};
-        points[3] = {static_cast<int>(wid.parent->GetRect().x + x1), static_cast<int>(wid.parent->GetRect().y + y1)};
+        points[0] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
+        points[1] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x2), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y2)};
+        points[2] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y3)};
+        points[3] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
     }
     
 
@@ -46,7 +46,7 @@ Triangle::~Triangle()
 
 }
 
-void Triangle::Create(WidgetId wid)
+void Triangle::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -68,7 +68,7 @@ void Triangle::Create(std::string name)
     Triangle::Create({&Root::GetInstance(), name});
 }
 
-void Triangle::Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+void Triangle::Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
     wid.parent->Add(new Triangle(wid, x1, y1, x2, y2, x3, y3, color));
 }

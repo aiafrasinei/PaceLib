@@ -4,14 +4,14 @@
 
 using namespace PaceLib;
 
-TextArea::TextArea(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID})
+TextArea::TextArea(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID})
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     rect.w = dco.rect.w;
     rect.h = dco.rect.h;
@@ -42,7 +42,7 @@ TextArea::~TextArea()
 
 }
 
-void TextArea::Create(WidgetId wid)
+void TextArea::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -74,17 +74,29 @@ void TextArea::Create(WidgetId wid)
     }
 }
 
-void TextArea::Create(std::string name)
+void TextArea::Begin(std::string name, bool hasChildren)
 {
-    TextArea::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    TextArea::Create({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void TextArea::Create(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align)
+void TextArea::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void TextArea::Create(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align)
 {
     wid.parent->Add(new TextArea(wid, dco, font, tarr, align));
 }
 
-void TextArea::Create(WidgetId wid, PropDimColor dco, std::vector<std::string> tarr, Align align)
+void TextArea::Create(ShapeId wid, PropDimColor dco, std::vector<std::string> tarr, Align align)
 {
     wid.parent->Add(new TextArea(wid, dco, Root::GetInstance().GetScene("Default").GetFont("default"), tarr, align));
 }

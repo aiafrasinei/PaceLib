@@ -21,10 +21,10 @@ namespace PaceLib
             "y3" : 150,
             "color" : [40, 40, 40, 255]
         }*/
-        static void Create(WidgetId wid);
+        static void Create(ShapeId wid);
         static void Create(std::string name);
 
-        static void Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        static void Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
      
         void SetDrawType(DrawTypes rtype);
 
@@ -40,7 +40,7 @@ namespace PaceLib
 
         SDL_Vertex verts[3];
 
-        Triangle(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        Triangle(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
     };
 
 }

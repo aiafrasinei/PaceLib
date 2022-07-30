@@ -44,11 +44,11 @@ namespace PaceLib
             "tex_name": "tex.png",
             "dim" : [10, 10, 100 , 100]
         }*/
-        static void Create(WidgetId wid);
+        static void Create(ShapeId wid);
         static void Create(std::string name);
 
-        static void Create(WidgetId wid, SDL_Texture *tex, int x, int y);
-        static void Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim);
+        static void Create(ShapeId wid, SDL_Texture *tex, int x, int y);
+        static void Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim);
         
         void Draw();
 
@@ -66,7 +66,7 @@ namespace PaceLib
 
         Tex *ctex;
 
-        Texture(WidgetId wid, SDL_Texture *tex, SDL_Rect dim);
+        Texture(ShapeId wid, SDL_Texture *tex, SDL_Rect dim);
     };
 
 }

@@ -10,7 +10,7 @@ namespace PaceLib
     {
     public:
 
-        static void Create(WidgetId wid, const float *vx, const float *vy, int n);
+        static void Create(ShapeId wid, const float *vx, const float *vy, int n);
      
         void SetDrawType(DrawTypes rtype);
 
@@ -29,7 +29,7 @@ namespace PaceLib
 
         DrawTypes rtype;
 
-        Polygon(WidgetId wid, const float *vx, const float *vy, int n);
+        Polygon(ShapeId wid, const float *vx, const float *vy, int n);
     };
 
 }

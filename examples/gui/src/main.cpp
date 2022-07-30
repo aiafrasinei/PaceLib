@@ -17,7 +17,6 @@ bool init(int argc, const char *argv[])
 
 	ConLog::Info("Initialization");
 
-	ConLog::Info("Loading configuration");
 	conf = new Configuration("conf.json");
 
 	win = new Window(conf);
@@ -30,26 +29,48 @@ bool start()
 	ConLog::Info("Start");
 	
 	root = &Root::GetInstance();
+	root->SetCurrent(root);
 
 	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
-	Tab::Create( "first_tab");
-	Label::Create({root->GetTab("first_tab"), "label_lbl"});
-	Button::Create({root->GetTab("first_tab"), "start_btn"});
-	Button::Create({root->GetTab("first_tab"), "exit_btn"});
+	Tab::Begin("first_tab", true);
+		Label::Begin("label_lbl");
+		Button::Begin("start_btn");
+		Button::Begin("exit_btn");
+	Tab::End();
 	
 	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
 		Window::running = false;
     };
 
-	Tab::Create("second_tab");
-	Text::Create({root->GetTab("second_tab"), "text"});
-	Label::Create({root->GetTab("second_tab"), "out_lbl"});
-	DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
-	TextArea::Create( {root->GetTab("second_tab"), "text_ta"});
-	TextInput::Create( {root->GetTab("second_tab"), "tinput"});
-	CheckBox::Create( {root->GetTab("second_tab"), "cb"});
+	Tab::Begin("second_tab", true);
+		Text::Begin("text");
+		Label::Begin("out_lbl", true);
+			DefaultTooltip::Begin("out_tooltip");
+		Label::End();
+		TextArea::Begin("text_ta");
+		TextInput::Begin("tinput");
+		CheckBox::Begin("cb");
+	Tab::End();
+
+	/*Tab::Begin("second_tab");
+		Text::Create({root->GetTab("second_tab"), "text"});
+		Label::Create({root->GetTab("second_tab"), "out_lbl"});
+		DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
+		TextArea::Create( {root->GetTab("second_tab"), "text_ta"});
+		TextInput::Create( {root->GetTab("second_tab"), "tinput"});
+		CheckBox::Create( {root->GetTab("second_tab"), "cb"});
+	Tab::End();
+
+	Tab::Create("second_tab", true);
+		Text::Create("text");
+		Label::Create("out_lbl");
+		DefaultTooltip::Create("out_tooltip");
+		TextArea::Create("text_ta");
+		TextInput::Create("tinput");
+		CheckBox::Create("cb");
+	Tab::End();
 
 	//Triangle::Create({root->GetTab("second_tab"), "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 
@@ -65,9 +86,10 @@ bool start()
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
 	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
 	TextArea::Create({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
+	*/
 	
-	Label::Create("out1_lbl");
-	Button::Create("astart_btn");
+	Label::Begin("out1_lbl");
+	Button::Begin("astart_btn");
 
 	ButtonTex::Create("gfx_button");
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});

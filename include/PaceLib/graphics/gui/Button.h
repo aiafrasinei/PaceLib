@@ -25,16 +25,15 @@ namespace PaceLib
                 "text_color" : [140, 170, 140, 255],
                 "align" : ["mid", "mid"]
             }*/
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, SDL_Rect dim);
+            static void Create(ShapeId wid, SDL_Rect dim);
+            static void Create(ShapeId wid, SDL_Rect dim, std::string text, Align align={V::MID, H::MID});
+            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
 
-            static void Create(WidgetId wid, SDL_Rect dim, std::string text, Align align={V::MID, H::MID});
-
-            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
-
-            Button(WidgetId wid, PropDimColor dco, PropFontText fto, Align align);
+            Button(ShapeId wid, PropDimColor dco, PropFontText fto, Align align);
 
             ~Button();
 

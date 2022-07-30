@@ -5,7 +5,7 @@
 
 using namespace PaceLib;
 
-Ellipse::Ellipse(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color)
+Ellipse::Ellipse(ShapeId wid, float x, float y, float rx, float ry, SDL_Color color)
 {
     if(wid.parent->name == "root") {
         this->x = x;
@@ -13,10 +13,10 @@ Ellipse::Ellipse(WidgetId wid, float x, float y, float rx, float ry, SDL_Color c
         this->rx = rx;
         this->ry = ry;
     } else {
-        this->x = wid.parent->GetRect().x + x;
-        this->y = wid.parent->GetRect().y + y;
-        this->rx = wid.parent->GetRect().x + rx;
-        this->ry = wid.parent->GetRect().y + ry;
+        this->x = static_cast<Widget *>(wid.parent)->GetRect().x + x;
+        this->y = static_cast<Widget *>(wid.parent)->GetRect().y + y;
+        this->rx = static_cast<Widget *>(wid.parent)->GetRect().x + rx;
+        this->ry = static_cast<Widget *>(wid.parent)->GetRect().y + ry;
     }
 
     hidden = false;
@@ -32,7 +32,7 @@ Ellipse::~Ellipse()
 
 }
 
-void Ellipse::Create(WidgetId wid)
+void Ellipse::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -52,7 +52,7 @@ void Ellipse::Create(std::string name)
     Ellipse::Create({&Root::GetInstance(), name});
 }
 
-void Ellipse::Create(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color)
+void Ellipse::Create(ShapeId wid, float x, float y, float rx, float ry, SDL_Color color)
 {
     wid.parent->Add(new Ellipse(wid, x, y, rx, ry, color));
 }

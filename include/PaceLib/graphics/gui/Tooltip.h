@@ -19,12 +19,14 @@ namespace PaceLib
                 "font" : "default"
                 "text_color" : [100, 100, 100, 255]
             }*/
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
 
-            static void Create(WidgetId wid, SDL_Color color, Align align={V::MID, H::MID});
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
+            static void Create(ShapeId wid, SDL_Color color, Align align={V::MID, H::MID});
+
+            static void Create(ShapeId wid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
 
             void Draw();
 
@@ -33,7 +35,7 @@ namespace PaceLib
             void Update(SDL_Event *e);
 
         private:
-            Tooltip(WidgetId wid, SDL_Rect shape, SDL_Color color);
+            Tooltip(ShapeId wid, SDL_Rect shape, SDL_Color color);
     };
 
 
@@ -49,10 +51,12 @@ namespace PaceLib
                 "color" : "parent",
                 "text_color" : [0, 0, 0, 255]
             }*/
-            static void Create(WidgetId wid);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
             
-            static void Create(WidgetId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
-            static void Create(WidgetId wid, std::string text);
+            static void Create(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+            static void Create(ShapeId wid, std::string text);
 
             void Draw();
 
@@ -61,7 +65,7 @@ namespace PaceLib
             Text *to;
             SDL_Color textColor;
 
-            DefaultTooltip(WidgetId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+            DefaultTooltip(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
     };
 
 }

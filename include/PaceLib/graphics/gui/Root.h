@@ -7,6 +7,10 @@
 #include "Tab.h"
 #include "Tabber.h"
 #include "Hotspot.h"
+#include "Tooltip.h"
+#include "CheckBox.h"
+#include "TextInput.h"
+#include "TextArea.h"
 #include "resources/FontContainer.h"
 #include "scene/Scene.h"
 #include "core/interfaces/State.h"
@@ -23,6 +27,14 @@ namespace PaceLib
             static Root& GetInstance() {
                 static Root instance;
                 return instance;
+            }
+
+            static Shape *GetCurrent() {
+                return GetInstance().current;
+            }
+
+            static void SetCurrent(Shape *w) {
+                GetInstance().current = w;
             }
 
             void Draw();
@@ -42,6 +54,12 @@ namespace PaceLib
             Widget *GetWidget(std::string child);
             Tabber *GetTabber(std::string child);
             Hotspot *GetHotspot(std::string child);
+            Text *GetText(std::string child);
+            Tooltip *GetTooltip(std::string child);
+            DefaultTooltip *GetDefaultTooltip(std::string child);
+            CheckBox *GetCheckBox(std::string child);
+            TextInput *GetTextInput(std::string child);
+            TextArea *GetTextArea(std::string child);
 
             void SetState(State *state);
             void HideAll();

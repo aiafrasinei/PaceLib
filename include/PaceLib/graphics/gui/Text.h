@@ -20,11 +20,12 @@ namespace PaceLib
             "pos" : ["W_0.6%", "W_0.6%"],
             "text_color" : [140, 140, 140, 255]
         }*/
-        static void Create(WidgetId wid);
-        static void Create(std::string name);
+        static void Create(ShapeId wid);
+        static void Begin(std::string name, bool hasChildren=false);
+        static void End();
 
-        static void Create(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
-        static void Create(WidgetId wid, int x, int y, SDL_Color color, std::string text);
+        static void Create(ShapeId wid, PropFontText fto, int x, int y, SDL_Color color);
+        static void Create(ShapeId wid, int x, int y, SDL_Color color, std::string text);
         static Text *Create(FC_Font *font, std::string text, int x, int y, SDL_Color color);
 
         void Draw();
@@ -51,7 +52,7 @@ namespace PaceLib
         int x,y;
         SDL_Rect rect;
 
-        Text(WidgetId wid, PropFontText fto, int x, int y, SDL_Color color);
+        Text(ShapeId wid, PropFontText fto, int x, int y, SDL_Color color);
         Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
     };
 

@@ -131,14 +131,12 @@ namespace PaceLib
 
             SDL_Color borderColor;
 
-            Widget *parent;
-
             WidgetType wtype;
     };
 
-    struct WidgetId
+    struct ShapeId
     {
-        Widget *parent;
+        Shape *parent;
         std::string name;
     };
 }

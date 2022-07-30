@@ -14,12 +14,13 @@ namespace PaceLib
             ~TextArea();
 
             //TODO
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
+            static void Create(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
 
-            static void Create(WidgetId wid, PropDimColor dco, std::vector<std::string> tarr, Align align={V::MID, H::MID});
+            static void Create(ShapeId wid, PropDimColor dco, std::vector<std::string> tarr, Align align={V::MID, H::MID});
 
             void SetTextAlign(Align align);
 
@@ -38,7 +39,7 @@ namespace PaceLib
 
             int textSpacing;
 
-            TextArea(WidgetId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
+            TextArea(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
 
             void InternalAlign(Align align);
     };

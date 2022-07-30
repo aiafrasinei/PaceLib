@@ -25,17 +25,18 @@ namespace PaceLib
                 "text" : "CheckBox",
                 "text_color" : [0, 0, 0, 255]
             }*/
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
+            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
 
-            static void Create(WidgetId wid, PropDimColor dco, std::string text);
+            static void Create(ShapeId wid, PropDimColor dco, std::string text);
 
-            static void Create(WidgetId wid, PropTex pto);
+            static void Create(ShapeId wid, PropTex pto);
 
-            CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
-            CheckBox(WidgetId wid, PropTex pto);
+            CheckBox(ShapeId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
+            CheckBox(ShapeId wid, PropTex pto);
 
             void SetHighlight(bool state);
             

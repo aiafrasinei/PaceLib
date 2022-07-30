@@ -90,6 +90,37 @@ Hotspot *Root::GetHotspot(std::string child)
     return static_cast<Hotspot *>(this->Get(child));
 }
 
+
+Text *Root::GetText(std::string child)
+{
+    return static_cast<Text *>(this->Get(child));
+}
+
+Tooltip *Root::GetTooltip(std::string child)
+{
+    return static_cast<Tooltip *>(this->Get(child));
+}
+
+DefaultTooltip *Root::GetDefaultTooltip(std::string child)
+{
+    return static_cast<DefaultTooltip *>(this->Get(child));
+}
+
+CheckBox *Root::GetCheckBox(std::string child)
+{
+    return static_cast<CheckBox *>(this->Get(child));
+}
+
+TextInput *Root::GetTextInput(std::string child)
+{
+    return static_cast<TextInput *>(this->Get(child));
+}
+
+TextArea *Root::GetTextArea(std::string child)
+{
+    return static_cast<TextArea *>(this->Get(child));
+}
+
 void Root::Update(SDL_Event *e)
 {
     for(Shape *s : shapes) {

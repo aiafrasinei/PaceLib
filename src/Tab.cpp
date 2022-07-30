@@ -4,14 +4,14 @@
 
 using namespace PaceLib;
 
-Tab::Tab(WidgetId wid, PropDimColor dco)
+Tab::Tab(ShapeId wid, PropDimColor dco)
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -36,7 +36,7 @@ Tab::~Tab()
 
 }
 
-void Tab::Create(WidgetId wid)
+void Tab::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -59,12 +59,22 @@ void Tab::Create(WidgetId wid)
     }
 }
 
-void Tab::Create(std::string name)
+void Tab::Begin(std::string name, bool hasChildren)
 {
-    Tab::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Tab::Create({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        root->SetCurrent(root->GetTab(name));
+    }
 }
 
-void Tab::Create(WidgetId wid, PropDimColor dco)
+void Tab::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root);
+}
+
+void Tab::Create(ShapeId wid, PropDimColor dco)
 {
     wid.parent->Add(new Tab(wid, dco));
 }

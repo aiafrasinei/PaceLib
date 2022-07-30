@@ -22,12 +22,13 @@ namespace PaceLib
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "color" : [80, 70, 80, 255]
             }*/
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, PropDimColor in);
+            static void Create(ShapeId wid, PropDimColor in);
 
-            Tab(WidgetId wid, PropDimColor in);
+            Tab(ShapeId wid, PropDimColor in);
 
             void Draw();
 

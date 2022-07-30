@@ -6,14 +6,14 @@
 
 using namespace PaceLib;
 
-Hotspot::Hotspot(WidgetId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
+Hotspot::Hotspot(ShapeId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
     if(wid.parent->name == "root") {
         this->rect.x = dco.rect.x;
         this->rect.y = dco.rect.y;
     } else {
-        this->rect.x = wid.parent->GetRect().x + dco.rect.x;
-        this->rect.y = wid.parent->GetRect().y + dco.rect.y;
+        this->rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        this->rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     
     this->rect.w = dco.rect.w;
@@ -43,7 +43,7 @@ Hotspot::~Hotspot()
 
 }
 
-void Hotspot::Create(WidgetId wid)
+void Hotspot::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -60,7 +60,7 @@ void Hotspot::Create(std::string name)
     Hotspot::Create({&Root::GetInstance(), name});
 }
 
-void Hotspot::Create(WidgetId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
+void Hotspot::Create(ShapeId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
     wid.parent->Add(new Hotspot(wid, dco, type, tex));
 }

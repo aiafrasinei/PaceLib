@@ -5,14 +5,14 @@
 using namespace PaceLib;
 
 
-Circle::Circle(WidgetId wid, float x, float y, float radius, SDL_Color color)
+Circle::Circle(ShapeId wid, float x, float y, float radius, SDL_Color color)
 {
     if(wid.parent->name == "root") {
         this->x = x;
         this->y = y;
     } else {
-        this->x = wid.parent->GetRect().x + x;
-        this->y = wid.parent->GetRect().y + y;
+        this->x = static_cast<Widget *>(wid.parent)->GetRect().x + x;
+        this->y = static_cast<Widget *>(wid.parent)->GetRect().y + y;
     }
 
     this->radius = radius;
@@ -31,7 +31,7 @@ Circle::~Circle()
 
 }
 
-void Circle::Create(WidgetId wid)
+void Circle::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -50,7 +50,7 @@ void Circle::Create(std::string name)
     Circle::Create({&Root::GetInstance(), name});
 }
 
-void Circle::Create(WidgetId wid, float x, float y, float radius, SDL_Color color)
+void Circle::Create(ShapeId wid, float x, float y, float radius, SDL_Color color)
 {
     wid.parent->Add(new Circle(wid, x, y, radius, color));
 }

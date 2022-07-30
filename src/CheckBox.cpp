@@ -6,14 +6,14 @@
 
 using namespace PaceLib;
 
-CheckBox::CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
+CheckBox::CheckBox(ShapeId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
 
     rect.w = dco.rect.w;
@@ -60,14 +60,14 @@ CheckBox::CheckBox(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color t
     midrect = { rect.x+rect.w/4, rect.y+rect.h/4, rect.w/2, rect.h/2 };
 }
 
-CheckBox::CheckBox(WidgetId wid, PropTex pto)
+CheckBox::CheckBox(ShapeId wid, PropTex pto)
 {
     if(wid.parent->name == "root") {
         rect.x = pto.rect.x;
         rect.y = pto.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + pto.rect.x;
-        rect.y = wid.parent->GetRect().y + pto.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + pto.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + pto.rect.y;
     }
     rect.w = pto.rect.w;
     rect.h = pto.rect.h;
@@ -106,7 +106,7 @@ CheckBox::~CheckBox()
 
 }
 
-void CheckBox::Create(WidgetId wid)
+void CheckBox::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -138,22 +138,34 @@ void CheckBox::Create(WidgetId wid)
 }
 
 
-void CheckBox::Create(std::string name)
+void CheckBox::Begin(std::string name, bool hasChildren)
 {
-    CheckBox::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    CheckBox::Create({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void CheckBox::Create(WidgetId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
+void CheckBox::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void CheckBox::Create(ShapeId wid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
     wid.parent->Add(new CheckBox(wid, dco, fto, textColor));
 }
 
-void CheckBox::Create(WidgetId wid, PropDimColor dco, std::string text)
+void CheckBox::Create(ShapeId wid, PropDimColor dco, std::string text)
 {
     wid.parent->Add(new CheckBox(wid, dco, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, {0, 0, 0, 255}));
 }
 
-void CheckBox::Create(WidgetId wid, PropTex pto)
+void CheckBox::Create(ShapeId wid, PropTex pto)
 {
     wid.parent->Add(new CheckBox(wid, pto));
 }

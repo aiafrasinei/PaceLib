@@ -7,14 +7,14 @@
 using namespace PaceLib;
 
 
-Button::Button(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
+Button::Button(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
 
     rect.w = dco.rect.w;
@@ -60,7 +60,7 @@ Button::~Button()
 }
 
 //load all info from conf file ( {dim, color}, {font_name, text}, align )
-void Button::Create(WidgetId wid)
+void Button::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -98,22 +98,34 @@ void Button::Create(WidgetId wid)
     }
 }
 
-void Button::Create(std::string name)
+void Button::Begin(std::string name, bool hasChildren)
 {
-    Button::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Button::Create({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Button::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align)
+void Button::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Button::Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align)
 {
     wid.parent->Add(new Button(wid, dco, fto, align)); 
 }
 
-void Button::Create(WidgetId wid, SDL_Rect dim, std::string text, Align align)
+void Button::Create(ShapeId wid, SDL_Rect dim, std::string text, Align align)
 {
     wid.parent->Add(new Button( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, align));
 }
 
-void Button::Create(WidgetId wid, SDL_Rect dim)
+void Button::Create(ShapeId wid, SDL_Rect dim)
 {
     wid.parent->Add(new Button(wid, { dim, {120, 120, 120, 255} }, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }

@@ -25,10 +25,10 @@ namespace PaceLib
             "x5" : 50,
             "y5" : 230
         }*/
-        static void Create(WidgetId wid);
+        static void Create(ShapeId wid);
         static void Create(std::string name);
 
-        static void Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color);
+        static void Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color);
 
         static void CreateRegular(float x1, float y1, float length);
      
@@ -46,7 +46,7 @@ namespace PaceLib
 
         SDL_Vertex verts[15];
 
-        Pentagon(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color);
+        Pentagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color);
     };
 
 }

@@ -23,14 +23,14 @@ namespace PaceLib
                 "tex_name" : "sn_yellow.png",
                 "over_tex_name" : ""
             }*/
-            static void Create(WidgetId wid);
+            static void Create(ShapeId wid);
             static void Create(std::string name);
 
-            static void Create(WidgetId wid, PropTex normal);
+            static void Create(ShapeId wid, PropTex normal);
 
-            static void Create(WidgetId wid, PropTex normal, PropTex over);
+            static void Create(ShapeId wid, PropTex normal, PropTex over);
 
-            ButtonTex(WidgetId wid, PropTex normal, PropTex over);
+            ButtonTex(ShapeId wid, PropTex normal, PropTex over);
 
             void SetTex(SDL_Texture *tex);
 

@@ -73,6 +73,16 @@ namespace PaceLib
             this->rtype = rtype;
         }
 
+        void SetParent(Shape *p)
+        {
+            this->parent = p;
+        }
+
+        Shape *GetParent()
+        {
+            return this->parent;
+        }
+
         void Update(SDL_Event *e)
         {
 
@@ -112,6 +122,10 @@ namespace PaceLib
         }
 
         DrawTypes rtype;
+
+        Shape *current;
+
+        Shape *parent;
     private:
 
     };

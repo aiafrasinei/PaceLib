@@ -16,12 +16,12 @@ namespace PaceLib
             ~Tabber();
 
             //TODO
-            static void Create(WidgetId wid);
+            static void Create(ShapeId wid);
             static void Create(std::string name);
 
-            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
+            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto);
 
-            static void Create(WidgetId wid, PropDimColor dco);
+            static void Create(ShapeId wid, PropDimColor dco);
 
             void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
@@ -50,7 +50,7 @@ namespace PaceLib
 
             SDL_Rect top;
 
-            Tabber(WidgetId wid, PropDimColor dmo, PropFontText fto);
+            Tabber(ShapeId wid, PropDimColor dmo, PropFontText fto);
     };
 
 }

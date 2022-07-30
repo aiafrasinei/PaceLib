@@ -4,7 +4,7 @@
 
 using namespace PaceLib;
 
-Rectangle::Rectangle(WidgetId wid, SDL_Rect dim, SDL_Color color)
+Rectangle::Rectangle(ShapeId wid, SDL_Rect dim, SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
 
@@ -12,8 +12,8 @@ Rectangle::Rectangle(WidgetId wid, SDL_Rect dim, SDL_Color color)
         rect.x = dim.x;
         rect.y = dim.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dim.x;
-        rect.y = wid.parent->GetRect().y + dim.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dim.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dim.y;
     }
 
     rect.w = dim.w;
@@ -32,7 +32,7 @@ Rectangle::~Rectangle()
 
 }
 
-void Rectangle::Create(WidgetId wid)
+void Rectangle::Create(ShapeId wid)
 {
      if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -51,7 +51,7 @@ void Rectangle::Create(std::string name)
     Rectangle::Create({&Root::GetInstance(), name});
 }
 
-void Rectangle::Create(WidgetId wid, SDL_Rect shape, SDL_Color color)
+void Rectangle::Create(ShapeId wid, SDL_Rect shape, SDL_Color color)
 {
     wid.parent->Add(new Rectangle(wid, shape, color));
 }

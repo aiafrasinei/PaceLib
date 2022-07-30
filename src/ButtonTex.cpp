@@ -6,14 +6,14 @@
 
 using namespace PaceLib;
 
-ButtonTex::ButtonTex(WidgetId wid, PropTex normal, PropTex over)
+ButtonTex::ButtonTex(ShapeId wid, PropTex normal, PropTex over)
 {
     if(wid.parent->name == "root") {
         rect.x = normal.rect.x;
         rect.y = normal.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + normal.rect.x;
-        rect.y = wid.parent->GetRect().y + normal.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + normal.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + normal.rect.y;
     }
     
     rect.w = normal.rect.w;
@@ -45,7 +45,7 @@ ButtonTex::~ButtonTex()
 
 }
 
-void ButtonTex::Create(WidgetId wid)
+void ButtonTex::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -78,13 +78,13 @@ void ButtonTex::Create(std::string name)
     ButtonTex::Create({&Root::GetInstance(), name});
 }
 
-void ButtonTex::Create(WidgetId wid, PropTex normal)
+void ButtonTex::Create(ShapeId wid, PropTex normal)
 {
     PropTex nullp = {nullptr, {0,0,0,255}};
     wid.parent->Add(new ButtonTex(wid, normal, nullp));
 }
 
-void ButtonTex::Create(WidgetId wid, PropTex normal, PropTex over)
+void ButtonTex::Create(ShapeId wid, PropTex normal, PropTex over)
 {
     wid.parent->Add(new ButtonTex(wid, normal, over));
 }

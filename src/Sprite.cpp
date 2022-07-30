@@ -5,7 +5,7 @@
 
 using namespace PaceLib;
 
-Sprite::Sprite(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+Sprite::Sprite(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
     this->tex = tex;
 
@@ -13,8 +13,8 @@ Sprite::Sprite(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
         dest_rect.x = dim.x;
         dest_rect.y = dim.y;
     } else {
-        dest_rect.x = wid.parent->GetRect().x + dim.x;
-        dest_rect.y = wid.parent->GetRect().y + dim.y;
+        dest_rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dim.x;
+        dest_rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dim.y;
     }
 
     dest_rect.w = dim.w;
@@ -39,7 +39,7 @@ Sprite::~Sprite()
 
 }
 
-void Sprite::Create(WidgetId wid)
+void Sprite::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -58,7 +58,7 @@ void Sprite::Create(std::string name)
     Sprite::Create({&Root::GetInstance(), name});
 }
 
-void Sprite::Create(WidgetId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+void Sprite::Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
     wid.parent->Add(new Sprite(wid, tex, dim, offset, nr));
 }

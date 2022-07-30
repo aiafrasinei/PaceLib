@@ -5,14 +5,14 @@
 
 using namespace PaceLib;
 
-TextInput::TextInput(WidgetId wid, PropDimColor dco, PropFontText fto)
+TextInput::TextInput(ShapeId wid, PropDimColor dco, PropFontText fto)
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     rect.w = dco.rect.w;
     rect.h = dco.rect.h;
@@ -35,7 +35,7 @@ TextInput::~TextInput()
 
 }
 
-void TextInput::Create(WidgetId wid)
+void TextInput::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -51,22 +51,34 @@ void TextInput::Create(WidgetId wid)
     }
 }
 
-void TextInput::Create(std::string name)
+void TextInput::Begin(std::string name, bool hasChildren)
 {
-    TextInput::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    TextInput::Create({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void TextInput::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
+void TextInput::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void TextInput::Create(ShapeId wid, PropDimColor dco, PropFontText fto)
 {
     wid.parent->Add(new TextInput( wid, dco, fto));
 }
 
-void TextInput::Create(WidgetId wid, SDL_Rect dim, std::string text)
+void TextInput::Create(ShapeId wid, SDL_Rect dim, std::string text)
 {
     wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
 }
 
-void TextInput::Create(WidgetId wid, SDL_Rect dim)
+void TextInput::Create(ShapeId wid, SDL_Rect dim)
 {
     wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }

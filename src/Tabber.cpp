@@ -11,14 +11,14 @@ static int nrtitles = 0;
 
 unsigned int Tabber::current = 0;
 
-Tabber::Tabber(WidgetId wid, PropDimColor dco, PropFontText fto)
+Tabber::Tabber(ShapeId wid, PropDimColor dco, PropFontText fto)
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -47,7 +47,7 @@ Tabber::~Tabber()
 
 }
 
-void Tabber::Create(WidgetId wid)
+void Tabber::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -67,12 +67,12 @@ void Tabber::Create(std::string name)
     Tabber::Create({&Root::GetInstance(), name});
 }
 
-void Tabber::Create(WidgetId wid, PropDimColor dco, PropFontText fto)
+void Tabber::Create(ShapeId wid, PropDimColor dco, PropFontText fto)
 {
     wid.parent->Add(new Tabber( wid, dco, fto));
 }
 
-void Tabber::Create(WidgetId wid, PropDimColor dco)
+void Tabber::Create(ShapeId wid, PropDimColor dco)
 {
     wid.parent->Add(new Tabber( wid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }

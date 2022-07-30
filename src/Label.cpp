@@ -5,14 +5,14 @@
 
 using namespace PaceLib;
 
-Label::Label(WidgetId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
+Label::Label(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
 {
     if(wid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = wid.parent->GetRect().x + dco.rect.x;
-        rect.y = wid.parent->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -39,7 +39,7 @@ Label::~Label()
 
 }
 
-void Label::Create(WidgetId wid)
+void Label::Create(ShapeId wid)
 {
     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -87,17 +87,30 @@ void Label::Create(WidgetId wid)
     }
 }
 
-void Label::Create(std::string name)
+void Label::Begin(std::string name, bool hasChildren)
 {
-    Label::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Label::Create({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
+
 }
 
-void Label::Create(WidgetId wid, PropDimColor dco, PropFontText fto, Align align)
+void Label::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Label::Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align)
 {
     wid.parent->Add(new Label( wid, dco, fto, align ));
 }
 
-void Label::Create(WidgetId wid, SDL_Rect dim, std::string text)
+void Label::Create(ShapeId wid, SDL_Rect dim, std::string text)
 {
     wid.parent->Add(new Label( wid, {dim, {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
 }

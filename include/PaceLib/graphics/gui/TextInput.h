@@ -23,14 +23,15 @@ namespace PaceLib
                 "font" : "default",
                 "text" : ""
             }*/
-            static void Create(WidgetId wid);
-            static void Create(std::string name);
+            static void Create(ShapeId wid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
 
-            static void Create(WidgetId wid, PropDimColor dco, PropFontText fto);
+            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto);
 
-            static void Create(WidgetId wid, SDL_Rect dim, std::string text);
+            static void Create(ShapeId wid, SDL_Rect dim, std::string text);
 
-            static void Create(WidgetId wid, SDL_Rect dim);
+            static void Create(ShapeId wid, SDL_Rect dim);
 
             void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
@@ -45,7 +46,7 @@ namespace PaceLib
 
             SDL_Color textColor;
 
-            TextInput(WidgetId wid, PropDimColor dmo, PropFontText fto);
+            TextInput(ShapeId wid, PropDimColor dmo, PropFontText fto);
     };
 
 }

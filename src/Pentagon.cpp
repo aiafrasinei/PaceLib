@@ -4,7 +4,7 @@
 
 using namespace PaceLib;
 
-Pentagon::Pentagon(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
+Pentagon::Pentagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
 {
     if(wid.parent->name == "root") {
         points[0] = {static_cast<int>(x1), static_cast<int>(y1)};
@@ -14,12 +14,12 @@ Pentagon::Pentagon(WidgetId wid, float x1, float y1, float x2, float y2, float x
         points[4] = {static_cast<int>(x5), static_cast<int>(y5)};
         points[5] = {static_cast<int>(x1), static_cast<int>(y1)};
     } else {
-        points[0] = {static_cast<int>(wid.parent->GetRect().x + x1), static_cast<int>(wid.parent->GetRect().y + y1)};
-        points[1] = {static_cast<int>(wid.parent->GetRect().x + x2), static_cast<int>(wid.parent->GetRect().y + y2)};
-        points[2] = {static_cast<int>(wid.parent->GetRect().x + x3), static_cast<int>(wid.parent->GetRect().y + y3)};
-        points[3] = {static_cast<int>(wid.parent->GetRect().x + x4), static_cast<int>(wid.parent->GetRect().y + y4)};
-        points[4] = {static_cast<int>(wid.parent->GetRect().x + x5), static_cast<int>(wid.parent->GetRect().y + y5)};
-        points[5] = {static_cast<int>(wid.parent->GetRect().x + x1), static_cast<int>(wid.parent->GetRect().y + y1)};
+        points[0] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
+        points[1] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x2), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y2)};
+        points[2] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y3)};
+        points[3] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x4), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y4)};
+        points[4] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x5), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y5)};
+        points[5] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
     }
 
     float left = 0;
@@ -120,7 +120,7 @@ Pentagon::~Pentagon()
 
 }
 
-void Pentagon::Create(WidgetId wid)
+void Pentagon::Create(ShapeId wid)
 {
      if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
@@ -147,7 +147,7 @@ void Pentagon::Create(std::string name)
     Pentagon::Create({&Root::GetInstance(), name});
 }
 
-void Pentagon::Create(WidgetId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
+void Pentagon::Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
 {
     wid.parent->Add(new Pentagon(wid, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, color));
 }

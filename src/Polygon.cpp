@@ -3,7 +3,7 @@
 
 using namespace PaceLib;
 
-Polygon::Polygon(WidgetId wid, const float * vx, const float * vy, int n)
+Polygon::Polygon(ShapeId wid, const float * vx, const float * vy, int n)
 {
     int i, nn;
 
@@ -16,8 +16,8 @@ Polygon::Polygon(WidgetId wid, const float * vx, const float * vy, int n)
             points[i].x = vx[i];
             points[i].y = vy[i];
         } else {
-            points[i].x = wid.parent->GetRect().x + vx[i];
-            points[i].y = wid.parent->GetRect().y + vy[i];
+            points[i].x = static_cast<Widget *>(wid.parent)->GetRect().x + vx[i];
+            points[i].y = static_cast<Widget *>(wid.parent)->GetRect().y + vy[i];
         }
     }
 
@@ -25,8 +25,8 @@ Polygon::Polygon(WidgetId wid, const float * vx, const float * vy, int n)
         points[n].x = vx[0];
         points[n].y = vy[0];
     } else {
-        points[n].x = wid.parent->GetRect().x + vx[0];
-        points[n].y = wid.parent->GetRect().y + vy[0];
+        points[n].x = static_cast<Widget *>(wid.parent)->GetRect().x + vx[0];
+        points[n].y = static_cast<Widget *>(wid.parent)->GetRect().y + vy[0];
     }
 
     hidden = false;
@@ -42,7 +42,7 @@ Polygon::~Polygon()
     free(points);
 }
 
-void Polygon::Create(WidgetId wid, const float * vx, const float * vy, int n)
+void Polygon::Create(ShapeId wid, const float * vx, const float * vy, int n)
 {
     wid.parent->Add(new Polygon(wid, vx, vy, n));
 }

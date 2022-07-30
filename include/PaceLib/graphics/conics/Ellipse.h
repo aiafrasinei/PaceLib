@@ -19,10 +19,10 @@ namespace PaceLib
             "rx" : 150,
             "ry" : 190
         }*/
-        static void Create(WidgetId wid);
+        static void Create(ShapeId wid);
         static void Create(std::string name);
 
-        static void Create(WidgetId wid, float x, float y, float rx, float ry , SDL_Color color);
+        static void Create(ShapeId wid, float x, float y, float rx, float ry , SDL_Color color);
         
         void SetDrawType(DrawTypes rtype);
 
@@ -34,7 +34,7 @@ namespace PaceLib
     private:
         float x, y, rx, ry;
 
-        Ellipse(WidgetId wid, float x, float y, float rx, float ry, SDL_Color color);
+        Ellipse(ShapeId wid, float x, float y, float rx, float ry, SDL_Color color);
     };
 
 }
