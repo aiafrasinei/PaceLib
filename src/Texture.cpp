@@ -148,14 +148,14 @@ void Tex::SetAlpha(Uint8 a)
 }
 
 
-Texture::Texture(ShapeId wid, SDL_Texture *tex, SDL_Rect dim)
+Texture::Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim)
 {
-	if(wid.parent->name == "root") {
+	if(sid.parent->name == "root") {
         rect.x = dim.x;
         rect.y = dim.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dim.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dim.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
     }
     
     rect.w = dim.w;
@@ -165,7 +165,7 @@ Texture::Texture(ShapeId wid, SDL_Texture *tex, SDL_Rect dim)
 
     this->tex = tex;
 
-	this->name = wid.name;
+	this->name = sid.name;
 
 	ctex = new Tex(tex, 0, 0, dim.w, dim.h);
 
@@ -181,35 +181,35 @@ Texture::~Texture()
 	}
 }
 
-void Texture::Create(ShapeId wid)
+void Texture::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
 
         SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetTex(conf->Get("tex_name").get<std::string>());
-        wid.parent->Add(new Texture(wid, tex, {dim[0], dim[1], dim[2], dim[3]}));
+        sid.parent->Add(new Texture(sid, tex, {dim[0], dim[1], dim[2], dim[3]}));
     }
 }
 
-void Texture::Create(std::string name)
+void Texture::Begin(std::string name)
 {
-    Texture::Create({&Root::GetInstance(), name});
+    Texture::Begin({&Root::GetInstance(), name});
 }
 
-void Texture::Create(ShapeId wid, SDL_Texture *tex, int x, int y)
+void Texture::Begin(ShapeId sid, SDL_Texture *tex, int x, int y)
 {
 	int wl, hl;
 	SDL_QueryTexture(tex, NULL, NULL, &wl, &hl);
 
-	wid.parent->Add(new Texture(wid, tex, {x, y, wl, hl}));
+	sid.parent->Add(new Texture(sid, tex, {x, y, wl, hl}));
 }
 
-void Texture::Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim)
+void Texture::Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim)
 {
-	wid.parent->Add(new Texture(wid, tex, dim));
+	sid.parent->Add(new Texture(sid, tex, dim));
 }
 
 void Texture::Draw()

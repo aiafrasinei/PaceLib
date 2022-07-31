@@ -13,7 +13,11 @@ namespace PaceLib
     class Button : public Widget
     {
         public:
-        
+
+//static methods
+
+// json configuration
+
             /* Loads wconf file
             example format:
             {
@@ -25,15 +29,16 @@ namespace PaceLib
                 "text_color" : [140, 170, 140, 255],
                 "align" : ["mid", "mid"]
             }*/
-            static void Create(ShapeId wid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, SDL_Rect dim);
-            static void Create(ShapeId wid, SDL_Rect dim, std::string text, Align align={V::MID, H::MID});
-            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
+// programmatic
+            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
 
-            Button(ShapeId wid, PropDimColor dco, PropFontText fto, Align align);
+//end static methods
+
+            Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align);
 
             ~Button();
 

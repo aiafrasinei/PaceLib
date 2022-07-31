@@ -11,6 +11,10 @@ namespace PaceLib
         public:
             ~Tooltip();
 
+//static methods
+
+// json configuration
+
             /* Loads wconf file
             example format:
             {
@@ -19,14 +23,16 @@ namespace PaceLib
                 "font" : "default"
                 "text_color" : [100, 100, 100, 255]
             }*/
-            static void Create(ShapeId wid);
-
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, SDL_Color color, Align align={V::MID, H::MID});
+// programatic
 
-            static void Create(ShapeId wid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
+            static void Begin(ShapeId sid, SDL_Color color, Align align={V::MID, H::MID});
+            static void Begin(ShapeId sid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
+
+//end static methods
 
             void Draw();
 
@@ -35,7 +41,7 @@ namespace PaceLib
             void Update(SDL_Event *e);
 
         private:
-            Tooltip(ShapeId wid, SDL_Rect shape, SDL_Color color);
+            Tooltip(ShapeId sid, SDL_Rect shape, SDL_Color color);
     };
 
 
@@ -43,6 +49,11 @@ namespace PaceLib
     class DefaultTooltip : public Widget
     {
         public:
+
+//static methods
+
+// json configuration
+
             /*
             {
                 "text" : "this is a color label",
@@ -51,12 +62,15 @@ namespace PaceLib
                 "color" : "parent",
                 "text_color" : [0, 0, 0, 255]
             }*/
-            static void Create(ShapeId wid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
             
-            static void Create(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
-            static void Create(ShapeId wid, std::string text);
+// programmatic
+
+            static void Begin(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+
+//end static methods
 
             void Draw();
 
@@ -65,7 +79,7 @@ namespace PaceLib
             Text *to;
             SDL_Color textColor;
 
-            DefaultTooltip(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+            DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor);
     };
 
 }

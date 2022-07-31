@@ -4,9 +4,9 @@
 
 using namespace PaceLib;
 
-Tooltip::Tooltip(ShapeId wid, SDL_Rect shape, SDL_Color color)
+Tooltip::Tooltip(ShapeId sid, SDL_Rect shape, SDL_Color color)
 {
-    this->parent = wid.parent;
+    this->parent = sid.parent;
 
     rect.x = shape.x;
     rect.y = shape.y;
@@ -20,7 +20,7 @@ Tooltip::Tooltip(ShapeId wid, SDL_Rect shape, SDL_Color color)
     this->color.b = color.b;
     this->color.a = color.a;
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     wtype = WidgetType::TOOLTIP;
 }
@@ -29,22 +29,22 @@ Tooltip::~Tooltip()
 {
 }
 
-void Tooltip::Create(ShapeId wid)
+void Tooltip::Begin(ShapeId sid)
 {
-    if (std::filesystem::exists("wconfs/" + wid.name + ".conf"))
+    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
     {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
-        SDL_Rect child = static_cast<Widget *>(wid.parent)->GetRect();
+        SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
 
-        wid.parent->Add(new Tooltip(wid, child, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}));
+        sid.parent->Add(new Tooltip(sid, child, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}));
     }
 }
 
 void Tooltip::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Tooltip::Create({(Widget *)root->GetCurrent(), name});
+    Tooltip::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren)
     {
         root->SetCurrent(root->GetTooltip(name));
@@ -57,107 +57,107 @@ void Tooltip::End()
     root->SetCurrent(root);
 }
 
-void Tooltip::Create(ShapeId wid, SDL_Color color, Align align)
+void Tooltip::Begin(ShapeId sid, SDL_Color color, Align align)
 {
-    SDL_Rect child = static_cast<Widget *>(wid.parent)->GetRect();
+    SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
     if (align.valign == V::BOTTOM && align.halign == H::MID)
     {
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::BOTTOM && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::BOTTOM && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
 
     if (align.valign == V::TOP && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::TOP && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::TOP && align.halign == H::MID)
     {
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
 
     if (align.valign == V::MID && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
     }
     else if (align.valign == V::MID && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
     }
     else if (align.valign == V::MID && align.halign == H::MID)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w / 2;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h / 2;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w / 2;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h / 2;
     }
-    wid.parent->Add(new Tooltip(wid, child, color));
+    sid.parent->Add(new Tooltip(sid, child, color));
 }
 
-void Tooltip::Create(ShapeId wid, int w, int h, SDL_Color color, Align align)
+void Tooltip::Begin(ShapeId sid, int w, int h, SDL_Color color, Align align)
 {
-    SDL_Rect child = static_cast<Widget *>(wid.parent)->GetRect();
+    SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
 
     child.w = w;
     child.h = h;
 
     if (align.valign == V::BOTTOM && align.halign == H::MID)
     {
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::BOTTOM && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::BOTTOM && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h;
     }
 
     if (align.valign == V::TOP && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::TOP && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
     else if (align.valign == V::TOP && align.halign == H::MID)
     {
-        child.y = child.y - static_cast<Widget *>(wid.parent)->GetRect().h;
+        child.y = child.y - static_cast<Widget *>(sid.parent)->GetRect().h;
     }
 
     if (align.valign == V::MID && align.halign == H::LEFT)
     {
-        child.x = child.x - static_cast<Widget *>(wid.parent)->GetRect().w;
+        child.x = child.x - static_cast<Widget *>(sid.parent)->GetRect().w;
     }
     else if (align.valign == V::MID && align.halign == H::RIGHT)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w;
     }
     else if (align.valign == V::MID && align.halign == H::MID)
     {
-        child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w / 2;
-        child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h / 2;
+        child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w / 2;
+        child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h / 2;
     }
 
-    wid.parent->Add(new Tooltip(wid, child, color));
+    sid.parent->Add(new Tooltip(sid, child, color));
 }
 
 void Tooltip::Draw()
@@ -196,14 +196,14 @@ void Tooltip::Update(SDL_Event *e)
     }
 }
 
-DefaultTooltip::DefaultTooltip(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color textColor)
+DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor)
 {
-    this->parent = wid.parent;
+    this->parent = sid.parent;
 
-    SDL_Rect child = static_cast<Widget *>(wid.parent)->GetRect();
+    SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
 
-    child.x = child.x + static_cast<Widget *>(wid.parent)->GetRect().w / 2;
-    child.y = child.y + static_cast<Widget *>(wid.parent)->GetRect().h / 2;
+    child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w / 2;
+    child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h / 2;
 
     rect.x = child.x;
     rect.y = child.y;
@@ -219,23 +219,23 @@ DefaultTooltip::DefaultTooltip(ShapeId wid, PropFontText fto, SDL_Color color, S
 
     this->name = name;
 
-    to = Text::Create(fto.font, fto.text, rect.x, rect.y, textColor);
+    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
     to->SetX(this->GetHalfX() - to->GetWidth() / 2);
 }
 
-void DefaultTooltip::Create(ShapeId wid)
+void DefaultTooltip::Begin(ShapeId sid)
 {
-    if (std::filesystem::exists("wconfs/" + wid.name + ".conf"))
+    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
     {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         if (conf->Get("color") == "parent")
         {
-            wid.parent->Add(new DefaultTooltip(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), conf->Get("text").get<std::string>()}, wid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene("Default").GetFont("default"), conf->Get("text").get<std::string>()}, sid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
         }
         else
         {
-            wid.parent->Add(new DefaultTooltip(wid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
         }
     }
 }
@@ -243,7 +243,7 @@ void DefaultTooltip::Create(ShapeId wid)
 void DefaultTooltip::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    DefaultTooltip::Create({(Widget *)root->GetCurrent(), name});
+    DefaultTooltip::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren)
     {
         Shape *prevParent = root->GetCurrent();
@@ -258,14 +258,9 @@ void DefaultTooltip::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void DefaultTooltip::Create(ShapeId wid, PropFontText fto, SDL_Color color, SDL_Color text_color)
+void DefaultTooltip::Begin(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color text_color)
 {
-    wid.parent->Add(new DefaultTooltip(wid, fto, color, {0, 0, 0, 255}));
-}
-
-void DefaultTooltip::Create(ShapeId wid, std::string text)
-{
-    wid.parent->Add(new DefaultTooltip(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, wid.parent->GetColor(), {0, 0, 0, 255}));
+    sid.parent->Add(new DefaultTooltip(sid, fto, color, {0, 0, 0, 255}));
 }
 
 void DefaultTooltip::Draw()

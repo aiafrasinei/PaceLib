@@ -9,6 +9,7 @@ var dir_d6ac1025be72575491bead3fbbf645c1 =
     [ "Root.h", "Root_8h_source.html", null ],
     [ "Tab.h", "Tab_8h_source.html", null ],
     [ "Tabber.h", "Tabber_8h_source.html", null ],
+    [ "Text.h", "Text_8h_source.html", null ],
     [ "TextArea.h", "TextArea_8h_source.html", null ],
     [ "TextInput.h", "TextInput_8h_source.html", null ],
     [ "Texture.h", "Texture_8h_source.html", null ],

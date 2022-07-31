@@ -6,14 +6,14 @@
 
 using namespace PaceLib;
 
-ButtonTex::ButtonTex(ShapeId wid, PropTex normal, PropTex over)
+ButtonTex::ButtonTex(ShapeId sid, PropTex normal, PropTex over)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = normal.rect.x;
         rect.y = normal.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + normal.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + normal.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + normal.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + normal.rect.y;
     }
     
     rect.w = normal.rect.w;
@@ -25,7 +25,7 @@ ButtonTex::ButtonTex(ShapeId wid, PropTex normal, PropTex over)
 
     this->over = {over.tex, over.rect};
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     mouseOver = false;
 
@@ -45,10 +45,10 @@ ButtonTex::~ButtonTex()
 
 }
 
-void ButtonTex::Create(ShapeId wid)
+void ButtonTex::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -57,36 +57,48 @@ void ButtonTex::Create(ShapeId wid)
         ButtonTex *btex = nullptr;
         if(conf->Get("over_tex_name").get<std::string>() == "") {
             PropTex nullp = {nullptr, {0,0,0,255}};
-            btex = new ButtonTex( wid, 
+            btex = new ButtonTex( sid, 
                 {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
                 nullp);
         } else {
-            btex = new ButtonTex( wid, 
+            btex = new ButtonTex( sid, 
                 {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
                 {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("over_tex_name")), {dim[0], dim[1], dim[2], dim[3]}});
         }
 
         btex->conf = conf;
         if(btex != nullptr) {
-            wid.parent->Add(btex);
+            sid.parent->Add(btex);
         }
     }
 }
 
-void ButtonTex::Create(std::string name)
+void ButtonTex::Begin(std::string name, bool hasChildren)
 {
-    ButtonTex::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    ButtonTex::Create({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void ButtonTex::Create(ShapeId wid, PropTex normal)
+void ButtonTex::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void ButtonTex::Create(ShapeId sid, PropTex normal)
 {
     PropTex nullp = {nullptr, {0,0,0,255}};
-    wid.parent->Add(new ButtonTex(wid, normal, nullp));
+    sid.parent->Add(new ButtonTex(sid, normal, nullp));
 }
 
-void ButtonTex::Create(ShapeId wid, PropTex normal, PropTex over)
+void ButtonTex::Create(ShapeId sid, PropTex normal, PropTex over)
 {
-    wid.parent->Add(new ButtonTex(wid, normal, over));
+    sid.parent->Add(new ButtonTex(sid, normal, over));
 }
 
 void ButtonTex::Draw()

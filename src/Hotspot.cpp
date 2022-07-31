@@ -6,14 +6,14 @@
 
 using namespace PaceLib;
 
-Hotspot::Hotspot(ShapeId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
+Hotspot::Hotspot(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         this->rect.x = dco.rect.x;
         this->rect.y = dco.rect.y;
     } else {
-        this->rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        this->rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        this->rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        this->rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
     
     this->rect.w = dco.rect.w;
@@ -21,7 +21,7 @@ Hotspot::Hotspot(ShapeId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
 
     hidden = false;
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     mouseOver = false;
 
@@ -43,15 +43,15 @@ Hotspot::~Hotspot()
 
 }
 
-void Hotspot::Create(ShapeId wid)
+void Hotspot::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
 
-        wid.parent->Add(new Hotspot(wid, { {dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]} }));
+        sid.parent->Add(new Hotspot(sid, { {dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]} }));
     }
 }
 
@@ -60,9 +60,9 @@ void Hotspot::Create(std::string name)
     Hotspot::Create({&Root::GetInstance(), name});
 }
 
-void Hotspot::Create(ShapeId wid, PropDimColor dco, Hover type, SDL_Texture *tex)
+void Hotspot::Create(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
-    wid.parent->Add(new Hotspot(wid, dco, type, tex));
+    sid.parent->Add(new Hotspot(sid, dco, type, tex));
 }
 
 

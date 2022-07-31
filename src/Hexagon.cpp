@@ -5,9 +5,9 @@
 using namespace PaceLib;
 
 
-Hexagon::Hexagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
+Hexagon::Hexagon(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         points[0] = {static_cast<int>(x1), static_cast<int>(y1)};
         points[1] = {static_cast<int>(x2), static_cast<int>(y2)};
         points[2] = {static_cast<int>(x3), static_cast<int>(y3)};
@@ -16,13 +16,13 @@ Hexagon::Hexagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, 
         points[5] = {static_cast<int>(x6), static_cast<int>(y6)};
         points[6] = {static_cast<int>(x1), static_cast<int>(y1)};
     } else {
-        points[0] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
-        points[1] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + 2), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y2)};
-        points[2] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y3)};
-        points[3] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x4), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y4)};
-        points[4] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x5), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y5)};
-        points[5] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x6), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y6)};
-        points[6] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
+        points[0] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
+        points[1] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + 2), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y2)};
+        points[2] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y3)};
+        points[3] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x4), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y4)};
+        points[4] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x5), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y5)};
+        points[5] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x6), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y6)};
+        points[6] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
     }
 
     float left = 0;
@@ -125,7 +125,7 @@ Hexagon::Hexagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, 
 
     SetColor(color.r, color.g, color.b, color.a);
     
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 Hexagon::~Hexagon()
@@ -133,10 +133,10 @@ Hexagon::~Hexagon()
 
 }
 
-void Hexagon::Create(ShapeId wid)
+void Hexagon::Create(ShapeId sid)
 {
-     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int x1 = conf->Get("x1");
         int y1 = conf->Get("y1");
@@ -153,7 +153,7 @@ void Hexagon::Create(ShapeId wid)
         
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        wid.parent->Add(new Hexagon(wid, x1, y1, x2, y2, x3, y3, y4, y4, x5, y5, x6, y6, color));
+        sid.parent->Add(new Hexagon(sid, x1, y1, x2, y2, x3, y3, y4, y4, x5, y5, x6, y6, color));
     }
 }
 
@@ -162,9 +162,9 @@ void Hexagon::Create(std::string name)
     Hexagon::Create({&Root::GetInstance(), name});
 }
 
-void Hexagon::Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
+void Hexagon::Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
 {
-    wid.parent->Add(new Hexagon(wid, x1, y1, x2, y2, x3, y3, y4, y4, x5, y5, x6, y6, color));
+    sid.parent->Add(new Hexagon(sid, x1, y1, x2, y2, x3, y3, y4, y4, x5, y5, x6, y6, color));
 }
 
 /*Hexagon *Hexagon::CreateRegular(float x1, float y1, float length)

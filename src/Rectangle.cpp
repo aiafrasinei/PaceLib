@@ -4,16 +4,16 @@
 
 using namespace PaceLib;
 
-Rectangle::Rectangle(ShapeId wid, SDL_Rect dim, SDL_Color color)
+Rectangle::Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
 
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dim.x;
         rect.y = dim.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dim.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dim.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
     }
 
     rect.w = dim.w;
@@ -24,7 +24,7 @@ Rectangle::Rectangle(ShapeId wid, SDL_Rect dim, SDL_Color color)
     
     rtype = DrawTypes::OUTLINE;
 
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 Rectangle::~Rectangle()
@@ -32,17 +32,17 @@ Rectangle::~Rectangle()
 
 }
 
-void Rectangle::Create(ShapeId wid)
+void Rectangle::Create(ShapeId sid)
 {
-     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
 
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        wid.parent->Add(new Rectangle(wid, {dim[0], dim[1], dim[2], dim[3]}, color));
+        sid.parent->Add(new Rectangle(sid, {dim[0], dim[1], dim[2], dim[3]}, color));
     }
 }
 
@@ -51,9 +51,9 @@ void Rectangle::Create(std::string name)
     Rectangle::Create({&Root::GetInstance(), name});
 }
 
-void Rectangle::Create(ShapeId wid, SDL_Rect shape, SDL_Color color)
+void Rectangle::Create(ShapeId sid, SDL_Rect shape, SDL_Color color)
 {
-    wid.parent->Add(new Rectangle(wid, shape, color));
+    sid.parent->Add(new Rectangle(sid, shape, color));
 }
 
 void Rectangle::Draw()

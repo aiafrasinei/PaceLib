@@ -5,14 +5,14 @@
 
 using namespace PaceLib;
 
-TextInput::TextInput(ShapeId wid, PropDimColor dco, PropFontText fto)
+TextInput::TextInput(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
     rect.w = dco.rect.w;
     rect.h = dco.rect.h;
@@ -23,9 +23,9 @@ TextInput::TextInput(ShapeId wid, PropDimColor dco, PropFontText fto)
 
     textColor = {0, 0, 0, 255};
 
-    to = Text::Create(fto.font, fto.text, rect.x, rect.y, textColor);
+    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     wtype = WidgetType::TEXTINPUT;
 }
@@ -35,10 +35,10 @@ TextInput::~TextInput()
 
 }
 
-void TextInput::Create(ShapeId wid)
+void TextInput::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -47,14 +47,14 @@ void TextInput::Create(ShapeId wid)
             {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
         PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
         
-        wid.parent->Add(new TextInput(wid, dco, fto));
+        sid.parent->Add(new TextInput(sid, dco, fto));
     }
 }
 
 void TextInput::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    TextInput::Create({root->GetCurrent(), name});
+    TextInput::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
@@ -68,19 +68,9 @@ void TextInput::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void TextInput::Create(ShapeId wid, PropDimColor dco, PropFontText fto)
+void TextInput::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
-    wid.parent->Add(new TextInput( wid, dco, fto));
-}
-
-void TextInput::Create(ShapeId wid, SDL_Rect dim, std::string text)
-{
-    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
-}
-
-void TextInput::Create(ShapeId wid, SDL_Rect dim)
-{
-    wid.parent->Add(new TextInput( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
+    sid.parent->Add(new TextInput( sid, dco, fto));
 }
 
 void TextInput::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)

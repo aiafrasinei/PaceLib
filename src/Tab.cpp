@@ -4,14 +4,14 @@
 
 using namespace PaceLib;
 
-Tab::Tab(ShapeId wid, PropDimColor dco)
+Tab::Tab(ShapeId sid, PropDimColor dco)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -25,8 +25,8 @@ Tab::Tab(ShapeId wid, PropDimColor dco)
     this->color.b = dco.color.b;
     this->color.a = dco.color.a;
 
-    this->name = wid.name;
-    this->parent = wid.parent;
+    this->name = sid.name;
+    this->parent = sid.parent;
 
     wtype = WidgetType::TAB;
 }
@@ -36,10 +36,10 @@ Tab::~Tab()
 
 }
 
-void Tab::Create(ShapeId wid)
+void Tab::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -55,14 +55,14 @@ void Tab::Create(ShapeId wid)
         dco.rect.w = dim[2];
         dco.rect.h = dim[3];
 
-        wid.parent->Add(new Tab(wid, dco));
+        sid.parent->Add(new Tab(sid, dco));
     }
 }
 
 void Tab::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Tab::Create({(Widget *)root->GetCurrent(), name});
+    Tab::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren) {
         root->SetCurrent(root->GetTab(name));
     }
@@ -74,9 +74,9 @@ void Tab::End()
     root->SetCurrent(root);
 }
 
-void Tab::Create(ShapeId wid, PropDimColor dco)
+void Tab::Begin(ShapeId sid, PropDimColor dco)
 {
-    wid.parent->Add(new Tab(wid, dco));
+    sid.parent->Add(new Tab(sid, dco));
 }
 
 void Tab::Draw()

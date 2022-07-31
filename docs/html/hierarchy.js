@@ -9,15 +9,14 @@ var hierarchy =
         [ "PaceLib::Circle", "classPaceLib_1_1Circle.html", null ],
         [ "PaceLib::Ellipse", "classPaceLib_1_1Ellipse.html", null ],
         [ "PaceLib::Hexagon", "classPaceLib_1_1Hexagon.html", null ],
-        [ "PaceLib::HorizontalLine", "classPaceLib_1_1HorizontalLine.html", null ],
         [ "PaceLib::Line", "classPaceLib_1_1Line.html", null ],
         [ "PaceLib::Pentagon", "classPaceLib_1_1Pentagon.html", null ],
         [ "PaceLib::Polygon", "classPaceLib_1_1Polygon.html", null ],
         [ "PaceLib::Rectangle", "classPaceLib_1_1Rectangle.html", null ],
         [ "PaceLib::Sprite", "classPaceLib_1_1Sprite.html", null ],
         [ "PaceLib::Text", "classPaceLib_1_1Text.html", null ],
+        [ "PaceLib::ThickLine", "classPaceLib_1_1ThickLine.html", null ],
         [ "PaceLib::Triangle", "classPaceLib_1_1Triangle.html", null ],
-        [ "PaceLib::VerticalLine", "classPaceLib_1_1VerticalLine.html", null ],
         [ "PaceLib::Widget", "classPaceLib_1_1Widget.html", [
           [ "PaceLib::Button", "classPaceLib_1_1Button.html", null ],
           [ "PaceLib::ButtonTex", "classPaceLib_1_1ButtonTex.html", null ],
@@ -58,6 +57,7 @@ var hierarchy =
     [ "PaceLib::PropFontText", "structPaceLib_1_1PropFontText.html", null ],
     [ "PaceLib::PropTex", "structPaceLib_1_1PropTex.html", null ],
     [ "Random", "classRandom.html", null ],
+    [ "PaceLib::ShapeId", "structPaceLib_1_1ShapeId.html", null ],
     [ "State", "classState.html", null ],
     [ "tColorRGBA", "structtColorRGBA.html", null ],
     [ "tColorY", "structtColorY.html", null ],
@@ -66,6 +66,5 @@ var hierarchy =
     [ "Updateable", "classUpdateable.html", [
       [ "PaceLib::Shape", "classPaceLib_1_1Shape.html", null ]
     ] ],
-    [ "PaceLib::WidgetId", "structPaceLib_1_1WidgetId.html", null ],
     [ "Window", "classWindow.html", null ]
 ];

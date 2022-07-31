@@ -16,10 +16,10 @@ namespace PaceLib
             "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
             "color" : [40, 40, 40, 255],
         }*/
-        static void Create(ShapeId wid);
+        static void Create(ShapeId sid);
         static void Create(std::string name);
         
-        static void Create(ShapeId wid, SDL_Rect dim, SDL_Color color);
+        static void Create(ShapeId sid, SDL_Rect dim, SDL_Color color);
 
         void SetRect(float x, float y, float w , float h);
 
@@ -35,7 +35,7 @@ namespace PaceLib
 
         bool rounded;
 
-        Rectangle(ShapeId wid, SDL_Rect dim, SDL_Color color);
+        Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color);
     };
 
 }

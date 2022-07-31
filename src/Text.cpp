@@ -4,16 +4,16 @@
 
 using namespace PaceLib;
 
-Text::Text(ShapeId wid, PropFontText fto, int x, int y, SDL_Color color)
+Text::Text(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color)
 {
     this->font = fto.font;
     this->text = fto.text;
-     if(wid.parent->name == "root") {
+     if(sid.parent->name == "root") {
         this->x = x;
         this->y = y;
     } else {
-        this->x = static_cast<Widget *>(wid.parent)->GetRect().x + x;
-        this->y = static_cast<Widget *>(wid.parent)->GetRect().y + y;
+        this->x = static_cast<Widget *>(sid.parent)->GetRect().x + x;
+        this->y = static_cast<Widget *>(sid.parent)->GetRect().y + y;
     }
 
     SetColor(color.r, color.g, color.b, color.a);
@@ -22,7 +22,7 @@ Text::Text(ShapeId wid, PropFontText fto, int x, int y, SDL_Color color)
 
     rect = FC_DrawColor(fto.font, Window::GetRenderer(), this->x, this->y, color, text.c_str());
 
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 Text::Text(FC_Font *font, int x, int y, SDL_Color color, std::string text)
@@ -44,28 +44,28 @@ Text::~Text()
 
 }
 
-void Text::Create(ShapeId wid)
+void Text::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int pos[2];
         Widget::ParsePos(pos, conf);
 
-        Text *t = new Text(wid, 
+        Text *t = new Text(sid, 
         {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
         pos[0], pos[1],
         {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
 
         t->conf = conf;
-        wid.parent->Add(t);
+        sid.parent->Add(t);
     }
 }
 
 void Text::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Text::Create({(Widget *)root->GetCurrent(), name});
+    Text::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
@@ -80,17 +80,12 @@ void Text::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Text::Create(ShapeId wid, PropFontText fto, int x, int y, SDL_Color color)
+void Text::Begin(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color)
 {
-    wid.parent->Add(new Text(wid, fto, x, y, color));
+    sid.parent->Add(new Text(sid, fto, x, y, color));
 }
 
-void Text::Create(ShapeId wid, int x, int y, SDL_Color color, std::string text)
-{
-    wid.parent->Add(new Text(wid, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, x, y, color));
-}
-
-Text *Text::Create(FC_Font *font,  std::string text, int x, int y, SDL_Color color)
+Text *Text::Begin(FC_Font *font,  std::string text, int x, int y, SDL_Color color)
 {
     return new Text(font, x, y, color, text);
 }

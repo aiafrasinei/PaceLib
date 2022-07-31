@@ -10,7 +10,8 @@ var searchData=
   ['textarea_48',['TextArea',['../classPaceLib_1_1TextArea.html',1,'PaceLib']]],
   ['textinput_49',['TextInput',['../classPaceLib_1_1TextInput.html',1,'PaceLib']]],
   ['texture_50',['Texture',['../classPaceLib_1_1Texture.html',1,'PaceLib']]],
-  ['timer_51',['Timer',['../classPaceLib_1_1Timer.html',1,'PaceLib']]],
-  ['tooltip_52',['Tooltip',['../classPaceLib_1_1Tooltip.html',1,'PaceLib']]],
-  ['triangle_53',['Triangle',['../classPaceLib_1_1Triangle.html',1,'PaceLib']]]
+  ['thickline_51',['ThickLine',['../classPaceLib_1_1ThickLine.html',1,'PaceLib']]],
+  ['timer_52',['Timer',['../classPaceLib_1_1Timer.html',1,'PaceLib']]],
+  ['tooltip_53',['Tooltip',['../classPaceLib_1_1Tooltip.html',1,'PaceLib']]],
+  ['triangle_54',['Triangle',['../classPaceLib_1_1Triangle.html',1,'PaceLib']]]
 ];

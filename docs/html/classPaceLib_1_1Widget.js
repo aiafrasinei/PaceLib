@@ -14,7 +14,6 @@ var classPaceLib_1_1Widget =
     [ "SetRectX", "classPaceLib_1_1Widget.html#ab84b6fb140a6178d28dfb10700f03c1a", null ],
     [ "SetRectY", "classPaceLib_1_1Widget.html#ac07d4174e4fd81d8b533ae43c9e73b98", null ],
     [ "borderColor", "classPaceLib_1_1Widget.html#a5bb4992ab5858c7b9a8846dc564084d0", null ],
-    [ "parent", "classPaceLib_1_1Widget.html#a3978f42879822a3d46e6cbf2fb6c7e64", null ],
     [ "rect", "classPaceLib_1_1Widget.html#a2528dcf59d7afc26f45b20a5a1da3a3e", null ],
     [ "wtype", "classPaceLib_1_1Widget.html#a323b0aa4c00564807de472e5763bbe4f", null ]
 ];

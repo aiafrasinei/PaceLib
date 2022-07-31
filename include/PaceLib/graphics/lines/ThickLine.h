@@ -20,10 +20,10 @@ namespace PaceLib
             "y2" : 200,
             "size" : 2
         }*/
-        static void Create(WidgetId wid);
+        static void Create(WidgetId sid);
         static void Create(std::string name);
         
-        static void Create(WidgetId wid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
+        static void Create(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
 
         void Draw();
 
@@ -37,7 +37,7 @@ namespace PaceLib
 
         int x1, y1, x2, y2;
 
-        ThickLine(WidgetId wid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
+        ThickLine(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
     };
 
 }

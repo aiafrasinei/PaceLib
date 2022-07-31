@@ -28,10 +28,10 @@ namespace PaceLib
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "color" : [80, 70, 80, 255]
             }*/
-            static void Create(ShapeId wid);
+            static void Create(ShapeId sid);
             static void Create(std::string name);
             
-            static void Create(ShapeId wid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+            static void Create(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
 
             void SetHighlight(bool state);
             
@@ -46,7 +46,7 @@ namespace PaceLib
             std::function<void(void)> onClickCallback;
 
         private:
-            Hotspot(ShapeId wid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+            Hotspot(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
 
             bool mouseOver;
 

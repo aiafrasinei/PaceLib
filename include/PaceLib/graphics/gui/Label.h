@@ -11,8 +11,10 @@ namespace PaceLib
     class Label : public Widget
     {
         public:
-            ~Label();
 
+//static methods
+
+// json configuration
             /* Loads wconf file
             example format:
             {
@@ -24,18 +26,22 @@ namespace PaceLib
                 "text_color" : [0, 0, 0, 255],
                 "align" : ["mid", "mid"]
             }*/
-            static void Create(ShapeId wid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
-            static void Create(ShapeId wid, SDL_Rect dim, std::string text);
+// programmatic
+            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
+
+//end static methods
 
             void SetTextAlign(Align align);
 
             void SetTextColor(SDL_Color color);
 
             void Draw();
+
+            ~Label();
 
         private:
             Text *to;
@@ -44,7 +50,7 @@ namespace PaceLib
 
             Align align;
 
-            Label(ShapeId wid, PropDimColor dmo, PropFontText fto, Align align);
+            Label(ShapeId sid, PropDimColor dmo, PropFontText fto, Align align);
 
             void InternalAlign(Align align);
     };

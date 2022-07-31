@@ -5,14 +5,14 @@
 using namespace PaceLib;
 
 
-Circle::Circle(ShapeId wid, float x, float y, float radius, SDL_Color color)
+Circle::Circle(ShapeId sid, float x, float y, float radius, SDL_Color color)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         this->x = x;
         this->y = y;
     } else {
-        this->x = static_cast<Widget *>(wid.parent)->GetRect().x + x;
-        this->y = static_cast<Widget *>(wid.parent)->GetRect().y + y;
+        this->x = static_cast<Widget *>(sid.parent)->GetRect().x + x;
+        this->y = static_cast<Widget *>(sid.parent)->GetRect().y + y;
     }
 
     this->radius = radius;
@@ -23,7 +23,7 @@ Circle::Circle(ShapeId wid, float x, float y, float radius, SDL_Color color)
 
     SetColor(color.r, color.g, color.b, color.a);
 
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 Circle::~Circle()
@@ -31,17 +31,17 @@ Circle::~Circle()
 
 }
 
-void Circle::Create(ShapeId wid)
+void Circle::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int x = conf->Get("x");
         int y = conf->Get("y");
         int radius = conf->Get("radius");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        wid.parent->Add(new Circle(wid, x, y, radius, color));
+        sid.parent->Add(new Circle(sid, x, y, radius, color));
     }
 }
 
@@ -50,9 +50,9 @@ void Circle::Create(std::string name)
     Circle::Create({&Root::GetInstance(), name});
 }
 
-void Circle::Create(ShapeId wid, float x, float y, float radius, SDL_Color color)
+void Circle::Create(ShapeId sid, float x, float y, float radius, SDL_Color color)
 {
-    wid.parent->Add(new Circle(wid, x, y, radius, color));
+    sid.parent->Add(new Circle(sid, x, y, radius, color));
 }
 
 void Circle::Draw()

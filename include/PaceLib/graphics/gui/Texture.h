@@ -36,20 +36,27 @@ namespace PaceLib
     class Texture : public Widget
     {
     public:
-        ~Texture();
-        
+
+//static methods
+
+// json configuration
+
         /* Loads wconf file
         example format:
         {
             "tex_name": "tex.png",
             "dim" : [10, 10, 100 , 100]
         }*/
-        static void Create(ShapeId wid);
-        static void Create(std::string name);
+        static void Begin(ShapeId sid);
+        static void Begin(std::string name);
 
-        static void Create(ShapeId wid, SDL_Texture *tex, int x, int y);
-        static void Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim);
-        
+// programatic
+
+        static void Begin(ShapeId sid, SDL_Texture *tex, int x, int y);
+        static void Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim);
+
+//end static methods
+
         void Draw();
 
         void SetColor(Uint8 r, Uint8 g, Uint8 b);
@@ -58,6 +65,8 @@ namespace PaceLib
 
         int GetWidth();
         int GetHeight();
+
+        ~Texture();
     protected:
 
     private:
@@ -66,7 +75,7 @@ namespace PaceLib
 
         Tex *ctex;
 
-        Texture(ShapeId wid, SDL_Texture *tex, SDL_Rect dim);
+        Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim);
     };
 
 }

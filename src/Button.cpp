@@ -7,14 +7,14 @@
 using namespace PaceLib;
 
 
-Button::Button(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
+Button::Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
 
     rect.w = dco.rect.w;
@@ -28,14 +28,14 @@ Button::Button(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::
 
     textColor = {0, 0, 0, 255};
 
-    if(wid.parent->name == "root") {
-        to = Text::Create(fto.font, fto.text, rect.x + rect.w/50, rect.y, textColor);
+    if(sid.parent->name == "root") {
+        to = Text::Begin(fto.font, fto.text, rect.x + rect.w/50, rect.y, textColor);
     } else {
-        to = Text::Create(fto.font, fto.text, rect.x + rect.w/10, rect.y, textColor);
+        to = Text::Begin(fto.font, fto.text, rect.x + rect.w/10, rect.y, textColor);
     }
     InternalAlign(align);
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     mouseOver = false;
 
@@ -60,10 +60,10 @@ Button::~Button()
 }
 
 //load all info from conf file ( {dim, color}, {font_name, text}, align )
-void Button::Create(ShapeId wid)
+void Button::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -85,7 +85,7 @@ void Button::Create(ShapeId wid)
             align.halign = H::RIGHT;
         }
 
-        Button *lb = new Button( wid, 
+        Button *lb = new Button( sid, 
             {{dim[0], dim[1], dim[2], dim[3]},
             {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
             {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
@@ -94,14 +94,14 @@ void Button::Create(ShapeId wid)
         lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
 
         lb->conf = conf;
-        wid.parent->Add(lb);
+        sid.parent->Add(lb);
     }
 }
 
 void Button::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Button::Create({(Widget *)root->GetCurrent(), name});
+    Button::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
@@ -115,19 +115,9 @@ void Button::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Button::Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align)
+void Button::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align)
 {
-    wid.parent->Add(new Button(wid, dco, fto, align)); 
-}
-
-void Button::Create(ShapeId wid, SDL_Rect dim, std::string text, Align align)
-{
-    wid.parent->Add(new Button( wid, {dim, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, align));
-}
-
-void Button::Create(ShapeId wid, SDL_Rect dim)
-{
-    wid.parent->Add(new Button(wid, { dim, {120, 120, 120, 255} }, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
+    sid.parent->Add(new Button(sid, dco, fto, align)); 
 }
 
 void Button::InternalAlign(Align align)

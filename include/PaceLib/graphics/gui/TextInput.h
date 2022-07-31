@@ -12,8 +12,10 @@ namespace PaceLib
     class TextInput : public Widget, public Focusable
     {
         public:
-            ~TextInput();
 
+//static methods
+
+// json configuration
             /* Loads wconf file
             example format:
             }
@@ -23,15 +25,14 @@ namespace PaceLib
                 "font" : "default",
                 "text" : ""
             }*/
-            static void Create(ShapeId wid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, PropDimColor dco, PropFontText fto);
+// programatic
+            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
 
-            static void Create(ShapeId wid, SDL_Rect dim, std::string text);
-
-            static void Create(ShapeId wid, SDL_Rect dim);
+//end static methods
 
             void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
@@ -41,12 +42,13 @@ namespace PaceLib
 
             std::string GetText();
             
+            ~TextInput();
         private:
             Text *to;
 
             SDL_Color textColor;
 
-            TextInput(ShapeId wid, PropDimColor dmo, PropFontText fto);
+            TextInput(ShapeId sid, PropDimColor dmo, PropFontText fto);
     };
 
 }

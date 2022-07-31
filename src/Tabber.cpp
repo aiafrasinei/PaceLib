@@ -11,14 +11,14 @@ static int nrtitles = 0;
 
 unsigned int Tabber::current = 0;
 
-Tabber::Tabber(ShapeId wid, PropDimColor dco, PropFontText fto)
+Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -30,7 +30,7 @@ Tabber::Tabber(ShapeId wid, PropDimColor dco, PropFontText fto)
 
     textColor = {0, 0, 0, 255};
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     current = 0;
     xb = rect.y/99;
@@ -47,10 +47,10 @@ Tabber::~Tabber()
 
 }
 
-void Tabber::Create(ShapeId wid)
+void Tabber::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -58,7 +58,7 @@ void Tabber::Create(ShapeId wid)
         PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
         PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), ""};
 
-        wid.parent->Add(new Tabber( wid, dco, fto));
+        sid.parent->Add(new Tabber( sid, dco, fto));
     }
 }
 
@@ -67,14 +67,14 @@ void Tabber::Create(std::string name)
     Tabber::Create({&Root::GetInstance(), name});
 }
 
-void Tabber::Create(ShapeId wid, PropDimColor dco, PropFontText fto)
+void Tabber::Create(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
-    wid.parent->Add(new Tabber( wid, dco, fto));
+    sid.parent->Add(new Tabber( sid, dco, fto));
 }
 
-void Tabber::Create(ShapeId wid, PropDimColor dco)
+void Tabber::Create(ShapeId sid, PropDimColor dco)
 {
-    wid.parent->Add(new Tabber( wid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
+    sid.parent->Add(new Tabber( sid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }
 
 void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)

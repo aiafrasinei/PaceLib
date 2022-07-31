@@ -5,16 +5,16 @@
 
 using namespace PaceLib;
 
-Sprite::Sprite(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+Sprite::Sprite(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
     this->tex = tex;
 
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         dest_rect.x = dim.x;
         dest_rect.y = dim.y;
     } else {
-        dest_rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dim.x;
-        dest_rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dim.y;
+        dest_rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
+        dest_rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
     }
 
     dest_rect.w = dim.w;
@@ -22,7 +22,7 @@ Sprite::Sprite(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 
     hidden = false;
     
-    this->name = wid.name;
+    this->name = sid.name;
 
     this->offset = offset;
     this->nr = nr;
@@ -39,17 +39,17 @@ Sprite::~Sprite()
 
 }
 
-void Sprite::Create(ShapeId wid)
+void Sprite::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
     
         SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetTex(conf->Get("tex_name").get<std::string>());
 
-        wid.parent->Add(new Sprite(wid, tex, {dim[0], dim[1], dim[2], dim[3]}, conf->Get("offset").get<int>(), conf->Get("nr").get<int>()));
+        sid.parent->Add(new Sprite(sid, tex, {dim[0], dim[1], dim[2], dim[3]}, conf->Get("offset").get<int>(), conf->Get("nr").get<int>()));
     }
 }
 
@@ -58,9 +58,9 @@ void Sprite::Create(std::string name)
     Sprite::Create({&Root::GetInstance(), name});
 }
 
-void Sprite::Create(ShapeId wid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+void Sprite::Create(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
-    wid.parent->Add(new Sprite(wid, tex, dim, offset, nr));
+    sid.parent->Add(new Sprite(sid, tex, dim, offset, nr));
 }
 
 void Sprite::Draw()

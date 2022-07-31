@@ -5,14 +5,14 @@
 
 using namespace PaceLib;
 
-Label::Label(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
+Label::Label(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID})
 {
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
     } else {
-        rect.x = static_cast<Widget *>(wid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(wid.parent)->GetRect().y + dco.rect.y;
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
     
     rect.w = dco.rect.w;
@@ -26,10 +26,10 @@ Label::Label(ShapeId wid, PropDimColor dco, PropFontText fto, Align align={V::MI
 
     textColor = {0, 0, 0, 255};
 
-    to = Text::Create(fto.font, fto.text, rect.x, rect.y, textColor);
+    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
     InternalAlign(align);
 
-    this->name = wid.name;
+    this->name = sid.name;
 
     wtype = WidgetType::LABEL;
 }
@@ -39,10 +39,10 @@ Label::~Label()
 
 }
 
-void Label::Create(ShapeId wid)
+void Label::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -66,14 +66,14 @@ void Label::Create(ShapeId wid)
 
         Label *lb = nullptr;
         if (conf->Get("color") == "parent") {
-            lb = new Label( wid, 
+            lb = new Label( sid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
-                {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}},
+                {sid.parent->GetColor().r, sid.parent->GetColor().g, sid.parent->GetColor().b, sid.parent->GetColor().a}},
                 {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
                 align);
 
         } else {
-            lb = new Label( wid, 
+            lb = new Label( sid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
                 {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
                 {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
@@ -83,14 +83,14 @@ void Label::Create(ShapeId wid)
         lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
 
         lb->conf = conf;
-        wid.parent->Add(lb);
+        sid.parent->Add(lb);
     }
 }
 
 void Label::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Label::Create({root->GetCurrent(), name});
+    Label::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
@@ -105,14 +105,9 @@ void Label::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Label::Create(ShapeId wid, PropDimColor dco, PropFontText fto, Align align)
+void Label::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align)
 {
-    wid.parent->Add(new Label( wid, dco, fto, align ));
-}
-
-void Label::Create(ShapeId wid, SDL_Rect dim, std::string text)
-{
-    wid.parent->Add(new Label( wid, {dim, {wid.parent->GetColor().r, wid.parent->GetColor().g, wid.parent->GetColor().b, wid.parent->GetColor().a}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}));
+    sid.parent->Add(new Label( sid, dco, fto, align ));
 }
 
 void Label::InternalAlign(Align align)

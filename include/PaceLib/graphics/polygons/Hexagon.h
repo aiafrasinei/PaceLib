@@ -27,10 +27,10 @@ namespace PaceLib
             "x6" : 0,
             "y6" : 0
         }*/
-        static void Create(ShapeId wid);
+        static void Create(ShapeId sid);
         static void Create(std::string name);
 
-        static void Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color);
+        static void Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color);
      
         static void CreateRegular(float x1, float y1, float length);
 
@@ -48,7 +48,7 @@ namespace PaceLib
 
         SDL_Vertex verts[18];
 
-        Hexagon(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color);
+        Hexagon(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color);
     };
 
 }

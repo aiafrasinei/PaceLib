@@ -126,6 +126,7 @@ namespace PaceLib
         Shape *current;
 
         Shape *parent;
+        
     private:
 
     };

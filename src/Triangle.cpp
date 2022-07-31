@@ -5,20 +5,20 @@
 using namespace PaceLib;
 
 
-Triangle::Triangle(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
 
-    if(wid.parent->name == "root") {
+    if(sid.parent->name == "root") {
         points[0] = {static_cast<int>(x1), static_cast<int>(y1)};
         points[1] = {static_cast<int>(x2), static_cast<int>(y2)};
         points[2] = {static_cast<int>(x3), static_cast<int>(y3)};
         points[3] = {static_cast<int>(x1), static_cast<int>(y1)};
     } else {
-        points[0] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
-        points[1] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x2), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y2)};
-        points[2] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y3)};
-        points[3] = {static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(wid.parent)->GetRect().y + y1)};
+        points[0] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
+        points[1] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x2), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y2)};
+        points[2] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y3)};
+        points[3] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
     }
     
 
@@ -38,7 +38,7 @@ Triangle::Triangle(ShapeId wid, float x1, float y1, float x2, float y2, float x3
     
     rtype = DrawTypes::OUTLINE;
 
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 Triangle::~Triangle()
@@ -46,10 +46,10 @@ Triangle::~Triangle()
 
 }
 
-void Triangle::Create(ShapeId wid)
+void Triangle::Create(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int x1 = conf->Get("x1");
         int y1 = conf->Get("y1");
@@ -59,7 +59,7 @@ void Triangle::Create(ShapeId wid)
         int y3 = conf->Get("y3");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
         
-        wid.parent->Add(new Triangle(wid, x1, y1, x2, y2, x3, y3, color));
+        sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
     }
 }
 
@@ -68,9 +68,9 @@ void Triangle::Create(std::string name)
     Triangle::Create({&Root::GetInstance(), name});
 }
 
-void Triangle::Create(ShapeId wid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+void Triangle::Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
-    wid.parent->Add(new Triangle(wid, x1, y1, x2, y2, x3, y3, color));
+    sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
 }
 
 

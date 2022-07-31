@@ -98,22 +98,21 @@ Inheritance diagram for PaceLib::Shape:</div>
  <div class="center">
   <img src="classPaceLib_1_1Shape.png" usemap="#PaceLib::Shape_map" alt=""/>
   <map id="PaceLib::Shape_map" name="PaceLib::Shape_map">
-<area href="classDrawable.html" alt="Drawable" shape="rect" coords="0,0,145,24"/>
-<area href="classHidable.html" alt="Hidable" shape="rect" coords="155,0,300,24"/>
-<area href="classUpdateable.html" alt="Updateable" shape="rect" coords="310,0,455,24"/>
-<area href="classPaceLib_1_1Circle.html" alt="PaceLib::Circle" shape="rect" coords="310,112,455,136"/>
-<area href="classPaceLib_1_1Ellipse.html" alt="PaceLib::Ellipse" shape="rect" coords="310,168,455,192"/>
-<area href="classPaceLib_1_1Hexagon.html" alt="PaceLib::Hexagon" shape="rect" coords="310,224,455,248"/>
-<area href="classPaceLib_1_1HorizontalLine.html" alt="PaceLib::HorizontalLine" shape="rect" coords="310,280,455,304"/>
-<area href="classPaceLib_1_1Line.html" alt="PaceLib::Line" shape="rect" coords="310,336,455,360"/>
-<area href="classPaceLib_1_1Pentagon.html" alt="PaceLib::Pentagon" shape="rect" coords="310,392,455,416"/>
-<area href="classPaceLib_1_1Polygon.html" alt="PaceLib::Polygon" shape="rect" coords="310,448,455,472"/>
-<area href="classPaceLib_1_1Rectangle.html" alt="PaceLib::Rectangle" shape="rect" coords="310,504,455,528"/>
-<area href="classPaceLib_1_1Sprite.html" alt="PaceLib::Sprite" shape="rect" coords="310,560,455,584"/>
-<area href="classPaceLib_1_1Text.html" alt="PaceLib::Text" shape="rect" coords="310,616,455,640"/>
-<area href="classPaceLib_1_1Triangle.html" alt="PaceLib::Triangle" shape="rect" coords="310,672,455,696"/>
-<area href="classPaceLib_1_1VerticalLine.html" alt="PaceLib::VerticalLine" shape="rect" coords="310,728,455,752"/>
-<area href="classPaceLib_1_1Widget.html" alt="PaceLib::Widget" shape="rect" coords="310,784,455,808"/>
+<area href="classDrawable.html" alt="Drawable" shape="rect" coords="0,0,120,24"/>
+<area href="classHidable.html" alt="Hidable" shape="rect" coords="130,0,250,24"/>
+<area href="classUpdateable.html" alt="Updateable" shape="rect" coords="260,0,380,24"/>
+<area href="classPaceLib_1_1Circle.html" alt="PaceLib::Circle" shape="rect" coords="260,112,380,136"/>
+<area href="classPaceLib_1_1Ellipse.html" alt="PaceLib::Ellipse" shape="rect" coords="260,168,380,192"/>
+<area href="classPaceLib_1_1Hexagon.html" alt="PaceLib::Hexagon" shape="rect" coords="260,224,380,248"/>
+<area href="classPaceLib_1_1Line.html" alt="PaceLib::Line" shape="rect" coords="260,280,380,304"/>
+<area href="classPaceLib_1_1Pentagon.html" alt="PaceLib::Pentagon" shape="rect" coords="260,336,380,360"/>
+<area href="classPaceLib_1_1Polygon.html" alt="PaceLib::Polygon" shape="rect" coords="260,392,380,416"/>
+<area href="classPaceLib_1_1Rectangle.html" alt="PaceLib::Rectangle" shape="rect" coords="260,448,380,472"/>
+<area href="classPaceLib_1_1Sprite.html" alt="PaceLib::Sprite" shape="rect" coords="260,504,380,528"/>
+<area href="classPaceLib_1_1Text.html" alt="PaceLib::Text" shape="rect" coords="260,560,380,584"/>
+<area href="classPaceLib_1_1ThickLine.html" alt="PaceLib::ThickLine" shape="rect" coords="260,616,380,640"/>
+<area href="classPaceLib_1_1Triangle.html" alt="PaceLib::Triangle" shape="rect" coords="260,672,380,696"/>
+<area href="classPaceLib_1_1Widget.html" alt="PaceLib::Widget" shape="rect" coords="260,728,380,752"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -140,6 +139,12 @@ long&#160;</td><td class="memItemRight" valign="bottom"><b>GetNr</b> ()</td></tr
 <tr class="memitem:aca30e136bd3ff9fa9ea3f9eddbbc9158"><td class="memItemLeft" align="right" valign="top"><a id="aca30e136bd3ff9fa9ea3f9eddbbc9158"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDrawType</b> (DrawTypes rtype)</td></tr>
 <tr class="separator:aca30e136bd3ff9fa9ea3f9eddbbc9158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac15b1cd7addf37070584e7f60414e61a"><td class="memItemLeft" align="right" valign="top"><a id="ac15b1cd7addf37070584e7f60414e61a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetParent</b> (<a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *p)</td></tr>
+<tr class="separator:ac15b1cd7addf37070584e7f60414e61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2d8a344c83d9b4938bdfd57a5ccdca"><td class="memItemLeft" align="right" valign="top"><a id="a8e2d8a344c83d9b4938bdfd57a5ccdca"></a>
+<a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetParent</b> ()</td></tr>
+<tr class="separator:a8e2d8a344c83d9b4938bdfd57a5ccdca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3932b986ef1a4d087bbc8738d55561a1"><td class="memItemLeft" align="right" valign="top"><a id="a3932b986ef1a4d087bbc8738d55561a1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (SDL_Event *e)</td></tr>
 <tr class="separator:a3932b986ef1a4d087bbc8738d55561a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,6 +198,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac81d4e819c7997a2c5eeff23ea4a8cae"><td class="memItemLeft" align="right" valign="top"><a id="ac81d4e819c7997a2c5eeff23ea4a8cae"></a>
 DrawTypes&#160;</td><td class="memItemRight" valign="bottom"><b>rtype</b></td></tr>
 <tr class="separator:ac81d4e819c7997a2c5eeff23ea4a8cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5880b7fe04a9ea2d8c182a47e18db4e4"><td class="memItemLeft" align="right" valign="top"><a id="a5880b7fe04a9ea2d8c182a47e18db4e4"></a>
+<a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>current</b></td></tr>
+<tr class="separator:a5880b7fe04a9ea2d8c182a47e18db4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a09db0cecfa6606f8d8ea469d9127d"><td class="memItemLeft" align="right" valign="top"><a id="af2a09db0cecfa6606f8d8ea469d9127d"></a>
+<a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr class="separator:af2a09db0cecfa6606f8d8ea469d9127d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classDrawable"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classDrawable')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classDrawable.html">Drawable</a></td></tr>
 <tr class="memitem:a3cc0498caae8e5ec0385ca57c6905c94 inherit pro_attribs_classDrawable"><td class="memItemLeft" align="right" valign="top"><a id="a3cc0498caae8e5ec0385ca57c6905c94"></a>
 SDL_Color&#160;</td><td class="memItemRight" valign="bottom"><b>color</b></td></tr>

@@ -13,14 +13,17 @@ namespace PaceLib
         public:
             ~TextArea();
 
-            //TODO
-            static void Create(ShapeId wid);
+//static methods
+
+// json configuration
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
+// programatic
+            static void Begin(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
 
-            static void Create(ShapeId wid, PropDimColor dco, std::vector<std::string> tarr, Align align={V::MID, H::MID});
+//end static methods
 
             void SetTextAlign(Align align);
 
@@ -39,7 +42,7 @@ namespace PaceLib
 
             int textSpacing;
 
-            TextArea(ShapeId wid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
+            TextArea(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
 
             void InternalAlign(Align align);
     };

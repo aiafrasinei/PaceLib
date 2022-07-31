@@ -18,10 +18,10 @@ namespace PaceLib
             "y" : 100,
             "radius" : 100
         }*/
-        static void Create(ShapeId wid);
+        static void Create(ShapeId sid);
         static void Create(std::string name);
         
-        static void Create(ShapeId wid, float x, float y, float radius, SDL_Color color);
+        static void Create(ShapeId sid, float x, float y, float radius, SDL_Color color);
      
         void Draw();
         
@@ -31,7 +31,7 @@ namespace PaceLib
     private:
         float x, y, radius;
 
-        Circle(ShapeId wid, float x, float y, float radius, SDL_Color color);
+        Circle(ShapeId sid, float x, float y, float radius, SDL_Color color);
     };
 
 }

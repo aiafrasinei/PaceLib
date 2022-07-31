@@ -54,27 +54,9 @@ bool start()
 		CheckBox::Begin("cb");
 	Tab::End();
 
-	/*Tab::Begin("second_tab");
-		Text::Create({root->GetTab("second_tab"), "text"});
-		Label::Create({root->GetTab("second_tab"), "out_lbl"});
-		DefaultTooltip::Create( {root->GetTab("second_tab")->GetLabel("out_lbl"), "out_tooltip"});
-		TextArea::Create( {root->GetTab("second_tab"), "text_ta"});
-		TextInput::Create( {root->GetTab("second_tab"), "tinput"});
-		CheckBox::Create( {root->GetTab("second_tab"), "cb"});
-	Tab::End();
-
-	Tab::Create("second_tab", true);
-		Text::Create("text");
-		Label::Create("out_lbl");
-		DefaultTooltip::Create("out_tooltip");
-		TextArea::Create("text_ta");
-		TextInput::Create("tinput");
-		CheckBox::Create("cb");
-	Tab::End();
-
 	//Triangle::Create({root->GetTab("second_tab"), "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 
-	Tabber::Create("third_tb");
+	/*Tabber::Create("third_tb");
 	root->GetTabber("third_tb")->AddTab("Main");
 	root->GetTabber("third_tb")->AddTab("Options");
 	root->GetTabber("third_tb")->AddTab("Help");
@@ -91,10 +73,10 @@ bool start()
 	Label::Begin("out1_lbl");
 	Button::Begin("astart_btn");
 
-	ButtonTex::Create("gfx_button");
+	ButtonTex::Begin("gfx_button");
 	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});
 
-	ButtonTex::Create("gfx_button_tex");
+	ButtonTex::Begin("gfx_button_tex");
 
 	return true;
 }

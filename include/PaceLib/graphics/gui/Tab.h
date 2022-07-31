@@ -16,19 +16,26 @@ namespace PaceLib
         public:
             ~Tab();
 
+//static methods
+
+// json configuration
+
             /* Loads wconf file
             example format:
             {
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "color" : [80, 70, 80, 255]
             }*/
-            static void Create(ShapeId wid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId wid, PropDimColor in);
+// programmatic
+            static void Begin(ShapeId sid, PropDimColor in);
 
-            Tab(ShapeId wid, PropDimColor in);
+//end static methods
+
+            Tab(ShapeId sid, PropDimColor in);
 
             void Draw();
 

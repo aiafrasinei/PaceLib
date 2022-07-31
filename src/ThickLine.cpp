@@ -4,13 +4,13 @@
 
 using namespace PaceLib;
 
-ThickLine::ThickLine(WidgetId wid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
+ThickLine::ThickLine(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {
     //TODO
 
     SetColor(color.r, color.g, color.b, color.a);
 
-    this->name = wid.name;
+    this->name = sid.name;
 }
 
 ThickLine::~ThickLine()
@@ -18,10 +18,10 @@ ThickLine::~ThickLine()
 
 }
 
-void ThickLine::Create(WidgetId wid)
+void ThickLine::Create(WidgetId sid)
 {
-     if(std::filesystem::exists("wconfs/" + wid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + wid.name + ".conf");
+     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int x1 = conf->Get("x1");
         int y1 = conf->Get("y1");
@@ -31,7 +31,7 @@ void ThickLine::Create(WidgetId wid)
         
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        wid.parent->Add(new ThickLine(wid, x1, y1, x2, y2, size, color));
+        sid.parent->Add(new ThickLine(sid, x1, y1, x2, y2, size, color));
     }
 }
 
@@ -42,9 +42,9 @@ void ThickLine::Create(std::string name)
 }
 
 
-void ThickLine::Create(WidgetId wid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
+void ThickLine::Create(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {
-    wid.parent->Add(new ThickLine(wid, x1, y1, x2, y2, size, color));
+    sid.parent->Add(new ThickLine(sid, x1, y1, x2, y2, size, color));
 }
 
 void ThickLine::Draw()
