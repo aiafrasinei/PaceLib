@@ -96,7 +96,6 @@ void Label::Begin(std::string name, bool hasChildren)
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
-
 }
 
 void Label::End()

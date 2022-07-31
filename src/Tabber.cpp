@@ -47,7 +47,7 @@ Tabber::~Tabber()
 
 }
 
-void Tabber::Create(ShapeId sid)
+void Tabber::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -62,19 +62,15 @@ void Tabber::Create(ShapeId sid)
     }
 }
 
-void Tabber::Create(std::string name)
+void Tabber::Begin(std::string name)
 {
-    Tabber::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Tabber::Begin({(Widget *)root->GetCurrent(), name});
 }
 
-void Tabber::Create(ShapeId sid, PropDimColor dco, PropFontText fto)
+void Tabber::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
     sid.parent->Add(new Tabber( sid, dco, fto));
-}
-
-void Tabber::Create(ShapeId sid, PropDimColor dco)
-{
-    sid.parent->Add(new Tabber( sid, {dco.rect, dco.color}, {Root::GetInstance().GetScene("Default").GetFont("default"), ""}));
 }
 
 void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)

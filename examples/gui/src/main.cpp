@@ -54,21 +54,15 @@ bool start()
 		CheckBox::Begin("cb");
 	Tab::End();
 
-	//Triangle::Create({root->GetTab("second_tab"), "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
-
-	/*Tabber::Create("third_tb");
+	Tabber::Begin("third_tb");
 	root->GetTabber("third_tb")->AddTab("Main");
 	root->GetTabber("third_tb")->AddTab("Options");
 	root->GetTabber("third_tb")->AddTab("Help");
 
-	//Test
-	Line::Create({root->GetTabber("third_tb")->GetTab(1), "line1"});
-	
-	Button::Create({root->GetTabber("third_tb")->GetTab(0), "third_tb_start_btn"});
-	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
-	CheckBox::Create({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
-	TextArea::Create({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
-	*/
+	Button::Begin({root->GetTabber("third_tb")->GetTab(0), "third_tb_start_btn"});
+	CheckBox::Begin({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
+	CheckBox::Begin({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
+	TextArea::Begin({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
 	
 	Label::Begin("out1_lbl");
 	Button::Begin("astart_btn");

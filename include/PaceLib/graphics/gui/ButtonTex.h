@@ -13,7 +13,10 @@ namespace PaceLib
     class ButtonTex : public Widget
     {
         public:
-            ~ButtonTex();
+
+//static methods
+
+// json configuration
 
             /* Loads wconf file
             example format:
@@ -23,13 +26,16 @@ namespace PaceLib
                 "tex_name" : "sn_yellow.png",
                 "over_tex_name" : ""
             }*/
-            static void Create(ShapeId sid);
+            static void Begin(ShapeId sid);
             static void Begin(std::string name, bool hasChildren=false);
             static void End();
 
-            static void Create(ShapeId sid, PropTex normal);
+// programmatic
 
-            static void Create(ShapeId sid, PropTex normal, PropTex over);
+            static void Begin(ShapeId sid, PropTex normal);
+            static void Begin(ShapeId sid, PropTex normal, PropTex over);
+
+//end static methods
 
             ButtonTex(ShapeId sid, PropTex normal, PropTex over);
 
@@ -46,6 +52,8 @@ namespace PaceLib
             void Update(SDL_Event *e);
 
             std::function<void(void)> onClickCallback;
+
+            ~ButtonTex();
 
         private:
             bool mouseOver;

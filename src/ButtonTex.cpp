@@ -45,7 +45,7 @@ ButtonTex::~ButtonTex()
 
 }
 
-void ButtonTex::Create(ShapeId sid)
+void ButtonTex::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -76,7 +76,7 @@ void ButtonTex::Create(ShapeId sid)
 void ButtonTex::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    ButtonTex::Create({(Widget *)root->GetCurrent(), name});
+    ButtonTex::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
         root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
@@ -90,13 +90,13 @@ void ButtonTex::End()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ButtonTex::Create(ShapeId sid, PropTex normal)
+void ButtonTex::Begin(ShapeId sid, PropTex normal)
 {
     PropTex nullp = {nullptr, {0,0,0,255}};
     sid.parent->Add(new ButtonTex(sid, normal, nullp));
 }
 
-void ButtonTex::Create(ShapeId sid, PropTex normal, PropTex over)
+void ButtonTex::Begin(ShapeId sid, PropTex normal, PropTex over)
 {
     sid.parent->Add(new ButtonTex(sid, normal, over));
 }

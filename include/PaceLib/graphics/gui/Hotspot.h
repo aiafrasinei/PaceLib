@@ -20,7 +20,10 @@ namespace PaceLib
     class Hotspot : public Widget
     {
         public:
-            ~Hotspot();
+
+//static methods
+
+// json configuration
 
             /* Loads wconf file
             example format:
@@ -28,10 +31,15 @@ namespace PaceLib
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "color" : [80, 70, 80, 255]
             }*/
-            static void Create(ShapeId sid);
-            static void Create(std::string name);
-            
-            static void Create(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+            static void Begin(ShapeId sid);
+            static void Begin(std::string name, bool hasChildren=false);
+            static void End();
+
+// programmatic
+
+            static void Begin(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+
+//end static methods
 
             void SetHighlight(bool state);
             
@@ -44,6 +52,8 @@ namespace PaceLib
             void Update(SDL_Event *e);
 
             std::function<void(void)> onClickCallback;
+
+            ~Hotspot();
 
         private:
             Hotspot(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);

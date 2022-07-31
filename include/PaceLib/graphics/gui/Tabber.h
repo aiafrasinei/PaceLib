@@ -13,15 +13,28 @@ namespace PaceLib
     class Tabber : public Widget
     {
         public:
-            ~Tabber();
 
-            //TODO
-            static void Create(ShapeId sid);
-            static void Create(std::string name);
+//static methods
 
-            static void Create(ShapeId sid, PropDimColor dco, PropFontText fto);
+// json configuration
 
-            static void Create(ShapeId sid, PropDimColor dco);
+            /* Loads wconf file
+            example format:
+            {
+                "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
+                "color" : [70, 80, 70, 255],
+                "scene" : "Default",
+                "font" : "default",
+                "text" : ""
+            }*/
+            static void Begin(ShapeId sid);
+            static void Begin(std::string name);
+
+// programmatic
+
+            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
+
+//end static methods
 
             void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
@@ -36,6 +49,8 @@ namespace PaceLib
 
             static unsigned int current;
 
+            ~Tabber();
+            
         private:
             std::vector<std::string> titles;
 

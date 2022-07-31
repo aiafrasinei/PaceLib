@@ -43,7 +43,7 @@ Hotspot::~Hotspot()
 
 }
 
-void Hotspot::Create(ShapeId sid)
+void Hotspot::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -55,16 +55,27 @@ void Hotspot::Create(ShapeId sid)
     }
 }
 
-void Hotspot::Create(std::string name)
+void Hotspot::Begin(std::string name, bool hasChildren)
 {
-    Hotspot::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Hotspot::Begin({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Hotspot::Create(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
+void Hotspot::Begin(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
 {
     sid.parent->Add(new Hotspot(sid, dco, type, tex));
 }
 
+void Hotspot::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
 
 void Hotspot::SetRec(SDL_Rect rect)
 {

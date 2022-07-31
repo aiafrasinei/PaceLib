@@ -20,10 +20,10 @@ namespace PaceLib
             "y2" : 200,
             "size" : 2
         }*/
-        static void Create(WidgetId sid);
+        static void Create(ShapeId sid);
         static void Create(std::string name);
         
-        static void Create(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
+        static void Create(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
 
         void Draw();
 

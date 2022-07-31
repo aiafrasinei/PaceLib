@@ -4,7 +4,7 @@
 
 using namespace PaceLib;
 
-ThickLine::ThickLine(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
+ThickLine::ThickLine(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {
     //TODO
 
@@ -18,7 +18,7 @@ ThickLine::~ThickLine()
 
 }
 
-void ThickLine::Create(WidgetId sid)
+void ThickLine::Create(ShapeId sid)
 {
      if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -42,7 +42,7 @@ void ThickLine::Create(std::string name)
 }
 
 
-void ThickLine::Create(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
+void ThickLine::Create(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {
     sid.parent->Add(new ThickLine(sid, x1, y1, x2, y2, size, color));
 }
