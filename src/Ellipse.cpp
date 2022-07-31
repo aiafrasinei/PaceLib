@@ -32,7 +32,7 @@ Ellipse::~Ellipse()
 
 }
 
-void Ellipse::Create(ShapeId sid)
+void Ellipse::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -47,12 +47,24 @@ void Ellipse::Create(ShapeId sid)
     }
 }
 
-void Ellipse::Create(std::string name)
+void Ellipse::Begin(std::string name, bool hasChildren)
 {
-    Ellipse::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Ellipse::Begin({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Ellipse::Create(ShapeId sid, float x, float y, float rx, float ry, SDL_Color color)
+void Ellipse::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Ellipse::Begin(ShapeId sid, float x, float y, float rx, float ry, SDL_Color color)
 {
     sid.parent->Add(new Ellipse(sid, x, y, rx, ry, color));
 }

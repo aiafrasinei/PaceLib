@@ -64,7 +64,9 @@ void Tab::Begin(std::string name, bool hasChildren)
     Root *root = &Root::GetInstance();
     Tab::Begin({(Widget *)root->GetCurrent(), name});
     if (hasChildren) {
-        root->SetCurrent(root->GetTab(name));
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
     }
 }
 

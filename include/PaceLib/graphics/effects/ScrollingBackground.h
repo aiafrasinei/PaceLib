@@ -15,7 +15,7 @@ namespace PaceLib
         ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
         ~ScrollingBackground();
 
-        static ScrollingBackground *Create(SDL_Texture *tex, SDL_Rect shape);
+        static ScrollingBackground *Begin(SDL_Texture *tex, SDL_Rect shape);
         
 
         void SetTex(SDL_Texture *tex);

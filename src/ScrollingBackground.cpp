@@ -22,7 +22,7 @@ ScrollingBackground::~ScrollingBackground()
 
 }
 
-ScrollingBackground *ScrollingBackground::Create(SDL_Texture *tex, SDL_Rect shape)
+ScrollingBackground *ScrollingBackground::Begin(SDL_Texture *tex, SDL_Rect shape)
 {
     return new ScrollingBackground(tex, shape);
 }

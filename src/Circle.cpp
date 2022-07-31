@@ -31,7 +31,7 @@ Circle::~Circle()
 
 }
 
-void Circle::Create(ShapeId sid)
+void Circle::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -45,12 +45,24 @@ void Circle::Create(ShapeId sid)
     }
 }
 
-void Circle::Create(std::string name)
+void Circle::Begin(std::string name, bool hasChildren)
 {
-    Circle::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Circle::Begin({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Circle::Create(ShapeId sid, float x, float y, float radius, SDL_Color color)
+void Circle::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Circle::Begin(ShapeId sid, float x, float y, float radius, SDL_Color color)
 {
     sid.parent->Add(new Circle(sid, x, y, radius, color));
 }

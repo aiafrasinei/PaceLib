@@ -9,7 +9,11 @@ namespace PaceLib
     class Sprite : public Shape
     {
     public:
-        
+
+//static methods
+
+// json configuration
+
         /* Loads wconf file
         example format:
         {
@@ -19,10 +23,15 @@ namespace PaceLib
             "offset" : 300,
             "nr" : 5
         }*/
-        static void Create(ShapeId sid);
-        static void Create(std::string);
-        
-        static void Create(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+        static void Begin(ShapeId sid);
+        static void Begin(std::string, bool hasChildren=false);
+        static void End();
+
+// programmatic
+
+        static void Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+
+//end static methods
 
         void SetTex(SDL_Texture *tex);
         void SetRect(SDL_Rect dim);

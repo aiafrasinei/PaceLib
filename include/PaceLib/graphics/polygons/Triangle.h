@@ -10,6 +10,10 @@ namespace PaceLib
     {
     public:
 
+//static methods
+
+// json configuration
+
         /* Loads wconf file
         example format:
         {
@@ -21,11 +25,15 @@ namespace PaceLib
             "y3" : 150,
             "color" : [40, 40, 40, 255]
         }*/
-        static void Create(ShapeId sid);
-        static void Create(std::string name);
+        static void Begin(ShapeId sid);
+        static void Begin(std::string name, bool hasChildren=false);
 
-        static void Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
-     
+// programmatic
+
+        static void Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+
+//end static methods
+
         void SetDrawType(DrawTypes rtype);
 
         void Draw();

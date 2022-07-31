@@ -133,7 +133,7 @@ Hexagon::~Hexagon()
 
 }
 
-void Hexagon::Create(ShapeId sid)
+void Hexagon::Begin(ShapeId sid)
 {
      if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -157,12 +157,24 @@ void Hexagon::Create(ShapeId sid)
     }
 }
 
-void Hexagon::Create(std::string name)
+void Hexagon::Begin(std::string name, bool hasChildren)
 {
-    Hexagon::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Hexagon::Begin({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Hexagon::Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
+void Hexagon::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Hexagon::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6, SDL_Color color)
 {
     sid.parent->Add(new Hexagon(sid, x1, y1, x2, y2, x3, y3, y4, y4, x5, y5, x6, y6, color));
 }

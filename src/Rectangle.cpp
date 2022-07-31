@@ -32,7 +32,7 @@ Rectangle::~Rectangle()
 
 }
 
-void Rectangle::Create(ShapeId sid)
+void Rectangle::Begin(ShapeId sid)
 {
      if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -46,12 +46,19 @@ void Rectangle::Create(ShapeId sid)
     }
 }
 
-void Rectangle::Create(std::string name)
+void Rectangle::Begin(std::string name, bool hasChildren)
 {
-    Rectangle::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Rectangle::Begin({(Widget *)root->GetCurrent(), name});
+    if (hasChildren)
+    {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Rectangle::Create(ShapeId sid, SDL_Rect shape, SDL_Color color)
+void Rectangle::Begin(ShapeId sid, SDL_Rect shape, SDL_Color color)
 {
     sid.parent->Add(new Rectangle(sid, shape, color));
 }

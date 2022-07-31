@@ -46,7 +46,7 @@ Triangle::~Triangle()
 
 }
 
-void Triangle::Create(ShapeId sid)
+void Triangle::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -63,12 +63,19 @@ void Triangle::Create(ShapeId sid)
     }
 }
 
-void Triangle::Create(std::string name)
+void Triangle::Begin(std::string name, bool hasChildren)
 {
-    Triangle::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Triangle::Begin({(Widget *)root->GetCurrent(), name});
+    if (hasChildren)
+    {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Triangle::Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+void Triangle::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
     sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
 }

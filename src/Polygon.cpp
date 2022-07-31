@@ -42,7 +42,7 @@ Polygon::~Polygon()
     free(points);
 }
 
-void Polygon::Create(ShapeId sid, const float * vx, const float * vy, int n)
+void Polygon::Begin(ShapeId sid, const float * vx, const float * vy, int n)
 {
     sid.parent->Add(new Polygon(sid, vx, vy, n));
 }

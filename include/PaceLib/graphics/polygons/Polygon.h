@@ -10,7 +10,7 @@ namespace PaceLib
     {
     public:
 
-        static void Create(ShapeId sid, const float *vx, const float *vy, int n);
+        static void Begin(ShapeId sid, const float *vx, const float *vy, int n);
      
         void SetDrawType(DrawTypes rtype);
 

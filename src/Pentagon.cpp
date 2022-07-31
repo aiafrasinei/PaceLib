@@ -120,7 +120,7 @@ Pentagon::~Pentagon()
 
 }
 
-void Pentagon::Create(ShapeId sid)
+void Pentagon::Begin(ShapeId sid)
 {
      if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -142,12 +142,24 @@ void Pentagon::Create(ShapeId sid)
     }
 }
 
-void Pentagon::Create(std::string name)
+void Pentagon::Begin(std::string name, bool hasChildren)
 {
-    Pentagon::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Pentagon::Begin({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Pentagon::Create(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
+void Pentagon::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Pentagon::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, SDL_Color color)
 {
     sid.parent->Add(new Pentagon(sid, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, color));
 }

@@ -39,7 +39,7 @@ Sprite::~Sprite()
 
 }
 
-void Sprite::Create(ShapeId sid)
+void Sprite::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -53,12 +53,24 @@ void Sprite::Create(ShapeId sid)
     }
 }
 
-void Sprite::Create(std::string name)
+void Sprite::Begin(std::string name, bool hasChildren)
 {
-    Sprite::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Sprite::Begin({(Widget *)root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Sprite::Create(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+void Sprite::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void Sprite::Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
 {
     sid.parent->Add(new Sprite(sid, tex, dim, offset, nr));
 }

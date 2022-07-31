@@ -32,7 +32,7 @@ Line::~Line()
 
 }
 
-void Line::Create(ShapeId sid)
+void Line::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -47,14 +47,26 @@ void Line::Create(ShapeId sid)
     }
 }
 
-void Line::Create(std::string name)
+void Line::Begin(std::string name, bool hasChildren)
 {
-    Line::Create({&Root::GetInstance(), name});
+    Root *root = &Root::GetInstance();
+    Line::Begin({root->GetCurrent(), name});
+    if (hasChildren) {
+        Shape *prevParent = root->GetCurrent();
+        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->GetCurrent()->SetParent(prevParent);
+    }
 }
 
-void Line::Create(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
+void Line::Begin(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
 {
     sid.parent->Add(new Line(sid, x1, y1, x2, y2, color));
+}
+
+void Line::End()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Line::Draw()

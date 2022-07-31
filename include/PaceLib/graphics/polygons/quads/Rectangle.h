@@ -10,16 +10,24 @@ namespace PaceLib
     {
     public:
 
+//static methods
+
+// json configuration
+
         /* Loads wconf file
         example format:
         {
             "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
             "color" : [40, 40, 40, 255],
         }*/
-        static void Create(ShapeId sid);
-        static void Create(std::string name);
+        static void Begin(ShapeId sid);
+        static void Begin(std::string name, bool hasChildren=false);
         
-        static void Create(ShapeId sid, SDL_Rect dim, SDL_Color color);
+// programmatic
+
+        static void Begin(ShapeId sid, SDL_Rect dim, SDL_Color color);
+
+//end static methods
 
         void SetRect(float x, float y, float w , float h);
 
