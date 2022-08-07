@@ -56,7 +56,7 @@ void Tabber::Begin(ShapeId sid)
         Widget::ParseDim(dim, conf);
 
         PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
-        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), ""};
+        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), ""};
 
         sid.parent->Add(new Tabber( sid, dco, fto));
     }
@@ -119,7 +119,7 @@ void Tabber::AddTab(std::string text)
 {
     titles.push_back(text);
 
-    buttons.push_back(new Button({this, "h_" + std::to_string(nrtitles)}, {{xb, rect.y/99, 40, rect.y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default").GetFont("default"), text}, {V::MID, H::LEFT}));
+    buttons.push_back(new Button({this, "h_" + std::to_string(nrtitles)}, {{xb, rect.y/99, 40, rect.y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT}));
     Button *b = ((Button *)buttons[nrtitles]);
     b->SetRectW(b->GetTextSize() + rect.w/30);
     xb = xb + b->GetTextSize() + rect.w/30 + rect.w/99;

@@ -58,12 +58,12 @@ void ButtonTex::Begin(ShapeId sid)
         if(conf->Get("over_tex_name").get<std::string>() == "") {
             PropTex nullp = {nullptr, {0,0,0,255}};
             btex = new ButtonTex( sid, 
-                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
+                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
                 nullp);
         } else {
             btex = new ButtonTex( sid, 
-                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
-                {Root::GetInstance().GetScene(scene_name).GetTex(conf->Get("over_tex_name")), {dim[0], dim[1], dim[2], dim[3]}});
+                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
+                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("over_tex_name")), {dim[0], dim[1], dim[2], dim[3]}});
         }
 
         btex->conf = conf;
@@ -76,10 +76,10 @@ void ButtonTex::Begin(ShapeId sid)
 void ButtonTex::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    ButtonTex::Begin({(Widget *)root->GetCurrent(), name});
+    ButtonTex::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

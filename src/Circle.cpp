@@ -48,10 +48,10 @@ void Circle::Begin(ShapeId sid)
 void Circle::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Circle::Begin({(Widget *)root->GetCurrent(), name});
+    Circle::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

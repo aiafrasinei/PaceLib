@@ -128,7 +128,7 @@ void CheckBox::Begin(ShapeId sid)
 
         PropFontText fto;
 
-        fto.font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>());
+        fto.font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
         fto.text = conf->Get("text").get<std::string>();
 
         SDL_Color textColor = {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]};
@@ -141,10 +141,10 @@ void CheckBox::Begin(ShapeId sid)
 void CheckBox::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    CheckBox::Begin({(Widget *)root->GetCurrent(), name});
+    CheckBox::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

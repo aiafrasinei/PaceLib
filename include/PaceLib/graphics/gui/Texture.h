@@ -48,7 +48,7 @@ namespace PaceLib
             "dim" : [10, 10, 100 , 100]
         }*/
         static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+        static void Begin(std::string name, bool hasChildren=false);
 
 // programatic
 

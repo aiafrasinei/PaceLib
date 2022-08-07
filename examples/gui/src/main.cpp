@@ -31,8 +31,8 @@ bool start()
 	root = &Root::GetInstance();
 	root->SetCurrent(root);
 
-	root->GetScene("Default").AddTex("texs/sn_yellow.png", 0, 0, 512,512);
-	root->GetScene("Default").AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
+	root->GetScene("Default")->AddTex("texs/sn_yellow.png", 0, 0, 512,512);
+	root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
 	Tab::Begin("first_tab", true);
 		Label::Begin("label_lbl");
@@ -46,9 +46,9 @@ bool start()
 
 	Tab::Begin("second_tab", true);
 		Text::Begin("text");
-		Label::Begin("out_lbl", true);
-			DefaultTooltip::Begin("out_tooltip");
-		Label::End();
+			Label::Begin("out_lbl", true);
+				DefaultTooltip::Begin("out_tooltip");
+			Label::End();
 		TextArea::Begin("text_ta");
 		TextInput::Begin("tinput");
 		CheckBox::Begin("cb");

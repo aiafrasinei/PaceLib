@@ -69,14 +69,14 @@ void Label::Begin(ShapeId sid)
             lb = new Label( sid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
                 {sid.parent->GetColor().r, sid.parent->GetColor().g, sid.parent->GetColor().b, sid.parent->GetColor().a}},
-                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
                 align);
 
         } else {
             lb = new Label( sid, 
                 {{dim[0], dim[1], dim[2], dim[3]},
                 {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
-                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
                 align);
         }
 
@@ -93,7 +93,7 @@ void Label::Begin(std::string name, bool hasChildren)
     Label::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

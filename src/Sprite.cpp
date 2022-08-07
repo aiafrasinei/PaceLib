@@ -47,7 +47,7 @@ void Sprite::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
     
-        SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetTex(conf->Get("tex_name").get<std::string>());
+        SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetTex(conf->Get("tex_name").get<std::string>());
 
         sid.parent->Add(new Sprite(sid, tex, {dim[0], dim[1], dim[2], dim[3]}, conf->Get("offset").get<int>(), conf->Get("nr").get<int>()));
     }
@@ -56,10 +56,10 @@ void Sprite::Begin(ShapeId sid)
 void Sprite::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Sprite::Begin({(Widget *)root->GetCurrent(), name});
+    Sprite::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

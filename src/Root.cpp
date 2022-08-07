@@ -21,15 +21,18 @@ Root::Root()
     rtype = DrawTypes::OUTLINE;
     name = "root";
 
-    scenes.push_back(Scene("Default", Window::GetWindow(), Window::GetRenderer()));
-    scenes[0].GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
+    scenes.push_back(new Scene("Default", Window::GetWindow(), Window::GetRenderer()));
+    scenes[0]->GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
 
     wtype = WidgetType::ROOT;
 }
 
 Root::~Root()
 {
-
+    for(int i=0; i < scenes.size(); i++) {
+        delete scenes[i];
+        scenes.clear();
+    }
 }
 
 void Root::Draw()
@@ -134,20 +137,20 @@ void Root::SetState(State *state)
     this->state->Execute();
 }
 
-std::vector<Scene> &Root::GetScenes()
+std::vector<Scene *> Root::GetScenes()
 {
     return scenes;
 }
 
-Scene &Root::GetScene(int index)
+Scene *Root::GetScene(int index)
 {
     return scenes[index];
 }
 
-Scene &Root::GetScene(std::string name)
+Scene *Root::GetScene(std::string name)
 {
     for(int i=0; i<scenes.size(); i++) {
-        if(scenes[i].GetName() == name) {
+        if(scenes[i]->GetName() == name) {
             return scenes[i];
         }
     }

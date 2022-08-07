@@ -28,6 +28,8 @@ TextInput::TextInput(ShapeId sid, PropDimColor dco, PropFontText fto)
     this->name = sid.name;
 
     wtype = WidgetType::TEXTINPUT;
+
+    this->focus = false;
 }
 
 TextInput::~TextInput()
@@ -45,7 +47,7 @@ void TextInput::Begin(ShapeId sid)
 
         PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]},
             {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
-        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
+        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
         
         sid.parent->Add(new TextInput(sid, dco, fto));
     }
@@ -57,7 +59,7 @@ void TextInput::Begin(std::string name, bool hasChildren)
     TextInput::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

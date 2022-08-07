@@ -88,7 +88,7 @@ void Button::Begin(ShapeId sid)
         Button *lb = new Button( sid, 
             {{dim[0], dim[1], dim[2], dim[3]},
             {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
-            {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+            {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
             align);
 
         lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
@@ -101,10 +101,10 @@ void Button::Begin(ShapeId sid)
 void Button::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Button::Begin({(Widget *)root->GetCurrent(), name});
+    Button::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

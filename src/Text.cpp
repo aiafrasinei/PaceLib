@@ -53,7 +53,7 @@ void Text::Begin(ShapeId sid)
         Widget::ParsePos(pos, conf);
 
         Text *t = new Text(sid, 
-        {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+        {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
         pos[0], pos[1],
         {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
 
@@ -65,10 +65,10 @@ void Text::Begin(ShapeId sid)
 void Text::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    Text::Begin({(Widget *)root->GetCurrent(), name});
+    Text::Begin({root->GetCurrent(), name});
     if (hasChildren) {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }

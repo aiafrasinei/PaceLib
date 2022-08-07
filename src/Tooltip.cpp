@@ -231,11 +231,11 @@ void DefaultTooltip::Begin(ShapeId sid)
 
         if (conf->Get("color") == "parent")
         {
-            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene("Default").GetFont("default"), conf->Get("text").get<std::string>()}, sid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene("Default")->GetFont("default"), conf->Get("text").get<std::string>()}, sid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
         }
         else
         {
-            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
         }
     }
 }
@@ -243,11 +243,11 @@ void DefaultTooltip::Begin(ShapeId sid)
 void DefaultTooltip::Begin(std::string name, bool hasChildren)
 {
     Root *root = &Root::GetInstance();
-    DefaultTooltip::Begin({(Widget *)root->GetCurrent(), name});
+    DefaultTooltip::Begin({root->GetCurrent(), name});
     if (hasChildren)
     {
         Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->Get(root->GetCurrent()->name)->Get(name));
+        root->SetCurrent(root->GetCurrent()->Get(name));
         root->GetCurrent()->SetParent(prevParent);
     }
 }
