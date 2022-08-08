@@ -1,4 +1,4 @@
-#include "Ellipse.h"
+#include "graphics/conics/Ellipse.h"
 #include "Window.h"
 #include "Root.h"
 

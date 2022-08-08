@@ -37,7 +37,7 @@ namespace PaceLib
 
         int x1, y1, x2, y2;
 
-        ThickLine(WidgetId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
+        ThickLine(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
     };
 
 }

@@ -189,7 +189,7 @@ void Texture::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
-        SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>()).GetTex(conf->Get("tex_name").get<std::string>());
+        SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetTex(conf->Get("tex_name").get<std::string>());
         sid.parent->Add(new Texture(sid, tex, {dim[0], dim[1], dim[2], dim[3]}));
     }
 }

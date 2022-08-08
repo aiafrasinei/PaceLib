@@ -21,7 +21,7 @@ Root::Root()
     rtype = DrawTypes::OUTLINE;
     name = "root";
 
-    scenes.push_back(new Scene("Default", Window::GetWindow(), Window::GetRenderer()));
+    scenes.push_back(std::move(new Scene("Default", Window::GetWindow(), Window::GetRenderer())));
     scenes[0]->GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
 
     wtype = WidgetType::ROOT;

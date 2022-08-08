@@ -36,41 +36,43 @@ bool start()
 
 	root = &Root::GetInstance();
 	
-	root->GetScene("Default").GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
+	root->GetScene("Default")->GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
 
-	root->GetScene("Default").AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
-	root->GetScene("Default").AddTex("texs/bg.png", 0, 0, 400, 400);
-	root->GetScene("Default").AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
+	root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
+	root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
+	root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
-	Line::Create({root, "line"}, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
+	Line::Begin({root, "line"}, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
 
-	Line::Create({root, "hline"}, 400, 300, 300, 300, { 50, 100, 150, 255 });
+	Line::Begin({root, "hline"}, 400, 300, 300, 300, { 50, 100, 150, 255 });
 
-	Line::Create({root, "vline"}, 350, 350, 350, 400, { 50, 100, 150, 255 });
+	Line::Begin({root, "vline"}, 350, 350, 350, 400, { 50, 100, 150, 255 });
 
-	Triangle::Create({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
+	Triangle::Begin({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 	root->Get("tri")->SetDrawType(DrawTypes::FILLED);
 
-	Rectangle::Create({root, "rect1"}, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
+	Rectangle::Begin({root, "rect1"}, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
 	root->Get("rect1")->SetDrawType(DrawTypes::FILLED);
 
-	Circle::Create({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
-	Circle::Create({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
+	Circle::Begin({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
+	Circle::Begin({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
 	root->Get("cir2")->SetDrawType(DrawTypes::FILLED);
 
-	Text::Create({root, "text"}, 600, 100, {50, 50, 50, 255}, "some text");
+	Text::Begin({root, "text"},
+				{root->GetScene("Default")->GetFont("lazy_font"), "some text"},
+				600, 100, {50, 50, 50, 255});
 
-	Pentagon::Create({ root, "penta"} , 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
+	Pentagon::Begin({ root, "penta"} , 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
 	root->Get("penta")->SetDrawType(DrawTypes::FILLED);
 
-	Sprite::Create({root, "sprite"}, root->GetScene("Default").GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
+	Sprite::Begin({root, "sprite"}, root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
 
 	//Hexagon::Create("hexa", root, 100, 300, 150, 300, 200, 450, 70, 420, 50, 330, 200, 200, {150, 50, 50, 255 } );
 	//root->Get("hexa")->SetDrawType(DrawTypes::FILLED);
 
 	//Ellipse::Create("el", root, 400, 150, 70, 20);
 	
-	scroll_background = ScrollingBackground::Create(root->GetScene("Default").GetTex("bg.png"), { 0, 0, w, h } );
+	scroll_background = ScrollingBackground::Begin(root->GetScene("Default")->GetTex("bg.png"), { 0, 0, w, h } );
 
 	//Texture::Create({root, "background_tex"}, root->GetScene("Default")->GetTex(1), { 0, 0, 100, 500} );
 

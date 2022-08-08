@@ -32,16 +32,18 @@ bool start()
 {
 	ConLog::Info("Start");
 
-	root = &Root::GetInstance();	
-	root->GetScene("Default").GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
+	root = &Root::GetInstance();
+	root->SetCurrent(root);
 
-	Text::Create({root, "title_txt"});
-	Button::Create({root, "new_btn"});
-	Button::Create({root, "options_btn"});
-	Button::Create({root, "help_btn"});
-	Button::Create({root, "exit_btn"});
+	root->GetScene("Default")->GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
 
-	Button::Create({root, "back_btn"});
+	Text::Begin("title_txt");
+	Button::Begin("new_btn");
+	Button::Begin("options_btn");
+	Button::Begin("help_btn");
+	Button::Begin("exit_btn");
+
+	Button::Begin("back_btn");
 	root->GetButton("back_btn")->Hide();
 
 	root->GetButton("new_btn")->onClickCallback = []() {

@@ -33,7 +33,9 @@ Tab::Tab(ShapeId sid, PropDimColor dco)
 
 Tab::~Tab()
 {
-
+    if(this->parent != nullptr) {
+        delete this->parent;
+    }
 }
 
 void Tab::Begin(ShapeId sid)
@@ -55,7 +57,7 @@ void Tab::Begin(ShapeId sid)
         dco.rect.w = dim[2];
         dco.rect.h = dim[3];
 
-        sid.parent->Add(new Tab(sid, dco));
+        sid.parent->Add(std::move(new Tab(sid, dco)));
     }
 }
 
