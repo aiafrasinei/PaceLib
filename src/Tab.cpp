@@ -61,18 +61,23 @@ void Tab::Begin(ShapeId sid)
     }
 }
 
-void Tab::Begin(std::string name, bool hasChildren)
+void Tab::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Tab::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Tab::End()
+void Tab::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Tab::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Tab::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root);

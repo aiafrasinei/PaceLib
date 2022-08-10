@@ -34,25 +34,25 @@ bool start()
 	root->GetScene("Default")->AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
-	Tab::Begin("first_tab", true);
+	Tab::BeginBlock("first_tab");
 		Label::Begin("label_lbl");
 		Button::Begin("start_btn");
 		Button::Begin("exit_btn");
-	Tab::End();
+	Tab::EndBlock();
 	
 	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
 		Window::running = false;
     };
 
-	Tab::Begin("second_tab", true);
+	Tab::BeginBlock("second_tab");
 		Text::Begin("text");
-			Label::Begin("out_lbl", true);
-				DefaultTooltip::Begin("out_tooltip");
-			Label::End();
+		Label::BeginBlock("out_lbl");
+			DefaultTooltip::Begin("out_tooltip");
+		Label::EndBlock();
 		TextArea::Begin("text_ta");
 		TextInput::Begin("tinput");
 		CheckBox::Begin("cb");
-	Tab::End();
+	Tab::EndBlock();
 
 	Tabber::Begin("third_tb");
 	root->GetTabber("third_tb")->AddTab("Main");

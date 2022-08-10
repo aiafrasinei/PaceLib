@@ -194,15 +194,26 @@ void Texture::Begin(ShapeId sid)
     }
 }
 
-void Texture::Begin(std::string name, bool hasChildren)
+void Texture::Begin(std::string name)
 {
 	Root *root = &Root::GetInstance();
     Texture::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
+}
+
+void Texture::BeginBlock(std::string name)
+{
+	Root *root = &Root::GetInstance();
+    Texture::Begin({root->GetCurrent(), name});
+
+	Shape *prevParent = root->GetCurrent();
+	root->SetCurrent(root->GetCurrent()->Get(name));
+	root->GetCurrent()->SetParent(prevParent);
+}
+
+void Texture::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Texture::Begin(ShapeId sid, SDL_Texture *tex, int x, int y)

@@ -142,18 +142,23 @@ void Pentagon::Begin(ShapeId sid)
     }
 }
 
-void Pentagon::Begin(std::string name, bool hasChildren)
+void Pentagon::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Pentagon::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Pentagon::End()
+void Pentagon::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Pentagon::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Pentagon::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

@@ -63,16 +63,26 @@ void Triangle::Begin(ShapeId sid)
     }
 }
 
-void Triangle::Begin(std::string name, bool hasChildren)
+void Triangle::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Triangle::Begin({root->GetCurrent(), name});
-    if (hasChildren)
-    {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
+}
+
+void Triangle::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Triangle::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Triangle::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Triangle::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)

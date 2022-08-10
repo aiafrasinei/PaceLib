@@ -24,8 +24,11 @@ namespace PaceLib
             "nr" : 5
         }*/
         static void Begin(ShapeId sid);
-        static void Begin(std::string, bool hasChildren=false);
-        static void End();
+        static void Begin(std::string);
+
+        //used when the sprite will have child elements
+        static void BeginBlock(std::string);
+        static void EndBlock();
 
 // programmatic
 

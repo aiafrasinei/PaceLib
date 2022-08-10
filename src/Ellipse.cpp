@@ -47,18 +47,23 @@ void Ellipse::Begin(ShapeId sid)
     }
 }
 
-void Ellipse::Begin(std::string name, bool hasChildren)
+void Ellipse::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Ellipse::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Ellipse::End()
+void Ellipse::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Ellipse::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Ellipse::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

@@ -240,19 +240,23 @@ void DefaultTooltip::Begin(ShapeId sid)
     }
 }
 
-void DefaultTooltip::Begin(std::string name, bool hasChildren)
+void DefaultTooltip::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     DefaultTooltip::Begin({root->GetCurrent(), name});
-    if (hasChildren)
-    {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void DefaultTooltip::End()
+void DefaultTooltip::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    DefaultTooltip::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void DefaultTooltip::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

@@ -47,15 +47,20 @@ void Line::Begin(ShapeId sid)
     }
 }
 
-void Line::Begin(std::string name, bool hasChildren)
+void Line::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Line::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
+}
+
+void Line::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Line::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
 }
 
 void Line::Begin(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
@@ -63,7 +68,7 @@ void Line::Begin(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
     sid.parent->Add(new Line(sid, x1, y1, x2, y2, color));
 }
 
-void Line::End()
+void Line::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

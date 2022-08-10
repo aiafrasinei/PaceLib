@@ -20,10 +20,14 @@ namespace PaceLib
             "y2" : 200,
             "size" : 2
         }*/
-        static void Create(ShapeId sid);
-        static void Create(std::string name);
+        static void Begin(ShapeId sid);
+        static void Begin(std::string name);
+
+        //used when the thickline will have child elements
+        static void BeginBlock(std::string name);
+        static void EndBlock();
         
-        static void Create(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
+        static void Begin(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color);
 
         void Draw();
 

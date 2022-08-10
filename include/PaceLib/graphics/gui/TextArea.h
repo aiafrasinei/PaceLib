@@ -17,7 +17,10 @@ namespace PaceLib
 
 // json configuration
             static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
+            static void Begin(std::string name);
+
+            //used when the textarea will have child elements
+            static void BeginBlock(std::string name);
             static void End();
 
 // programatic

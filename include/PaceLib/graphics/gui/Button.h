@@ -30,8 +30,11 @@ namespace PaceLib
                 "align" : ["mid", "mid"]
             }*/
             static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
-            static void End();
+            static void Begin(std::string name);
+
+            //used when the button will have child elements
+            static void BeginBlock(std::string name);
+            static void EndBlock();
 
 // programmatic
             static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});

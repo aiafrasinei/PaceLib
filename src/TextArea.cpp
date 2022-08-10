@@ -74,15 +74,20 @@ void TextArea::Begin(ShapeId sid)
     }
 }
 
-void TextArea::Begin(std::string name, bool hasChildren)
+void TextArea::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     TextArea::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
+}
+
+void TextArea::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    TextArea::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
 }
 
 void TextArea::End()

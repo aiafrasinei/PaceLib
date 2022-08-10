@@ -45,18 +45,23 @@ void Circle::Begin(ShapeId sid)
     }
 }
 
-void Circle::Begin(std::string name, bool hasChildren)
+void Circle::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Circle::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Circle::End()
+void Circle::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Circle::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Circle::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

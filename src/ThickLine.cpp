@@ -18,7 +18,7 @@ ThickLine::~ThickLine()
 
 }
 
-void ThickLine::Create(ShapeId sid)
+void ThickLine::Begin(ShapeId sid)
 {
      if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
@@ -36,13 +36,28 @@ void ThickLine::Create(ShapeId sid)
 }
 
 
-void ThickLine::Create(std::string name)
+void ThickLine::Begin(std::string name)
 {
-    ThickLine::Create({&Root::GetInstance(), name});
+    ThickLine::Begin({&Root::GetInstance(), name});
 }
 
+void ThickLine::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    ThickLine::Begin({root, name});
 
-void ThickLine::Create(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
+	Shape *prevParent = root->GetCurrent();
+	root->SetCurrent(root->GetCurrent()->Get(name));
+	root->GetCurrent()->SetParent(prevParent);
+}
+
+void ThickLine::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void ThickLine::Begin(ShapeId sid, int x1, int y1, int x2, int y2, int size, SDL_Color color)
 {
     sid.parent->Add(new ThickLine(sid, x1, y1, x2, y2, size, color));
 }

@@ -87,18 +87,23 @@ void Label::Begin(ShapeId sid)
     }
 }
 
-void Label::Begin(std::string name, bool hasChildren)
+void Label::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Label::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Label::End()
+void Label::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Label::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Label::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

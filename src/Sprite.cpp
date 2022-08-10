@@ -53,18 +53,23 @@ void Sprite::Begin(ShapeId sid)
     }
 }
 
-void Sprite::Begin(std::string name, bool hasChildren)
+void Sprite::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Sprite::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Sprite::End()
+void Sprite::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Sprite::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Sprite::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

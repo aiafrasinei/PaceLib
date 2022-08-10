@@ -98,18 +98,22 @@ void Button::Begin(ShapeId sid)
     }
 }
 
-void Button::Begin(std::string name, bool hasChildren)
+void Button::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Button::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Button::End()
+void Button::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Button::Begin({root->GetCurrent(), name});
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Button::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

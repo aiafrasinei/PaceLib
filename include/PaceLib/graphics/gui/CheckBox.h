@@ -30,8 +30,11 @@ namespace PaceLib
                 "text_color" : [0, 0, 0, 255]
             }*/
             static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
-            static void End();
+            static void Begin(std::string name);
+
+            //used when the checkbox will have child elements
+            static void BeginBlock(std::string name);
+            static void EndBlock();
 
 // programmatic
             static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color textColor);

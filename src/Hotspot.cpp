@@ -55,15 +55,10 @@ void Hotspot::Begin(ShapeId sid)
     }
 }
 
-void Hotspot::Begin(std::string name, bool hasChildren)
+void Hotspot::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Hotspot::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
 void Hotspot::Begin(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
@@ -71,7 +66,17 @@ void Hotspot::Begin(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
     sid.parent->Add(new Hotspot(sid, dco, type, tex));
 }
 
-void Hotspot::End()
+void Hotspot::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Hotspot::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Hotspot::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

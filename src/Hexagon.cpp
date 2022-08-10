@@ -157,18 +157,23 @@ void Hexagon::Begin(ShapeId sid)
     }
 }
 
-void Hexagon::Begin(std::string name, bool hasChildren)
+void Hexagon::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Hexagon::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Hexagon::End()
+void Hexagon::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Hexagon::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Hexagon::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

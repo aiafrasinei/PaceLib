@@ -53,18 +53,23 @@ void TextInput::Begin(ShapeId sid)
     }
 }
 
-void TextInput::Begin(std::string name, bool hasChildren)
+void TextInput::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     TextInput::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void TextInput::End()
+void TextInput::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    TextInput::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void TextInput::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

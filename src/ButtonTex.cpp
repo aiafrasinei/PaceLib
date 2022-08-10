@@ -73,18 +73,23 @@ void ButtonTex::Begin(ShapeId sid)
     }
 }
 
-void ButtonTex::Begin(std::string name, bool hasChildren)
+void ButtonTex::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     ButtonTex::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void ButtonTex::End()
+void ButtonTex::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    ButtonTex::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void ButtonTex::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

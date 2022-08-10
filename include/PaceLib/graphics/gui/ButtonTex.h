@@ -27,8 +27,11 @@ namespace PaceLib
                 "over_tex_name" : ""
             }*/
             static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
-            static void End();
+            static void Begin(std::string name);
+
+            //used when the buttontex will have child elements
+            static void BeginBlock(std::string name);
+            static void EndBlock();
 
 // programmatic
 

@@ -46,21 +46,31 @@ void Rectangle::Begin(ShapeId sid)
     }
 }
 
-void Rectangle::Begin(std::string name, bool hasChildren)
+void Rectangle::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Rectangle::Begin({root->GetCurrent(), name});
-    if (hasChildren)
-    {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
+}
+
+void Rectangle::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Rectangle::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
 }
 
 void Rectangle::Begin(ShapeId sid, SDL_Rect shape, SDL_Color color)
 {
     sid.parent->Add(new Rectangle(sid, shape, color));
+}
+
+void Rectangle::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Rectangle::Draw()

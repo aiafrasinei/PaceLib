@@ -33,7 +33,7 @@ bool start()
 	ConLog::Info("Start");
 
 	root = &Root::GetInstance();	
-	root->GetScene("Default").GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
+	root->GetScene("Default")->GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
 
 	return true;
 }

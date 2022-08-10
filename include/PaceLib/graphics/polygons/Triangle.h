@@ -26,7 +26,11 @@ namespace PaceLib
             "color" : [40, 40, 40, 255]
         }*/
         static void Begin(ShapeId sid);
-        static void Begin(std::string name, bool hasChildren=false);
+        static void Begin(std::string name);
+
+        //used when the triangle will have child elements
+        static void BeginBlock(std::string name);
+        static void EndBlock();
 
 // programmatic
 

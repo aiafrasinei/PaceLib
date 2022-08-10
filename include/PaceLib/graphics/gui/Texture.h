@@ -48,7 +48,11 @@ namespace PaceLib
             "dim" : [10, 10, 100 , 100]
         }*/
         static void Begin(ShapeId sid);
-        static void Begin(std::string name, bool hasChildren=false);
+        static void Begin(std::string name);
+
+        //used when the texture will have child elements
+        static void BeginBlock(std::string name);
+        static void EndBlock();
 
 // programatic
 

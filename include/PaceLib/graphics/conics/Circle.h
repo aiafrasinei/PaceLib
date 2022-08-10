@@ -23,8 +23,11 @@ namespace PaceLib
             "radius" : 100
         }*/
         static void Begin(ShapeId sid);
-        static void Begin(std::string name, bool hasChildren=false);
-        static void End();
+        static void Begin(std::string name);
+        
+        //used when the cicle will have child elements
+        static void BeginBlock(std::string name);
+        static void EndBlock();
 
 // programmatic
 

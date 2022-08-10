@@ -63,8 +63,11 @@ namespace PaceLib
                 "text_color" : [0, 0, 0, 255]
             }*/
             static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
-            static void End();
+            static void Begin(std::string name);
+
+            //used when the tooltip will have child elements
+            static void BeginBlock(std::string name);
+            static void EndBlock();
             
 // programmatic
 

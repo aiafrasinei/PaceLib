@@ -138,18 +138,23 @@ void CheckBox::Begin(ShapeId sid)
 }
 
 
-void CheckBox::Begin(std::string name, bool hasChildren)
+void CheckBox::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     CheckBox::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void CheckBox::End()
+void CheckBox::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    CheckBox::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void CheckBox::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());

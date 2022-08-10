@@ -62,18 +62,23 @@ void Text::Begin(ShapeId sid)
     }
 }
 
-void Text::Begin(std::string name, bool hasChildren)
+void Text::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     Text::Begin({root->GetCurrent(), name});
-    if (hasChildren) {
-        Shape *prevParent = root->GetCurrent();
-        root->SetCurrent(root->GetCurrent()->Get(name));
-        root->GetCurrent()->SetParent(prevParent);
-    }
 }
 
-void Text::End()
+void Text::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Text::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Text::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
