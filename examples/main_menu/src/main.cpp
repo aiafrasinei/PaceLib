@@ -11,8 +11,6 @@ Configuration* conf = nullptr;
 
 Root *root;
 
-void stop();
-
 bool init(int argc, const char *argv[])
 {
 	bool success = true;

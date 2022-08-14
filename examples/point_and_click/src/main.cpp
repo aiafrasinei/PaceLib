@@ -2,16 +2,14 @@
 #include "PaceLib.h"
 #include "graphics/gui/Texture.h"
 
-
 using namespace PaceLib;
+
 
 Window *win = nullptr;
 
 Configuration* conf = nullptr;
 
 Root *root;
-
-void stop();
 
 bool init(int argc, const char *argv[])
 {

@@ -2,7 +2,7 @@
 
 static unsigned int major = 0;
 static unsigned int minor = 1;
-static unsigned int patch = 2;
+static unsigned int patch = 3;
 
 std::string GetVersion()
 {

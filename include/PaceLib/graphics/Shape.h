@@ -59,7 +59,7 @@ namespace PaceLib
 
         void Add(Shape *s)
         {
-            shapes.push_back(s);
+            shapes.push_back(std::move(s));
             shapesNames.push_back(s->name);
         }
 

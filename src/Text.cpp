@@ -25,20 +25,6 @@ Text::Text(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color)
     this->name = sid.name;
 }
 
-Text::Text(FC_Font *font, int x, int y, SDL_Color color, std::string text)
-{
-    this->font = font;
-    this->text = text;
-    this->x = x;
-    this->y = y;
-
-    SetColor(color.r, color.g, color.b, color.a);
-
-    hidden = false;
-
-    rect = FC_DrawColor(font, Window::GetRenderer(), x, y, color, text.c_str());
-}
-
 Text::~Text()
 {
 
@@ -89,11 +75,6 @@ void Text::Begin(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color)
     sid.parent->Add(new Text(sid, fto, x, y, color));
 }
 
-Text *Text::Begin(FC_Font *font,  std::string text, int x, int y, SDL_Color color)
-{
-    return new Text(font, x, y, color, text);
-}
-
 void Text::Draw()
 {
     if(!hidden) {
@@ -135,4 +116,9 @@ void Text::SetText(std::string text)
 void Text::SetTextColor(SDL_Color color)
 {
     SetColor(color.r, color.g, color.b, color.a);
+}
+
+void Text::SetFont(FC_Font *font)
+{
+    this->font = font;
 }

@@ -51,6 +51,8 @@ namespace PaceLib
 
         void SetTextColor(SDL_Color color);
 
+        void SetFont(FC_Font *font);
+
         ~Text();
         
     protected:         

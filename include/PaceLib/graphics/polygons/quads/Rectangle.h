@@ -18,7 +18,7 @@ namespace PaceLib
         example format:
         {
             "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
-            "color" : [40, 40, 40, 255],
+            "color" : [40, 40, 40, 255]
         }*/
         static void Begin(ShapeId sid);
         static void Begin(std::string name);

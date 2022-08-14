@@ -28,13 +28,6 @@ Button::Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::
 
     textColor = {0, 0, 0, 255};
 
-    if(sid.parent->name == "root") {
-        to = Text::Begin(fto.font, fto.text, rect.x + rect.w/50, rect.y, textColor);
-    } else {
-        to = Text::Begin(fto.font, fto.text, rect.x + rect.w/10, rect.y, textColor);
-    }
-    InternalAlign(align);
-
     this->name = sid.name;
 
     mouseOver = false;
@@ -52,6 +45,8 @@ Button::Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::
     wtype = WidgetType::BUTTON;
     
     onClickCallback = nullptr;
+
+    this->fto = fto;
 }
 
 Button::~Button()
@@ -85,16 +80,20 @@ void Button::Begin(ShapeId sid)
             align.halign = H::RIGHT;
         }
 
-        Button *lb = new Button( sid, 
+        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
+
+        Button *newb = new Button( sid, 
             {{dim[0], dim[1], dim[2], dim[3]},
             {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
-            {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
+            fto,
             align);
 
-        lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        newb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        newb->conf = conf;
 
-        lb->conf = conf;
-        sid.parent->Add(lb);
+        sid.parent->Add(newb);
+
+        newb->InternalInit();
     }
 }
 
@@ -121,32 +120,9 @@ void Button::EndBlock()
 
 void Button::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align)
 {
-    sid.parent->Add(new Button(sid, dco, fto, align)); 
-}
-
-void Button::InternalAlign(Align align)
-{
-    if(align.valign == V::TOP) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-    } else if (align.valign == V::MID) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-        to->SetY(this->GetHalfY() - to->GetHeight()/2);
-    } else if (align.valign == V::BOTTOM) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-        to->SetY(this->rect.y + this->rect.h - to->GetHeight());
-    }
+    Button *newb = new Button(sid, dco, fto, align);
+    newb->InternalInit();
+    sid.parent->Add(newb); 
 }
 
 void Button::SetTextAlign(Align align)
@@ -160,8 +136,11 @@ void Button::SetTextColor(SDL_Color color)
     textColor.g = color.g;
     textColor.b = color.b;
     textColor.a = color.a;
+}
 
-    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
+SDL_Color Button::GetTextColor()
+{
+    return textColor;
 }
 
 void Button::Draw()
@@ -183,11 +162,6 @@ void Button::Draw()
 
         for(Shape *w : shapes) {
             w->Draw();
-        }
-
-        //SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
-        if(tex == nullptr) {
-            to->Draw();
         }
     }
 }
@@ -236,10 +210,71 @@ void Button::SetHighlightColor(SDL_Color color)
 
 int Button::GetTextSize()
 {
+    Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
     return to->GetWidth();
 }
 
 std::string Button::GetText()
 {
-    return name;
+    Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
+    return to->GetText();
+}
+
+void Button::SetText(std::string text)
+{
+    Root *root = &Root::GetInstance();
+
+    if(this->text == "") {
+        delete shapes[0];
+        shapes.clear();
+        shapesNames.clear();
+
+        this->text = text;
+        this->fto.text = text;
+
+        InternalInit();
+    }
+
+    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
+
+    to->SetText(text);
+    this->text = text;
+    this->fto.text = text;
+
+}
+
+void Button::InternalInit()
+{
+    //child text
+    Root *root = &Root::GetInstance();
+    Button *newb = root->GetButton(name);
+
+    Text::Begin( {newb, newb->name+"_text"}, fto, newb->GetRect().x + newb->GetRect().w/10, newb->GetRect().y, {0,0,0,255});
+
+    Text *to = (Text *)root->GetButton(name)->Get(name + "_text");
+    to->SetTextColor(root->GetButton(name)->GetTextColor());
+    
+    if(align.valign == V::TOP) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+    } else if (align.valign == V::MID) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+        to->SetY(newb->GetHalfY() - to->GetHeight()/2);
+    } else if (align.valign == V::BOTTOM) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+        to->SetY(newb->GetRect().y + newb->GetRect().h - to->GetHeight());
+    }
 }

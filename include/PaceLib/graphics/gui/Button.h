@@ -54,6 +54,8 @@ namespace PaceLib
 
             void SetTextColor(SDL_Color color);
 
+            SDL_Color GetTextColor();
+
             void SetHighlight(bool state);
             
             void SetHighlightColor(SDL_Color color);
@@ -62,15 +64,12 @@ namespace PaceLib
 
             std::string GetText();
 
-
             void Draw();
             void Update(SDL_Event *e);
 
             std::function<void(void)> onClickCallback;
 
         private:
-            Text *to;
-
             SDL_Color textColor;
 
             Align align;
@@ -83,7 +82,11 @@ namespace PaceLib
 
             SDL_Texture *tex;
 
-            void InternalAlign(Align align);
+            std::string text;
+
+            PropFontText fto;
+
+            void InternalInit();
     };
 
 }

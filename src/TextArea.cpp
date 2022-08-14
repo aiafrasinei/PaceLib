@@ -27,8 +27,9 @@ TextArea::TextArea(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std
     textSpacing = 20;
 
     int ry = rect.y;
+    int i=0;
     for (std::string text : tarr) {
-        tos.push_back(Text::Begin(font, text, rect.x + rect.w/50, ry, {textColor.r, textColor.g, textColor.b, textColor.a}));
+        Text::Begin({sid.parent, sid.name+"_text" + std::to_string(i)}, {font, text}, rect.x + rect.w/50, ry, {textColor.r, textColor.g, textColor.b, textColor.a});
         ry = ry + 20;
     }
 
@@ -120,13 +121,6 @@ void TextArea::Draw()
         SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
  
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
-
-        //SDL_SetRenderDrawColor(Window::GetRenderer(), 90, 90, 90, 255);
-        //SDL_RenderDrawRect(Window::GetRenderer(), &rect);
-
-        for(Text *to : tos) {
-            to->Draw();
-        }
 
         SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
         for(Shape *w : shapes) {

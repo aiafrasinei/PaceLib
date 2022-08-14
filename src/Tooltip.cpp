@@ -219,7 +219,10 @@ DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, S
 
     this->name = name;
 
-    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
+    Text::Begin({sid.parent, name + "_text"}, fto, rect.x, rect.y, textColor);
+
+    Root *root = &Root::GetInstance();
+    to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
     to->SetX(this->GetHalfX() - to->GetWidth() / 2);
 }
 
@@ -285,9 +288,8 @@ void DefaultTooltip::Draw()
                 w->Draw();
             }
 
-            SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b, Window::GetBackgroundColor().a);
-
-            to->Draw();
+            //SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b, Window::GetBackgroundColor().a);
+            //to->Draw();
         }
     }
 }

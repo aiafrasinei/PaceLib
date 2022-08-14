@@ -1,5 +1,4 @@
 #define SDL_MAIN_HANDLED
-
 #include "PaceLib.h"
 
 using namespace PaceLib;

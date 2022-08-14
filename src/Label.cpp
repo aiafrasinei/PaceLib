@@ -26,12 +26,15 @@ Label::Label(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MI
 
     textColor = {0, 0, 0, 255};
 
-    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
+    Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x, rect.y, textColor);
     InternalAlign(align);
 
     this->name = sid.name;
 
     wtype = WidgetType::LABEL;
+
+    Root *root = &Root::GetInstance();
+    to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
 }
 
 Label::~Label()
@@ -116,6 +119,8 @@ void Label::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align)
 
 void Label::InternalAlign(Align align)
 {
+    Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
     if(align.valign == V::TOP) {
         if (align.halign == H::MID) {
             to->SetX(this->GetHalfX() - to->GetWidth()/2);
@@ -151,6 +156,8 @@ void Label::SetTextColor(SDL_Color color)
     textColor.b = color.b;
     textColor.a = color.a;
 
+    Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
     to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
 }
 
@@ -167,7 +174,7 @@ void Label::Draw()
             w->Draw();
         }
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
-        to->Draw();
+        //SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
+        //to->Draw();
     }
 }
