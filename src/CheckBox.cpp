@@ -26,9 +26,9 @@ CheckBox::CheckBox(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color te
     this->textColor = textColor;
 
     if(sid.parent->name == "root") {
-        to = Text::Begin(fto.font, fto.text, rect.x + rect.w/50, rect.y, textColor);
+        Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x + rect.w/50, rect.y, textColor);
     } else {
-        to = Text::Begin(fto.font, fto.text, rect.x + rect.w*1.5, rect.y - rect.h/3.1, textColor);
+        Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x + rect.w*1.5, rect.y - rect.h/3.1, textColor);
     }
 
     this->name = sid.name;
@@ -133,7 +133,14 @@ void CheckBox::Begin(ShapeId sid)
 
         SDL_Color textColor = {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]};
 
-        sid.parent->Add(new CheckBox(sid, dco, fto, textColor));
+        CheckBox *newc = new CheckBox(sid, dco, fto, textColor);
+
+        newc->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        newc->conf = conf;
+
+        sid.parent->Add(newc);
+
+        newc->InternalInit();
     }
 }
 
@@ -162,7 +169,10 @@ void CheckBox::EndBlock()
 
 void CheckBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
-    sid.parent->Add(new CheckBox(sid, dco, fto, textColor));
+    CheckBox *newc = new CheckBox(sid, dco, fto, textColor);
+    newc->InternalInit();
+
+    sid.parent->Add(newc); 
 }
 
 void CheckBox::Begin(ShapeId sid, PropTex pto)
@@ -199,12 +209,6 @@ void CheckBox::Draw()
         for(Shape *w : shapes) {
             w->Draw();
         }
-
-        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
-        if(tex == nullptr) {
-            to->Draw();
-        }
-
     }
 }
 
@@ -260,5 +264,22 @@ void CheckBox::SetTextColor(SDL_Color color)
     textColor.b = color.b;
     textColor.a = color.a;
 
-    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
+    //to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
+}
+
+void CheckBox::InternalInit()
+{
+    //child text
+    Root *root = &Root::GetInstance();
+    CheckBox *newc = (CheckBox *)root->GetCurrent()->Get(name);
+
+    Text::Begin( {newc, newc->name+"_text"}, fto, newc->GetRect().x + newc->GetRect().w*1.5, newc->GetRect().y - newc->GetRect().h/3.1, {0,0,0,255});
+
+    Text *to = (Text *)newc->Get(name + "_text");
+    to->SetTextColor(newc->GetTextColor());
+}
+
+SDL_Color CheckBox::GetTextColor()
+{
+    return textColor;
 }

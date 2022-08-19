@@ -217,12 +217,12 @@ DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, S
     this->color.b = color.b;
     this->color.a = color.a;
 
-    this->name = name;
+    this->name = sid.name;
 
-    Text::Begin({sid.parent, name + "_text"}, fto, rect.x, rect.y, textColor);
+    Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x, rect.y, textColor);
 
     Root *root = &Root::GetInstance();
-    to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
+    to = (Text *)sid.parent->Get(this->name + "_text");
     to->SetX(this->GetHalfX() - to->GetWidth() / 2);
 }
 

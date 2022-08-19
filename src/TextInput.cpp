@@ -23,7 +23,7 @@ TextInput::TextInput(ShapeId sid, PropDimColor dco, PropFontText fto)
 
     textColor = {0, 0, 0, 255};
 
-    to = Text::Begin(fto.font, fto.text, rect.x, rect.y, textColor);
+    Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x, rect.y, textColor);
 
     this->name = sid.name;
 
@@ -100,15 +100,14 @@ void TextInput::Draw()
         for(Shape *w : shapes) {
             w->Draw();
         }
-
-        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
-        to->Draw();
     }
 }
 
 void TextInput::Update(SDL_Event *e)
 {
     if(focus) {
+        Root *root = &Root::GetInstance();
+        Text *to = (Text *)root->GetLabel(name)->Get(name+"_text");
         if(e->type == SDL_TEXTINPUT)
         {
             to->SetText(to->GetText() + e->text.text);
@@ -142,5 +141,7 @@ void TextInput::Update(SDL_Event *e)
 
 std::string TextInput::GetText()
 {
+    Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetLabel(name)->Get(name+"_text");
     return to->GetText();
 }

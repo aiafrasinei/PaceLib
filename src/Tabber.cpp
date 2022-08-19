@@ -33,13 +33,15 @@ Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
     this->name = sid.name;
 
     current = 0;
-    xb = rect.y/99;
+    bx = rect.y/99;
 
     bcounter = 0;
     
     top = {rect.x, rect.y, rect.w, rect.h/9};
 
     wtype = WidgetType::TAB;
+
+    nrtabs = 0;
 }
 
 Tabber::~Tabber()
@@ -65,7 +67,24 @@ void Tabber::Begin(ShapeId sid)
 void Tabber::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
+    
     Tabber::Begin({(Widget *)root->GetCurrent(), name});
+}
+
+void Tabber::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Tabber::Begin({(Widget *)root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Tabber::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Tabber::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
@@ -85,10 +104,12 @@ void Tabber::Draw()
 {
     if(!hidden) {
         if(once) {
-            for(Tab *tab : tabs) {
-                tab->Hide();
+            for(int i=0; i<shapesNames.size();i++) {
+                if(shapesNames[0] == "t") {
+                    shapes[i]->Hide();
+                }
             }
-            tabs[current]->Show();
+            shapes[current]->Show();
             once=false;
         }
 
@@ -104,27 +125,21 @@ void Tabber::Draw()
         for(Shape *w : shapes) {
             w->Draw();
         }
-
-        for(Shape *w : buttons) {
-            w->Draw();
-        }
-
-        for(Shape *w : tabs) {
-            w->Draw();
-        }
     }
 }
 
-void Tabber::AddTab(std::string text)
+void Tabber::BeginTabBlock(std::string text)
 {
-    titles.push_back(text);
+    Root *root = &Root::GetInstance();
+    Tabber *parent = (Tabber *)root->GetCurrent()->GetParent();
+    Tab *tab = (Tab *)root->GetCurrent();
+    Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, {{((Tabber *)tab->GetParent())->GetBx(), tab->GetRect().y/99, 40, tab->GetRect().y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT});
 
-    buttons.push_back(new Button({this, "h_" + std::to_string(nrtitles)}, {{xb, rect.y/99, 40, rect.y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT}));
-    Button *b = ((Button *)buttons[nrtitles]);
-    b->SetRectW(b->GetTextSize() + rect.w/30);
-    xb = xb + b->GetTextSize() + rect.w/30 + rect.w/99;
+    Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
+    b->SetRectW(b->GetTextSize() + tab->GetRect().w/30);
+    parent->SetBx(parent->GetBx()  + b->GetTextSize() + tab->GetRect().w/30 + tab->GetRect().w/99);
 
-    buttons[nrtitles]->onClickCallback = [btext = buttons[nrtitles]->GetText()]() {
+    b->onClickCallback = [btext = b->GetText()]() {
         std::size_t pos = btext.find("_");
         current = std::stoi(btext.substr(pos+1));
         once = true;
@@ -132,9 +147,17 @@ void Tabber::AddTab(std::string text)
 
     nrtitles++;
 
-    tabs.push_back(new Tab({this, "t_" + std::to_string(nrtabs)} , { {0, rect.y/13, rect.w, rect.h} , {color.r, color.g, color.b, color.a} }));
-    tabs[nrtabs]->Hide();
+    Tab::Begin({tab, "t_" + std::to_string(nrtabs)} , { {0, tab->GetRect().y/13, tab->GetRect().w, tab->GetRect().h} , {tab->GetColor().r, tab->GetColor().g, tab->GetColor().b, tab->GetColor().a}});
+    tab->Get("t_" + std::to_string(nrtabs))->Hide();
+    root->SetCurrent(tab->Get("t_" + std::to_string(nrtabs)));
+    root->GetCurrent()->SetParent(tab);
     nrtabs++;
+}
+
+void Tabber::EndTabBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Tabber::Update(SDL_Event *e)
@@ -143,17 +166,17 @@ void Tabber::Update(SDL_Event *e)
         s->Update(e);
     }
 
-    for(Shape *w : buttons) {
+    /*for(Shape *w : tabs) {
         w->Update(e);
-    }
-
-    for(Shape *w : tabs) {
-        w->Update(e);
-    }
+    }*/
 }
 
-
-Tab *Tabber::GetTab(int index)
+void Tabber::SetBx(int bx)
 {
-    return tabs[index];
+    this->bx = bx;
+}
+
+int Tabber::GetBx()
+{
+    return bx;
 }

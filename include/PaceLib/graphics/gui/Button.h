@@ -41,10 +41,7 @@ namespace PaceLib
 
 //end static methods
 
-            Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align);
-
             ~Button();
-
 
             void SetFont(FC_Font *font);
 
@@ -70,6 +67,7 @@ namespace PaceLib
             std::function<void(void)> onClickCallback;
 
         private:
+
             SDL_Color textColor;
 
             Align align;
@@ -84,9 +82,13 @@ namespace PaceLib
 
             std::string text;
 
+            int textSize;
+
             PropFontText fto;
 
             void InternalInit();
+
+            Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align);
     };
 
 }

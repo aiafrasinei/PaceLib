@@ -30,6 +30,12 @@ namespace PaceLib
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
 
+            static void BeginBlock(std::string name);
+            static void EndBlock();
+
+            static void BeginTabBlock(std::string text);
+            static void EndTabBlock();
+
 // programmatic
 
             static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
@@ -45,7 +51,12 @@ namespace PaceLib
 
             void Update(SDL_Event *e);
 
-            Tab *GetTab(int index);
+            //Tab *GetTab(int index);
+            //std::vector<Tab *> GetTabs();
+
+            void SetBx(int bx);
+
+            int GetBx();
 
             static unsigned int current;
 
@@ -54,16 +65,15 @@ namespace PaceLib
         private:
             std::vector<std::string> titles;
 
-            std::vector<Button *> buttons;
-            std::vector<Tab *> tabs;
-
             SDL_Color textColor;
 
-            int xb;
+            int bx;
 
             int bcounter;
 
             SDL_Rect top;
+
+            //int nrtabs;
 
             Tabber(ShapeId sid, PropDimColor dmo, PropFontText fto);
     };

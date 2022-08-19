@@ -26,15 +26,11 @@ Label::Label(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MI
 
     textColor = {0, 0, 0, 255};
 
-    Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x, rect.y, textColor);
-    InternalAlign(align);
-
     this->name = sid.name;
 
     wtype = WidgetType::LABEL;
 
-    Root *root = &Root::GetInstance();
-    to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
+    this->fto = fto;
 }
 
 Label::~Label()
@@ -67,26 +63,20 @@ void Label::Begin(ShapeId sid)
             align.halign = H::RIGHT;
         }
 
-        Label *lb = nullptr;
-        if (conf->Get("color") == "parent") {
-            lb = new Label( sid, 
-                {{dim[0], dim[1], dim[2], dim[3]},
-                {sid.parent->GetColor().r, sid.parent->GetColor().g, sid.parent->GetColor().b, sid.parent->GetColor().a}},
-                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
-                align);
+        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
 
-        } else {
-            lb = new Label( sid, 
-                {{dim[0], dim[1], dim[2], dim[3]},
-                {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
-                {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
-                align);
-        }
+        Label *newl = new Label( sid, 
+            {{dim[0], dim[1], dim[2], dim[3]},
+            {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
+            fto,
+            align);
 
-        lb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        newl->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        newl->conf = conf;
 
-        lb->conf = conf;
-        sid.parent->Add(lb);
+        sid.parent->Add(newl);
+
+        newl->InternalInit();
     }
 }
 
@@ -114,34 +104,9 @@ void Label::EndBlock()
 
 void Label::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align)
 {
-    sid.parent->Add(new Label( sid, dco, fto, align ));
-}
-
-void Label::InternalAlign(Align align)
-{
-    Root *root = &Root::GetInstance();
-    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
-    if(align.valign == V::TOP) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-    } else if (align.valign == V::MID) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-        to->SetY(this->GetHalfY() - to->GetHeight()/2);
-    } else if (align.valign == V::BOTTOM) {
-        if (align.halign == H::MID) {
-            to->SetX(this->GetHalfX() - to->GetWidth()/2);
-        } else if (align.halign == H::RIGHT) {
-            to->SetX(this->rect.x + this->rect.w - to->GetWidth());
-        }
-        to->SetY(this->rect.y + this->rect.h - to->GetHeight());
-    }
+    Label *newl = new Label(sid, dco, fto, align);
+    newl->InternalInit();
+    sid.parent->Add(newl); 
 }
 
 void Label::SetTextAlign(Align align)
@@ -156,9 +121,9 @@ void Label::SetTextColor(SDL_Color color)
     textColor.b = color.b;
     textColor.a = color.a;
 
-    Root *root = &Root::GetInstance();
-    Text *to = (Text *)root->GetButton(this->name)->Get(this->name + "_text");
-    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
+    /*Root *root = &Root::GetInstance();
+    Text *to = (Text *)root->GetLabel(this->name)->Get(this->name + "_text");
+    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);*/
 }
 
 void Label::Draw()
@@ -173,8 +138,44 @@ void Label::Draw()
         for(Shape *w : shapes) {
             w->Draw();
         }
-
-        //SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
-        //to->Draw();
     }
+}
+
+void Label::InternalInit()
+{
+    //child text
+    Root *root = &Root::GetInstance();
+    Label *newb = (Label *)root->GetCurrent()->Get(name);
+
+    Text::Begin( {newb, name+"_text"}, fto, GetRect().x + GetRect().w/10, GetRect().y, {0,0,0,255});
+
+    Text *to = (Text *)newb->Get(name + "_text");
+    to->SetTextColor(newb->GetTextColor());
+    
+    if(align.valign == V::TOP) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+    } else if (align.valign == V::MID) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+        to->SetY(newb->GetHalfY() - to->GetHeight()/2);
+    } else if (align.valign == V::BOTTOM) {
+        if (align.halign == H::MID) {
+            to->SetX(newb->GetHalfX() - to->GetWidth()/2);
+        } else if (align.halign == H::RIGHT) {
+            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
+        }
+        to->SetY(newb->GetRect().y + newb->GetRect().h - to->GetHeight());
+    }
+}
+
+SDL_Color Label::GetTextColor()
+{
+    return textColor;
 }

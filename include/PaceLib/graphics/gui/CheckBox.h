@@ -59,6 +59,8 @@ namespace PaceLib
 
             bool IsChecked();
 
+            SDL_Color GetTextColor();
+
         private:
             bool mouseOver;
 
@@ -75,6 +77,10 @@ namespace PaceLib
             SDL_Color textColor;
 
             SDL_Rect midrect;
+
+            PropFontText fto;
+
+            void InternalInit();
     };
 
 }

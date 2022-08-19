@@ -54,15 +54,20 @@ bool start()
 		CheckBox::Begin("cb");
 	Tab::EndBlock();
 
-	Tabber::Begin("third_tb");
-	root->GetTabber("third_tb")->AddTab("Main");
-	root->GetTabber("third_tb")->AddTab("Options");
-	root->GetTabber("third_tb")->AddTab("Help");
+	Tabber::BeginBlock("third_tb");
+		Tabber::BeginTabBlock("Main");
+			Button::Begin("third_tb_start_btn");
+		Tabber::EndTabBlock();
 
-	Button::Begin({root->GetTabber("third_tb")->GetTab(0), "third_tb_start_btn"});
-	CheckBox::Begin({root->GetTabber("third_tb")->GetTab(1), "fullscreen_cb"});
-	CheckBox::Begin({root->GetTabber("third_tb")->GetTab(1), "vsync_cb"});
-	TextArea::Begin({root->GetTabber("third_tb")->GetTab(2), "third_tb_text_ta"});
+		Tabber::BeginTabBlock("Options");
+			CheckBox::Begin("fullscreen_cb");
+			CheckBox::Begin("vsync_cb");
+		Tabber::EndTabBlock();
+
+		Tabber::BeginTabBlock("Help");
+			TextArea::Begin("third_tb_text_ta");
+		Tabber::EndTabBlock();
+	Tabber::EndBlock();
 	
 	Label::Begin("out1_lbl");
 	Button::Begin("astart_btn");

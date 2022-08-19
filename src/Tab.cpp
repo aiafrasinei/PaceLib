@@ -6,41 +6,44 @@ using namespace PaceLib;
 
 Tab::Tab(ShapeId sid, PropDimColor dco)
 {
-    if(sid.parent->name == "root") {
+    if (sid.parent->name == "root")
+    {
         rect.x = dco.rect.x;
         rect.y = dco.rect.y;
-    } else {
+    }
+    else
+    {
         rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
         rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
     }
-    
+
     rect.w = dco.rect.w;
     rect.h = dco.rect.h;
 
     hidden = false;
 
-    
     this->color.r = dco.color.r;
     this->color.g = dco.color.g;
     this->color.b = dco.color.b;
     this->color.a = dco.color.a;
 
     this->name = sid.name;
-    this->parent = sid.parent;
 
     wtype = WidgetType::TAB;
 }
 
 Tab::~Tab()
 {
-    if(this->parent != nullptr) {
+    if (this->parent != nullptr)
+    {
         delete this->parent;
     }
 }
 
 void Tab::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
+    {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
         int dim[4];
@@ -80,7 +83,7 @@ void Tab::BeginBlock(std::string name)
 void Tab::EndBlock()
 {
     Root *root = &Root::GetInstance();
-    root->SetCurrent(root);
+    root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
 void Tab::Begin(ShapeId sid, PropDimColor dco)
@@ -90,16 +93,18 @@ void Tab::Begin(ShapeId sid, PropDimColor dco)
 
 void Tab::Draw()
 {
-    if(!hidden) {
+    if (!hidden)
+    {
         SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
 
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
 
-        for(Shape *w : shapes) {
+        for (Shape *w : shapes)
+        {
             w->Draw();
         }
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
+        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b, Window::GetBackgroundColor().a);
     }
 }
 
@@ -110,7 +115,8 @@ void Tab::Add(Shape *s)
 
 void Tab::Update(SDL_Event *e)
 {
-    for(Shape *s : shapes) {
+    for (Shape *s : shapes)
+    {
         s->Update(e);
     }
 }

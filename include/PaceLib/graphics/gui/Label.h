@@ -42,20 +42,22 @@ namespace PaceLib
 
             void SetTextColor(SDL_Color color);
 
+            SDL_Color GetTextColor();
+
             void Draw();
 
             ~Label();
 
         private:
-            Text *to;
-
             SDL_Color textColor;
 
             Align align;
 
+            PropFontText fto;
+
             Label(ShapeId sid, PropDimColor dmo, PropFontText fto, Align align);
 
-            void InternalAlign(Align align);
+            void InternalInit();
     };
 
 }
