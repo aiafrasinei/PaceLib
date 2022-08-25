@@ -80,6 +80,8 @@ namespace PaceLib
 
             PropFontText fto;
 
+            int textSize;
+
             void InternalInit();
     };
 

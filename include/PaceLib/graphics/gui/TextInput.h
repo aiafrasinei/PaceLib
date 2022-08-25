@@ -12,7 +12,6 @@ namespace PaceLib
     class TextInput : public Widget, public Focusable
     {
         public:
-
 //static methods
 
 // json configuration
@@ -23,7 +22,8 @@ namespace PaceLib
                 "color" : [120, 120, 120, 255],
                 "scene" : "Default",
                 "font" : "default",
-                "text" : ""
+                "text" : "",
+                "text_color" : [0, 0, 0, 255],
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -44,14 +44,24 @@ namespace PaceLib
             void Update(SDL_Event *e);
 
             std::string GetText();
+
+            void SetTextColor(SDL_Color color);
+            SDL_Color GetTextColor();
             
             ~TextInput();
+
         private:
             Text *to;
 
             SDL_Color textColor;
 
+            PropFontText fto;
+
+            int textSize;
+
             TextInput(ShapeId sid, PropDimColor dmo, PropFontText fto);
+
+            void InternalInit();
     };
 
 }

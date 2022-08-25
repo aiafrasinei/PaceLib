@@ -82,7 +82,11 @@ namespace PaceLib
             Text *to;
             SDL_Color textColor;
 
+            PropFontText fto;
+
             DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+
+            void InternalInit();
     };
 
 }

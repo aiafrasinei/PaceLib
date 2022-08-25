@@ -1,7 +1,7 @@
 var classPaceLib_1_1ButtonTex =
 [
-    [ "~ButtonTex", "classPaceLib_1_1ButtonTex.html#a7d0c142066cd3b83ffc0274b7a29f6d1", null ],
     [ "ButtonTex", "classPaceLib_1_1ButtonTex.html#ac360b6c3fdeaf650f723a37ce059d7c3", null ],
+    [ "~ButtonTex", "classPaceLib_1_1ButtonTex.html#a7d0c142066cd3b83ffc0274b7a29f6d1", null ],
     [ "Draw", "classPaceLib_1_1ButtonTex.html#ad4be77da6d2006847d84553e5ff29875", null ],
     [ "SetHighlight", "classPaceLib_1_1ButtonTex.html#a9131529f0498a1b43bf89833c8316269", null ],
     [ "SetHighlightColor", "classPaceLib_1_1ButtonTex.html#ae3c19f1ad11032611aa8593f7a6b5327", null ],

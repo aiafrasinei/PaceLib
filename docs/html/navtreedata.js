@@ -39,7 +39,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ButtonTex_8h_source.html",
-"classPaceLib_1_1Tab.html#a8cc210bcede02daa21145bb1675c3c80"
+"classPaceLib_1_1Tab.html#a5cacd419ef7e7d3e6fee220242713b17"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

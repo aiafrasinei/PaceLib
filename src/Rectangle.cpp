@@ -6,7 +6,7 @@ using namespace PaceLib;
 
 Rectangle::Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color)
 {
-    SetColor(color.r, color.g, color.b, color.a);
+    SetColor(color);
 
     if(sid.parent->name == "root") {
         rect.x = dim.x;

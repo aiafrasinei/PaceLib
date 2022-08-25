@@ -212,18 +212,13 @@ DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, S
 
     hidden = false;
 
-    this->color.r = color.r;
-    this->color.g = color.g;
-    this->color.b = color.b;
-    this->color.a = color.a;
+    this->color = color;
+
+    this->textColor = textColor;
 
     this->name = sid.name;
 
-    Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x, rect.y, textColor);
-
-    Root *root = &Root::GetInstance();
-    to = (Text *)sid.parent->Get(this->name + "_text");
-    to->SetX(this->GetHalfX() - to->GetWidth() / 2);
+    this->fto = fto;
 }
 
 void DefaultTooltip::Begin(ShapeId sid)
@@ -232,14 +227,19 @@ void DefaultTooltip::Begin(ShapeId sid)
     {
         Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
 
+        DefaultTooltip *dt;
         if (conf->Get("color") == "parent")
         {
-            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene("Default")->GetFont("default"), conf->Get("text").get<std::string>()}, sid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            dt = new DefaultTooltip(sid, {Root::GetInstance().GetScene("Default")->GetFont("default"), conf->Get("text").get<std::string>()}, sid.parent->GetColor(), {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+            sid.parent->Add(dt);
         }
         else
         {
-            sid.parent->Add(new DefaultTooltip(sid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]}));
+            dt = new DefaultTooltip(sid, {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}, {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+            sid.parent->Add(dt);
         }
+
+        dt->InternalInit();
     }
 }
 
@@ -267,7 +267,10 @@ void DefaultTooltip::EndBlock()
 
 void DefaultTooltip::Begin(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color text_color)
 {
-    sid.parent->Add(new DefaultTooltip(sid, fto, color, {0, 0, 0, 255}));
+    DefaultTooltip *dt = new DefaultTooltip(sid, fto, color, {0, 0, 0, 255});
+    sid.parent->Add(dt);
+
+    dt->InternalInit();
 }
 
 void DefaultTooltip::Draw()
@@ -287,9 +290,6 @@ void DefaultTooltip::Draw()
             {
                 w->Draw();
             }
-
-            //SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b, Window::GetBackgroundColor().a);
-            //to->Draw();
         }
     }
 }
@@ -301,5 +301,19 @@ void DefaultTooltip::SetTextColor(SDL_Color color)
     textColor.b = color.b;
     textColor.a = color.a;
 
-    to->SetColor(textColor.r, textColor.g, textColor.b, textColor.a);
+    to->SetColor(color);
+}
+
+void DefaultTooltip::InternalInit()
+{
+     // child text
+    Root *root = &Root::GetInstance();
+    DefaultTooltip *dt = (DefaultTooltip *)root->GetCurrent()->Get(name);
+
+    Text::Begin({dt, dt->name+"_text"}, fto, dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y, textColor);
+
+    Text *to = (Text *)dt->Get(name + "_text");
+
+    to->SetX(dt->GetRect().x);
+    to->SetY(dt->GetRect().y);
 }

@@ -25,12 +25,6 @@ CheckBox::CheckBox(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color te
 
     this->textColor = textColor;
 
-    if(sid.parent->name == "root") {
-        Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x + rect.w/50, rect.y, textColor);
-    } else {
-        Text::Begin({sid.parent, sid.name + "_text"}, fto, rect.x + rect.w*1.5, rect.y - rect.h/3.1, textColor);
-    }
-
     this->name = sid.name;
 
     mouseOver = false;
@@ -42,6 +36,8 @@ CheckBox::CheckBox(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color te
     Uint8 hb = color.b + 30;
     Uint8 ha = 255;
     highlightColor = { hr , hg , hb, ha };
+
+    this->fto = fto;
 
     tex = nullptr;
 
@@ -58,6 +54,8 @@ CheckBox::CheckBox(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color te
     };
 
     midrect = { rect.x+rect.w/4, rect.y+rect.h/4, rect.w/2, rect.h/2 };
+
+    textSize = 0;
 }
 
 CheckBox::CheckBox(ShapeId sid, PropTex pto)
@@ -126,10 +124,7 @@ void CheckBox::Begin(ShapeId sid)
         dco.color.b = conf->Get("color")[2];
         dco.color.a = conf->Get("color")[3];
 
-        PropFontText fto;
-
-        fto.font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
-        fto.text = conf->Get("text").get<std::string>();
+        PropFontText fto = { Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
 
         SDL_Color textColor = {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]};
 
@@ -140,7 +135,8 @@ void CheckBox::Begin(ShapeId sid)
 
         sid.parent->Add(newc);
 
-        newc->InternalInit();
+        Root *root = &Root::GetInstance();
+        ((CheckBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
     }
 }
 
@@ -170,9 +166,11 @@ void CheckBox::EndBlock()
 void CheckBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color textColor)
 {
     CheckBox *newc = new CheckBox(sid, dco, fto, textColor);
-    newc->InternalInit();
+    
+    Root *root = &Root::GetInstance();
+    root->GetCurrent()->Add(newc);
 
-    sid.parent->Add(newc); 
+    ((CheckBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void CheckBox::Begin(ShapeId sid, PropTex pto)
@@ -273,10 +271,15 @@ void CheckBox::InternalInit()
     Root *root = &Root::GetInstance();
     CheckBox *newc = (CheckBox *)root->GetCurrent()->Get(name);
 
-    Text::Begin( {newc, newc->name+"_text"}, fto, newc->GetRect().x + newc->GetRect().w*1.5, newc->GetRect().y - newc->GetRect().h/3.1, {0,0,0,255});
+    Text::Begin( {newc, newc->name+"_text"}, fto, newc->GetRect().x + newc->GetRect().w / 10, newc->GetRect().y, {0,0,0,255});
 
     Text *to = (Text *)newc->Get(name + "_text");
-    to->SetTextColor(newc->GetTextColor());
+    to->SetColor(newc->GetTextColor());
+
+    textSize = to->GetWidth();
+
+    to->SetX(newc->GetRect().x + 1.5*newc->GetRect().w);
+    to->SetY(newc->GetHalfY() - to->GetHeight() / 2);
 }
 
 SDL_Color CheckBox::GetTextColor()

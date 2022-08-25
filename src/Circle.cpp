@@ -21,7 +21,7 @@ Circle::Circle(ShapeId sid, float x, float y, float radius, SDL_Color color)
 
     rtype = DrawTypes::OUTLINE;
 
-    SetColor(color.r, color.g, color.b, color.a);
+    SetColor(color);
 
     this->name = sid.name;
 }

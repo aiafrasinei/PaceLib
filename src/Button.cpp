@@ -278,10 +278,10 @@ void Button::InternalInit()
     Root *root = &Root::GetInstance();
     Button *newb = (Button *)root->GetCurrent()->Get(name);
 
-    Text::Begin({newb, name + "_text"}, fto, GetRect().x + GetRect().w / 10, GetRect().y, {0, 0, 0, 255});
+    Text::Begin({newb, name + "_text"}, fto, GetRect().x + GetRect().w / 20, GetRect().y, {0, 0, 0, 255});
 
     Text *to = (Text *)newb->Get(name + "_text");
-    to->SetTextColor({newb->GetTextColor()});
+    to->SetColor({newb->GetTextColor()});
     textSize = to->GetWidth();
 
     to->SetX(newb->GetRect().x + rect.w/20);

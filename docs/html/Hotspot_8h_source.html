@@ -108,46 +108,59 @@ $(document).ready(function(){initNavTree('Hotspot_8h_source.html',''); initResiz
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classPaceLib_1_1Hotspot.html">   20</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classPaceLib_1_1Hotspot.html">Hotspot</a> : <span class="keyword">public</span> <a class="code" href="classPaceLib_1_1Widget.html">Widget</a></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            ~<a class="code" href="classPaceLib_1_1Hotspot.html">Hotspot</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="comment">/* Loads wconf file</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">            example format:</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">            {</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">                &quot;dim&quot; : [&quot;W_25%&quot;, &quot;W_3%&quot;, &quot;W_20%&quot;, &quot;W_22%&quot;],</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">                &quot;color&quot; : [80, 70, 80, 255]</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">            }*/</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Create(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Create(std::string name);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Create(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropDimColor.html">PropDimColor</a> dco, Hover type=Hover::RECT, SDL_Texture *tex=<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordtype">void</span> SetHighlight(<span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordtype">void</span> SetHighlightColor(SDL_Color color);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordtype">void</span> SetRec(SDL_Rect rect);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordtype">void</span> Draw();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordtype">void</span> Update(SDL_Event *e);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            std::function&lt;void(<span class="keywordtype">void</span>)&gt; onClickCallback;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="classPaceLib_1_1Hotspot.html">Hotspot</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropDimColor.html">PropDimColor</a> dco, Hover type=Hover::RECT, SDL_Texture *tex=<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//static methods</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// json configuration</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="comment">/* Loads wconf file</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">            example format:</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">            {</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">                &quot;dim&quot; : [&quot;W_25%&quot;, &quot;W_3%&quot;, &quot;W_20%&quot;, &quot;W_22%&quot;],</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">                &quot;color&quot; : [80, 70, 80, 255]</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">            }*/</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(std::string name);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="comment">//used when the hotspot will have child elements</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> BeginBlock(std::string name);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> EndBlock();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">// programmatic</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropDimColor.html">PropDimColor</a> dco, Hover type=Hover::RECT, SDL_Texture *tex=<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//end static methods</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordtype">void</span> SetHighlight(<span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordtype">void</span> SetHighlightColor(SDL_Color color);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordtype">bool</span> mouseOver;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordtype">void</span> SetRec(SDL_Rect rect);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">bool</span> isHighlight;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">void</span> Draw();</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            Hover type;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordtype">void</span> Update(SDL_Event *e);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            SDL_Color highlight;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            std::function&lt;void(<span class="keywordtype">void</span>)&gt; onClickCallback;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            SDL_Texture *tex;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            ~<a class="code" href="classPaceLib_1_1Hotspot.html">Hotspot</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <a class="code" href="classPaceLib_1_1Hotspot.html">Hotspot</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropDimColor.html">PropDimColor</a> dco, Hover type=Hover::RECT, SDL_Texture *tex=<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordtype">bool</span> mouseOver;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordtype">bool</span> isHighlight;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            Hover type;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            SDL_Color highlight;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            SDL_Texture *tex;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
 <div class="ttc" id="aclassPaceLib_1_1Hotspot_html"><div class="ttname"><a href="classPaceLib_1_1Hotspot.html">PaceLib::Hotspot</a></div><div class="ttdef"><b>Definition:</b> Hotspot.h:21</div></div>
 <div class="ttc" id="aclassPaceLib_1_1Widget_html"><div class="ttname"><a href="classPaceLib_1_1Widget.html">PaceLib::Widget</a></div><div class="ttdef"><b>Definition:</b> Widget.h:12</div></div>
 <div class="ttc" id="astructPaceLib_1_1PropDimColor_html"><div class="ttname"><a href="structPaceLib_1_1PropDimColor.html">PaceLib::PropDimColor</a></div><div class="ttdef"><b>Definition:</b> Props.h:48</div></div>

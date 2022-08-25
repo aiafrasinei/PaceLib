@@ -150,8 +150,10 @@ void Label::InternalInit()
     Text::Begin( {newb, name+"_text"}, fto, GetRect().x + GetRect().w/10, GetRect().y, {0,0,0,255});
 
     Text *to = (Text *)newb->Get(name + "_text");
-    to->SetTextColor(newb->GetTextColor());
+    to->SetColor(newb->GetTextColor());
     
+    to->SetX(newb->GetRect().x + rect.w/20);
+
     if(align.valign == V::TOP) {
         if (align.halign == H::MID) {
             to->SetX(newb->GetHalfX() - to->GetWidth()/2);

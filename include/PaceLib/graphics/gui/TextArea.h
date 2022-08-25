@@ -30,24 +30,28 @@ namespace PaceLib
 
             void SetTextAlign(Align align);
 
-            void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+            void SetTextColor(SDL_Color color);
+
+            SDL_Color GetTextColor();
 
             void SetTextSpacing(int size);
 
             void Draw();
 
         private:
-            std::vector<Text *> tos;
-
             SDL_Color textColor;
 
             Align align;
 
             int textSpacing;
 
+            std::vector<std::string> tarr;
+
+            FC_Font *font;
+
             TextArea(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
 
-            void InternalAlign(Align align);
+            void InternalInit();
     };
 
 }

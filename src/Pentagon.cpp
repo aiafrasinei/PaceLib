@@ -110,7 +110,7 @@ Pentagon::Pentagon(ShapeId sid, float x1, float y1, float x2, float y2, float x3
     
     rtype = DrawTypes::OUTLINE;
 
-    SetColor(color.r, color.g, color.b, color.a);
+    SetColor(color);
 
     this->name = sid.name;
 }

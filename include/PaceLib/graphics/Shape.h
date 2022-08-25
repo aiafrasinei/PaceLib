@@ -93,14 +93,6 @@ namespace PaceLib
             return color;
         }
 
-        void SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-        {
-            color.r = r;
-            color.g = g;
-            color.b = b;
-            color.a = a;
-        } 
-
         void SetColor(SDL_Color col)
         {
             color.r = col.r;
@@ -118,7 +110,7 @@ namespace PaceLib
 
             SDL_GetRenderDrawColor(Window::GetRenderer() , &dr, &dg, &db, &da);
 
-            SetColor(dr, dg, db, da);
+            SetColor({dr, dg, db, da});
         }
 
         DrawTypes rtype;
@@ -126,6 +118,8 @@ namespace PaceLib
         Shape *current;
 
         Shape *parent;
+
+        SDL_Color color;
         
     private:
 

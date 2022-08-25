@@ -23,7 +23,7 @@ Ellipse::Ellipse(ShapeId sid, float x, float y, float rx, float ry, SDL_Color co
 
     rtype = DrawTypes::OUTLINE;
 
-    SetColor(color.r, color.g, color.b, color.a);
+    SetColor(color);
     this->name = sid.name;
 }
 

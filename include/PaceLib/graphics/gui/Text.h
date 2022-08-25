@@ -22,7 +22,7 @@ namespace PaceLib
             "scene" : "Default",
             "font" : "default",
             "pos" : ["W_0.6%", "W_0.6%"],
-            "text_color" : [140, 140, 140, 255]
+            "color" : [140, 140, 140, 255]
         }*/
         static void Begin(ShapeId sid);
         static void Begin(std::string name);
@@ -48,8 +48,6 @@ namespace PaceLib
 
         std::string GetText();
         void SetText(std::string text);
-
-        void SetTextColor(SDL_Color color);
 
         void SetFont(FC_Font *font);
 

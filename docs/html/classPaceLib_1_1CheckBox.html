@@ -131,6 +131,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (SDL_Event
 <tr class="memitem:a364cdde2bf757ee40ac27fc08e810069"><td class="memItemLeft" align="right" valign="top"><a id="a364cdde2bf757ee40ac27fc08e810069"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsChecked</b> ()</td></tr>
 <tr class="separator:a364cdde2bf757ee40ac27fc08e810069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cceab63ef88ac29e5581235f885f2b"><td class="memItemLeft" align="right" valign="top"><a id="a59cceab63ef88ac29e5581235f885f2b"></a>
+SDL_Color&#160;</td><td class="memItemRight" valign="bottom"><b>GetTextColor</b> ()</td></tr>
+<tr class="separator:a59cceab63ef88ac29e5581235f885f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classPaceLib_1_1Widget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classPaceLib_1_1Widget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classPaceLib_1_1Widget.html">PaceLib::Widget</a></td></tr>
 <tr class="memitem:a5e73c236ffc405f93bd05f2d6b27ba9c inherit pub_methods_classPaceLib_1_1Widget"><td class="memItemLeft" align="right" valign="top"><a id="a5e73c236ffc405f93bd05f2d6b27ba9c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRect</b> (float x, float y, float w, float h)</td></tr>
@@ -202,9 +205,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (SDL_Event
 <tr class="memitem:a6d63532855f71f20689505f06f7d45e2 inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="a6d63532855f71f20689505f06f7d45e2"></a>
 SDL_Color&#160;</td><td class="memItemRight" valign="bottom"><b>GetColor</b> ()</td></tr>
 <tr class="separator:a6d63532855f71f20689505f06f7d45e2 inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addcb2bd7986d562d038981312fc856c1 inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="addcb2bd7986d562d038981312fc856c1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetColor</b> (Uint8 r, Uint8 g, Uint8 b, Uint8 a)</td></tr>
-<tr class="separator:addcb2bd7986d562d038981312fc856c1 inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5fb5789c59c34fa6db208b5c9eedaba inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="ac5fb5789c59c34fa6db208b5c9eedaba"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetColor</b> (SDL_Color col)</td></tr>
 <tr class="separator:ac5fb5789c59c34fa6db208b5c9eedaba inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,12 +224,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad78f52da1942f4e1ad96bb9ff63cd08d"><td class="memItemLeft" align="right" valign="top"><a id="ad78f52da1942f4e1ad96bb9ff63cd08d"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (<a class="el" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid)</td></tr>
 <tr class="separator:ad78f52da1942f4e1ad96bb9ff63cd08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4394cad204a6f9a1bdfb84e942ac31d1"><td class="memItemLeft" align="right" valign="top"><a id="a4394cad204a6f9a1bdfb84e942ac31d1"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (std::string name, bool hasChildren=false)</td></tr>
-<tr class="separator:a4394cad204a6f9a1bdfb84e942ac31d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd76fb3e3d3b689be273efae44468e5a"><td class="memItemLeft" align="right" valign="top"><a id="acd76fb3e3d3b689be273efae44468e5a"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>End</b> ()</td></tr>
-<tr class="separator:acd76fb3e3d3b689be273efae44468e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d8d5183aabfd23a71b365a1c54b3e49"><td class="memItemLeft" align="right" valign="top"><a id="a6d8d5183aabfd23a71b365a1c54b3e49"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (std::string name)</td></tr>
+<tr class="separator:a6d8d5183aabfd23a71b365a1c54b3e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d07788aa4834063065805633d04d7d"><td class="memItemLeft" align="right" valign="top"><a id="ad1d07788aa4834063065805633d04d7d"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>BeginBlock</b> (std::string name)</td></tr>
+<tr class="separator:ad1d07788aa4834063065805633d04d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf041e99c73b9e43d976b96ff777bbf1"><td class="memItemLeft" align="right" valign="top"><a id="adf041e99c73b9e43d976b96ff777bbf1"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>EndBlock</b> ()</td></tr>
+<tr class="separator:adf041e99c73b9e43d976b96ff777bbf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf040c93a700b45d86b9a744462f6ad8"><td class="memItemLeft" align="right" valign="top"><a id="aaf040c93a700b45d86b9a744462f6ad8"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (<a class="el" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="el" href="structPaceLib_1_1PropDimColor.html">PropDimColor</a> dco, <a class="el" href="structPaceLib_1_1PropFontText.html">PropFontText</a> fto, SDL_Color textColor)</td></tr>
 <tr class="separator:aaf040c93a700b45d86b9a744462f6ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -289,6 +292,9 @@ DrawTypes&#160;</td><td class="memItemRight" valign="bottom"><b>rtype</b></td></
 <tr class="memitem:af2a09db0cecfa6606f8d8ea469d9127d inherit pro_attribs_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="af2a09db0cecfa6606f8d8ea469d9127d"></a>
 <a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
 <tr class="separator:af2a09db0cecfa6606f8d8ea469d9127d inherit pro_attribs_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae508b0797cfa1138b90cae1a1c9629 inherit pro_attribs_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="acae508b0797cfa1138b90cae1a1c9629"></a>
+SDL_Color&#160;</td><td class="memItemRight" valign="bottom"><b>color</b></td></tr>
+<tr class="separator:acae508b0797cfa1138b90cae1a1c9629 inherit pro_attribs_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classDrawable"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classDrawable')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classDrawable.html">Drawable</a></td></tr>
 <tr class="memitem:a3cc0498caae8e5ec0385ca57c6905c94 inherit pro_attribs_classDrawable"><td class="memItemLeft" align="right" valign="top"><a id="a3cc0498caae8e5ec0385ca57c6905c94"></a>
 SDL_Color&#160;</td><td class="memItemRight" valign="bottom"><b>color</b></td></tr>

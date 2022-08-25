@@ -131,9 +131,9 @@ $(document).ready(function(){initNavTree('Root_8h_source.html',''); initResizabl
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordtype">void</span> Update(SDL_Event *e);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            std::vector&lt;Scene&gt; &amp;GetScenes();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <a class="code" href="classPaceLib_1_1Scene.html">Scene</a> &amp;GetScene(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="classPaceLib_1_1Scene.html">Scene</a> &amp;GetScene(std::string name);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            std::vector&lt;Scene *&gt; GetScenes();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <a class="code" href="classPaceLib_1_1Scene.html">Scene</a> *GetScene(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="classPaceLib_1_1Scene.html">Scene</a> *GetScene(std::string name);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="classPaceLib_1_1Button.html">Button</a> *GetButton(std::string child);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <a class="code" href="classPaceLib_1_1ButtonTex.html">ButtonTex</a> *GetButtonTex(std::string child);</div>
@@ -156,7 +156,7 @@ $(document).ready(function(){initNavTree('Root_8h_source.html',''); initResizabl
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="classState.html">State</a> *state;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <a class="code" href="classPaceLib_1_1Scene.html">Scene</a> *defaultScene = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            std::vector&lt;Scene&gt; scenes;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            std::vector&lt;Scene *&gt; scenes;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <a class="code" href="classPaceLib_1_1Root.html">Root</a>();</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>

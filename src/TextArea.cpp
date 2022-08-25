@@ -26,16 +26,13 @@ TextArea::TextArea(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std
 
     textSpacing = 20;
 
-    int ry = rect.y;
-    int i=0;
-    for (std::string text : tarr) {
-        Text::Begin({sid.parent, sid.name+"_text" + std::to_string(i)}, {font, text}, rect.x + rect.w/50, ry, {textColor.r, textColor.g, textColor.b, textColor.a});
-        ry = ry + 20;
-    }
-
     this->name = sid.name;
 
     wtype = WidgetType::TEXTAREA;
+
+    this->tarr = tarr;
+
+    this->font = font;
 }
 
 TextArea::~TextArea()
@@ -71,7 +68,13 @@ void TextArea::Begin(ShapeId sid)
             align.halign = H::RIGHT;
         }
 
-        sid.parent->Add(new TextArea(sid, dco , font, conf->Get("text_arr").get<std::vector<std::string>>(), align));
+        TextArea *ta = new TextArea(sid, dco , font, conf->Get("text_arr").get<std::vector<std::string>>(), align);
+        sid.parent->Add(ta);
+
+        ta->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        ta->conf = conf;
+
+        ta->InternalInit();
     }
 }
 
@@ -99,7 +102,11 @@ void TextArea::End()
 
 void TextArea::Begin(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align)
 {
-    sid.parent->Add(new TextArea(sid, dco, font, tarr, align));
+    TextArea *ta = new TextArea(sid, dco, font, tarr, align);
+    sid.parent->Add(ta);
+
+    Root *root = &Root::GetInstance();
+    ((TextArea *)root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void TextArea::SetTextAlign(Align align)
@@ -107,12 +114,12 @@ void TextArea::SetTextAlign(Align align)
     this->align = align;
 }
 
-void TextArea::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void TextArea::SetTextColor(SDL_Color color)
 {
-    textColor.r = r;
-    textColor.g = g;
-    textColor.b = b;
-    textColor.a = a;
+    textColor.r = color.r;
+    textColor.g = color.g;
+    textColor.b = color.b;
+    textColor.a = color.a;
 }
 
 void TextArea::Draw()
@@ -132,4 +139,31 @@ void TextArea::Draw()
 void TextArea::SetTextSpacing(int size)
 {
     this->textSpacing = size;
+}
+
+SDL_Color TextArea::GetTextColor()
+{
+    return textColor;
+}
+
+void TextArea::InternalInit()
+{
+    Root *root = &Root::GetInstance();
+    TextArea *ta = (TextArea *)root->GetCurrent()->Get(name);
+
+    int ry = rect.y;
+    int i=0;
+    for (std::string text : tarr) {
+        Text::Begin({ta, ta->name+"_text" + std::to_string(i)}, {font, text}, rect.x + rect.w/50, ry, {textColor.r, textColor.g, textColor.b, textColor.a});
+
+        Text *to = (Text *)ta->Get(name + "_text" + std::to_string(i));
+        to->SetColor({ta->GetTextColor()});
+        to->SetX(GetRect().x + rect.w/20);
+        to->SetY(ry);
+
+        ry = ry + 20;
+        i++;
+    }
+
+    
 }

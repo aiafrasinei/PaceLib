@@ -7,7 +7,7 @@ using namespace PaceLib;
 
 Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
 {
-    SetColor(color.r, color.g, color.b, color.a);
+    SetColor(color);
 
     if(sid.parent->name == "root") {
         points[0] = {static_cast<int>(x1), static_cast<int>(y1)};

@@ -9,7 +9,7 @@ static bool once = true;
 static int nrtabs = 0;
 static int nrtitles = 0;
 
-unsigned int Tabber::current = 0;
+unsigned int Tabber::current = 1;
 
 Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
@@ -32,7 +32,7 @@ Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
 
     this->name = sid.name;
 
-    current = 0;
+    current = 1;
     bx = rect.y/99;
 
     bcounter = 0;
@@ -105,11 +105,12 @@ void Tabber::Draw()
     if(!hidden) {
         if(once) {
             for(int i=0; i<shapesNames.size();i++) {
-                if(shapesNames[0] == "t") {
+                char fc = shapesNames[i][0];
+                if(fc == 't') {
                     shapes[i]->Hide();
+                    shapes[current]->Show();
                 }
             }
-            shapes[current]->Show();
             once=false;
         }
 
@@ -139,9 +140,11 @@ void Tabber::BeginTabBlock(std::string text)
     b->SetRectW(b->GetTextSize() + tab->GetRect().w/30);
     parent->SetBx(parent->GetBx()  + b->GetTextSize() + tab->GetRect().w/30 + tab->GetRect().w/99);
 
-    b->onClickCallback = [btext = b->GetText()]() {
+    b->onClickCallback = [btext = b->name]() {
         std::size_t pos = btext.find("_");
-        current = std::stoi(btext.substr(pos+1));
+        int index = std::stoi(btext.substr(pos+1));
+        current = 1 + index*2;
+
         once = true;
     };
 
@@ -165,10 +168,6 @@ void Tabber::Update(SDL_Event *e)
     for(Shape *s : shapes) {
         s->Update(e);
     }
-
-    /*for(Shape *w : tabs) {
-        w->Update(e);
-    }*/
 }
 
 void Tabber::SetBx(int bx)
