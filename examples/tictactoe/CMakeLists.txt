@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(graphics)
+project(tictactoe)
 
 
 include_directories(source)
@@ -20,8 +20,8 @@ include_directories("${PACE_INCLUDE_PATH}/graphics/lines")
 include_directories("${PACE_INCLUDE_PATH}/graphics/effects")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons/quads")
-include_directories("${PACE_INCLUDE_PATH}/graphics/gui")
 include_directories("${PACE_INCLUDE_PATH}/graphics/conics")
+include_directories("${PACE_INCLUDE_PATH}/graphics/gui")
 include_directories("${PACE_INCLUDE_PATH}/resources")
 include_directories("${PACE_INCLUDE_PATH}/scene")
 
@@ -36,13 +36,14 @@ IF(UNIX)
 
     link_directories("/opt/homebrew/lib/")
 
-    add_executable (graphics
+    add_executable (tictactoe
             src/main.cpp
 	        ../../src/ConLog.cpp
 	        ../../src/sdlu.cpp
             ../../src/Window.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/FontContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -56,7 +57,6 @@ IF(UNIX)
             ../../src/Hexagon.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
             ../../src/SDL_FontCache.c
             ../../src/SDL2_framerate.c
             ../../src/SDL2_imageFilter.c
@@ -65,17 +65,16 @@ IF(UNIX)
             ../../src/Label.cpp
             ../../src/Button.cpp
             ../../src/ButtonTex.cpp
-            ../../src/CheckBox.cpp
             ../../src/Tab.cpp
 	        ../../src/Root.cpp
-            ../../src/Tooltip.cpp
             ../../src/TextArea.cpp
-            ../../src/TextInput.cpp
-            ../../src/Tabber.cpp
+            ../../src/Tooltip.cpp
+            ../../src/Hotspot.cpp
             ../../src/Texture.cpp
-            ../../src/Configuration.cpp)
+            ../../src/Configuration.cpp
+            ../../src/Version.cpp)
 
-    target_link_libraries(graphics m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(tictactoe m dl SDL2 SDL2_image SDL2_ttf pthread)
 
 ELSE (WIN32)
     include_directories("${LIBS_PATH}/windows/SDL2/include")
@@ -86,48 +85,44 @@ ELSE (WIN32)
     link_directories("${LIBS_PATH}/windows/SDL2_image/lib/x64")
     link_directories("${LIBS_PATH}/windows/SDL2_ttf/lib/x64")
 
-    add_executable (graphics
-         src/main.cpp
-        ../../src/ConLog.cpp
-        ../../src/sdlu.cpp
-        ../../src/Window.cpp
-        ../../src/Scene.cpp
-        ../../src/TexContainer.cpp
-        ../../src/Place.cpp
-        ../../src/Map.cpp
-        ../../src/Rectangle.cpp
-        ../../src/Sprite.cpp
-        ../../src/Text.cpp
-        ../../src/Circle.cpp
-        ../../src/Ellipse.cpp
-        ../../src/Line.cpp
-        ../../src/Triangle.cpp
-        ../../src/Pentagon.cpp
-        ../../src/Hexagon.cpp
-        ../../src/Polygon.cpp
-        ../../src/ScrollingBackground.cpp
-        ../../src/FontContainer.cpp
-        ../../src/SDL_FontCache.c
-        ../../src/SDL2_framerate.c
-        ../../src/SDL2_imageFilter.c
-        ../../src/SDL2_rotozoom.c
-        ../../src/Tex.cpp
-        ../../src/Timer.cpp
-        ../../src/Label.cpp
-        ../../src/Button.cpp
-        ../../src/ButtonTex.cpp
-        ../../src/CheckBox.cpp
-        ../../src/Tab.cpp
-        ../../src/Root.cpp
-        ../../src/Tooltip.cpp
-        ../../src/TextArea.cpp
-        ../../src/TextInput.cpp
-        ../../src/Tabber.cpp
-        ../../src/Texture.cpp
-        ../../src/Configuration.cpp
-        ../../src/Version.cpp)
+    add_executable (tictactoe
+            src/main.cpp
+	        ../../src/ConLog.cpp
+	        ../../src/sdlu.cpp
+            ../../src/Window.cpp
+            ../../src/Scene.cpp
+            ../../src/TexContainer.cpp
+            ../../src/FontContainer.cpp
+            ../../src/Place.cpp
+            ../../src/Map.cpp
+            ../../src/Rectangle.cpp
+            ../../src/Sprite.cpp
+            ../../src/Text.cpp
+            ../../src/Circle.cpp
+            ../../src/Ellipse.cpp
+            ../../src/Line.cpp
+            ../../src/Triangle.cpp
+            ../../src/Pentagon.cpp
+            ../../src/Hexagon.cpp
+            ../../src/Polygon.cpp
+            ../../src/ScrollingBackground.cpp
+            ../../src/SDL_FontCache.c
+            ../../src/SDL2_framerate.c
+            ../../src/SDL2_imageFilter.c
+            ../../src/SDL2_rotozoom.c
+            ../../src/Timer.cpp
+            ../../src/Label.cpp
+            ../../src/Button.cpp
+            ../../src/ButtonTex.cpp
+            ../../src/Tab.cpp
+	        ../../src/Root.cpp
+            ../../src/TextArea.cpp
+            ../../src/Tooltip.cpp
+            ../../src/Hotspot.cpp
+            ../../src/Texture.cpp
+            ../../src/Configuration.cpp)
 
-    target_link_libraries(graphics SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
+    target_link_libraries(tictactoe SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
 
 ENDIF (UNIX)
 

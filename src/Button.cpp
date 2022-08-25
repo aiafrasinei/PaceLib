@@ -236,8 +236,8 @@ void Button::SetHighlightColor(SDL_Color color)
 
 int Button::GetTextSize()
 {
-//    Root *root = &Root::GetInstance();
- //   Text *to = (Text *)((Button *)root->GetCurrent()->Get(name))->Get(this->name + "_text");
+    //    Root *root = &Root::GetInstance();
+    //   Text *to = (Text *)((Button *)root->GetCurrent()->Get(name))->Get(this->name + "_text");
 
     return textSize;
 }
@@ -284,7 +284,7 @@ void Button::InternalInit()
     to->SetColor({newb->GetTextColor()});
     textSize = to->GetWidth();
 
-    to->SetX(newb->GetRect().x + rect.w/20);
+    to->SetX(newb->GetRect().x + rect.w / 20);
 
     if (align.valign == V::TOP)
     {
@@ -299,7 +299,7 @@ void Button::InternalInit()
     }
     else if (align.valign == V::MID)
     {
-       if (align.halign == H::MID)
+        if (align.halign == H::MID)
         {
             to->SetX(newb->GetHalfX() - to->GetWidth() / 2);
         }

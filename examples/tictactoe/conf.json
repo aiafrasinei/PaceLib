@@ -1,0 +1,7 @@
+{
+	"Title" : "tictactoe",
+	"Width" : 600,
+	"Height" : 600,
+	"Fullscreen" : 0,
+	"Vsync" : true
+}
