@@ -2,10 +2,10 @@
 
 #include <string>
 #include <vector>
-#include "TexContainer.h"
-#include "FontContainer.h"
+#include "TexContainer.hpp"
+#include "FontContainer.hpp"
 #include "utils/sdlu.h"
-#include "core/interfaces/Drawable.h"
+#include "core/interfaces/Drawable.hpp"
 
 
 namespace PaceLib

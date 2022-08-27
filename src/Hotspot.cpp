@@ -1,5 +1,4 @@
 #include "Hotspot.h"
-#include "Window.h"
 #include <functional>
 #include "Root.h"
 

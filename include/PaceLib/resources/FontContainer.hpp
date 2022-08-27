@@ -5,7 +5,7 @@
 #include <filesystem>
 #include "utils/sdlu.h"
 #include "utils/SDL2/SDL_FontCache.h"
-#include "TexContainer.h"
+#include "TexContainer.hpp"
 
 
 namespace PaceLib

@@ -1,5 +1,5 @@
-#include "TexContainer.h"
-#include "Window.h"
+#include "TexContainer.hpp"
+#include "Window.hpp"
 
 
 using namespace PaceLib;

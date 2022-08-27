@@ -1,5 +1,5 @@
-#include "Window.h"
-#include "utils/ConLog.h"
+#include "Window.hpp"
+#include "utils/ConLog.hpp"
 
 using namespace std;
 

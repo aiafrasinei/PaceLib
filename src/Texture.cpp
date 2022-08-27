@@ -1,6 +1,5 @@
 #include "Texture.h"
-#include "Window.h"
-#include "ConLog.h"
+#include "ConLog.hpp"
 #include "Root.h"
 
 

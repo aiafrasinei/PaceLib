@@ -1,6 +1,6 @@
-#include "FontContainer.h"
-#include "ConLog.h"
-#include "core/Window.h"
+#include "FontContainer.hpp"
+#include "ConLog.hpp"
+#include "core/Window.hpp"
 
 using namespace PaceLib;
 

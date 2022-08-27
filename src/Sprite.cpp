@@ -1,5 +1,5 @@
 #include "Sprite.h"
-#include "Window.h"
+#include "Window.hpp"
 #include "Root.h"
 
 

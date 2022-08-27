@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../utils/sdlu.h"
-#include "../config/Configuration.h"
+#include "../config/Configuration.hpp"
 
 
 class Window

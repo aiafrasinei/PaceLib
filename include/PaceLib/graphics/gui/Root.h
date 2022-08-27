@@ -11,9 +11,9 @@
 #include "CheckBox.h"
 #include "TextInput.h"
 #include "TextArea.h"
-#include "resources/FontContainer.h"
-#include "scene/Scene.h"
-#include "core/interfaces/State.h"
+#include "resources/FontContainer.hpp"
+#include "scene/Scene.hpp"
+#include "core/interfaces/State.hpp"
 
 
 namespace PaceLib

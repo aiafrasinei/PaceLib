@@ -2,17 +2,17 @@
 
 #include <string>
 #include <vector>
-#include "Scene.h"
+#include "Place.hpp"
 #include "utils/sdlu.h"
 
 namespace PaceLib
 {
 
-    class Place
+    class Map
     {
     public:
-        Place(std::string name, SDL_Window* window, SDL_Renderer* renderer);    
-        ~Place();
+        Map(std::string name, SDL_Window* window, SDL_Renderer* renderer);    
+        ~Map();
         
         void SetName(std::string name);
 
@@ -21,7 +21,7 @@ namespace PaceLib
     protected:
 
     private:
-        std::vector<PaceLib::Scene> *scenes;
+        std::vector<PaceLib::Place> *places;
 
         SDL_Window* window;
         SDL_Renderer* renderer;
@@ -29,5 +29,5 @@ namespace PaceLib
         std::string name;
 
     };
-
+    
 }

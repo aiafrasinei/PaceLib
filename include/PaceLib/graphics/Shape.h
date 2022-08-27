@@ -4,10 +4,10 @@
 #include <vector>
 #include "../utils/sdlu.h"
 #include "../utils/DrawTypes.h"
-#include "../core/interfaces/Drawable.h"
-#include "../core/interfaces/Hidable.h"
-#include "../core/interfaces/Updateable.h"
-#include "../core/Window.h"
+#include "../core/interfaces/Drawable.hpp"
+#include "../core/interfaces/Hidable.hpp"
+#include "../core/interfaces/Updateable.hpp"
+#include "../core/Window.hpp"
 
 
 namespace PaceLib

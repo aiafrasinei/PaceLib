@@ -1,5 +1,5 @@
 #include "sdlu.h"
-#include "utils/ConLog.h"
+#include "utils/ConLog.hpp"
 
 
 SDL_Texture* load_texture(SDL_Renderer* renderer, std::string path)

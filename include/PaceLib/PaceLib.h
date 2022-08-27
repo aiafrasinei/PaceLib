@@ -1,13 +1,13 @@
 #pragma once
 
 //core
-#include "core/Window.h"
+#include "core/Window.hpp"
 
 //resources
-#include "resources/FontContainer.h"
+#include "resources/FontContainer.hpp"
 
 //utils
-#include "utils/ConLog.h"
+#include "utils/ConLog.hpp"
 #include "utils/SDL2/SDL_FontCache.h"
 #include "utils/SDL2/SDL2_framerate.h"
 #include "utils/SDL2/SDL2_rotozoom.h"
@@ -18,8 +18,8 @@
 #include "Version.h"
 
 //scenes
-#include "scene/Map.h"
-#include "scene/Scene.h"
+#include "scene/Map.hpp"
+#include "scene/Scene.hpp"
 
 //shapes
 #include "graphics/Shape.h"

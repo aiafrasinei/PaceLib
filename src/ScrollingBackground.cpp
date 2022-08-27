@@ -1,6 +1,5 @@
 #include "ScrollingBackground.h"
-#include "Window.h"
-#include "ConLog.h"
+#include "ConLog.hpp"
 
 using namespace PaceLib;
 

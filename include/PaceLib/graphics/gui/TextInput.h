@@ -2,7 +2,7 @@
 
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
-#include "../../core/interfaces/Focusable.h"
+#include "../../core/interfaces/Focusable.hpp"
 #include "Text.h"
 
 

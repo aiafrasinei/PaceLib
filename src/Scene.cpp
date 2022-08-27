@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "Scene.hpp"
 
 using namespace PaceLib;
 

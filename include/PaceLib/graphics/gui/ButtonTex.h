@@ -3,7 +3,7 @@
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
-#include "../core/interfaces/Updateable.h"
+#include "../core/interfaces/Updateable.hpp"
 #include <functional>
 
 

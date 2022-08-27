@@ -1,4 +1,4 @@
-#include "ConLog.h"
+#include "ConLog.hpp"
 #include <iostream>
 #include <iomanip>
 #include <ctime>

@@ -1,5 +1,4 @@
 #include "Root.h"
-#include "Window.h"
 
 using namespace PaceLib;
 

@@ -1,5 +1,4 @@
 #include "Polygon.h"
-#include "Window.h"
 
 using namespace PaceLib;
 

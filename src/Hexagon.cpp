@@ -1,5 +1,4 @@
 #include "Hexagon.h"
-#include "Window.h"
 #include "Root.h"
 
 using namespace PaceLib;

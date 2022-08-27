@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 #include "../../utils/sdlu.h"
-#include "../../core/interfaces/Hidable.h"
-#include "../../core/Window.h"
+#include "../../core/interfaces/Hidable.hpp"
+#include "../../core/Window.hpp"
 
 namespace PaceLib
 {
