@@ -1,25 +1,22 @@
 #include "Version.h"
 
-static unsigned int major = 0;
-static unsigned int minor = 1;
-static unsigned int patch = 3;
 
 std::string GetVersion()
 {
-    return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    return std::to_string(PACELIB_MAJOR_VERSION) + "." + std::to_string(PACELIB_MINOR_VERSION) + "." + std::to_string(PACELIB_PATCHLEVEL);
 }
 
 unsigned int GetVersionMajor()
 {
-    return major;
+    return PACELIB_MAJOR_VERSION;
 }
 
 unsigned int GetVersionMinor()
 {
-    return minor;
+    return PACELIB_MINOR_VERSION;
 }
 
 unsigned int GetVersionPatch()
 {
-    return patch;
+    return PACELIB_PATCHLEVEL;
 }
