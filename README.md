@@ -70,4 +70,16 @@ Event handling:
 		Window::running = false;
     };
    
-The other option is to use code.
+The other option is to use code:
+
+    Text::Begin({root, "text"},
+        {root->GetScene("Default")->GetFont("lazy_font"), "some text"},
+        600, 100, {50, 50, 50, 255});
+	
+Screenshots:
+
+![s1_PaceLib](https://user-images.githubusercontent.com/5115332/187064366-f01e34fe-4b8e-4300-8235-5db7fa8178e3.png)
+
+![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
+
+
