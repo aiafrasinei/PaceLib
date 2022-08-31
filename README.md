@@ -1,18 +1,18 @@
 # PaceLib
 
 Features:
-- 2d c++ graphics library (based on SDL2).
+- Open source 2d c++ graphics library (based on SDL2).
 - Easy to use
 - Flexible widget system (json configuration or code).
-- Designed for 2d games (focus on point and click)
-- Examples
-(https://github.com/aiafrasinei/PaceLib/tree/main/examples)
-- Good documentation
+- Designed for 2d games
+- [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
+- [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
 
 Prerequisites:
-- SDL2 for rendering
-- SDL_ttf 
 - c++20 compiler
+- SDL2 for rendering
+- SDL2_image
+- SDL2_ttf 
 - cmake
 
 Code:
@@ -46,4 +46,40 @@ In the wconfs folder the corresponding json configurations:
         "align" : ["mid", "mid"]
     }
 
-The other option is to use code.
+Widgets can have child elements example:
+
+    Tab::BeginBlock("second_tab");
+		Text::Begin("text");
+		Label::BeginBlock("out_lbl");
+			DefaultTooltip::Begin("out_tooltip");
+		Label::EndBlock();
+		TextArea::Begin("text_ta");
+		TextInput::Begin("tinput");
+		CheckBox::Begin("cb");
+	Tab::EndBlock();
+    
+Event handling:
+
+    Tab::BeginBlock("first_tab");
+		Label::Begin("label_lbl");
+		Button::Begin("start_btn");
+		Button::Begin("exit_btn");
+	Tab::EndBlock();
+	
+	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
+		Window::running = false;
+    };
+   
+The other option is to use code:
+
+    Text::Begin({root, "text"},
+        {root->GetScene("Default")->GetFont("lazy_font"), "some text"},
+        600, 100, {50, 50, 50, 255});
+	
+Screenshots:
+
+![s1_PaceLib](https://user-images.githubusercontent.com/5115332/187064366-f01e34fe-4b8e-4300-8235-5db7fa8178e3.png)
+
+![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
+
+
