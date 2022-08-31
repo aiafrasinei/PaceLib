@@ -43,9 +43,10 @@ namespace PaceLib
 
             void Update(SDL_Event *e);
 
-            std::vector<Scene *> GetScenes();
-            Scene *GetScene(int index);
+            std::map<std::string, Scene *> GetScenes();
             Scene *GetScene(std::string name);
+            void AddScene(std::string name);
+            void RemoveScene(std::string name);
 
             Button *GetButton(std::string child);
             ButtonTex *GetButtonTex(std::string child);
@@ -67,8 +68,7 @@ namespace PaceLib
         private:
             State *state;
 
-            Scene *defaultScene = nullptr;
-            std::vector<Scene *> scenes;
+            std::map<std::string, Scene *> scenes;
 
             Root();
     };
