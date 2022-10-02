@@ -15,12 +15,12 @@ var hierarchy =
         [ "PaceLib::Rectangle", "classPaceLib_1_1Rectangle.html", null ],
         [ "PaceLib::Sprite", "classPaceLib_1_1Sprite.html", null ],
         [ "PaceLib::Text", "classPaceLib_1_1Text.html", null ],
-        [ "PaceLib::ThickLine", "classPaceLib_1_1ThickLine.html", null ],
         [ "PaceLib::Triangle", "classPaceLib_1_1Triangle.html", null ],
         [ "PaceLib::Widget", "classPaceLib_1_1Widget.html", [
           [ "PaceLib::Button", "classPaceLib_1_1Button.html", null ],
           [ "PaceLib::ButtonTex", "classPaceLib_1_1ButtonTex.html", null ],
           [ "PaceLib::CheckBox", "classPaceLib_1_1CheckBox.html", null ],
+          [ "PaceLib::ComboBox", "classPaceLib_1_1ComboBox.html", null ],
           [ "PaceLib::DefaultTooltip", "classPaceLib_1_1DefaultTooltip.html", null ],
           [ "PaceLib::Hotspot", "classPaceLib_1_1Hotspot.html", null ],
           [ "PaceLib::Label", "classPaceLib_1_1Label.html", null ],

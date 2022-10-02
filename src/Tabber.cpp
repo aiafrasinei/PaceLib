@@ -9,6 +9,7 @@ static int nrtabs = 0;
 static int nrtitles = 0;
 
 unsigned int Tabber::current = 1;
+int Tabber::tabx = 0;
 
 Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
 {
@@ -32,7 +33,6 @@ Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
     this->name = sid.name;
 
     current = 1;
-    bx = rect.y/99;
 
     bcounter = 0;
     
@@ -41,6 +41,8 @@ Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
     wtype = WidgetType::TAB;
 
     nrtabs = 0;
+
+    tabx = 0;
 }
 
 Tabber::~Tabber()
@@ -131,13 +133,14 @@ void Tabber::Draw()
 void Tabber::BeginTabBlock(std::string text)
 {
     Root *root = &Root::GetInstance();
-    Tabber *parent = (Tabber *)root->GetCurrent()->GetParent();
     Tab *tab = (Tab *)root->GetCurrent();
-    Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, {{((Tabber *)tab->GetParent())->GetBx(), tab->GetRect().y/99, 40, tab->GetRect().y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT});
+
+    Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, {{tabx, tab->GetRect().y/99, 40, tab->GetRect().y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT});
 
     Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
     b->SetRectW(b->GetTextSize() + tab->GetRect().w/30);
-    parent->SetBx(parent->GetBx()  + b->GetTextSize() + tab->GetRect().w/30 + tab->GetRect().w/99);
+
+    tabx = tabx + b->GetTextSize() + tab->GetRect().w/30 + tab->GetRect().w/99;
 
     b->onClickCallback = [btext = b->name]() {
         std::size_t pos = btext.find("_");
@@ -167,14 +170,4 @@ void Tabber::Update(SDL_Event *e)
     for(Shape *s : shapes) {
         s->Update(e);
     }
-}
-
-void Tabber::SetBx(int bx)
-{
-    this->bx = bx;
-}
-
-int Tabber::GetBx()
-{
-    return bx;
 }

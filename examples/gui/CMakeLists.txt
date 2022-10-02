@@ -28,7 +28,7 @@ include_directories("${PACE_INCLUDE_PATH}/resources")
 include_directories("${PACE_INCLUDE_PATH}/scene")
 
 IF(UNIX)
-    set(CMAKE_CXX_FLAGS "-std=c++20")
+    set(CMAKE_CXX_FLAGS "-std=c++23")
 
     include_directories("/opt/homebrew/include")
 
@@ -75,7 +75,8 @@ IF(UNIX)
             ../../src/TextInput.cpp
             ../../src/Tabber.cpp
             ../../src/Configuration.cpp
-            ../../src/Version.cpp)
+            ../../src/Version.cpp
+            ../../src/ComboBox.cpp)
 
     target_link_libraries(gui m dl SDL2 SDL2_image SDL2_ttf pthread)
 
@@ -124,7 +125,9 @@ ELSE (WIN32)
             ../../src/TextArea.cpp
             ../../src/TextInput.cpp
             ../../src/Tabber.cpp
-            ../../src/Configuration.cpp)
+            ../../src/Configuration.cpp
+            ../../src/Version.cpp
+            ../../src/ComboBox.cpp)
 
     target_link_libraries(gui SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
 

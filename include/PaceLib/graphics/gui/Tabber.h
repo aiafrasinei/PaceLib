@@ -51,15 +51,6 @@ namespace PaceLib
 
             void Update(SDL_Event *e);
 
-            //Tab *GetTab(int index);
-            //std::vector<Tab *> GetTabs();
-
-            void SetBx(int bx);
-
-            int GetBx();
-
-            static unsigned int current;
-
             ~Tabber();
             
         private:
@@ -67,13 +58,12 @@ namespace PaceLib
 
             SDL_Color textColor;
 
-            int bx;
-
             int bcounter;
 
             SDL_Rect top;
 
-            //int nrtabs;
+            static unsigned int current;
+            static int tabx;
 
             Tabber(ShapeId sid, PropDimColor dmo, PropFontText fto);
     };

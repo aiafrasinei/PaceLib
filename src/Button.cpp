@@ -92,7 +92,7 @@ void Button::Begin(ShapeId sid)
             align.halign = H::RIGHT;
         }
 
-        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
+        PropFontText fto = { Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
 
         Button *newb = new Button(sid,
                                   {{dim[0], dim[1], dim[2], dim[3]},

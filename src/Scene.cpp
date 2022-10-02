@@ -64,7 +64,7 @@ void Scene::Start()
 
 void Scene::Draw()
 {
-    SDL_RenderCopy(renderer, tex_atlas->Get(0), NULL, tex_atlas->GetRect(0));
+    //SDL_RenderCopy(renderer, tex_atlas->Get(0), NULL, tex_atlas->GetRect(0));
 }
 
 void Scene::Stop()
