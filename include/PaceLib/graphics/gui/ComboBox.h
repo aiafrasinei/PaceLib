@@ -35,6 +35,9 @@ namespace PaceLib
 
             ~ComboBox();
 
+            void Draw();
+            void Update(SDL_Event *e);
+            
             std::function<void(void)> onClickCallback;
             
         private:
