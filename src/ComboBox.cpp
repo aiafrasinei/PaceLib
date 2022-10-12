@@ -47,6 +47,9 @@ ComboBox::ComboBox(ShapeId sid, PropDimColor dco, PropFontText fto)
     this->fto = fto;
 
     textSize = 0;
+
+    selected = -1;
+    mainRendererSelected = false;
 }
 
 ComboBox::~ComboBox()
@@ -68,18 +71,126 @@ void ComboBox::Begin(ShapeId sid)
                                   {{dim[0], dim[1], dim[2], dim[3]},
                                    {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
                                   fto);
+
+        sid.parent->Add(newcb);
+
+        newcb->AddItems(conf->Get("items").get<std::vector<std::string>>());
     }
 }
 
 void ComboBox::Begin(std::string name)
 {
+    Root *root = &Root::GetInstance();
+    ComboBox::Begin({root->GetCurrent(), name});
+}
 
+void ComboBox::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    ComboBox::Begin({root->GetCurrent(), name});
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void ComboBox::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+void ComboBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
+{
+    ComboBox *newcb = new ComboBox(sid, dco, fto);
+
+    Root *root = &Root::GetInstance();
+    root->GetCurrent()->Add(newcb);
+
+    ((ComboBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void ComboBox::Draw()
 {
+    for (Shape *w : shapes)
+    {
+        w->Draw();
+    }
 }
 
 void ComboBox::Update(SDL_Event *e)
 {
+}
+
+void ComboBox::InternalInit()
+{
+    // child items
+    Root *root = &Root::GetInstance();
+    ComboBox *newcb = (ComboBox *)root->GetCurrent()->Get(name);
+
+    for(int i=0; i<items.size(); i++) {
+        Button::Begin({root->GetCurrent(), root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i)}, {{newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h}, newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), items[i]}, {V::MID, H::LEFT});
+        root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Hide();
+    }
+
+    Button::Begin({root->GetCurrent(), root->GetCurrent()->GetName() + ":" + "main_item_renderer"}, {newcb->GetRect(), newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), ""}, {V::MID, H::LEFT});
+
+    Button *main_renderer = ((Button *)root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "main_item_renderer"));
+    main_renderer->onClickCallback = [this, main_renderer, root]() {
+        mainRendererSelected = !mainRendererSelected;
+        if(mainRendererSelected) {
+            if(items.size() > 0) {
+                main_renderer->Hide();
+                for(int i=0; i<items.size(); i++) {
+                    root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Show();
+                }
+            }
+        } else {
+            main_renderer->Show();
+        }
+    };
+
+    for(int i=0; i<items.size(); i++) {
+        Button * current = ((Button *)root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i)));
+        current->onClickCallback = [this, i, main_renderer, current, root]() {
+            for(int i=0; i<items.size(); i++) {
+                root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Hide();
+            }
+            mainRendererSelected = false;
+
+            selected = i;
+            main_renderer->SetText(current->GetText());
+            main_renderer->Show(); 
+        };
+    }
+}
+
+int ComboBox::GetSelected()
+{
+    return selected;
+}
+
+int ComboBox::GetNrItems()
+{
+    return items.size();
+}
+
+void ComboBox::AddItem(std::string item)
+{
+    items.push_back(item);
+    InternalInit();
+}
+
+void ComboBox::AddItems(std::vector<std::string> items)
+{
+    for(int i=0; i<items.size(); i++) {
+        this->items.push_back(items[i]);
+    }
+    InternalInit();
+}
+
+void ComboBox::ReplaceItems(std::vector<std::string> items)
+{
+
+    this->items = items;
+    InternalInit();
 }

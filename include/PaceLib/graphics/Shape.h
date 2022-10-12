@@ -36,6 +36,11 @@ namespace PaceLib
         std::vector<std::string> shapesNames;
         std::vector<Shape *> shapes;
 
+        std::string GetName()
+        {
+            return name;
+        }
+
         std::vector<Shape *> Get()
         {
             return shapes;

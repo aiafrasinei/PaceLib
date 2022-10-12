@@ -21,7 +21,13 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-
+                "dim" : ["W_47%", "H_23%", "H_7.5%", "H_3%"],
+                "color" : [100, 100, 70, 255],
+                "scene" : "Default",
+                "font" : "default",
+                "text" : "Start",
+                "text_color" : [0, 0, 0, 255],
+                "items" : ["test1", "test2", "test3", "test4", "test5"]
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -39,6 +45,13 @@ namespace PaceLib
             void Update(SDL_Event *e);
             
             std::function<void(void)> onClickCallback;
+
+            int GetSelected();
+            int GetNrItems();
+
+            void AddItem(std::string item);
+            void AddItems(std::vector<std::string> items);
+            void ReplaceItems(std::vector<std::string> items);
             
         private:
             ComboBox(ShapeId sid, PropDimColor dco, PropFontText fto);
@@ -60,5 +73,13 @@ namespace PaceLib
             int textSize;
 
             PropFontText fto;
+
+            void InternalInit();
+
+            std::vector<std::string> items;
+
+            int selected;
+
+            bool mainRendererSelected;
     };
 }

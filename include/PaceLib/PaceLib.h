@@ -51,6 +51,7 @@
 #include "graphics/gui/Tabber.h"
 #include "graphics/gui/Texture.h"
 #include "graphics/gui/Text.h"
+#include "graphics/gui/ComboBox.h"
 
 //effects
 #include "graphics/effects/ScrollingBackground.h"

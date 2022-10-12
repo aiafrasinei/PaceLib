@@ -77,6 +77,8 @@ bool start()
 
 	ButtonTex::Begin("gfx_button_tex");
 
+	ComboBox::Begin("test_combo");
+
 	return true;
 }
 
