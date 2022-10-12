@@ -99,14 +99,15 @@ void ComboBox::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ComboBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
+void ComboBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, std::vector<std::string> items)
 {
     ComboBox *newcb = new ComboBox(sid, dco, fto);
 
     Root *root = &Root::GetInstance();
     root->GetCurrent()->Add(newcb);
 
-    ((ComboBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
+    ComboBox *combo = ((ComboBox *)root->GetCurrent()->Get(sid.name));
+    combo->AddItems(items);
 }
 
 void ComboBox::Draw()
@@ -128,20 +129,20 @@ void ComboBox::InternalInit()
     ComboBox *newcb = (ComboBox *)root->GetCurrent()->Get(name);
 
     for(int i=0; i<items.size(); i++) {
-        Button::Begin({root->GetCurrent(), root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i)}, {{newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h}, newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), items[i]}, {V::MID, H::LEFT});
-        root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Hide();
+        Button::Begin({root->GetCurrent(), GetName() + ":" + "item_" + std::to_string(i)}, {{newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h}, newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), items[i]}, {V::MID, H::LEFT});
+        root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i))->Hide();
     }
 
-    Button::Begin({root->GetCurrent(), root->GetCurrent()->GetName() + ":" + "main_item_renderer"}, {newcb->GetRect(), newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), ""}, {V::MID, H::LEFT});
+    Button::Begin({root->GetCurrent(), GetName() + ":" + "main_item_renderer"}, {newcb->GetRect(), newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), ""}, {V::MID, H::LEFT});
 
-    Button *main_renderer = ((Button *)root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "main_item_renderer"));
+    Button *main_renderer = ((Button *)root->GetCurrent()->Get(GetName() + ":" + "main_item_renderer"));
     main_renderer->onClickCallback = [this, main_renderer, root]() {
         mainRendererSelected = !mainRendererSelected;
         if(mainRendererSelected) {
             if(items.size() > 0) {
                 main_renderer->Hide();
                 for(int i=0; i<items.size(); i++) {
-                    root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Show();
+                    root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i))->Show();
                 }
             }
         } else {
@@ -150,10 +151,10 @@ void ComboBox::InternalInit()
     };
 
     for(int i=0; i<items.size(); i++) {
-        Button * current = ((Button *)root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i)));
+        Button * current = ((Button *)root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i)));
         current->onClickCallback = [this, i, main_renderer, current, root]() {
             for(int i=0; i<items.size(); i++) {
-                root->GetCurrent()->Get(root->GetCurrent()->GetName() + ":" + "item_" + std::to_string(i))->Hide();
+                root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i))->Hide();
             }
             mainRendererSelected = false;
 
@@ -190,7 +191,6 @@ void ComboBox::AddItems(std::vector<std::string> items)
 
 void ComboBox::ReplaceItems(std::vector<std::string> items)
 {
-
     this->items = items;
     InternalInit();
 }

@@ -37,7 +37,7 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
+            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, std::vector<std::string> items);
 
             ~ComboBox();
 
