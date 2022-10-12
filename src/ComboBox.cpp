@@ -124,7 +124,6 @@ void ComboBox::Update(SDL_Event *e)
 
 void ComboBox::InternalInit()
 {
-    // child items
     Root *root = &Root::GetInstance();
     ComboBox *newcb = (ComboBox *)root->GetCurrent()->Get(name);
 

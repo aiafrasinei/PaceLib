@@ -8,6 +8,7 @@ var classPaceLib_1_1Shape =
     [ "Get", "classPaceLib_1_1Shape.html#af0310b6b622f4c102fd259514dcdaae9", null ],
     [ "Get", "classPaceLib_1_1Shape.html#a8f63dad767a492b5875d7496b2993329", null ],
     [ "GetColor", "classPaceLib_1_1Shape.html#a6d63532855f71f20689505f06f7d45e2", null ],
+    [ "GetName", "classPaceLib_1_1Shape.html#a485a109ed52e62ec8675c4550d01a491", null ],
     [ "GetNr", "classPaceLib_1_1Shape.html#a11aa9c6d8f83f8c886219145af57f500", null ],
     [ "GetParent", "classPaceLib_1_1Shape.html#a8e2d8a344c83d9b4938bdfd57a5ccdca", null ],
     [ "LoadDrawColor", "classPaceLib_1_1Shape.html#a54b854a83e2eafde6714997047c1cf4f", null ],

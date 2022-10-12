@@ -1,5 +1,13 @@
 var NAVTREEINDEX1 =
 {
+"classPaceLib_1_1Shape.html#adf53820745687a2acb4858b181c07f73":[0,0,0,32,4],
+"classPaceLib_1_1Shape.html#ae34fda2ff3e6deeb164a6a7bb3bfa53a":[0,0,0,32,19],
+"classPaceLib_1_1Shape.html#af0310b6b622f4c102fd259514dcdaae9":[0,0,0,32,5],
+"classPaceLib_1_1Shape.html#af2a09db0cecfa6606f8d8ea469d9127d":[0,0,0,32,20],
+"classPaceLib_1_1Sprite.html":[0,0,0,3],
+"classPaceLib_1_1Sprite.html#a054a4c340c14c3d218b99e484bf83d21":[0,0,0,3,1],
+"classPaceLib_1_1Sprite.html#a62da53d8089d42ef20b253dcc0ba6cdb":[0,0,0,3,3],
+"classPaceLib_1_1Sprite.html#a8accab430f9d90ae5117b57d67e32b84":[0,0,0,3,0],
 "classPaceLib_1_1Sprite.html#abb6147371f2e22abfc0d789c6bca7569":[0,0,0,3,2],
 "classPaceLib_1_1Tab.html":[0,0,0,15],
 "classPaceLib_1_1Tab.html#a152d668b2ee63783b58f95a10ec8fc6d":[0,0,0,15,7],
