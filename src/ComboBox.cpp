@@ -1,6 +1,8 @@
 #include "ComboBox.h"
 #include <functional>
 #include "Root.h"
+#include "Triangle.h"
+#include <algorithm>
 
 using namespace PaceLib;
 
@@ -50,6 +52,8 @@ ComboBox::ComboBox(ShapeId sid, PropDimColor dco, PropFontText fto)
 
     selected = -1;
     mainRendererSelected = false;
+
+    borderColor = {0, 0, 0, 255};
 }
 
 ComboBox::~ComboBox()
@@ -82,6 +86,17 @@ void ComboBox::Begin(std::string name)
 {
     Root *root = &Root::GetInstance();
     ComboBox::Begin({root->GetCurrent(), name});
+
+    Configuration *conf = new Configuration("wconfs/" + name + ".conf");
+    ComboBox *curr = ((ComboBox *)root->GetCurrent()->Get(name));
+    SDL_Rect currRect = curr->GetRect();
+
+    Triangle::Begin({root->GetCurrent()->Get(name), name + "_triangle_decorator"},
+    0, currRect.h,
+    currRect.w, currRect.h,
+    currRect.w/2, currRect.h + currRect.h/3,
+    {conf->Get("border_color")[0], conf->Get("border_color")[1], conf->Get("border_color")[2], conf->Get("border_color")[3]});
+    root->GetCurrent()->Get(name)->Get(name + "_triangle_decorator")->SetDrawType(DrawTypes::FILLED);
 }
 
 void ComboBox::BeginBlock(std::string name)
@@ -167,6 +182,19 @@ void ComboBox::InternalInit()
 int ComboBox::GetSelected()
 {
     return selected;
+}
+
+void ComboBox::SetSelection(int index)
+{
+    selected = index;
+
+    Root *root = &Root::GetInstance();
+    Button *main_renderer = ((Button *)root->GetCurrent()->Get(GetName() + ":" + "main_item_renderer"));
+    Button *sel =((Button *)root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(selected)));
+
+    if(items.size() > 0) {
+        main_renderer->SetText(sel->GetText());
+    }
 }
 
 int ComboBox::GetNrItems()

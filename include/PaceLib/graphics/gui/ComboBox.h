@@ -48,6 +48,7 @@ namespace PaceLib
 
             int GetSelected();
             int GetNrItems();
+            void SetSelection(int index);
 
             void AddItem(std::string item);
             void AddItems(std::vector<std::string> items);
@@ -81,5 +82,7 @@ namespace PaceLib
             int selected;
 
             bool mainRendererSelected;
+
+            SDL_Color borderColor;
     };
 }

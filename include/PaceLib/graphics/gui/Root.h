@@ -11,6 +11,7 @@
 #include "CheckBox.h"
 #include "TextInput.h"
 #include "TextArea.h"
+#include "ComboBox.h"
 #include "resources/FontContainer.hpp"
 #include "scene/Scene.hpp"
 #include "core/interfaces/State.hpp"
@@ -61,6 +62,7 @@ namespace PaceLib
             CheckBox *GetCheckBox(std::string child);
             TextInput *GetTextInput(std::string child);
             TextArea *GetTextArea(std::string child);
+            ComboBox *GetComboBox(std::string child);
 
             void SetState(State *state);
             void HideAll();

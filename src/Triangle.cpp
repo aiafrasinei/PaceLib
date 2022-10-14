@@ -21,16 +21,16 @@ Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3
     }
     
 
-    verts[0].position.x = x1;
-	verts[0].position.y = y1;
+    verts[0].position.x = points[0].x;
+	verts[0].position.y = points[0].y;
     verts[0].color = {color.r, color.g, color.b, color.a};
 	
-	verts[1].position.x = x2;
-	verts[1].position.y = y2;
+	verts[1].position.x = points[1].x;
+	verts[1].position.y = points[1].y;
     verts[1].color = {color.r, color.g, color.b, color.a};
 
-	verts[2].position.x = x3;
-	verts[2].position.y = y3;
+	verts[2].position.x = points[2].x;
+	verts[2].position.y = points[2].y;
     verts[2].color = {color.r, color.g, color.b, color.a};
 
     hidden = false;
@@ -89,6 +89,13 @@ void Triangle::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float 
     sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
 }
 
+void Triangle::SetColor(SDL_Color color)
+{
+    this->color = color;
+    verts[0].color = {color.r, color.g, color.b, color.a};
+    verts[1].color = {color.r, color.g, color.b, color.a};
+    verts[2].color = {color.r, color.g, color.b, color.a};
+}
 
 void Triangle::Draw() {
         if(!hidden) {

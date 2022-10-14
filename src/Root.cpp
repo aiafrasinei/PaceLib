@@ -123,6 +123,11 @@ TextArea *Root::GetTextArea(std::string child)
     return static_cast<TextArea *>(this->Get(child));
 }
 
+ComboBox *Root::GetComboBox(std::string child)
+{
+    return static_cast<ComboBox *>(this->Get(child));
+}
+
 void Root::Update(SDL_Event *e)
 {
     for(Shape *s : shapes) {

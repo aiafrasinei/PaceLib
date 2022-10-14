@@ -40,6 +40,8 @@ namespace PaceLib
 
         void SetDrawType(DrawTypes rtype);
 
+        void SetColor(SDL_Color color);
+
         void Draw();
 
         void DrawRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
