@@ -27,6 +27,7 @@ namespace PaceLib
                 "font" : "default",
                 "text" : "Start",
                 "text_color" : [0, 0, 0, 255],
+                "border_color" : [0, 0, 0, 255],
                 "items" : ["test1", "test2", "test3", "test4", "test5"]
             }*/
             static void Begin(ShapeId sid);

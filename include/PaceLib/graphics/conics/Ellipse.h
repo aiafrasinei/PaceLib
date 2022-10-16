@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Widget.h"
-
+#include "DrawTypes.h"
 
 namespace PaceLib
 {
@@ -44,6 +44,8 @@ namespace PaceLib
     protected:         
 
     private:
+        DrawTypes rtype;
+
         float x, y, rx, ry;
 
         Ellipse(ShapeId sid, float x, float y, float rx, float ry, SDL_Color color);

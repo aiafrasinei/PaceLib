@@ -26,6 +26,7 @@
 
 //lines
 #include "graphics/lines/Line.h"
+#include "graphics/lines/Lines.h"
 
 //conics
 #include "graphics/conics/Circle.h"
@@ -35,8 +36,6 @@
 #include "graphics/polygons/Polygon.h"
 #include "graphics/polygons/quads/Rectangle.h"
 #include "graphics/polygons/Triangle.h"
-#include "graphics/polygons/Pentagon.h"
-#include "graphics/polygons/Hexagon.h"
 
 //gui
 #include "graphics/gui/Root.h"

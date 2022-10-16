@@ -1,64 +1,92 @@
 #include "Polygon.h"
+#include "Root.h"
 
 using namespace PaceLib;
 
-Polygon::Polygon(ShapeId sid, const float * vx, const float * vy, int n)
+Polygon::Polygon(ShapeId sid, std::vector<SDL_Vertex> verts)
 {
-    int i, nn;
+    this->verts = verts;
 
-    nn = n + 1;
-    points = (SDL_Point*)malloc(sizeof(SDL_Point) * nn);
-
-    for (i=0; i<n; i++)
+    for (int i=0; i<verts.size(); i++)
     {
-        if(sid.parent->name == "root") {
-            points[i].x = vx[i];
-            points[i].y = vy[i];
-        } else {
-            points[i].x = static_cast<Widget *>(sid.parent)->GetRect().x + vx[i];
-            points[i].y = static_cast<Widget *>(sid.parent)->GetRect().y + vy[i];
+        if(sid.parent->name != "root") {
+            verts[i].position.x = static_cast<Widget *>(sid.parent)->GetRect().x + verts[i].position.x;
+            verts[i].position.y = static_cast<Widget *>(sid.parent)->GetRect().y + verts[i].position.y;
         }
     }
 
-    if(sid.parent->name == "root") {
-        points[n].x = vx[0];
-        points[n].y = vy[0];
-    } else {
-        points[n].x = static_cast<Widget *>(sid.parent)->GetRect().x + vx[0];
-        points[n].y = static_cast<Widget *>(sid.parent)->GetRect().y + vy[0];
-    }
-
     hidden = false;
-    
-    rtype = DrawTypes::OUTLINE;
-
+ 
     name = sid.name;
 }
 
 
 Polygon::~Polygon()
 {
-    free(points);
 }
 
-void Polygon::Begin(ShapeId sid, const float * vx, const float * vy, int n)
+void Polygon::Begin(ShapeId sid)
 {
-    sid.parent->Add(new Polygon(sid, vx, vy, n));
+   if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
+        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+
+        std::vector<float> all_verts = conf->Get("verts").get<std::vector<float>>();
+        std::vector<unsigned char> all_colors = conf->Get("colors").get<std::vector<unsigned char>>();
+
+        std::vector<SDL_Vertex> verts;
+
+        int vsize = all_verts.size()/2;
+        int index = 0;
+        for(int i=0; i<vsize; i++) {
+            SDL_Vertex v;
+            v.position.x = all_verts[index];
+            v.position.y = all_verts[++index];
+            verts.push_back(v);
+            index++;
+        }
+
+       index = 0;
+        for(int i=0; i<vsize; i++) {
+            SDL_Color c {all_colors[index], all_colors[++index], all_colors[++index], all_colors[++index]};
+            verts[i].color = c;
+            index++;
+        }
+        
+        sid.parent->Add(new Polygon(sid, verts));
+    }
+}
+
+void Polygon::Begin(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Polygon::Begin({root->GetCurrent(), name});
+}
+
+void Polygon::BeginBlock(std::string name)
+{
+    Root *root = &Root::GetInstance();
+    Polygon::Begin({root->GetCurrent(), name});
+
+    Shape *prevParent = root->GetCurrent();
+    root->SetCurrent(root->GetCurrent()->Get(name));
+    root->GetCurrent()->SetParent(prevParent);
+}
+
+void Polygon::EndBlock()
+{
+    Root *root = &Root::GetInstance();
+    root->SetCurrent(root->GetCurrent()->GetParent());
+}
+
+
+void Polygon::Begin(ShapeId sid, std::vector<SDL_Vertex> verts)
+{
+    sid.parent->Add(new Polygon(sid, verts));
 }
 
 void Polygon::Draw()
 {
     if(!hidden) {
-        if(rtype == DrawTypes::OUTLINE) {
-            LoadDrawColor();
-
-            SDL_RenderDrawLines(Window::GetRenderer(), points, n);
-        } else if(rtype == DrawTypes::FILLED) {
-        }
+        SDL_RenderGeometry(Window::GetRenderer(), NULL, &verts[0], verts.size(), NULL, 0);
     }
-}
-
-void Polygon::SetDrawType(DrawTypes rtype)
-{
-    this->rtype = rtype;
 }

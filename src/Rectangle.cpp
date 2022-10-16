@@ -21,8 +21,6 @@ Rectangle::Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color)
 
     hidden = false;
     rounded = false;
-    
-    rtype = DrawTypes::OUTLINE;
 
     this->name = sid.name;
 }
@@ -78,11 +76,7 @@ void Rectangle::Draw()
     if(!hidden) {
         SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
 
-        if(rtype == DrawTypes::OUTLINE) {
-            SDL_RenderDrawRect(Window::GetRenderer(), &rect);
-        } else if(rtype == DrawTypes::FILLED) {
-            SDL_RenderFillRect(Window::GetRenderer(), &rect);
-        }
+        SDL_RenderFillRect(Window::GetRenderer(), &rect);
     }
 }
 

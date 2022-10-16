@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Widget.h"
-
+#include "DrawTypes.h"
 
 namespace PaceLib
 {
@@ -35,12 +35,16 @@ namespace PaceLib
 
 //end static methods
 
+        void SetDrawType(DrawTypes rtype);
+
         void Draw();
         
         ~Circle();
     protected:         
 
     private:
+        DrawTypes rtype;
+
         float x, y, radius;
 
         Circle(ShapeId sid, float x, float y, float radius, SDL_Color color);

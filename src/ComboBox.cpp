@@ -96,7 +96,6 @@ void ComboBox::Begin(std::string name)
     currRect.w, currRect.h,
     currRect.w/2, currRect.h + currRect.h/3,
     {conf->Get("border_color")[0], conf->Get("border_color")[1], conf->Get("border_color")[2], conf->Get("border_color")[3]});
-    root->GetCurrent()->Get(name)->Get(name + "_triangle_decorator")->SetDrawType(DrawTypes::FILLED);
 }
 
 void ComboBox::BeginBlock(std::string name)

@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "../utils/sdlu.h"
-#include "../utils/DrawTypes.h"
 #include "../core/interfaces/Drawable.hpp"
 #include "../core/interfaces/Hidable.hpp"
 #include "../core/interfaces/Updateable.hpp"
@@ -73,11 +72,6 @@ namespace PaceLib
             return shapes.size();
         }
 
-        void SetDrawType(DrawTypes rtype)
-        {
-            this->rtype = rtype;
-        }
-
         void SetParent(Shape *p)
         {
             this->parent = p;
@@ -117,8 +111,6 @@ namespace PaceLib
 
             SetColor({dr, dg, db, da});
         }
-
-        DrawTypes rtype;
 
         Shape *current;
 

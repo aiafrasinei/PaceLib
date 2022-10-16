@@ -48,33 +48,23 @@ bool start()
 	Line::Begin({root, "vline"}, 350, 350, 350, 400, { 50, 100, 150, 255 });
 
 	Triangle::Begin({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
-	root->Get("tri")->SetDrawType(DrawTypes::FILLED);
 
 	Rectangle::Begin({root, "rect1"}, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
-	root->Get("rect1")->SetDrawType(DrawTypes::FILLED);
 
 	Circle::Begin({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
 	Circle::Begin({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
-	root->Get("cir2")->SetDrawType(DrawTypes::FILLED);
 
 	Text::Begin({root, "text"},
 				{root->GetScene("Default")->GetFont("lazy_font"), "some text"},
 				600, 100, {50, 50, 50, 255});
 
-	Pentagon::Begin({ root, "penta"} , 100, 200, 150, 200, 200, 350, 70, 320, 50, 230, {150, 50, 50, 255 } );
-	root->Get("penta")->SetDrawType(DrawTypes::FILLED);
-
 	Sprite::Begin({root, "sprite"}, root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
 
-	//Hexagon::Create("hexa", root, 100, 300, 150, 300, 200, 450, 70, 420, 50, 330, 200, 200, {150, 50, 50, 255 } );
-	//root->Get("hexa")->SetDrawType(DrawTypes::FILLED);
-
-	//Ellipse::Create("el", root, 400, 150, 70, 20);
-	
 	scroll_background = ScrollingBackground::Begin(root->GetScene("Default")->GetTex("bg.png"), { 0, 0, w, h } );
 
-	//Texture::Create({root, "background_tex"}, root->GetScene("Default")->GetTex(1), { 0, 0, 100, 500} );
+	Polygon::Begin({root, "poly"});
 
+	Lines::Begin({root, "lines"});
 
 	return true;
 }

@@ -53,8 +53,6 @@ IF(UNIX)
         ../../src/Ellipse.cpp
         ../../src/Line.cpp
         ../../src/Triangle.cpp
-        ../../src/Pentagon.cpp
-        ../../src/Hexagon.cpp
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp

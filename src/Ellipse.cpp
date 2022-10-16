@@ -20,8 +20,8 @@ Ellipse::Ellipse(ShapeId sid, float x, float y, float rx, float ry, SDL_Color co
 
     hidden = false;
 
-    rtype = DrawTypes::OUTLINE;
-
+    rtype = DrawTypes::FILLED;
+    
     SetColor(color);
     this->name = sid.name;
 }
@@ -29,6 +29,11 @@ Ellipse::Ellipse(ShapeId sid, float x, float y, float rx, float ry, SDL_Color co
 Ellipse::~Ellipse()
 {
 
+}
+
+void Ellipse::SetDrawType(DrawTypes rtype)
+{
+    this->rtype = rtype;
 }
 
 void Ellipse::Begin(ShapeId sid)
@@ -78,10 +83,9 @@ void Ellipse::Draw()
     if(!hidden) {
         SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
         //TODO
-    }
-}
+        if(rtype == DrawTypes::OUTLINE) {
+        } else if (rtype == DrawTypes::FILLED) {
 
-void Ellipse::SetDrawType(DrawTypes rtype)
-{
-    this->rtype = rtype;
+        }
+    }
 }

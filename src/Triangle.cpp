@@ -34,8 +34,6 @@ Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3
     verts[2].color = {color.r, color.g, color.b, color.a};
 
     hidden = false;
-    
-    rtype = DrawTypes::OUTLINE;
 
     this->name = sid.name;
 }
@@ -99,10 +97,6 @@ void Triangle::SetColor(SDL_Color color)
 
 void Triangle::Draw() {
         if(!hidden) {
-            if(rtype == DrawTypes::OUTLINE) {
-                SDL_RenderDrawLines(Window::GetRenderer(), points, 4);
-            } else if(rtype == DrawTypes::FILLED) {
-                SDL_RenderGeometry(Window::GetRenderer(), NULL, verts, 3, NULL, 0);
-            }
+            SDL_RenderGeometry(Window::GetRenderer(), NULL, verts, 3, NULL, 0);
         }
 }

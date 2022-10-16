@@ -23,7 +23,6 @@ Line::Line(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
 
     SetColor(color);
 
-    rtype = DrawTypes::OUTLINE;
 }
 
 Line::~Line()

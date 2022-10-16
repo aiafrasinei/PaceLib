@@ -51,9 +51,8 @@ IF(UNIX)
             ../../src/Circle.cpp
             ../../src/Ellipse.cpp
             ../../src/Line.cpp
+            ../../src/Lines.cpp
             ../../src/Triangle.cpp
-            ../../src/Pentagon.cpp
-            ../../src/Hexagon.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
             ../../src/FontContainer.cpp
@@ -101,9 +100,8 @@ ELSE (WIN32)
         ../../src/Circle.cpp
         ../../src/Ellipse.cpp
         ../../src/Line.cpp
+        ../../src/Lines.cpp
         ../../src/Triangle.cpp
-        ../../src/Pentagon.cpp
-        ../../src/Hexagon.cpp
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp

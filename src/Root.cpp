@@ -17,7 +17,6 @@ Root::Root()
 
     hidden = false;
 
-    rtype = DrawTypes::OUTLINE;
     name = "root";
 
     scenes["Default"] = new Scene("Default", Window::GetWindow(), Window::GetRenderer());

@@ -31,6 +31,11 @@ Circle::~Circle()
 
 }
 
+void Circle::SetDrawType(DrawTypes rtype)
+{
+    this->rtype = rtype;
+}
+
 void Circle::Begin(ShapeId sid)
 {
     if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
