@@ -23,6 +23,10 @@ Root::Root()
     scenes["Default"]->GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, 0, 0, 0, 255);
 
     wtype = WidgetType::ROOT;
+
+    if(std::filesystem::exists("wconfs/vars")) {
+        vars = new Configuration("wconfs/vars");
+    }
 }
 
 Root::~Root()
@@ -167,4 +171,20 @@ void Root::RemoveScene(std::string name)
 {
     delete scenes[name];
     scenes.erase(name);
+}
+
+Configuration *Root::GetVars()
+{
+    return vars;
+}
+
+bool Root::IsVarDefined(std::string name)
+{
+    bool ret = false;
+
+    if(vars->Get(name) != nullptr) {
+        ret = true;
+    }
+
+    return ret;
 }

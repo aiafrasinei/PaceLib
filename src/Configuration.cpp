@@ -41,9 +41,14 @@ void Configuration::Set(std::string key, bool val) {
     j[key] = val;
 }
 
+void Configuration::Set(std::string key, json j) {
+    j[key] = j;
+}
+
 void Configuration::Dump() {
     std::ofstream ofs(fname, std::ofstream::out);
     ofs << j.dump();
     ofs.close();
     Reload();
 }
+

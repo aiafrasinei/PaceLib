@@ -27,6 +27,8 @@ public:
 
     void Set(std::string key, bool val);
 
+    void Set(std::string key, json j);
+
     void Dump();
 private:
     std::ifstream ifs;

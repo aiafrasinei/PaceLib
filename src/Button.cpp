@@ -1,6 +1,7 @@
 #include "Button.h"
 #include <functional>
 #include "Root.h"
+#include "ConLog.hpp"
 
 using namespace PaceLib;
 
@@ -92,11 +93,15 @@ void Button::Begin(ShapeId sid)
             align.halign = H::RIGHT;
         }
 
-        PropFontText fto = { Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
+        Root *root = &Root::GetInstance();
 
+        PropFontText fto = { root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
+
+        SDL_Color color = ParseColor(conf, root->GetVars());
+        
         Button *newb = new Button(sid,
                                   {{dim[0], dim[1], dim[2], dim[3]},
-                                   {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}},
+                                  color},
                                   fto,
                                   align);
 

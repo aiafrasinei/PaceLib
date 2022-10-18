@@ -67,10 +67,15 @@ namespace PaceLib
             void SetState(State *state);
             void HideAll();
 
+            Configuration *GetVars();
+            bool IsVarDefined(std::string name);
+
         private:
             State *state;
 
             std::map<std::string, Scene *> scenes;
+
+            Configuration *vars;
 
             Root();
     };

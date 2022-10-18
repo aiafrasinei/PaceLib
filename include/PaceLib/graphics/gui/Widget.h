@@ -126,6 +126,21 @@ namespace PaceLib
                     pos[i] = val;
                 }
             }
+
+            static SDL_Color ParseColor(Configuration *conf, Configuration *vars) {
+                SDL_Color color;
+
+                if(conf->Get("color").is_string()) {
+                    std::string name = conf->Get("color").get<std::string>().substr(1);
+                    if(vars->Get(name) != nullptr) {
+                        color = {vars->Get(name)[0], vars->Get(name)[1], vars->Get(name)[2], vars->Get(name)[3]};
+                    }
+                } else {
+                    color = {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
+                }
+                
+                return color;
+            }
         protected:
             SDL_Rect rect = {0, 0, 0, 0};
 
