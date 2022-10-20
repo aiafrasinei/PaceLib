@@ -127,16 +127,16 @@ namespace PaceLib
                 }
             }
 
-            static SDL_Color ParseColor(Configuration *conf, Configuration *vars) {
+            static SDL_Color ParseVar(std::string key, Configuration *conf, Configuration *vars) {
                 SDL_Color color;
 
-                if(conf->Get("color").is_string()) {
-                    std::string name = conf->Get("color").get<std::string>().substr(1);
+                if(conf->Get(key).is_string()) {
+                    std::string name = conf->Get(key).get<std::string>().substr(1);
                     if(vars->Get(name) != nullptr) {
                         color = {vars->Get(name)[0], vars->Get(name)[1], vars->Get(name)[2], vars->Get(name)[3]};
                     }
                 } else {
-                    color = {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
+                    color = {conf->Get(key)[0], conf->Get(key)[1], conf->Get(key)[2], conf->Get(key)[3]};
                 }
                 
                 return color;

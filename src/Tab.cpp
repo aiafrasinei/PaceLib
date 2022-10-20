@@ -48,11 +48,11 @@ void Tab::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
+        Root *root = &Root::GetInstance();
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+        
         PropDimColor dco;
-        dco.color.r = conf->Get("color")[0];
-        dco.color.g = conf->Get("color")[1];
-        dco.color.b = conf->Get("color")[2];
-        dco.color.a = conf->Get("color")[3];
+        dco.color = color;
 
         dco.rect.x = dim[0];
         dco.rect.y = dim[1];

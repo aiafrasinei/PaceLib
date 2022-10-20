@@ -118,10 +118,10 @@ void CheckBox::Begin(ShapeId sid)
         dco.rect.w = dim[2];
         dco.rect.h = dim[3];
 
-        dco.color.r = conf->Get("color")[0];
-        dco.color.g = conf->Get("color")[1];
-        dco.color.b = conf->Get("color")[2];
-        dco.color.a = conf->Get("color")[3];
+        Root *root = &Root::GetInstance();
+
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+        dco.color = color;
 
         PropFontText fto = { Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
 
@@ -129,12 +129,13 @@ void CheckBox::Begin(ShapeId sid)
 
         CheckBox *newc = new CheckBox(sid, dco, fto, textColor);
 
-        newc->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+        newc->SetTextColor(text_color);
+        
         newc->conf = conf;
 
         sid.parent->Add(newc);
 
-        Root *root = &Root::GetInstance();
         ((CheckBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
     }
 }

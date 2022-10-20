@@ -46,14 +46,18 @@ void TextInput::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
+        Root *root = &Root::GetInstance();
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+
         PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]},
-            {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
-        PropFontText fto = {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
+            color};
+        PropFontText fto = {root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
         
         TextInput *ti = new TextInput(sid, dco, fto);
         sid.parent->Add(ti);
 
-        ti->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+        ti->SetTextColor(text_color);
         ti->conf = conf;
 
         ti->InternalInit();

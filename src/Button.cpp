@@ -95,17 +95,19 @@ void Button::Begin(ShapeId sid)
 
         Root *root = &Root::GetInstance();
 
-        PropFontText fto = { root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
+        PropFontText fto = {root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
 
-        SDL_Color color = ParseColor(conf, root->GetVars());
-        
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+
         Button *newb = new Button(sid,
                                   {{dim[0], dim[1], dim[2], dim[3]},
-                                  color},
+                                   color},
                                   fto,
                                   align);
 
-        newb->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+        newb->SetTextColor(text_color);
+        
         newb->conf = conf;
 
         sid.parent->Add(newb);

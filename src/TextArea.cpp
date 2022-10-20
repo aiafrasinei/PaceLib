@@ -47,9 +47,12 @@ void TextArea::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
-        PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]}};
-        FC_Font *font = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
-        
+        Root *root = &Root::GetInstance();
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+
+        PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, color};
+        FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
+    
         Align align;
         if(conf->Get("align")[0] == "mid") {
             align.valign = V::MID;
@@ -70,7 +73,9 @@ void TextArea::Begin(ShapeId sid)
         TextArea *ta = new TextArea(sid, dco , font, conf->Get("text_arr").get<std::vector<std::string>>(), align);
         sid.parent->Add(ta);
 
-        ta->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+        ta->SetTextColor(text_color);
+        
         ta->conf = conf;
 
         ta->InternalInit();

@@ -66,7 +66,7 @@ void Label::Begin(ShapeId sid)
 
         PropFontText fto = {root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
 
-        SDL_Color color = ParseColor(conf, root->GetVars());
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
 
         Label *newl = new Label( sid, 
             {{dim[0], dim[1], dim[2], dim[3]},
@@ -74,7 +74,8 @@ void Label::Begin(ShapeId sid)
             fto,
             align);
 
-        newl->SetTextColor({conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]});
+        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+        newl->SetTextColor(text_color);
         newl->conf = conf;
 
         sid.parent->Add(newl);
