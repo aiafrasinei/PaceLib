@@ -38,8 +38,9 @@ void Ellipse::SetDrawType(DrawTypes rtype)
 
 void Ellipse::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+    std::string path = "wconfs/" + sid.name + "_Ellipse.conf";
+    if(std::filesystem::exists(path)) {
+        Configuration *conf = new Configuration(path);
 
         int x = conf->Get("x");
         int y = conf->Get("y");

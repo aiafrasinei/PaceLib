@@ -27,8 +27,9 @@ Polygon::~Polygon()
 
 void Polygon::Begin(ShapeId sid)
 {
-   if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+    std::string path = "wconfs/" + sid.name + "_Polygon.conf";
+    if(std::filesystem::exists(path)) {
+        Configuration *conf = new Configuration(path);
 
         std::vector<float> all_verts = conf->Get("verts").get<std::vector<float>>();
         std::vector<unsigned char> all_colors = conf->Get("colors").get<std::vector<unsigned char>>();

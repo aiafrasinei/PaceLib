@@ -27,8 +27,9 @@ Lines::~Lines()
 
 void Lines::Begin(ShapeId sid)
 {
-   if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+    std::string path = "wconfs/" + sid.name + "_Lines.conf";
+    if(std::filesystem::exists(path)) {
+        Configuration *conf = new Configuration(path);
 
         std::vector<int> all_verts = conf->Get("verts").get<std::vector<int>>();
 
