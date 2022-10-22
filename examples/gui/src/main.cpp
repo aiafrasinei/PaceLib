@@ -35,50 +35,50 @@ bool start()
 	root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
 
 	Tab::BeginBlock("first_tab");
-		Label::Begin("label_lbl");
-		Button::Begin("start_btn");
-		Button::Begin("exit_btn");
+		Label::Begin("label");
+		Button::Begin("start");
+		Button::Begin("exit");
 	Tab::EndBlock();
 	
-	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
+	root->GetTab("first_tab")->GetButton("exit")->onClickCallback = []() {
 		Window::running = false;
     };
 
 	Tab::BeginBlock("second_tab");
 		Text::Begin("text");
-		Label::BeginBlock("out_lbl");
-			DefaultTooltip::Begin("out_tooltip");
+		Label::BeginBlock("out");
+			DefaultTooltip::Begin("outo");
 		Label::EndBlock();
-		TextArea::Begin("text_ta");
-		TextInput::Begin("tinput");
-		CheckBox::Begin("cb");
+		TextArea::Begin("texta");
+		TextInput::Begin("in");
+		CheckBox::Begin("test");
 	Tab::EndBlock();
 
 	Tabber::BeginBlock("third_tb");
 		Tabber::BeginTabBlock("Main");
-			Button::Begin("third_tb_start_btn");
+			Button::Begin("third_tb_start");
 		Tabber::EndTabBlock();
 
 		Tabber::BeginTabBlock("Options");
-			CheckBox::Begin("fullscreen_cb");
-			CheckBox::Begin("vsync_cb");
+			CheckBox::Begin("fullscreen");
+			CheckBox::Begin("vsync");
 		Tabber::EndTabBlock();
 
 		Tabber::BeginTabBlock("Help");
-			TextArea::Begin("third_tb_text_ta");
+			TextArea::Begin("third_tb_text");
 		Tabber::EndTabBlock();
 	Tabber::EndBlock();
 	
-	Label::Begin("out1_lbl");
-	Button::Begin("astart_btn");
+	Label::Begin("out1");
+	Button::Begin("astart");
 
-	ButtonTex::Begin("gfx_button");
-	root->GetButtonTex("gfx_button")->SetHighlightColor({10, 10, 10, 255});
+	ButtonTex::Begin("gfx0");
+	root->GetButtonTex("gfx0")->SetHighlightColor({10, 10, 10, 255});
 
-	ButtonTex::Begin("gfx_button_tex");
+	ButtonTex::Begin("gfx1");
 
-	ComboBox::Begin("test_combo");
-	root->GetComboBox("test_combo")->SetSelection(2);
+	ComboBox::Begin("testcomb");
+	root->GetComboBox("testcomb")->SetSelection(2);
 
 	return true;
 }

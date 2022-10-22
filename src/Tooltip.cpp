@@ -30,9 +30,10 @@ Tooltip::~Tooltip()
 
 void Tooltip::Begin(ShapeId sid)
 {
-    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
+    std::string path = "wconfs/" + sid.name + "_ToolTip.conf";
+    if (std::filesystem::exists(path))
     {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+        Configuration *conf = new Configuration(path);
 
         SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
 
@@ -222,9 +223,10 @@ DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, S
 
 void DefaultTooltip::Begin(ShapeId sid)
 {
-    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
+    std::string path = "wconfs/" + sid.name + "_DefaultToolTip.conf";
+    if (std::filesystem::exists(path))
     {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+        Configuration *conf = new Configuration(path);
 
         DefaultTooltip *dt;
         if (conf->Get("color") == "parent")

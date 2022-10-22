@@ -105,8 +105,9 @@ CheckBox::~CheckBox()
 
 void CheckBox::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+    std::string path = "wconfs/" + sid.name + "_CheckBox.conf";
+    if(std::filesystem::exists(path)) {
+        Configuration *conf = new Configuration(path);
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -125,11 +126,10 @@ void CheckBox::Begin(ShapeId sid)
 
         PropFontText fto = { Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
 
-        SDL_Color textColor = {conf->Get("text_color")[0], conf->Get("text_color")[1], conf->Get("text_color")[2], conf->Get("text_color")[3]};
-
-        CheckBox *newc = new CheckBox(sid, dco, fto, textColor);
-
         SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
+
+        CheckBox *newc = new CheckBox(sid, dco, fto, text_color);
+
         newc->SetTextColor(text_color);
         
         newc->conf = conf;

@@ -39,8 +39,9 @@ Label::~Label()
 
 void Label::Begin(ShapeId sid)
 {
-    if(std::filesystem::exists("wconfs/" + sid.name + ".conf")) {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+    std::string path = "wconfs/" + sid.name + "_Label.conf";
+    if(std::filesystem::exists(path)) {
+        Configuration *conf = new Configuration(path);
 
         int dim[4];
         Widget::ParseDim(dim, conf);

@@ -62,9 +62,10 @@ ComboBox::~ComboBox()
 
 void ComboBox::Begin(ShapeId sid)
 {
-    if (std::filesystem::exists("wconfs/" + sid.name + ".conf"))
+    std::string path = "wconfs/" + sid.name + "_ComboBox.conf";
+    if (std::filesystem::exists(path))
     {
-        Configuration *conf = new Configuration("wconfs/" + sid.name + ".conf");
+        Configuration *conf = new Configuration(path);
 
         int dim[4];
         Widget::ParseDim(dim, conf);
@@ -90,7 +91,7 @@ void ComboBox::Begin(std::string name)
     Root *root = &Root::GetInstance();
     ComboBox::Begin({root->GetCurrent(), name});
 
-    Configuration *conf = new Configuration("wconfs/" + name + ".conf");
+    Configuration *conf = new Configuration("wconfs/" + name + "_ComboBox.conf");
     ComboBox *curr = ((ComboBox *)root->GetCurrent()->Get(name));
     SDL_Rect currRect = curr->GetRect();
 
