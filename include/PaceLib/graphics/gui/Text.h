@@ -7,7 +7,7 @@
 namespace PaceLib
 {
 
-    class Text : public Shape
+    class Text : public Widget
     {
     public:
 

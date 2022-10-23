@@ -40,10 +40,13 @@ void Text::Begin(ShapeId sid)
         int pos[2];
         Widget::ParsePos(pos, conf);
 
+        Root *root = &Root::GetInstance();
+        SDL_Color color = ParseVar("color", conf, root->GetVars());
+
         Text *t = new Text(sid, 
         {Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()},
         pos[0], pos[1],
-        {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]});
+        color);
 
         t->conf = conf;
         sid.parent->Add(t);

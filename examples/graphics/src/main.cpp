@@ -64,7 +64,7 @@ bool start()
 
 	Polygon::Begin({root, "poly"});
 
-	Lines::Begin({root, "lines"});
+	Lines::Begin({root, "ln"});
 
 	return true;
 }
