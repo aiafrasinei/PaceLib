@@ -21,9 +21,11 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
-                "color" : [40, 40, 40, 255],
                 "scene" : "Default",
+                "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+                "background_color" : [40, 40, 40, 255],
+                "highlight_color" : [30, 30, 30, 255],
+                "border_color" : [0, 0, 0, 255],
                 "font" : "default",
                 "text" : "Back",
                 "text_color" : [140, 170, 140, 255],
@@ -37,29 +39,21 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
+            static void Begin(ShapeId sid, ButtonProp prop);
 
 //end static methods
 
             ~Button();
 
-            void SetFont(FC_Font *font);
-
             void SetText(std::string text); 
 
-            void SetTextAlign(Align align);
-
-            void SetTextColor(SDL_Color color);
-
-            SDL_Color GetTextColor();
-
-            void SetHighlight(bool state);
-            
-            void SetHighlightColor(SDL_Color color);
+            std::string GetText();
 
             int GetTextSize();
 
-            std::string GetText();
+            void SetHighlight(bool state);
+
+            ButtonProp GetProp();
 
             void Draw();
             void Update(SDL_Event *e);
@@ -68,27 +62,17 @@ namespace PaceLib
 
         private:
 
-            SDL_Color textColor;
+            ButtonProp prop;
 
-            Align align;
-            
             bool mouseOver;
 
             bool highlight;
 
-            SDL_Color highlightColor;
-
-            SDL_Texture *tex;
-
-            std::string text;
-
             int textSize;
-
-            PropFontText fto;
 
             void InternalInit();
 
-            Button(ShapeId sid, PropDimColor dco, PropFontText fto, Align align);
+            Button(ShapeId sid, ButtonProp prop);
     };
 
 }

@@ -61,4 +61,16 @@ namespace PaceLib
         SDL_Texture *tex;
         SDL_Rect rect;
     };
+
+    struct ButtonProp
+    {
+        SDL_Rect rect;
+        SDL_Color backgroundColor;
+        SDL_Color highlightColor;
+        SDL_Color borderColor;
+        FC_Font *font;
+        std::string text;
+        SDL_Color textColor;
+        Align align;
+    };
 }

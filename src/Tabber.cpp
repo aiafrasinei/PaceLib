@@ -140,7 +140,17 @@ void Tabber::BeginTabBlock(std::string text)
     Root *root = &Root::GetInstance();
     Tab *tab = (Tab *)root->GetCurrent();
 
-    Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, {{tabx, tab->GetRect().y/99, 40, tab->GetRect().y/17}, {120, 120, 120, 255}}, {Root::GetInstance().GetScene("Default")->GetFont("default"), text}, {V::MID, H::LEFT});
+    ButtonProp prop = { {tabx, tab->GetRect().y/99, 40, tab->GetRect().y/17},
+                        {120, 120, 120, 255},
+                        {130, 130, 130, 255},
+                        {0, 0, 0, 255},
+                        Root::GetInstance().GetScene("Default")->GetFont("default"),
+                        text,
+                        {0, 0, 0, 255},
+                        {V::MID, H::LEFT}
+                    };
+
+    Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
     Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
     b->SetRectW(b->GetTextSize() + tab->GetRect().w/30);

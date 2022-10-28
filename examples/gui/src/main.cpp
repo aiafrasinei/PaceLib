@@ -77,8 +77,8 @@ bool start()
 
 	ButtonTex::Begin("gfx1");
 
-	ComboBox::Begin("testcomb");
-	root->GetComboBox("testcomb")->SetSelection(2);
+	/*ComboBox::Begin("testcomb");
+	root->GetComboBox("testcomb")->SetSelection(2);*/
 
 	return true;
 }

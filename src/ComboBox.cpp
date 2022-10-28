@@ -146,11 +146,29 @@ void ComboBox::InternalInit()
     ComboBox *newcb = (ComboBox *)root->GetCurrent()->Get(name);
 
     for(int i=0; i<items.size(); i++) {
-        Button::Begin({root->GetCurrent(), GetName() + ":" + "item_" + std::to_string(i)}, {{newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h}, newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), items[i]}, {V::MID, H::LEFT});
+        ButtonProp prop = { {newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h},
+                    newcb->GetColor(),
+                    {130, 130, 130, 255},
+                    {0, 0, 0, 255},
+                    Root::GetInstance().GetScene("Default")->GetFont("default"),
+                    items[i],
+                    {0, 0, 0, 255},
+                    {V::MID, H::LEFT} };
+
+        Button::Begin({root->GetCurrent(), GetName() + ":" + "item_" + std::to_string(i)}, prop);
         root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i))->Hide();
     }
 
-    Button::Begin({root->GetCurrent(), GetName() + ":" + "main_item_renderer"}, {newcb->GetRect(), newcb->GetColor()}, {Root::GetInstance().GetScene("Default")->GetFont("default"), ""}, {V::MID, H::LEFT});
+    ButtonProp prop = { newcb->GetRect(),
+                    newcb->GetColor(),
+                    {130, 130, 130, 255},
+                    {0, 0, 0, 255},
+                    Root::GetInstance().GetScene("Default")->GetFont("default"),
+                    "",
+                    {0, 0, 0, 255},
+                    {V::MID, H::LEFT} };
+
+    Button::Begin({root->GetCurrent(), GetName() + ":" + "main_item_renderer"}, prop);
 
     Button *main_renderer = ((Button *)root->GetCurrent()->Get(GetName() + ":" + "main_item_renderer"));
     main_renderer->onClickCallback = [this, main_renderer, root]() {
