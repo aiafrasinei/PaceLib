@@ -146,27 +146,29 @@ void ComboBox::InternalInit()
     ComboBox *newcb = (ComboBox *)root->GetCurrent()->Get(name);
 
     for(int i=0; i<items.size(); i++) {
-        ButtonProp prop = { {newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h},
-                    newcb->GetColor(),
-                    {130, 130, 130, 255},
-                    {0, 0, 0, 255},
+        SDL_Rect r = {newcb->GetRect().x, newcb->GetRect().y+(i*newcb->GetRect().h), newcb->GetRect().w, newcb->GetRect().h};
+        LabelProp prop = { r,
                     Root::GetInstance().GetScene("Default")->GetFont("default"),
                     items[i],
                     {0, 0, 0, 255},
-                    {V::MID, H::LEFT} };
+                    {H::MID},
+                    newcb->GetColor(),
+                    {0, 0, 0, 255},
+                    {130, 130, 130, 255}
+                    };
 
         Button::Begin({root->GetCurrent(), GetName() + ":" + "item_" + std::to_string(i)}, prop);
         root->GetCurrent()->Get(GetName() + ":" + "item_" + std::to_string(i))->Hide();
     }
 
-    ButtonProp prop = { newcb->GetRect(),
-                    newcb->GetColor(),
-                    {130, 130, 130, 255},
-                    {0, 0, 0, 255},
+    LabelProp prop = { newcb->GetRect(),
                     Root::GetInstance().GetScene("Default")->GetFont("default"),
                     "",
                     {0, 0, 0, 255},
-                    {V::MID, H::LEFT} };
+                    {H::MID},
+                    newcb->GetColor(),
+                    {0, 0, 0, 255},
+                    {130, 130, 130, 255} };
 
     Button::Begin({root->GetCurrent(), GetName() + ":" + "main_item_renderer"}, prop);
 

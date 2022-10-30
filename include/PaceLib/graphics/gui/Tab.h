@@ -24,7 +24,8 @@ namespace PaceLib
             example format:
             {
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
-                "color" : [80, 70, 80, 255]
+                "background" : [80, 70, 80, 255]
+                "border_color : [0, 0, 0, 255]"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);

@@ -3,6 +3,8 @@
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
+#include "../core/interfaces/Updateable.hpp"
+#include <functional>
 
 
 namespace PaceLib
@@ -15,49 +17,56 @@ namespace PaceLib
 //static methods
 
 // json configuration
+
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_0.5%", "W_0.5%", "W_7.5%", "H_3%"],
-                "color" : "parent",
                 "scene" : "Default",
+                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
                 "font" : "default",
-                "text" : "Main Menu",
-                "text_color" : [0, 0, 0, 255],
-                "align" : ["mid", "mid"]
+                "text" : "Start",
+                "text_color" : "$TEXT",
+                "align" : "mid",
+                "background_color" : "$BACKGROUND",
+                "border_color" : "$BORDER",
+                "highlight_color" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
 
-            //used when the label will have child elements
+            //used when the button will have child elements
             static void BeginBlock(std::string name);
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, Align align={V::MID, H::MID});
+            static void Begin(ShapeId sid, LabelProp prop);
 
 //end static methods
 
-            void SetTextAlign(Align align);
+            void SetText(std::string text);
+            std::string GetText();
+            void SetTextAlign(HorizontalAlign align);
 
-            void SetTextColor(SDL_Color color);
+            int GetTextSize();
 
-            SDL_Color GetTextColor();
-
+            LabelProp GetProp();
+   
             void Draw();
+
+            Label();
 
             ~Label();
 
-        private:
-            SDL_Color textColor;
+        protected:
+            LabelProp prop;
 
-            Align align;
-
-            PropFontText fto;
-
-            Label(ShapeId sid, PropDimColor dmo, PropFontText fto, Align align);
+            int textSize;
 
             void InternalInit();
+
+            static LabelProp LoadLabelProp(Configuration *conf);
+
+            Label(ShapeId sid, LabelProp prop);
     };
 
 }

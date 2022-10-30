@@ -11,24 +11,20 @@ static int nrtitles = 0;
 unsigned int Tabber::current = 1;
 int Tabber::tabx = 0;
 
-Tabber::Tabber(ShapeId sid, PropDimColor dco, PropFontText fto)
+Tabber::Tabber(ShapeId sid, TabberProp prop)
 {
-    if(sid.parent->name == "root") {
-        rect.x = dco.rect.x;
-        rect.y = dco.rect.y;
-    } else {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
+    this->prop = prop;
+
+    rect = prop.rect;
+
+    if(sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
     }
-    
-    rect.w = dco.rect.w;
-    rect.h = dco.rect.h;
+
+    this->prop.rect = rect;
 
     hidden = false;
-    
-    color = {dco.color.r, dco.color.g, dco.color.b, dco.color.a};
-
-    textColor = {0, 0, 0, 255};
 
     this->name = sid.name;
 
@@ -58,15 +54,9 @@ void Tabber::Begin(ShapeId sid)
 
         Root *root = &Root::GetInstance();
 
-        int dim[4];
-        Widget::ParseDim(dim, conf);
+        TabberProp prop = LoadTabberProp(conf);
 
-        SDL_Color color = ParseVar("color", conf, root->GetVars());
-
-        PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]}, color};
-        PropFontText fto = {root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), ""};
-
-        sid.parent->Add(new Tabber( sid, dco, fto));
+        sid.parent->Add(new Tabber( sid, prop));
     }
 }
 
@@ -93,9 +83,9 @@ void Tabber::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Tabber::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
+void Tabber::Begin(ShapeId sid, TabberProp prop)
 {
-    sid.parent->Add(new Tabber( sid, dco, fto));
+    sid.parent->Add(new Tabber(sid, prop));
 }
 
 void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
@@ -120,11 +110,15 @@ void Tabber::Draw()
             once=false;
         }
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
  
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), 40, 40, 40, 255);
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.borderColor.a);
+
+        SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.headerBackgroundColor.r, prop.headerBackgroundColor.g, prop.headerBackgroundColor.b, prop.headerBackgroundColor.a);
         SDL_RenderFillRect(Window::GetRenderer(), &top);
 
         SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
@@ -138,24 +132,25 @@ void Tabber::Draw()
 void Tabber::BeginTabBlock(std::string text)
 {
     Root *root = &Root::GetInstance();
-    Tab *tab = (Tab *)root->GetCurrent();
+    Tabber *tabber = (Tabber *)root->GetCurrent();
 
-    ButtonProp prop = { {tabx, tab->GetRect().y/99, 40, tab->GetRect().y/17},
-                        {120, 120, 120, 255},
-                        {130, 130, 130, 255},
-                        {0, 0, 0, 255},
-                        Root::GetInstance().GetScene("Default")->GetFont("default"),
+    LabelProp prop = {
+                        {tabx, tabber->GetRect().y/99, 40, tabber->GetRect().y/17},
+                        root->GetScene("Default")->GetFont("default"),
                         text,
-                        {0, 0, 0, 255},
-                        {V::MID, H::LEFT}
+                        tabber->GetProp().buttonsTextColor,
+                        tabber->GetProp().buttonsTextAlign,
+                        tabber->GetProp().buttonsBackgroundColor,
+                        tabber->GetProp().buttonsBorderColor,
+                        tabber->GetProp().buttonsHighlightColor
                     };
 
     Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
     Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
-    b->SetRectW(b->GetTextSize() + tab->GetRect().w/30);
+    b->SetRectW(b->GetTextSize() + b->GetTextSize()/3);
 
-    tabx = tabx + b->GetTextSize() + tab->GetRect().w/30 + tab->GetRect().w/99;
+    tabx = tabx + b->GetTextSize() + b->GetTextSize()/3 + tabber->GetRect().w/99;
 
     b->onClickCallback = [btext = b->name]() {
         std::size_t pos = btext.find("_");
@@ -167,10 +162,10 @@ void Tabber::BeginTabBlock(std::string text)
 
     nrtitles++;
 
-    Tab::Begin({tab, "t_" + std::to_string(nrtabs)} , { {0, tab->GetRect().y/13, tab->GetRect().w, tab->GetRect().h} , {tab->GetColor().r, tab->GetColor().g, tab->GetColor().b, tab->GetColor().a}});
-    tab->Get("t_" + std::to_string(nrtabs))->Hide();
-    root->SetCurrent(tab->Get("t_" + std::to_string(nrtabs)));
-    root->GetCurrent()->SetParent(tab);
+    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, tabber->GetRect().y/13, tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
+    tabber->Get("t_" + std::to_string(nrtabs))->Hide();
+    root->SetCurrent(tabber->Get("t_" + std::to_string(nrtabs)));
+    root->GetCurrent()->SetParent(tabber);
     nrtabs++;
 }
 
@@ -185,4 +180,49 @@ void Tabber::Update(SDL_Event *e)
     for(Shape *s : shapes) {
         s->Update(e);
     }
+}
+
+TabberProp Tabber::GetProp()
+{
+    return prop;
+}
+
+TabberProp Tabber::LoadTabberProp(Configuration *conf)
+{
+    int dim[4];
+    Widget::ParseDim(dim, conf);
+
+    HorizontalAlign align;
+    if (conf->Get("buttons_text_align") == "left")
+        align.halign = H::LEFT;
+    else if (conf->Get("buttons_text_align") == "mid")
+        align.halign = H::MID;
+    else if (conf->Get("buttons_text_align") == "right")
+        align.halign = H::RIGHT;
+
+    Root *root = &Root::GetInstance();
+
+    SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+    SDL_Color backgroundColor = Widget::ParseVar("background_color", conf, root->GetVars());
+    SDL_Color borderColor = Widget::ParseVar("border_color", conf, root->GetVars());
+    SDL_Color headerBackgroundColor= Widget::ParseVar("header_background_color", conf, root->GetVars());
+    FC_Font *buttonsFont = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("buttons_font").get<std::string>());
+    SDL_Color buttonsTextColor = Widget::ParseVar("buttons_text_color", conf, root->GetVars());
+    SDL_Color buttonsBackgroundColor = Widget::ParseVar("buttons_background_color", conf, root->GetVars());
+    SDL_Color buttonsBorderColor = Widget::ParseVar("buttons_border_color", conf, root->GetVars());
+    SDL_Color buttonsHighlightColor = Widget::ParseVar("buttons_highlight_color", conf, root->GetVars());
+
+    TabberProp prop = {
+                        dimr,
+                        backgroundColor,
+                        borderColor,
+                        headerBackgroundColor,
+                        buttonsFont,
+                        buttonsTextColor,
+                        align,
+                        buttonsBackgroundColor,
+                        buttonsBorderColor,
+                        buttonsHighlightColor
+                    };
+    return prop;
 }

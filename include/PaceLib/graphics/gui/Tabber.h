@@ -21,11 +21,19 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
-                "color" : [70, 80, 70, 255],
                 "scene" : "Default",
-                "font" : "default",
-                "text" : ""
+                "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
+                "background_color" : [70, 80, 70, 255],
+                "border_color" : "$BORDER",
+                "header_background_color" : [120, 120, 120, 255]
+                "tab_background_color" : [120, 120, 120, 255]
+                "tab_border_color" : [120, 120, 120, 255]
+                "buttons_font" : "default",
+                "buttons_text_color" : "$TEXT",
+                "buttons_text_align" : "left",
+                "buttons_background_color" : "$BACKGROUND",
+                "buttons_border_color" : "$BORDER",
+                "buttons_highlight_color" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -38,7 +46,7 @@ namespace PaceLib
 
 // programmatic
 
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
+            static void Begin(ShapeId sid, TabberProp prop);
 
 //end static methods
 
@@ -48,6 +56,8 @@ namespace PaceLib
 
             void AddTab(std::string text);
             void AddTab(std::string name, std::string text);
+
+            TabberProp GetProp();
 
             void Update(SDL_Event *e);
 
@@ -65,7 +75,11 @@ namespace PaceLib
             static unsigned int current;
             static int tabx;
 
-            Tabber(ShapeId sid, PropDimColor dmo, PropFontText fto);
+            TabberProp prop;
+
+            static TabberProp LoadTabberProp(Configuration *conf);
+
+            Tabber(ShapeId sid, TabberProp prop);
     };
 
 }

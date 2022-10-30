@@ -3,6 +3,7 @@
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
+#include "Label.h"
 #include "../core/interfaces/Updateable.hpp"
 #include <functional>
 
@@ -10,7 +11,7 @@
 namespace PaceLib
 {
 
-    class Button : public Widget
+    class Button : public Label
     {
         public:
 
@@ -22,14 +23,14 @@ namespace PaceLib
             example format:
             {
                 "scene" : "Default",
-                "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
-                "background_color" : [40, 40, 40, 255],
-                "highlight_color" : [30, 30, 30, 255],
-                "border_color" : [0, 0, 0, 255],
+                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
                 "font" : "default",
-                "text" : "Back",
-                "text_color" : [140, 170, 140, 255],
-                "align" : ["mid", "mid"]
+                "text" : "Start",
+                "text_color" : "$TEXT",
+                "align" : "mid",
+                "background_color" : "$BACKGROUND",
+                "border_color" : "$BORDER",
+                "highlight_color" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -39,40 +40,26 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, ButtonProp prop);
+            static void Begin(ShapeId sid, LabelProp prop);
 
 //end static methods
 
-            ~Button();
-
-            void SetText(std::string text); 
-
-            std::string GetText();
-
-            int GetTextSize();
-
             void SetHighlight(bool state);
 
-            ButtonProp GetProp();
+            std::function<void(void)> onClickCallback;
 
             void Draw();
             void Update(SDL_Event *e);
 
-            std::function<void(void)> onClickCallback;
+            ~Button();
 
         private:
-
-            ButtonProp prop;
 
             bool mouseOver;
 
             bool highlight;
 
-            int textSize;
-
-            void InternalInit();
-
-            Button(ShapeId sid, ButtonProp prop);
+            Button(ShapeId sid, LabelProp prop);
     };
 
 }

@@ -44,6 +44,16 @@ namespace PaceLib
         H halign;
     };
 
+    struct HorizontalAlign
+    {
+        H halign;
+    };
+
+    struct VerticalAlign
+    {
+        V valign;
+    };
+
     struct PropDimColor
     {
         SDL_Rect rect;
@@ -62,15 +72,29 @@ namespace PaceLib
         SDL_Rect rect;
     };
 
-    struct ButtonProp
+    struct LabelProp
     {
         SDL_Rect rect;
-        SDL_Color backgroundColor;
-        SDL_Color highlightColor;
-        SDL_Color borderColor;
         FC_Font *font;
         std::string text;
         SDL_Color textColor;
-        Align align;
+        HorizontalAlign align;
+        SDL_Color backgroundColor;
+        SDL_Color borderColor;
+        SDL_Color highlightColor;
+    };
+    
+    struct TabberProp
+    {
+        SDL_Rect rect;
+        SDL_Color backgroundColor;
+        SDL_Color borderColor;
+        SDL_Color headerBackgroundColor;
+        FC_Font *buttonsFont;
+        SDL_Color buttonsTextColor;
+        HorizontalAlign buttonsTextAlign;
+        SDL_Color buttonsBackgroundColor;
+        SDL_Color buttonsBorderColor;
+        SDL_Color buttonsHighlightColor;
     };
 }

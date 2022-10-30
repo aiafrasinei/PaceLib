@@ -5,23 +5,8 @@
 
 using namespace PaceLib;
 
-Button::Button(ShapeId sid, ButtonProp prop)
+Button::Button(ShapeId sid, LabelProp prop) : Label(sid, prop)
 {
-    this->prop = prop;
-
-    rect = prop.rect;
-
-    if(sid.parent->name != "root") {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
-    }
-
-    this->prop.rect = rect;
-
-    hidden = false;
-
-    this->name = sid.name;
-
     mouseOver = false;
 
     highlight = true;
@@ -29,8 +14,6 @@ Button::Button(ShapeId sid, ButtonProp prop)
     wtype = WidgetType::BUTTON;
 
     onClickCallback = nullptr;
-
-    textSize = 0;
 }
 
 Button::~Button()
@@ -45,57 +28,8 @@ void Button::Begin(ShapeId sid)
     {
         Configuration *conf = new Configuration(path);
 
-        int dim[4];
-        Widget::ParseDim(dim, conf);
-
-        Align align;
-        if (conf->Get("align")[0] == "mid")
-        {
-            align.valign = V::MID;
-        }
-        else if (conf->Get("align")[0] == "top")
-        {
-            align.valign = V::TOP;
-        }
-        else if (conf->Get("align")[0] == "bottom")
-        {
-            align.valign = V::BOTTOM;
-        }
-
-        if (conf->Get("align")[1] == "left")
-        {
-            align.halign = H::LEFT;
-        }
-        else if (conf->Get("align")[1] == "mid")
-        {
-            align.halign = H::MID;
-        }
-        else if (conf->Get("align")[1] == "right")
-        {
-            align.halign = H::RIGHT;
-        }
-
-        Root *root = &Root::GetInstance();
-
-        SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
-        SDL_Color backgroundColor = ParseVar("background_color", conf, root->GetVars());
-        SDL_Color highlightColor = ParseVar("highlight_color", conf, root->GetVars());
-        SDL_Color borderColor = ParseVar("border_color", conf, root->GetVars());
-        FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
-        std::string text = conf->Get("text").get<std::string>();
-        SDL_Color textColor = ParseVar("text_color", conf, root->GetVars());
-
-        ButtonProp prop = {
-                            dimr,
-                            backgroundColor,
-                            highlightColor,
-                            borderColor,
-                            font,
-                            text,
-                            textColor,
-                            align
-                        };
-
+        LabelProp prop = LoadLabelProp(conf);
+        
         Button *newb = new Button(sid, prop);
 
         sid.parent->Add(newb);
@@ -125,7 +59,7 @@ void Button::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Button::Begin(ShapeId sid, ButtonProp prop)
+void Button::Begin(ShapeId sid, LabelProp prop)
 {
     Button *newb = new Button(sid, prop);
 
@@ -133,11 +67,6 @@ void Button::Begin(ShapeId sid, ButtonProp prop)
     root->GetCurrent()->Add(newb);
 
     ((Button *)root->GetCurrent()->Get(sid.name))->InternalInit();
-}
-
-ButtonProp Button::GetProp()
-{
-    return prop;
 }
 
 void Button::Draw()
@@ -199,90 +128,6 @@ void Button::Update(SDL_Event *e)
                 mouseOver = false;
             }
         }
-    }
-}
-
-int Button::GetTextSize()
-{
-    return textSize;
-}
-
-std::string Button::GetText()
-{
-    Root *root = &Root::GetInstance();
-    Text *to = (Text *)(Button *)root->GetCurrent()->Get(name)->Get(this->name + "_text");
-    return to->GetText();
-}
-
-void Button::SetText(std::string text)
-{
-    Root *root = &Root::GetInstance();
-
-    if (this->prop.text == "")
-    {
-        delete shapes[0];
-        shapes.clear();
-        shapesNames.clear();
-
-        this->prop.text = text;
-
-        InternalInit();
-    }
-
-    Text *to = (Text *)((Button *)root->GetCurrent()->Get(name))->Get(this->name + "_text");
-
-    to->SetText(text);
-    this->prop.text = text;
-}
-
-void Button::InternalInit()
-{
-    // child text
-    Root *root = &Root::GetInstance();
-    Button *newb = (Button *)root->GetCurrent()->Get(name);
-
-    Text::Begin({newb, name + "_text"}, {prop.font, prop.text}, GetRect().x + GetRect().w / 20, GetRect().y, {0, 0, 0, 255});
-
-    Text *to = (Text *)newb->Get(name + "_text");
-    to->SetColor({newb->GetProp().textColor});
-    textSize = to->GetWidth();
-
-    to->SetX(newb->GetRect().x + rect.w / 20);
-
-    if (prop.align.valign == V::TOP)
-    {
-        if (prop.align.halign == H::MID)
-        {
-            to->SetX(newb->GetHalfX() - to->GetWidth() / 2);
-        }
-        else if (prop.align.halign == H::RIGHT)
-        {
-            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
-        }
-    }
-    else if (prop.align.valign == V::MID)
-    {
-        if (prop.align.halign == H::MID)
-        {
-            to->SetX(newb->GetHalfX() - to->GetWidth() / 2);
-        }
-        else if (prop.align.halign == H::RIGHT)
-        {
-            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
-        }
-        to->SetY(newb->GetHalfY() - to->GetHeight() / 2);
-    }
-    else if (prop.align.valign == V::BOTTOM)
-    {
-        if (prop.align.halign == H::MID)
-        {
-            to->SetX(newb->GetHalfX() - to->GetWidth() / 2);
-        }
-        else if (prop.align.halign == H::RIGHT)
-        {
-            to->SetX(newb->GetRect().x + newb->GetRect().w - to->GetWidth());
-        }
-        to->SetY(newb->GetRect().y + newb->GetRect().h - to->GetHeight());
     }
 }
 
