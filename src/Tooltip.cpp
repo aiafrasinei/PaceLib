@@ -7,17 +7,11 @@ Tooltip::Tooltip(ShapeId sid, SDL_Rect shape, SDL_Color color)
 {
     this->parent = sid.parent;
 
-    rect.x = shape.x;
-    rect.y = shape.y;
-    rect.w = shape.w;
-    rect.h = shape.h;
+    rect = shape;
 
     hidden = false;
 
-    this->color.r = color.r;
-    this->color.g = color.g;
-    this->color.b = color.b;
-    this->color.a = color.a;
+    this->color = color;
 
     this->name = sid.name;
 
@@ -205,10 +199,7 @@ DefaultTooltip::DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, S
     child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w / 2;
     child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h / 2;
 
-    rect.x = child.x;
-    rect.y = child.y;
-    rect.w = child.w;
-    rect.h = child.h;
+    rect = child;
 
     hidden = false;
 
@@ -311,7 +302,15 @@ void DefaultTooltip::InternalInit()
     Root *root = &Root::GetInstance();
     DefaultTooltip *dt = (DefaultTooltip *)root->GetCurrent()->Get(name);
 
-    Text::Begin({dt, dt->name+"_text"}, fto, dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y, textColor);
+    TextProp tprop = {
+         dt->GetRect().x + dt->GetRect().w / 20,
+         dt->GetRect().y,
+         fto.font,
+         fto.text,
+         textColor
+    };
+
+    Text::Begin({dt, dt->name+"_text"}, tprop);
 
     Text *to = (Text *)dt->Get(name + "_text");
 

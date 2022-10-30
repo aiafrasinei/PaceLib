@@ -3,13 +3,14 @@
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "../../core/interfaces/Focusable.hpp"
+#include "Label.h"
 #include "Text.h"
 
 
 namespace PaceLib
 {
 
-    class TextInput : public Widget, public Focusable
+    class TextInput : public Label, public Focusable
     {
         public:
 //static methods
@@ -18,12 +19,15 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             }
-                "dim" : ["W_1%", "H_28%", "W_7.5%", "H_3%"],
-                "color" : [120, 120, 120, 255],
                 "scene" : "Default",
+                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
                 "font" : "default",
                 "text" : "",
-                "text_color" : [0, 0, 0, 255],
+                "text_color" : "$TEXT",
+                "align" : "mid",
+                "background_color" : "$BACKGROUND",
+                "border_color" : "$BORDER",
+                "highlight_color" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -33,7 +37,7 @@ namespace PaceLib
             static void EndBlock();
 
 // programatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto);
+            static void Begin(ShapeId sid, LabelProp prop);
 
 //end static methods
 
@@ -51,15 +55,9 @@ namespace PaceLib
             ~TextInput();
 
         private:
-            Text *to;
-
-            SDL_Color textColor;
-
-            PropFontText fto;
-
             int textSize;
 
-            TextInput(ShapeId sid, PropDimColor dmo, PropFontText fto);
+            TextInput(ShapeId sid, LabelProp prop);
 
             void InternalInit();
     };

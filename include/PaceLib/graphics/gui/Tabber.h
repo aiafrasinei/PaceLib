@@ -23,17 +23,15 @@ namespace PaceLib
             {
                 "scene" : "Default",
                 "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
-                "background_color" : [70, 80, 70, 255],
-                "border_color" : "$BORDER",
-                "header_background_color" : [120, 120, 120, 255]
-                "tab_background_color" : [120, 120, 120, 255]
-                "tab_border_color" : [120, 120, 120, 255]
+                "background" : [70, 80, 70, 255],
+                "border" : "$BORDER",
+                "header_background" : [40, 40, 40, 255],
                 "buttons_font" : "default",
                 "buttons_text_color" : "$TEXT",
                 "buttons_text_align" : "left",
-                "buttons_background_color" : "$BACKGROUND",
-                "buttons_border_color" : "$BORDER",
-                "buttons_highlight_color" : "$HIGHLIGHT"
+                "buttons_background" : "$BACKGROUND", 
+                "buttons_border" : "$BORDER",
+                "buttons_highlight" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);

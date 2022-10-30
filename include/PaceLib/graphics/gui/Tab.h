@@ -23,9 +23,10 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
+                "scene" : "Default",
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "background" : [80, 70, 80, 255]
-                "border_color : [0, 0, 0, 255]"
+                "border : [0, 0, 0, 255]"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -35,11 +36,11 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor in);
+            static void Begin(ShapeId sid, TabProp prop);
 
 //end static methods
 
-            Tab(ShapeId sid, PropDimColor in);
+            Tab(ShapeId sid, TabProp prop);
 
             void Draw();
 
@@ -51,6 +52,11 @@ namespace PaceLib
             ButtonTex *GetButtonTex(std::string child);
             Label *GetLabel(std::string child);
             Widget *GetWidget(std::string child);
+
+        private:
+            TabProp prop;
+
+            static TabProp LoadTabProp(Configuration *conf);
     };
 
 }

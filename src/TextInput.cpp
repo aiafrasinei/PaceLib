@@ -4,31 +4,11 @@
 
 using namespace PaceLib;
 
-TextInput::TextInput(ShapeId sid, PropDimColor dco, PropFontText fto)
+TextInput::TextInput(ShapeId sid, LabelProp prop) : Label(sid, prop)
 {
-    if(sid.parent->name == "root") {
-        rect.x = dco.rect.x;
-        rect.y = dco.rect.y;
-    } else {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
-    }
-    rect.w = dco.rect.w;
-    rect.h = dco.rect.h;
-
-    hidden = false;
-    
-    color = {dco.color.r, dco.color.g, dco.color.b, dco.color.a};
-
-    textColor = {0, 0, 0, 255};
-
-    this->name = sid.name;
-
     wtype = WidgetType::TEXTINPUT;
 
     this->focus = false;
-
-    this->fto = fto;
 
     textSize = 0;
 }
@@ -44,22 +24,10 @@ void TextInput::Begin(ShapeId sid)
     if(std::filesystem::exists(path)) {
         Configuration *conf = new Configuration(path);
 
-        int dim[4];
-        Widget::ParseDim(dim, conf);
+        LabelProp prop = LoadLabelProp(conf);
 
-        Root *root = &Root::GetInstance();
-        SDL_Color color = ParseVar("color", conf, root->GetVars());
-
-        PropDimColor dco = {{dim[0], dim[1], dim[2], dim[3]},
-            color};
-        PropFontText fto = {root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>()};
-        
-        TextInput *ti = new TextInput(sid, dco, fto);
+        TextInput *ti = new TextInput(sid, prop);
         sid.parent->Add(ti);
-
-        SDL_Color text_color = ParseVar("text_color", conf, root->GetVars());
-        ti->SetTextColor(text_color);
-        ti->conf = conf;
 
         ti->InternalInit();
     }
@@ -87,9 +55,9 @@ void TextInput::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void TextInput::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
+void TextInput::Begin(ShapeId sid, LabelProp prop)
 {
-    TextInput *ti = new TextInput( sid, dco, fto);
+    TextInput *ti = new TextInput( sid, prop);
 
     Root *root = &Root::GetInstance();
     root->GetCurrent()->Add(ti);
@@ -97,20 +65,14 @@ void TextInput::Begin(ShapeId sid, PropDimColor dco, PropFontText fto)
     ((TextInput *)root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
-void TextInput::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-{
-    textColor.r = r;
-    textColor.g = g;
-    textColor.b = b;
-    textColor.a = a;
-}
-
 void TextInput::Draw()
 {
     if(!hidden) {
-        SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
- 
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
+
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.borderColor.a);
+        SDL_RenderDrawRect(Window::GetRenderer(), &rect);
 
         SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
 
@@ -169,25 +131,20 @@ void TextInput::InternalInit()
     Root *root = &Root::GetInstance();
     TextInput *tin = (TextInput *)root->GetCurrent()->Get(name);
 
-    Text::Begin({tin, tin->name+"_text"}, fto, GetRect().x + GetRect().w / 20, GetRect().y, textColor);
+    TextProp tprop = {
+            GetRect().x + GetRect().w / 20,
+            GetRect().y,
+            prop.font,
+            prop.text,
+            prop.textColor
+        };
+
+    Text::Begin({tin, tin->name+"_text"}, tprop);
 
     Text *to = (Text *)tin->Get(name + "_text");
-    to->SetColor({tin->GetTextColor()});
+    to->SetColor(prop.textColor);
     textSize = to->GetWidth();
 
     to->SetX(GetRect().x + rect.w/20);
     to->SetY(GetRect().y);
-}
-
-void TextInput::SetTextColor(SDL_Color color)
-{
-    textColor.r = color.r;
-    textColor.g = color.g;
-    textColor.b = color.b;
-    textColor.a = color.a;
-}
-
-SDL_Color TextInput::GetTextColor()
-{
-    return textColor;
 }

@@ -159,7 +159,16 @@ void TextArea::InternalInit()
     int ry = rect.y;
     int i=0;
     for (std::string text : tarr) {
-        Text::Begin({ta, ta->name+"_text" + std::to_string(i)}, {font, text}, rect.x + rect.w/50, ry, {textColor.r, textColor.g, textColor.b, textColor.a});
+
+        TextProp tprop = {
+            rect.x + rect.w/50,
+            ry,
+            font,
+            text,
+            textColor
+        };
+
+        Text::Begin({ta, ta->name+"_text" + std::to_string(i)}, tprop);
 
         Text *to = (Text *)ta->Get(name + "_text" + std::to_string(i));
         to->SetColor({ta->GetTextColor()});

@@ -27,9 +27,9 @@ namespace PaceLib
                 "text" : "Start",
                 "text_color" : "$TEXT",
                 "align" : "mid",
-                "background_color" : "$BACKGROUND",
-                "border_color" : "$BORDER",
-                "highlight_color" : "$HIGHLIGHT"
+                "background" : "$BACKGROUND",
+                "border" : "$BORDER",
+                "highlight" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);

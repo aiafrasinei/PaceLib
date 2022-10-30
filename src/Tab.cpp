@@ -3,28 +3,20 @@
 
 using namespace PaceLib;
 
-Tab::Tab(ShapeId sid, PropDimColor dco)
+Tab::Tab(ShapeId sid, TabProp prop)
 {
-    if (sid.parent->name == "root")
-    {
-        rect.x = dco.rect.x;
-        rect.y = dco.rect.y;
-    }
-    else
-    {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
+    this->prop = prop;
+
+    rect = prop.rect;
+
+    if(sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
     }
 
-    rect.w = dco.rect.w;
-    rect.h = dco.rect.h;
+    this->prop.rect = rect;
 
     hidden = false;
-
-    this->color.r = dco.color.r;
-    this->color.g = dco.color.g;
-    this->color.b = dco.color.b;
-    this->color.a = dco.color.a;
 
     this->name = sid.name;
 
@@ -46,21 +38,9 @@ void Tab::Begin(ShapeId sid)
     {
         Configuration *conf = new Configuration(path);
 
-        int dim[4];
-        Widget::ParseDim(dim, conf);
+        TabProp prop = LoadTabProp(conf);
 
-        Root *root = &Root::GetInstance();
-        SDL_Color color = ParseVar("color", conf, root->GetVars());
-        
-        PropDimColor dco;
-        dco.color = color;
-
-        dco.rect.x = dim[0];
-        dco.rect.y = dim[1];
-        dco.rect.w = dim[2];
-        dco.rect.h = dim[3];
-
-        sid.parent->Add(std::move(new Tab(sid, dco)));
+        sid.parent->Add(std::move(new Tab(sid, prop)));
     }
 }
 
@@ -86,18 +66,20 @@ void Tab::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Tab::Begin(ShapeId sid, PropDimColor dco)
+void Tab::Begin(ShapeId sid, TabProp prop)
 {
-    sid.parent->Add(new Tab(sid, dco));
+    sid.parent->Add(new Tab(sid, prop));
 }
 
 void Tab::Draw()
 {
     if (!hidden)
     {
-        SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
-
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
+
+        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.backgroundColor.a);
+        SDL_RenderDrawRect(Window::GetRenderer(), &rect);
 
         for (Shape *w : shapes)
         {
@@ -139,4 +121,23 @@ Label *Tab::GetLabel(std::string child)
 Widget *Tab::GetWidget(std::string child)
 {
     return static_cast<Widget *>(this->Get(child));
+}
+
+TabProp Tab::LoadTabProp(Configuration *conf)
+{
+    int dim[4];
+    Widget::ParseDim(dim, conf);
+
+    Root *root = &Root::GetInstance();
+
+    SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+    SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
+    SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
+
+    TabProp prop = {
+                        dimr,
+                        backgroundColor,
+                        borderColor
+                    };
+    return prop;
 }

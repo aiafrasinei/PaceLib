@@ -18,10 +18,10 @@ namespace PaceLib
         /* Loads wconf file
         example format:
         {
-            "text" : "Text text text",
             "scene" : "Default",
+            "pos" : ["W_1%", "W_0.6%"],
             "font" : "default",
-            "pos" : ["W_0.6%", "W_0.6%"],
+            "text" : "Text text text",
             "color" : [140, 140, 140, 255]
         }*/
         static void Begin(ShapeId sid);
@@ -33,8 +33,8 @@ namespace PaceLib
 
 // programatic
 
-        static void Begin(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color);
-        static Text *Begin(FC_Font *font, std::string text, int x, int y, SDL_Color color);
+        static void Begin(ShapeId sid, TextProp prop);
+        static Text *Begin(FC_Font *font, TextProp prop);
 
 //end static methods
 
@@ -56,13 +56,11 @@ namespace PaceLib
     protected:         
 
     private:
-        FC_Font *font;
-        std::string text;
+        TextProp prop;
+        
+        static TextProp LoadTextProp(Configuration *conf);
 
-        int x,y;
-        SDL_Rect rect;
-
-        Text(ShapeId sid, PropFontText fto, int x, int y, SDL_Color color);
+        Text(ShapeId sid, TextProp prop);
         Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
     };
 

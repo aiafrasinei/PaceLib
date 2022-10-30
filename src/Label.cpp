@@ -17,6 +17,7 @@ Label::Label(ShapeId sid, LabelProp prop)
     }
 
     this->prop.rect = rect;
+    color = prop.backgroundColor;
 
     hidden = false;
 
@@ -94,7 +95,6 @@ void Label::Draw()
     if (!hidden)
     {
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
-
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
 
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.borderColor.a);
@@ -148,7 +148,15 @@ void Label::InternalInit()
     Root *root = &Root::GetInstance();
     Label *newb = (Label *)root->GetCurrent()->Get(name);
 
-    Text::Begin({newb, name + "_text"}, {prop.font, prop.text}, GetRect().x + GetRect().w / 20, GetRect().y, {0, 0, 0, 255});
+    TextProp tprop = {
+         GetRect().x + GetRect().w / 20,
+         GetRect().y,
+         prop.font,
+         prop.text,
+         prop.textColor
+    };
+
+    Text::Begin({newb, name + "_text"}, tprop);
 
     Text *to = (Text *)newb->Get(name + "_text");
     to->SetColor({newb->GetProp().textColor});
@@ -188,9 +196,9 @@ LabelProp Label::LoadLabelProp(Configuration *conf)
     Root *root = &Root::GetInstance();
 
     SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
-    SDL_Color backgroundColor = Widget::ParseVar("background_color", conf, root->GetVars());
-    SDL_Color borderColor = Widget::ParseVar("border_color", conf, root->GetVars());
-    SDL_Color highlightColor = Widget::ParseVar("highlight_color", conf, root->GetVars());
+    SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
+    SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
+    SDL_Color highlightColor = Widget::ParseVar("highlight", conf, root->GetVars());
     FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
     std::string text = conf->Get("text").get<std::string>();
     SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());

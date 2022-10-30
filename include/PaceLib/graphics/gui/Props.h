@@ -35,6 +35,7 @@ namespace PaceLib
         TEXTAREA,
         CHECKBOX,
         TEXTURE,
+        TEXT,
         CUSTOM
     };
 
@@ -97,4 +98,20 @@ namespace PaceLib
         SDL_Color buttonsBorderColor;
         SDL_Color buttonsHighlightColor;
     };
+
+    struct TabProp
+    {
+        SDL_Rect rect;
+        SDL_Color backgroundColor;
+        SDL_Color borderColor;
+    };
+
+    struct TextProp
+    {
+        int x, y;
+        FC_Font *font;
+        std::string text;
+        SDL_Color color;
+    };
+ 
 }

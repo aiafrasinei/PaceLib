@@ -69,16 +69,16 @@ bool start()
 		Tabber::EndTabBlock();
 	Tabber::EndBlock();
 	
-	/*Label::Begin("out1");
+	Label::Begin("out1");
 	Button::Begin("astart");
 
 	ButtonTex::Begin("gfx0");
 	root->GetButtonTex("gfx0")->SetHighlightColor({10, 10, 10, 255});
 
-	ButtonTex::Begin("gfx1");*/
+	ButtonTex::Begin("gfx1");
 
-	/*ComboBox::Begin("testcomb");
-	root->GetComboBox("testcomb")->SetSelection(2);*/
+	ComboBox::Begin("testcomb");
+	root->GetComboBox("testcomb")->SetSelection(2);
 
 	return true;
 }

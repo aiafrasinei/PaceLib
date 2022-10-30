@@ -271,7 +271,15 @@ void CheckBox::InternalInit()
     Root *root = &Root::GetInstance();
     CheckBox *newc = (CheckBox *)root->GetCurrent()->Get(name);
 
-    Text::Begin( {newc, newc->name+"_text"}, fto, newc->GetRect().x + newc->GetRect().w / 10, newc->GetRect().y, {0,0,0,255});
+    TextProp tprop = {
+         newc->GetRect().x + newc->GetRect().w / 10,
+         newc->GetRect().y,
+         fto.font,
+         fto.text,
+         {0,0,0,255}
+    };
+
+    Text::Begin( {newc, newc->name+"_text"}, tprop);
 
     Text *to = (Text *)newc->Get(name + "_text");
     to->SetColor(newc->GetTextColor());
