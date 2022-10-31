@@ -15,9 +15,10 @@ Label::Label(ShapeId sid, LabelProp prop)
         rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
         rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
     }
-
+    
     this->prop.rect = rect;
     color = prop.backgroundColor;
+    borderColor = prop.borderColor;
 
     hidden = false;
 

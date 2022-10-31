@@ -21,8 +21,8 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_47%", "H_16%", "H_5%", "H_5%"],
                 "scene" : "Default",
+                "dim" : ["W_47%", "H_16%", "H_5%", "H_5%"],
                 "tex_name" : "sn_yellow.png",
                 "over_tex_name" : ""
             }*/
