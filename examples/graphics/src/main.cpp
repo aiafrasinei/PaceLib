@@ -54,9 +54,8 @@ bool start()
 	Circle::Begin({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
 	Circle::Begin({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
 
-	Text::Begin({root, "text"},
-				{root->GetScene("Default")->GetFont("lazy_font"), "some text"},
-				600, 100, {50, 50, 50, 255});
+	TextProp prop = { 600, 100, root->GetScene("Default")->GetFont("lazy_font"), "some text", {50, 50, 50, 255} };
+	Text::Begin({root, "text"}, prop);
 
 	Sprite::Begin({root, "sprite"}, root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
 
