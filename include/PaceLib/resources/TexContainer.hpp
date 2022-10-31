@@ -40,7 +40,7 @@ namespace PaceLib
     private:
         SDL_Renderer* renderer;
 
-        std::map<std::string, PropTex *> ntr;
+        std::map<std::string, TexProp *> ntr;
         std::string name;
 
     };

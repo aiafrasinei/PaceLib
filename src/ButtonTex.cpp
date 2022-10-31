@@ -5,7 +5,7 @@
 
 using namespace PaceLib;
 
-ButtonTex::ButtonTex(ShapeId sid, PropTex normal, PropTex over)
+ButtonTex::ButtonTex(ShapeId sid, TexProp normal, TexProp over)
 {
     if(sid.parent->name == "root") {
         rect.x = normal.rect.x;
@@ -56,7 +56,7 @@ void ButtonTex::Begin(ShapeId sid)
 
         ButtonTex *btex = nullptr;
         if(conf->Get("over_tex_name").get<std::string>() == "") {
-            PropTex nullp = {nullptr, {0,0,0,255}};
+            TexProp nullp = {nullptr, {0,0,0,255}};
             btex = new ButtonTex( sid, 
                 {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
                 nullp);
@@ -95,13 +95,13 @@ void ButtonTex::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ButtonTex::Begin(ShapeId sid, PropTex normal)
+void ButtonTex::Begin(ShapeId sid, TexProp normal)
 {
-    PropTex nullp = {nullptr, {0,0,0,255}};
+    TexProp nullp = {nullptr, {0,0,0,255}};
     sid.parent->Add(new ButtonTex(sid, normal, nullp));
 }
 
-void ButtonTex::Begin(ShapeId sid, PropTex normal, PropTex over)
+void ButtonTex::Begin(ShapeId sid, TexProp normal, TexProp over)
 {
     sid.parent->Add(new ButtonTex(sid, normal, over));
 }

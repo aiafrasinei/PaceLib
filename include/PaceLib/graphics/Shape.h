@@ -21,7 +21,7 @@ namespace PaceLib
             conf = nullptr;
         }
 
-        ~Shape()
+        virtual ~Shape()
         {
 
         }

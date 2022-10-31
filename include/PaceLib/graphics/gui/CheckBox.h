@@ -3,6 +3,7 @@
 #include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
+#include "Label.h"
 #include "../core/interfaces/Updateable.hpp"
 #include <functional>
 
@@ -10,7 +11,7 @@
 namespace PaceLib
 {
 
-    class CheckBox : public Widget
+    class CheckBox : public Label
     {
         public:
             ~CheckBox();
@@ -22,12 +23,15 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_1%", "W_19%", "H_2.3%", "H_2.3%"],
-                "color" : [120, 120, 120, 255],
                 "scene" : "Default",
+                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
                 "font" : "default",
-                "text" : "CheckBox",
-                "text_color" : [0, 0, 0, 255]
+                "text" : "Start",
+                "text_color" : "$TEXT",
+                "align" : "mid",
+                "background" : "$BACKGROUND",
+                "border" : "$BORDER",
+                "highlight" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -37,19 +41,11 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
-            static void Begin(ShapeId sid, PropTex pto);
+            static void Begin(ShapeId sid, LabelProp prop);
 
 //end static methods
 
-            CheckBox(ShapeId sid, PropDimColor dco, PropFontText fto, SDL_Color textColor);
-            CheckBox(ShapeId sid, PropTex pto);
-
-            void SetHighlight(bool state);
-            
-            void SetHighlightColor(SDL_Color color);
-
-            void SetTextColor(SDL_Color color);
+            CheckBox(ShapeId sid, LabelProp prop);
 
             void Draw();
 
@@ -66,19 +62,9 @@ namespace PaceLib
 
             bool highlight;
 
-            SDL_Color highlightColor;
-
             bool checked;
 
-            SDL_Texture *tex;
-
-            Text *to;
-
-            SDL_Color textColor;
-
             SDL_Rect midrect;
-
-            PropFontText fto;
 
             int textSize;
 

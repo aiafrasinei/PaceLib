@@ -35,12 +35,12 @@ namespace PaceLib
 
 // programmatic
 
-            static void Begin(ShapeId sid, PropTex normal);
-            static void Begin(ShapeId sid, PropTex normal, PropTex over);
+            static void Begin(ShapeId sid, TexProp normal);
+            static void Begin(ShapeId sid, TexProp normal, TexProp over);
 
 //end static methods
 
-            ButtonTex(ShapeId sid, PropTex normal, PropTex over);
+            ButtonTex(ShapeId sid, TexProp normal, TexProp over);
 
             void SetTex(SDL_Texture *tex);
 
@@ -65,8 +65,8 @@ namespace PaceLib
 
             SDL_Color highlightColor;
 
-            PropTex normal;
-            PropTex over;
+            TexProp normal;
+            TexProp over;
     };
 
 }

@@ -38,7 +38,7 @@ bool TexContainer::Add(std::filesystem::path file_path)
 
     SDL_Rect *r = new SDL_Rect;
 
-    PropTex *pt = new PropTex();
+    TexProp *pt = new TexProp();
     pt->tex = tex;
     pt->rect = *r;
     ntr[file_path.filename()] = pt;
@@ -54,7 +54,7 @@ bool TexContainer::Add(std::string name, SDL_Texture *tex)
 
     SDL_Rect *r = new SDL_Rect;
 
-    PropTex *pt = new PropTex();
+    TexProp *pt = new TexProp();
     pt->tex = tex;
     pt->rect = *r;
     ntr[name] = pt;

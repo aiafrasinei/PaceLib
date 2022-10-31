@@ -67,11 +67,7 @@ namespace PaceLib
         std::string text;
     };
     
-    struct PropTex
-    {
-        SDL_Texture *tex;
-        SDL_Rect rect;
-    };
+
 
     struct LabelProp
     {
@@ -114,4 +110,9 @@ namespace PaceLib
         SDL_Color color;
     };
  
+    struct TexProp
+    {
+        SDL_Texture *tex;
+        SDL_Rect rect;
+    };
 }
