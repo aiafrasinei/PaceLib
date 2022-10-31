@@ -47,7 +47,7 @@ bool start()
 	Tab::BeginBlock("second");
 		Text::Begin("text");
 		Label::BeginBlock("out");
-			DefaultTooltip::Begin("outo");
+			Tooltip::Begin("outo");
 		Label::EndBlock();
 		TextArea::Begin("texta");
 		TextInput::Begin("in");

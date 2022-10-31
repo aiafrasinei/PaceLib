@@ -106,11 +106,6 @@ Tooltip *Root::GetTooltip(std::string child)
     return static_cast<Tooltip *>(this->Get(child));
 }
 
-DefaultTooltip *Root::GetDefaultTooltip(std::string child)
-{
-    return static_cast<DefaultTooltip *>(this->Get(child));
-}
-
 CheckBox *Root::GetCheckBox(std::string child)
 {
     return static_cast<CheckBox *>(this->Get(child));

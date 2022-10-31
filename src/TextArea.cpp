@@ -86,7 +86,6 @@ void TextArea::Draw()
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.borderColor.a);
         SDL_RenderDrawRect(Window::GetRenderer(), &rect);
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
         for(Shape *w : shapes) {
             w->Draw();
         }

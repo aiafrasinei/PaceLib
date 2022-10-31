@@ -58,7 +58,6 @@ namespace PaceLib
             Hotspot *GetHotspot(std::string child);
             Text *GetText(std::string child);
             Tooltip *GetTooltip(std::string child);
-            DefaultTooltip *GetDefaultTooltip(std::string child);
             CheckBox *GetCheckBox(std::string child);
             TextInput *GetTextInput(std::string child);
             TextArea *GetTextArea(std::string child);

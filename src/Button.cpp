@@ -79,15 +79,13 @@ void Button::Draw()
         }
         else
         {
-            SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
+            SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
         }
 
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r, prop.borderColor.g, prop.borderColor.b, prop.borderColor.a);
+        SDL_SetRenderDrawColor(Window::GetRenderer(), borderColor.r, borderColor.g, borderColor.b, borderColor.a);
         SDL_RenderDrawRect(Window::GetRenderer(), &rect);
-
-        SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
 
         for (Shape *w : shapes)
         {

@@ -97,8 +97,6 @@ void CheckBox::Draw()
             SDL_RenderFillRect(Window::GetRenderer(), &midrect);
         }
 
-        SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
-
         for(Shape *w : shapes) {
             w->Draw();
         }
@@ -158,5 +156,5 @@ void CheckBox::InternalInit()
     textSize = to->GetWidth();
 
     to->SetX(newc->GetRect().x + 1.5*newc->GetRect().w);
-    to->SetY(newc->GetHalfY() - to->GetHeight() / 2);
+    to->SetY(newc->GetHalfY() - to->GetHeight() / 1.9);
 }

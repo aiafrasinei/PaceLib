@@ -1,66 +1,29 @@
 #pragma once
 
 #include "Text.h"
+#include "Label.h"
 
 
 namespace PaceLib
 {
-
+    
     class Tooltip : public Widget
     {
         public:
-            ~Tooltip();
 
 //static methods
 
 // json configuration
 
             /* Loads wconf file
-            example format:
             {
-                "text" : "text"
-                "scene" : "Default",
-                "font" : "default"
-                "text_color" : [100, 100, 100, 255]
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name, bool hasChildren=false);
-            static void End();
-
-// programatic
-
-            static void Begin(ShapeId sid, SDL_Color color, Align align={V::MID, H::MID});
-            static void Begin(ShapeId sid, int w, int h, SDL_Color color, Align align={V::MID, H::MID});
-
-//end static methods
-
-            void Draw();
-
-            void Add(Shape *s);
-
-            void Update(SDL_Event *e);
-
-        private:
-            Tooltip(ShapeId sid, SDL_Rect shape, SDL_Color color);
-    };
-
-
-
-    class DefaultTooltip : public Widget
-    {
-        public:
-
-//static methods
-
-// json configuration
-
-            /*
-            {
-                "text" : "this is a color label",
                 "scene" : "Default",
                 "font" : "default",
-                "color" : "parent",
-                "text_color" : [0, 0, 0, 255]
+                "text" : "this is a color label",
+                "text_color" : "$TEXT",
+                "align" : "mid",
+                "background" : [70, 80, 90, 255],
+                "border" : [70, 80, 90, 255]
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -71,22 +34,23 @@ namespace PaceLib
             
 // programmatic
 
-            static void Begin(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+            static void Begin(ShapeId sid, TooltipProp prop);
 
 //end static methods
 
             void Draw();
 
-            void SetTextColor(SDL_Color color);
         private:
-            Text *to;
-            SDL_Color textColor;
+            
+            TooltipProp prop;
 
-            PropFontText fto;
+            int textSize;
 
-            DefaultTooltip(ShapeId sid, PropFontText fto, SDL_Color color, SDL_Color textColor);
+            Tooltip(ShapeId sid, TooltipProp prop);
 
             void InternalInit();
+
+            static TooltipProp LoadTooltipProp(Configuration *conf);
     };
 
 }

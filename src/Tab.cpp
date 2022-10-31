@@ -85,8 +85,6 @@ void Tab::Draw()
         {
             w->Draw();
         }
-
-        SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b, Window::GetBackgroundColor().a);
     }
 }
 

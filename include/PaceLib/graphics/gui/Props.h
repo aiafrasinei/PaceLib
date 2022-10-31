@@ -14,13 +14,6 @@ namespace PaceLib
         RIGHT
     };
 
-    enum class V
-    {
-        TOP,
-        MID,
-        BOTTOM
-    };
-
     enum class WidgetType
     {
         ROOT,
@@ -40,20 +33,9 @@ namespace PaceLib
         CUSTOM
     };
 
-    struct Align
-    {
-        V valign;
-        H halign;
-    };
-
     struct HorizontalAlign
     {
         H halign;
-    };
-
-    struct VerticalAlign
-    {
-        V valign;
     };
 
     struct PropDimColor
@@ -122,6 +104,15 @@ namespace PaceLib
         SDL_Rect rect;
         FC_Font *font;
         std::vector<std::string> tarr;
+        SDL_Color textColor;
+        SDL_Color backgroundColor;
+        SDL_Color borderColor;
+    };
+
+    struct TooltipProp
+    {
+        FC_Font *font;
+        std::string text;
         SDL_Color textColor;
         SDL_Color backgroundColor;
         SDL_Color borderColor;
