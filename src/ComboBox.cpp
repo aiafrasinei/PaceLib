@@ -6,54 +6,33 @@
 
 using namespace PaceLib;
 
-ComboBox::ComboBox(ShapeId sid, PropDimColor dco, PropFontText fto)
+ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop)
 {
-    if (sid.parent->name == "root")
-    {
-        rect.x = dco.rect.x;
-        rect.y = dco.rect.y;
-    }
-    else
-    {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
+    this->prop = prop;
+    rect = prop.rect;
+
+    if (sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
     }
 
-    rect.w = dco.rect.w;
-    rect.h = dco.rect.h;
+    this->prop.rect = rect;
+    color = prop.backgroundColor;
+    borderColor = prop.borderColor;
 
     hidden = false;
 
-    color = {dco.color.r, dco.color.g, dco.color.b, dco.color.a};
-
-    textColor = {0, 0, 0, 255};
-
-    this->name = sid.name;
-
     mouseOver = false;
 
-    highlight = true;
-
-    Uint8 hr = color.r + 30;
-    Uint8 hg = color.g + 30;
-    Uint8 hb = color.b + 30;
-    Uint8 ha = 255;
-    highlightColor = {hr, hg, hb, ha};
-
-    tex = nullptr;
-
-    wtype = WidgetType::BUTTON;
+    wtype = WidgetType::COMBOBOX;
 
     onClickCallback = nullptr;
-
-    this->fto = fto;
 
     textSize = 0;
 
     selected = -1;
     mainRendererSelected = false;
-
-    borderColor = {0, 0, 0, 255};
+    this->name = sid.name;
 }
 
 ComboBox::~ComboBox()
@@ -71,18 +50,28 @@ void ComboBox::Begin(ShapeId sid)
         Widget::ParseDim(dim, conf);
 
         Root *root = &Root::GetInstance();
-        SDL_Color color = ParseVar("color", conf, root->GetVars());
 
-        PropFontText fto = { root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>()), conf->Get("text").get<std::string>() };
+        SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+        SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
+        SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
+        FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
+        SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+        std::vector<std::string> tarr = conf->Get("text_arr").get<std::vector<std::string>>();
 
-        ComboBox *newcb = new ComboBox(sid,
-                                  {{dim[0], dim[1], dim[2], dim[3]},
-                                   color},
-                                  fto);
+        MultiItemsProp prop = {
+                            dimr,
+                            font,
+                            tarr,
+                            textColor,
+                            backgroundColor,
+                            borderColor
+                        };
+
+        ComboBox *newcb = new ComboBox(sid, prop);
 
         sid.parent->Add(newcb);
 
-        newcb->AddItems(conf->Get("items").get<std::vector<std::string>>());
+        newcb->AddItems(tarr);
     }
 }
 
@@ -94,12 +83,13 @@ void ComboBox::Begin(std::string name)
     Configuration *conf = new Configuration("wconfs/" + name + "_ComboBox.conf");
     ComboBox *curr = ((ComboBox *)root->GetCurrent()->Get(name));
     SDL_Rect currRect = curr->GetRect();
+    SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
 
     Triangle::Begin({root->GetCurrent()->Get(name), name + "_triangle_decorator"},
     0, currRect.h,
     currRect.w, currRect.h,
     currRect.w/2, currRect.h + currRect.h/3,
-    {conf->Get("border_color")[0], conf->Get("border_color")[1], conf->Get("border_color")[2], conf->Get("border_color")[3]});
+    borderColor);
 }
 
 void ComboBox::BeginBlock(std::string name)
@@ -117,15 +107,15 @@ void ComboBox::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ComboBox::Begin(ShapeId sid, PropDimColor dco, PropFontText fto, std::vector<std::string> items)
+void ComboBox::Begin(ShapeId sid, MultiItemsProp prop)
 {
-    ComboBox *newcb = new ComboBox(sid, dco, fto);
+    ComboBox *newcb = new ComboBox(sid, prop);
 
     Root *root = &Root::GetInstance();
     root->GetCurrent()->Add(newcb);
 
     ComboBox *combo = ((ComboBox *)root->GetCurrent()->Get(sid.name));
-    combo->AddItems(items);
+    combo->AddItems(prop.tarr);
 }
 
 void ComboBox::Draw()

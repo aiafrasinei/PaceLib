@@ -16,6 +16,17 @@ namespace PaceLib
 //static methods
 
 // json configuration
+
+            /* Loads wconf file
+            {
+                "scene" : "Default",
+                "dim" : ["W_1%", "H_11%", "W_10%", "H_14%"],
+                "font" : "default",
+                "text_arr" : [ "first", "second line", "third line"],
+                "text_color" : "$TEXT",
+                "background" : "$BACKGROUND",
+                "border" : "$BORDER"
+            }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
 
@@ -24,13 +35,9 @@ namespace PaceLib
             static void End();
 
 // programatic
-            static void Begin(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align={V::MID, H::MID});
+            static void Begin(ShapeId sid, MultiItemsProp prop);
 
 //end static methods
-
-            void SetTextAlign(Align align);
-
-            void SetTextColor(SDL_Color color);
 
             SDL_Color GetTextColor();
 
@@ -39,17 +46,13 @@ namespace PaceLib
             void Draw();
 
         private:
-            SDL_Color textColor;
-
-            Align align;
+            MultiItemsProp prop;
 
             int textSpacing;
 
-            std::vector<std::string> tarr;
+            TextArea(ShapeId sid, MultiItemsProp prop);
 
-            FC_Font *font;
-
-            TextArea(ShapeId sid, PropDimColor dco, FC_Font *font, std::vector<std::string> tarr, Align align);
+            static MultiItemsProp LoadTextAreaProp(Configuration *conf);
 
             void InternalInit();
     };

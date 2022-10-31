@@ -36,6 +36,7 @@ namespace PaceLib
         CHECKBOX,
         TEXTURE,
         TEXT,
+        COMBOBOX,
         CUSTOM
     };
 
@@ -115,4 +116,15 @@ namespace PaceLib
         SDL_Texture *tex;
         SDL_Rect rect;
     };
+
+    struct MultiItemsProp
+    {
+        SDL_Rect rect;
+        FC_Font *font;
+        std::vector<std::string> tarr;
+        SDL_Color textColor;
+        SDL_Color backgroundColor;
+        SDL_Color borderColor;
+    };
+
 }

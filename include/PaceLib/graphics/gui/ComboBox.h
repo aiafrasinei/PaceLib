@@ -21,13 +21,13 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
-                "dim" : ["W_47%", "H_23%", "H_7.5%", "H_3%"],
-                "color" : [100, 100, 70, 255],
                 "scene" : "Default",
+                "dim" : ["W_47%", "H_23%", "H_7.5%", "H_3%"],
+                "color" : [100, 100, 70, 255],  
                 "font" : "default",
                 "text" : "Start",
                 "text_color" : [0, 0, 0, 255],
-                "border_color" : [0, 0, 0, 255],
+                "border" : [0, 0, 0, 255],
                 "items" : ["test1", "test2", "test3", "test4", "test5"]
             }*/
             static void Begin(ShapeId sid);
@@ -38,7 +38,7 @@ namespace PaceLib
             static void EndBlock();
 
 // programmatic
-            static void Begin(ShapeId sid, PropDimColor dco, PropFontText fto, std::vector<std::string> items);
+            static void Begin(ShapeId sid, MultiItemsProp prop);
 
             ~ComboBox();
 
@@ -56,25 +56,13 @@ namespace PaceLib
             void ReplaceItems(std::vector<std::string> items);
             
         private:
-            ComboBox(ShapeId sid, PropDimColor dco, PropFontText fto);
+            ComboBox(ShapeId sid, MultiItemsProp prop);
 
-            SDL_Color textColor;
-
-            Align align;
+            MultiItemsProp prop;
             
             bool mouseOver;
 
-            bool highlight;
-
-            SDL_Color highlightColor;
-
-            SDL_Texture *tex;
-
-            std::string text;
-
             int textSize;
-
-            PropFontText fto;
 
             void InternalInit();
 
@@ -83,7 +71,5 @@ namespace PaceLib
             int selected;
 
             bool mainRendererSelected;
-
-            SDL_Color borderColor;
     };
 }
