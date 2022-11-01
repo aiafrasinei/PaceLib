@@ -1,7 +1,7 @@
 var classPaceLib_1_1Tab =
 [
     [ "~Tab", "classPaceLib_1_1Tab.html#a8cc210bcede02daa21145bb1675c3c80", null ],
-    [ "Tab", "classPaceLib_1_1Tab.html#a752aff1e7c96f1970b23c81ad943468f", null ],
+    [ "Tab", "classPaceLib_1_1Tab.html#aafeb3f72ccf3c43b678e7fe22326aaea", null ],
     [ "Add", "classPaceLib_1_1Tab.html#a5c7657a67bf40ccda331d0c216e90248", null ],
     [ "Draw", "classPaceLib_1_1Tab.html#ae9db0c3ae8b0b75f7c5b3493b0267482", null ],
     [ "GetButton", "classPaceLib_1_1Tab.html#ad0396757cc30cff55f1f622072701e28", null ],

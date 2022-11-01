@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['defaulttooltip_66',['DefaultTooltip',['../classPaceLib_1_1DefaultTooltip.html',1,'PaceLib']]],
-  ['drawable_67',['Drawable',['../classDrawable.html',1,'']]]
+  ['ellipse_70',['Ellipse',['../classPaceLib_1_1Ellipse.html',1,'PaceLib']]]
 ];

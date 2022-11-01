@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['hexagon_79',['Hexagon',['../classPaceLib_1_1Hexagon.html',1,'PaceLib']]],
-  ['hidable_80',['Hidable',['../classHidable.html',1,'']]],
-  ['hotspot_81',['Hotspot',['../classPaceLib_1_1Hotspot.html',1,'PaceLib']]]
+  ['label_84',['Label',['../classPaceLib_1_1Label.html',1,'PaceLib']]],
+  ['labelprop_85',['LabelProp',['../structPaceLib_1_1LabelProp.html',1,'PaceLib']]],
+  ['line_86',['Line',['../classPaceLib_1_1Line.html',1,'PaceLib']]],
+  ['lines_87',['Lines',['../classPaceLib_1_1Lines.html',1,'PaceLib']]]
 ];

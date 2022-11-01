@@ -105,9 +105,6 @@ Inheritance diagram for PaceLib::Polygon:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6ea51417e3537b78804537bea0b2b9b9"><td class="memItemLeft" align="right" valign="top"><a id="a6ea51417e3537b78804537bea0b2b9b9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDrawType</b> (DrawTypes rtype)</td></tr>
-<tr class="separator:a6ea51417e3537b78804537bea0b2b9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f04db19199b76ae507f567a7b1fae46"><td class="memItemLeft" align="right" valign="top"><a id="a7f04db19199b76ae507f567a7b1fae46"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()</td></tr>
 <tr class="separator:a7f04db19199b76ae507f567a7b1fae46"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,9 +130,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Add</b> (<a class="el
 <tr class="memitem:a11aa9c6d8f83f8c886219145af57f500 inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="a11aa9c6d8f83f8c886219145af57f500"></a>
 long&#160;</td><td class="memItemRight" valign="bottom"><b>GetNr</b> ()</td></tr>
 <tr class="separator:a11aa9c6d8f83f8c886219145af57f500 inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca30e136bd3ff9fa9ea3f9eddbbc9158 inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="aca30e136bd3ff9fa9ea3f9eddbbc9158"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDrawType</b> (DrawTypes rtype)</td></tr>
-<tr class="separator:aca30e136bd3ff9fa9ea3f9eddbbc9158 inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15b1cd7addf37070584e7f60414e61a inherit pub_methods_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="ac15b1cd7addf37070584e7f60414e61a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetParent</b> (<a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *p)</td></tr>
 <tr class="separator:ac15b1cd7addf37070584e7f60414e61a inherit pub_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,9 +158,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Show</b> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a633115e54c18e7f6f45caa5dff71a949"><td class="memItemLeft" align="right" valign="top"><a id="a633115e54c18e7f6f45caa5dff71a949"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (<a class="el" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, const float *vx, const float *vy, int n)</td></tr>
-<tr class="separator:a633115e54c18e7f6f45caa5dff71a949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26b8c5c8027c61f341a0d15357913b83"><td class="memItemLeft" align="right" valign="top"><a id="a26b8c5c8027c61f341a0d15357913b83"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (<a class="el" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid)</td></tr>
+<tr class="separator:a26b8c5c8027c61f341a0d15357913b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a509995ed740ce490a6098fcbaa82b0f0"><td class="memItemLeft" align="right" valign="top"><a id="a509995ed740ce490a6098fcbaa82b0f0"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (std::string name)</td></tr>
+<tr class="separator:a509995ed740ce490a6098fcbaa82b0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b0d3c256e379c8e5c0221d34698be0"><td class="memItemLeft" align="right" valign="top"><a id="ad5b0d3c256e379c8e5c0221d34698be0"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>BeginBlock</b> (std::string name)</td></tr>
+<tr class="separator:ad5b0d3c256e379c8e5c0221d34698be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50e043de2139c12f1892a4b685bf0766"><td class="memItemLeft" align="right" valign="top"><a id="a50e043de2139c12f1892a4b685bf0766"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>EndBlock</b> ()</td></tr>
+<tr class="separator:a50e043de2139c12f1892a4b685bf0766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59f0103d0b830afd67c62ff426025de9"><td class="memItemLeft" align="right" valign="top"><a id="a59f0103d0b830afd67c62ff426025de9"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (<a class="el" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, std::vector&lt; SDL_Vertex &gt; verts)</td></tr>
+<tr class="separator:a59f0103d0b830afd67c62ff426025de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -188,9 +194,6 @@ std::vector&lt; <a class="el" href="classPaceLib_1_1Shape.html">Shape</a> * &gt;
 void&#160;</td><td class="memItemRight" valign="bottom"><b>LoadDrawColor</b> ()</td></tr>
 <tr class="separator:a54b854a83e2eafde6714997047c1cf4f inherit pro_methods_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classPaceLib_1_1Shape"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classPaceLib_1_1Shape')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classPaceLib_1_1Shape.html">PaceLib::Shape</a></td></tr>
-<tr class="memitem:ac81d4e819c7997a2c5eeff23ea4a8cae inherit pro_attribs_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="ac81d4e819c7997a2c5eeff23ea4a8cae"></a>
-DrawTypes&#160;</td><td class="memItemRight" valign="bottom"><b>rtype</b></td></tr>
-<tr class="separator:ac81d4e819c7997a2c5eeff23ea4a8cae inherit pro_attribs_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5880b7fe04a9ea2d8c182a47e18db4e4 inherit pro_attribs_classPaceLib_1_1Shape"><td class="memItemLeft" align="right" valign="top"><a id="a5880b7fe04a9ea2d8c182a47e18db4e4"></a>
 <a class="el" href="classPaceLib_1_1Shape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>current</b></td></tr>
 <tr class="separator:a5880b7fe04a9ea2d8c182a47e18db4e4 inherit pro_attribs_classPaceLib_1_1Shape"><td class="memSeparator" colspan="2">&#160;</td></tr>

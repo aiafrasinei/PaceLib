@@ -126,27 +126,25 @@ $(document).ready(function(){initNavTree('Triangle_8h_source.html',''); initResi
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//end static methods</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">void</span> SetDrawType(DrawTypes rtype);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">void</span> SetColor(SDL_Color color);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">void</span> Draw();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> DrawRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ~<a class="code" href="classPaceLib_1_1Triangle.html">Triangle</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">protected</span>:         </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        SDL_Point points[4];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ~<a class="code" href="classPaceLib_1_1Triangle.html">Triangle</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">protected</span>:         </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        SDL_Point points[4];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        SDL_Vertex verts[3];</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        SDL_Vertex verts[3];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classPaceLib_1_1Triangle.html">Triangle</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1, <span class="keywordtype">float</span> x2, <span class="keywordtype">float</span> y2, <span class="keywordtype">float</span> x3, <span class="keywordtype">float</span> y3, SDL_Color color);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="ttc" id="aclassPaceLib_1_1Shape_html"><div class="ttname"><a href="classPaceLib_1_1Shape.html">PaceLib::Shape</a></div><div class="ttdef"><b>Definition:</b> Shape.h:17</div></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classPaceLib_1_1Triangle.html">Triangle</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1, <span class="keywordtype">float</span> x2, <span class="keywordtype">float</span> y2, <span class="keywordtype">float</span> x3, <span class="keywordtype">float</span> y3, SDL_Color color);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="ttc" id="aclassPaceLib_1_1Shape_html"><div class="ttname"><a href="classPaceLib_1_1Shape.html">PaceLib::Shape</a></div><div class="ttdef"><b>Definition:</b> Shape.h:16</div></div>
 <div class="ttc" id="aclassPaceLib_1_1Triangle_html"><div class="ttname"><a href="classPaceLib_1_1Triangle.html">PaceLib::Triangle</a></div><div class="ttdef"><b>Definition:</b> Triangle.h:10</div></div>
-<div class="ttc" id="astructPaceLib_1_1ShapeId_html"><div class="ttname"><a href="structPaceLib_1_1ShapeId.html">PaceLib::ShapeId</a></div><div class="ttdef"><b>Definition:</b> Widget.h:138</div></div>
+<div class="ttc" id="astructPaceLib_1_1ShapeId_html"><div class="ttname"><a href="structPaceLib_1_1ShapeId.html">PaceLib::ShapeId</a></div><div class="ttdef"><b>Definition:</b> Widget.h:153</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -109,8 +109,8 @@ $(document).ready(function(){initNavTree('ButtonTex_8h_source.html',''); initRes
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="comment">/* Loads wconf file</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">            example format:</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">            {</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">                &quot;dim&quot; : [&quot;W_47%&quot;, &quot;H_16%&quot;, &quot;H_5%&quot;, &quot;H_5%&quot;],</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">                &quot;scene&quot; : &quot;Default&quot;,</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">                &quot;scene&quot; : &quot;Default&quot;,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">                &quot;dim&quot; : [&quot;W_47%&quot;, &quot;H_16%&quot;, &quot;H_5%&quot;, &quot;H_5%&quot;],</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">                &quot;tex_name&quot; : &quot;sn_yellow.png&quot;,</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">                &quot;over_tex_name&quot; : &quot;&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">            }*/</span></div>
@@ -123,12 +123,12 @@ $(document).ready(function(){initNavTree('ButtonTex_8h_source.html',''); initRes
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">// programmatic</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> normal);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> normal, <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> over);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> normal);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> Begin(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> normal, <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> over);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//end static methods</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <a class="code" href="classPaceLib_1_1ButtonTex.html">ButtonTex</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> normal, <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> over);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <a class="code" href="classPaceLib_1_1ButtonTex.html">ButtonTex</a>(<a class="code" href="structPaceLib_1_1ShapeId.html">ShapeId</a> sid, <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> normal, <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> over);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordtype">void</span> SetTex(SDL_Texture *tex);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
@@ -153,15 +153,15 @@ $(document).ready(function(){initNavTree('ButtonTex_8h_source.html',''); initRes
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            SDL_Color highlightColor;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> normal;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="structPaceLib_1_1PropTex.html">PropTex</a> over;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> normal;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="structPaceLib_1_1TexProp.html">TexProp</a> over;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    };</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
 <div class="ttc" id="aclassPaceLib_1_1ButtonTex_html"><div class="ttname"><a href="classPaceLib_1_1ButtonTex.html">PaceLib::ButtonTex</a></div><div class="ttdef"><b>Definition:</b> ButtonTex.h:14</div></div>
 <div class="ttc" id="aclassPaceLib_1_1Widget_html"><div class="ttname"><a href="classPaceLib_1_1Widget.html">PaceLib::Widget</a></div><div class="ttdef"><b>Definition:</b> Widget.h:12</div></div>
-<div class="ttc" id="astructPaceLib_1_1PropTex_html"><div class="ttname"><a href="structPaceLib_1_1PropTex.html">PaceLib::PropTex</a></div><div class="ttdef"><b>Definition:</b> Props.h:60</div></div>
-<div class="ttc" id="astructPaceLib_1_1ShapeId_html"><div class="ttname"><a href="structPaceLib_1_1ShapeId.html">PaceLib::ShapeId</a></div><div class="ttdef"><b>Definition:</b> Widget.h:138</div></div>
+<div class="ttc" id="astructPaceLib_1_1ShapeId_html"><div class="ttname"><a href="structPaceLib_1_1ShapeId.html">PaceLib::ShapeId</a></div><div class="ttdef"><b>Definition:</b> Widget.h:153</div></div>
+<div class="ttc" id="astructPaceLib_1_1TexProp_html"><div class="ttname"><a href="structPaceLib_1_1TexProp.html">PaceLib::TexProp</a></div><div class="ttdef"><b>Definition:</b> Props.h:97</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
