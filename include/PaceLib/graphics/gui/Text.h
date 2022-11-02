@@ -34,7 +34,6 @@ namespace PaceLib
 // programatic
 
         static void Begin(ShapeId sid, TextProp prop);
-        static Text *Begin(FC_Font *font, TextProp prop);
 
 //end static methods
 

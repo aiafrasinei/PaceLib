@@ -17,8 +17,8 @@ namespace PaceLib
         /* Loads wconf file
         example format:
         {
-            "dim" : ["H_82%", "H_11%", "H_32%", "H_32%"],
             "scene" : "Default",
+            "dim" : ["H_82%", "H_11%", "H_32%", "H_32%"],
             "tex_name" : "sprite_sheet.png",
             "offset" : 300,
             "nr" : 5

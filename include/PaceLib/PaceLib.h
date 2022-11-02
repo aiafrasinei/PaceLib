@@ -30,7 +30,6 @@
 
 //conics
 #include "graphics/conics/Circle.h"
-#include "graphics/conics/Ellipse.h"
 
 //polygons
 #include "graphics/polygons/Polygon.h"

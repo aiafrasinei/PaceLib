@@ -5,7 +5,7 @@
 
 #define PACELIB_MAJOR_VERSION   0
 #define PACELIB_MINOR_VERSION   4
-#define PACELIB_PATCHLEVEL      3
+#define PACELIB_PATCHLEVEL      4
 
 namespace PaceLib
 {

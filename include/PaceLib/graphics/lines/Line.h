@@ -17,11 +17,11 @@ namespace PaceLib
         /* Loads wconf file
         example format:
         {
-            "color" : [0, 0, 0, 255],
             "x1" : 0,
             "y1" : 0,
             "x2" : 300,
-            "y2" : 200
+            "y2" : 200,
+            "color" : [0, 0, 0, 255]
         }*/
         static void Begin(ShapeId sid);
         static void Begin(std::string name);

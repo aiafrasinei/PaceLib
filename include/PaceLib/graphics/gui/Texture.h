@@ -44,6 +44,7 @@ namespace PaceLib
         /* Loads wconf file
         example format:
         {
+            "scene" : "Default",
             "tex_name": "tex.png",
             "dim" : [10, 10, 100 , 100]
         }*/

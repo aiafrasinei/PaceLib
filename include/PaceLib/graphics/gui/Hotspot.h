@@ -28,6 +28,7 @@ namespace PaceLib
             /* Loads wconf file
             example format:
             {
+                "scene" : "Default",
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
                 "color" : [80, 70, 80, 255]
             }*/

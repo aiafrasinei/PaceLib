@@ -50,7 +50,6 @@ IF(UNIX)
         ../../src/Sprite.cpp
         ../../src/Text.cpp
         ../../src/Circle.cpp
-        ../../src/Ellipse.cpp
         ../../src/Line.cpp
         ../../src/Triangle.cpp
         ../../src/Polygon.cpp
@@ -97,7 +96,6 @@ ELSE (WIN32)
         ../../src/Sprite.cpp
         ../../src/Text.cpp
         ../../src/Circle.cpp
-        ../../src/Ellipse.cpp
         ../../src/Line.cpp
         ../../src/Triangle.cpp
         ../../src/Pentagon.cpp

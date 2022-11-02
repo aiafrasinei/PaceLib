@@ -151,7 +151,7 @@ namespace PaceLib
 
     struct ShapeId
     {
-        Shape *parent;
-        std::string name;
+         Shape *parent;
+         std::string name;
     };
 }
