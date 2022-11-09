@@ -68,7 +68,7 @@ namespace PaceLib
 
             Hover type;
 
-            SDL_Color highlight;
+            SDL_Color highlightColor;
 
             SDL_Texture *tex;
     };

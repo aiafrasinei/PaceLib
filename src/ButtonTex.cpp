@@ -5,36 +5,27 @@
 
 using namespace PaceLib;
 
-ButtonTex::ButtonTex(ShapeId sid, TexProp normal, TexProp over)
+ButtonTex::ButtonTex(ShapeId sid, ButtonTexProp prop)
 {
-    if(sid.parent->name == "root") {
-        rect.x = normal.rect.x;
-        rect.y = normal.rect.y;
-    } else {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + normal.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + normal.rect.y;
+    this->prop = prop;
+
+    rect = prop.normal.rect;
+
+    if(sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.normal.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.normal.rect.y;
     }
     
-    rect.w = normal.rect.w;
-    rect.h = normal.rect.h;
+    this->prop.normal.rect = rect;
+    borderColor = prop.borderColor;
 
     hidden = false;
-
-    this->normal = {normal.tex, normal.rect};
-
-    this->over = {over.tex, over.rect};
 
     this->name = sid.name;
 
     mouseOver = false;
 
     highlight = true;
-
-    Uint8 hr = color.r + 30;
-    Uint8 hg = color.g + 30;
-    Uint8 hb = color.b + 30;
-    Uint8 ha = 255;
-    highlightColor = { hr , hg , hb, ha };
 
     wtype = WidgetType::BUTTONTEX;
 }
@@ -50,20 +41,17 @@ void ButtonTex::Begin(ShapeId sid)
     if(std::filesystem::exists(path)) {
         Configuration *conf = new Configuration(path);
 
-        int dim[4];
-        Widget::ParseDim(dim, conf);
+        ButtonTexProp prop = LoadButtonTexProp(conf);
+
         std::string scene_name = conf->Get("scene").get<std::string>();
 
         ButtonTex *btex = nullptr;
         if(conf->Get("over_tex_name").get<std::string>() == "") {
             TexProp nullp = {nullptr, {0,0,0,255}};
-            btex = new ButtonTex( sid, 
-                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
-                nullp);
+            prop.over = nullp;
+            btex = new ButtonTex(sid, prop);
         } else {
-            btex = new ButtonTex( sid, 
-                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("tex_name")), {dim[0], dim[1], dim[2], dim[3]}},
-                {Root::GetInstance().GetScene(scene_name)->GetTex(conf->Get("over_tex_name")), {dim[0], dim[1], dim[2], dim[3]}});
+            btex = new ButtonTex(sid, prop);
         }
 
         btex->conf = conf;
@@ -95,37 +83,36 @@ void ButtonTex::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ButtonTex::Begin(ShapeId sid, TexProp normal)
+void ButtonTex::Begin(ShapeId sid, ButtonTexProp prop)
 {
-    TexProp nullp = {nullptr, {0,0,0,255}};
-    sid.parent->Add(new ButtonTex(sid, normal, nullp));
-}
-
-void ButtonTex::Begin(ShapeId sid, TexProp normal, TexProp over)
-{
-    sid.parent->Add(new ButtonTex(sid, normal, over));
+    sid.parent->Add(new ButtonTex(sid, prop));
 }
 
 void ButtonTex::Draw()
 {
     if(!hidden) {
         if(mouseOver) {
-            SDL_SetRenderDrawColor(Window::GetRenderer(), highlightColor.r, highlightColor.g, highlightColor.b, highlightColor.a);
-            if(over.tex == nullptr) {
-                SDL_SetTextureColorMod( normal.tex, highlightColor.r, highlightColor.g, highlightColor.b );
+            //SDL_SetRenderDrawColor(Window::GetRenderer(), prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b, prop.highlightColor.a);
+            if(prop.over.tex == nullptr) {
+                SDL_SetTextureColorMod( prop.normal.tex, prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b );
             }
         } else {
             SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
         }
 
-        SDL_RenderCopy(Window::GetRenderer(), normal.tex, NULL, &normal.rect);
-        if(over.tex == nullptr) {
-            SDL_SetTextureColorMod(normal.tex, 255, 255, 255);
+        if(prop.drawBorder) {
+            SDL_SetRenderDrawColor(Window::GetRenderer(), borderColor.r, borderColor.g, borderColor.b, borderColor.a);
+            SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+        }
+
+        SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, NULL, &prop.normal.rect);
+        if(prop.over.tex == nullptr) {
+            SDL_SetTextureColorMod(prop.normal.tex, 255, 255, 255);
         }
 
         if(mouseOver) {
-            if(over.tex != nullptr) {
-                SDL_RenderCopy(Window::GetRenderer(), over.tex, NULL, &over.rect);
+            if(prop.over.tex != nullptr) {
+                SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, NULL, &prop.over.rect);
             }
         }
 
@@ -169,18 +156,60 @@ void ButtonTex::SetHighlight(bool state)
 
 void ButtonTex::SetHighlightColor(SDL_Color color)
 {
-    highlightColor.r = color.r;
-    highlightColor.g = color.g;
-    highlightColor.b = color.b;
-    highlightColor.a = color.a;
+    prop.highlightColor = color;
 }
 
 void ButtonTex::SetTex(SDL_Texture *tex)
 {
-    this->normal.tex = tex;
+    this->prop.normal.tex = tex;
 }
 
 void ButtonTex::SetHighlightTex(SDL_Texture *tex)
 {
-    this->over.tex = tex;
+    this->prop.over.tex = tex;
+}
+
+void ButtonTex::SetDrawBorder(bool border)
+{
+    prop.drawBorder = border;
+}
+
+ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf)
+{
+    int dim[4];
+    Widget::ParseDim(dim, conf);
+
+    Root *root = &Root::GetInstance();
+
+    SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+
+    SDL_Color borderColor = {0, 0, 0, 255};
+    bool drawBorder = true;
+    if(conf->Get("border") == "")
+        drawBorder = false;
+    else
+        borderColor = Widget::ParseVar("border", conf, root->GetVars());
+
+    SDL_Color highlightColor = Widget::ParseVar("highlight", conf, root->GetVars());
+
+    ButtonTexProp prop;
+    if(conf->Get("over_tex_name") == "") {
+        prop = {
+                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr},
+                {},
+                borderColor,
+                highlightColor,
+                drawBorder
+            };
+    } else {
+        prop = {
+                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr},
+                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("over_tex_name")), dimr},
+                borderColor,
+                highlightColor,
+                drawBorder
+            };
+    }
+
+    return prop;
 }

@@ -24,7 +24,9 @@ namespace PaceLib
                 "scene" : "Default",
                 "dim" : ["W_47%", "H_16%", "H_5%", "H_5%"],
                 "tex_name" : "sn_yellow.png",
-                "over_tex_name" : ""
+                "over_tex_name" : "",
+                "border" : "$BORDER",
+                "highlight" : "$HIGHLIGHT"
             }*/
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
@@ -35,12 +37,9 @@ namespace PaceLib
 
 // programmatic
 
-            static void Begin(ShapeId sid, TexProp normal);
-            static void Begin(ShapeId sid, TexProp normal, TexProp over);
+            static void Begin(ShapeId sid, ButtonTexProp prop);
 
 //end static methods
-
-            ButtonTex(ShapeId sid, TexProp normal, TexProp over);
 
             void SetTex(SDL_Texture *tex);
 
@@ -49,6 +48,8 @@ namespace PaceLib
             void SetHighlight(bool state);
             
             void SetHighlightColor(SDL_Color color);
+
+            void SetDrawBorder(bool border);
 
             void Draw();
 
@@ -63,10 +64,11 @@ namespace PaceLib
 
             bool highlight;
 
-            SDL_Color highlightColor;
+            ButtonTexProp prop;
 
-            TexProp normal;
-            TexProp over;
+            static ButtonTexProp LoadButtonTexProp(Configuration *conf);
+
+            ButtonTex(ShapeId sid, ButtonTexProp prop);
     };
 
 }

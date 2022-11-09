@@ -26,7 +26,7 @@ Hotspot::Hotspot(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
 
     isHighlight = true;
 
-    this->highlight = dco.color;
+    this->highlightColor = dco.color;
 
     this->type = type;
 
@@ -91,7 +91,7 @@ void Hotspot::Draw()
 {
     if(!hidden) {
         if(mouseOver) {
-            SDL_SetRenderDrawColor(Window::GetRenderer(), highlight.r, highlight.g, highlight.b, highlight.a);
+            SDL_SetRenderDrawColor(Window::GetRenderer(), highlightColor.r, highlightColor.g, highlightColor.b, highlightColor.a);
             if(type == Hover::FILLED) {
                 SDL_RenderFillRect(Window::GetRenderer(), &rect);
             } else if (type == Hover::RECT) {
@@ -143,8 +143,5 @@ void Hotspot::SetHighlight(bool state)
 
 void Hotspot::SetHighlightColor(SDL_Color color)
 {
-    highlight.r = color.r;
-    highlight.g = color.g;
-    highlight.b = color.b;
-    highlight.a = color.a;
+    highlightColor = color;
 }

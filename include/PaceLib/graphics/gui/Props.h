@@ -118,4 +118,12 @@ namespace PaceLib
         SDL_Color borderColor;
     };
 
+    struct ButtonTexProp
+    {
+        TexProp normal;
+        TexProp over;
+        SDL_Color borderColor;
+        SDL_Color highlightColor;
+        bool drawBorder;
+    };
 }
