@@ -9,14 +9,6 @@
 
 namespace PaceLib
 {
-
-    enum class Hover
-    {
-        RECT,
-        FILLED,
-        TEXTURE
-    };
-
     class Hotspot : public Widget
     {
         public:
@@ -30,8 +22,14 @@ namespace PaceLib
             {
                 "scene" : "Default",
                 "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
-                "color" : [80, 70, 80, 255]
-            }*/
+                "background" : [80, 70, 80, 255],
+                "type" : "rect",
+                "texture" : ""
+            }
+            More info:
+            "texture" : "" means do not use a texture
+            "type" can be: "rect", "filled", "texture"
+            */
             static void Begin(ShapeId sid);
             static void Begin(std::string name);
 
@@ -41,7 +39,7 @@ namespace PaceLib
 
 // programmatic
 
-            static void Begin(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+            static void Begin(ShapeId sid, HotspotProp prop);
 
 //end static methods
 
@@ -60,17 +58,19 @@ namespace PaceLib
             ~Hotspot();
 
         private:
-            Hotspot(ShapeId sid, PropDimColor dco, Hover type=Hover::RECT, SDL_Texture *tex=nullptr);
+            Hotspot(ShapeId sid, HotspotProp prop);
+
+            HotspotProp prop;
 
             bool mouseOver;
 
             bool isHighlight;
 
-            Hover type;
-
             SDL_Color highlightColor;
 
             SDL_Texture *tex;
+
+            static HotspotProp LoadHotspotProp(Configuration *conf);
     };
 
 }

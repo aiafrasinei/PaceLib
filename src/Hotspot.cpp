@@ -5,18 +5,18 @@
 
 using namespace PaceLib;
 
-Hotspot::Hotspot(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
+Hotspot::Hotspot(ShapeId sid,  HotspotProp prop)
 {
-    if(sid.parent->name == "root") {
-        this->rect.x = dco.rect.x;
-        this->rect.y = dco.rect.y;
-    } else {
-        this->rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dco.rect.x;
-        this->rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dco.rect.y;
+    this->prop = prop;
+    rect = prop.rect;
+
+    if(sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
     }
     
-    this->rect.w = dco.rect.w;
-    this->rect.h = dco.rect.h;
+    this->prop.rect = rect;
+    color = prop.backgroundColor;
 
     hidden = false;
 
@@ -26,9 +26,7 @@ Hotspot::Hotspot(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
 
     isHighlight = true;
 
-    this->highlightColor = dco.color;
-
-    this->type = type;
+    this->highlightColor = prop.backgroundColor;
 
     this->tex = tex;
 
@@ -51,7 +49,9 @@ void Hotspot::Begin(ShapeId sid)
         int dim[4];
         Widget::ParseDim(dim, conf);
 
-        sid.parent->Add(new Hotspot(sid, { {dim[0], dim[1], dim[2], dim[3]}, {conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]} }));
+        HotspotProp prop = LoadHotspotProp(conf);
+
+        sid.parent->Add(new Hotspot(sid, prop));
     }
 }
 
@@ -61,9 +61,9 @@ void Hotspot::Begin(std::string name)
     Hotspot::Begin({root->GetCurrent(), name});
 }
 
-void Hotspot::Begin(ShapeId sid, PropDimColor dco, Hover type, SDL_Texture *tex)
+void Hotspot::Begin(ShapeId sid, HotspotProp prop)
 {
-    sid.parent->Add(new Hotspot(sid, dco, type, tex));
+    sid.parent->Add(new Hotspot(sid, prop));
 }
 
 void Hotspot::BeginBlock(std::string name)
@@ -92,11 +92,11 @@ void Hotspot::Draw()
     if(!hidden) {
         if(mouseOver) {
             SDL_SetRenderDrawColor(Window::GetRenderer(), highlightColor.r, highlightColor.g, highlightColor.b, highlightColor.a);
-            if(type == Hover::FILLED) {
+            if(prop.type == Hover::FILLED) {
                 SDL_RenderFillRect(Window::GetRenderer(), &rect);
-            } else if (type == Hover::RECT) {
+            } else if (prop.type == Hover::RECT) {
                 SDL_RenderDrawRect(Window::GetRenderer(), &rect);
-            } else if (type == Hover::TEXTURE) {
+            } else if (prop.type == Hover::TEXTURE) {
                 if(tex != nullptr) {
                     SDL_RenderCopy(Window::GetRenderer(), tex, NULL, &rect);
                 }
@@ -144,4 +144,40 @@ void Hotspot::SetHighlight(bool state)
 void Hotspot::SetHighlightColor(SDL_Color color)
 {
     highlightColor = color;
+}
+
+HotspotProp Hotspot::LoadHotspotProp(Configuration *conf)
+{
+    int dim[4];
+    Widget::ParseDim(dim, conf);
+
+    Root *root = &Root::GetInstance();
+
+    SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+    SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
+
+    Hover type;
+    std::string stype = conf->Get("type").get<std::string>();
+    if(stype == "rect") {
+        type = Hover::RECT;
+    } else if(stype == "filled") {
+        type = Hover::FILLED;
+    } else if(stype == "texture") {
+        type = Hover::TEXTURE;
+    } else {
+        type = Hover::RECT;
+    }
+
+    SDL_Texture *tex = nullptr;
+    if(conf->Get("texture").get<std::string>() != "") {
+        tex = root->GetScene(conf->Get("scene"))->GetTex(conf->Get("texture").get<std::string>());
+    }
+    
+    HotspotProp prop = {
+                        dimr,
+                        backgroundColor,
+                        type,
+                        tex
+                    };
+    return prop;
 }

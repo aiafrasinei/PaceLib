@@ -14,6 +14,13 @@ namespace PaceLib
         RIGHT
     };
 
+    enum class Hover
+    {
+        RECT,
+        FILLED,
+        TEXTURE
+    };
+
     enum class WidgetType
     {
         ROOT,
@@ -125,5 +132,13 @@ namespace PaceLib
         SDL_Color borderColor;
         SDL_Color highlightColor;
         bool drawBorder;
+    };
+
+    struct HotspotProp
+    {
+        SDL_Rect rect;
+        SDL_Color backgroundColor;
+        Hover type;
+        SDL_Texture *tex;
     };
 }

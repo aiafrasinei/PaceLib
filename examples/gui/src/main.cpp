@@ -80,6 +80,8 @@ bool start()
 	ComboBox::Begin("testcomb");
 	root->GetComboBox("testcomb")->SetSelection(2);
 
+	Hotspot::Begin("tes");
+
 	return true;
 }
 

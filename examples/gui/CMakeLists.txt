@@ -72,7 +72,8 @@ IF(UNIX)
             ../../src/Tabber.cpp
             ../../src/Configuration.cpp
             ../../src/Version.cpp
-            ../../src/ComboBox.cpp)
+            ../../src/ComboBox.cpp
+            ../../src/Hotspot.cpp)
 
     target_link_libraries(gui m dl SDL2 SDL2_image SDL2_ttf pthread)
 
@@ -122,7 +123,8 @@ ELSE (WIN32)
             ../../src/Tabber.cpp
             ../../src/Configuration.cpp
             ../../src/Version.cpp
-            ../../src/ComboBox.cpp)
+            ../../src/ComboBox.cpp
+            ../../src/Hotspot.cpp)
 
     target_link_libraries(gui SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
 
