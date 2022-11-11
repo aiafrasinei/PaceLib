@@ -7,17 +7,17 @@ using namespace PaceLib;
 
 Tex::Tex(std::string path, int x, int y)
 {
-    tex = NULL;
+    tex = nullptr;
 
 	rect.x = x;
 	rect.y = y;
 
 	Free();
 
-	SDL_Texture* newtex = NULL;
+	SDL_Texture* newtex = nullptr;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if( loadedSurface == NULL )
+	if( loadedSurface == nullptr )
 	{
 		ConLog::Error("Unable to load image " + path + " Error: " + IMG_GetError());
 	}
@@ -26,7 +26,7 @@ Tex::Tex(std::string path, int x, int y)
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
         newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
-		if(newtex == NULL)
+		if(newtex == nullptr)
 		{
 			ConLog::Error("Unable to create texture from " + path + " Error " + SDL_GetError());
 		}
@@ -44,17 +44,17 @@ Tex::Tex(std::string path, int x, int y)
 
 Tex::Tex(std::string path, int x, int y, int w, int h)
 {
-    tex = NULL;
+    tex = nullptr;
 
 	rect.x = x;
 	rect.y = y;
 
 	Free();
 
-	SDL_Texture* newtex = NULL;
+	SDL_Texture* newtex = nullptr;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if( loadedSurface == NULL )
+	if( loadedSurface == nullptr )
 	{
 		ConLog::Error("Unable to load image " + path + " Error: " + IMG_GetError());
 	}
@@ -63,7 +63,7 @@ Tex::Tex(std::string path, int x, int y, int w, int h)
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
         newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
-		if(newtex == NULL)
+		if(newtex == nullptr)
 		{
 			ConLog::Error("Unable to create texture from " + path + " Error " + SDL_GetError());
 		}
@@ -94,7 +94,7 @@ Tex::Tex(SDL_Texture *tex, int x, int y)
     this->tex = tex;
 
 	int wl, hl;
-	SDL_QueryTexture(this->tex, NULL, NULL, &wl, &hl);
+	SDL_QueryTexture(this->tex, nullptr, nullptr, &wl, &hl);
 
 	rect.x = x;
 	rect.y = y;
@@ -109,10 +109,10 @@ Tex::~Tex()
 
 void Tex::Free()
 {
-	if(tex != NULL)
+	if(tex != nullptr)
 	{
 		SDL_DestroyTexture(tex);
-		tex = NULL;
+		tex = nullptr;
 	}
 }
 
@@ -121,7 +121,7 @@ void Tex::Draw(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SD
 	if(!hidden) {
 		SDL_Rect renderQuad = { x, y, rect.w, rect.h };
 
-		if( clip != NULL )
+		if( clip != nullptr )
 		{
 			renderQuad.w = clip->w;
 			renderQuad.h = clip->h;
@@ -173,10 +173,10 @@ Texture::Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim)
 
 Texture::~Texture()
 {
-    if(tex != NULL)
+    if(tex != nullptr)
 	{
 		delete ctex;
-		tex = NULL;
+		tex = nullptr;
 	}
 }
 
@@ -219,7 +219,7 @@ void Texture::EndBlock()
 void Texture::Begin(ShapeId sid, SDL_Texture *tex, int x, int y)
 {
 	int wl, hl;
-	SDL_QueryTexture(tex, NULL, NULL, &wl, &hl);
+	SDL_QueryTexture(tex, nullptr, nullptr, &wl, &hl);
 
 	sid.parent->Add(new Texture(sid, tex, {x, y, wl, hl}));
 }

@@ -83,7 +83,6 @@ void TextInput::Draw()
 void TextInput::Update(SDL_Event *e)
 {
     if(focus) {
-        Root *root = &Root::GetInstance();
         Text *to = (Text *)this->Get(name+"_text");
         if(e->type == SDL_TEXTINPUT)
         {

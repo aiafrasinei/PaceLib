@@ -28,7 +28,7 @@ Hotspot::Hotspot(ShapeId sid,  HotspotProp prop)
 
     this->highlightColor = prop.backgroundColor;
 
-    this->tex = tex;
+    this->tex = prop.tex;
 
     wtype = WidgetType::HOTSPOT;
 
@@ -98,7 +98,7 @@ void Hotspot::Draw()
                 SDL_RenderDrawRect(Window::GetRenderer(), &rect);
             } else if (prop.type == Hover::TEXTURE) {
                 if(tex != nullptr) {
-                    SDL_RenderCopy(Window::GetRenderer(), tex, NULL, &rect);
+                    SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
                 }
             }
         }

@@ -8,9 +8,9 @@ Window *win = nullptr;
 
 Configuration* conf = nullptr;
 
-SDL_Renderer *renderer = NULL;
+SDL_Renderer *renderer = nullptr;
 
-SDL_Vertex *v = NULL;
+SDL_Vertex *v = nullptr;
 
 
 bool init(int argc, const char *argv[])
@@ -97,7 +97,7 @@ int main(int argc, const char *argv[])
 		
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-        SDL_RenderGeometry(renderer, NULL, v, 3, NULL, 0);
+        SDL_RenderGeometry(renderer, nullptr, v, 3, nullptr, 0);
 
         SDL_RenderDrawLine(renderer, 320, 200, 300, 240);
 		SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);

@@ -37,9 +37,9 @@ void ScrollingBackground:: Draw(float timeStep)
         }
 
         rect.x = scrollingOffset;
-        SDL_RenderCopy(Window::GetRenderer(), tex, NULL, &rect);
+        SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
         rect.x = scrollingOffset + rect.w;
-        SDL_RenderCopy(Window::GetRenderer(), tex, NULL, &rect);
+        SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
     }
 }
 

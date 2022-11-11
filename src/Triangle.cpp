@@ -98,6 +98,6 @@ void Triangle::SetColor(SDL_Color color)
 
 void Triangle::Draw() {
         if(!hidden) {
-            SDL_RenderGeometry(Window::GetRenderer(), NULL, verts, 3, NULL, 0);
+            SDL_RenderGeometry(Window::GetRenderer(), nullptr, verts, 3, nullptr, 0);
         }
 }

@@ -105,14 +105,14 @@ void ButtonTex::Draw()
             SDL_RenderDrawRect(Window::GetRenderer(), &rect);
         }
 
-        SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, NULL, &prop.normal.rect);
+        SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr, &prop.normal.rect);
         if(prop.over.tex == nullptr) {
             SDL_SetTextureColorMod(prop.normal.tex, 255, 255, 255);
         }
 
         if(mouseOver) {
             if(prop.over.tex != nullptr) {
-                SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, NULL, &prop.over.rect);
+                SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, nullptr, &prop.over.rect);
             }
         }
 

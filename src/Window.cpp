@@ -31,7 +31,7 @@ Window::Window(Configuration *conf)
 			window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, conf->Get("Width"), conf->Get("Height"),  SDL_WINDOW_FULLSCREEN_DESKTOP);
 		}
 
-		if(window == NULL) {
+		if(window == nullptr) {
 			ConLog::Error("Window could not be created! SDL Error: " + string(SDL_GetError()));			
 			success = false;
 		} else {
@@ -46,7 +46,7 @@ Window::Window(Configuration *conf)
 				renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			}
 
-			if(renderer == NULL) {
+			if(renderer == nullptr) {
 				ConLog::Error("Renderer could not be created! SDL Error: " + string(SDL_GetError()));
 				success = false;
 			} else {

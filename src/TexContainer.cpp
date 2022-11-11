@@ -32,15 +32,14 @@ void TexContainer::ChangeName(std::string name)
 bool TexContainer::Add(std::filesystem::path file_path)
 {
     SDL_Texture* tex = load_texture(renderer, file_path.c_str());
-    if(tex == NULL) {
+    if(tex == nullptr) {
 		return false;
     }
 
-    SDL_Rect *r = new SDL_Rect;
-
     TexProp *pt = new TexProp();
     pt->tex = tex;
-    pt->rect = *r;
+    pt->rect = {0, 0, 0, 0};
+    
     ntr[file_path.filename()] = pt;
 
     return true;
@@ -48,15 +47,14 @@ bool TexContainer::Add(std::filesystem::path file_path)
 
 bool TexContainer::Add(std::string name, SDL_Texture *tex)
 {
-    if(tex == NULL) {
+    if(tex == nullptr) {
 		return false;
     }
 
-    SDL_Rect *r = new SDL_Rect;
-
     TexProp *pt = new TexProp();
     pt->tex = tex;
-    pt->rect = *r;
+    pt->rect = {0, 0, 0, 0};
+
     ntr[name] = pt;
 
     return true;

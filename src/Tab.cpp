@@ -25,10 +25,7 @@ Tab::Tab(ShapeId sid, TabProp prop)
 
 Tab::~Tab()
 {
-    if (this->parent != nullptr)
-    {
-        delete this->parent;
-    }
+
 }
 
 void Tab::Begin(ShapeId sid)
@@ -40,7 +37,8 @@ void Tab::Begin(ShapeId sid)
 
         TabProp prop = LoadTabProp(conf);
 
-        sid.parent->Add(std::move(new Tab(sid, prop)));
+        Tab *local = new Tab(sid, prop);
+        sid.parent->Add(local);
     }
 }
 
@@ -68,7 +66,8 @@ void Tab::EndBlock()
 
 void Tab::Begin(ShapeId sid, TabProp prop)
 {
-    sid.parent->Add(new Tab(sid, prop));
+    Tab *local = new Tab(sid, prop);
+    sid.parent->Add(local);
 }
 
 void Tab::Draw()

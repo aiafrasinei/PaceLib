@@ -69,7 +69,6 @@ void Text::Begin(ShapeId sid, TextProp prop)
 {
     Text *txt = new Text(sid, prop);
 
-    Root *root = &Root::GetInstance();
     sid.parent->Add(txt);
 }
 

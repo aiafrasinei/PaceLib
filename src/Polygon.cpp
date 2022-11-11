@@ -88,6 +88,6 @@ void Polygon::Begin(ShapeId sid, std::vector<SDL_Vertex> verts)
 void Polygon::Draw()
 {
     if(!hidden) {
-        SDL_RenderGeometry(Window::GetRenderer(), NULL, &verts[0], verts.size(), NULL, 0);
+        SDL_RenderGeometry(Window::GetRenderer(), nullptr, &verts[0], verts.size(), nullptr, 0);
     }
 }

@@ -12,7 +12,12 @@ FontContainer::FontContainer(std::string name)
 
 FontContainer::~FontContainer()
 {
-
+    for (auto const& pair : fnm) {
+        if(pair.second != nullptr) {
+            FC_FreeFont(pair.second);
+        }
+    }
+    fnm.clear();
 }
 
 std::string FontContainer::GetName()

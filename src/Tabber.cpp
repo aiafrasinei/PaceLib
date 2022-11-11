@@ -52,8 +52,6 @@ void Tabber::Begin(ShapeId sid)
     if(std::filesystem::exists(path)) {
         Configuration *conf = new Configuration(path);
 
-        Root *root = &Root::GetInstance();
-
         TabberProp prop = LoadTabberProp(conf);
 
         sid.parent->Add(new Tabber( sid, prop));

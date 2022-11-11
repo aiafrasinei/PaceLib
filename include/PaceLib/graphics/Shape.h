@@ -23,7 +23,9 @@ namespace PaceLib
 
         virtual ~Shape()
         {
-
+            for(int i=0; i<shapes.size(); i++) {
+                delete shapes[i];
+            }
         }
         
         void DrawRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
