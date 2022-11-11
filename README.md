@@ -1,12 +1,14 @@
-# PaceLib
+# PaceLib (version 0.4.5)
 
 Features:
-- Open source 2d c++ graphics library (based on SDL2).
-- Easy to use
-- Flexible widget system (json configuration or code).
+- Open source 2d c++ graphics library (based on SDL2)
+- Easy to use!
+- Flexible widget system (json configuration or code)
+- Widgets (label, button, tooltip, checkbox, combobox, textinput, textarea, tabber, tab)
+- Custom widgets are easy to add
 - Designed for 2d games
-- [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
-- [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
+- Works on Linux/Windows/MacOS
+- Examples and good documentation
 
 Prerequisites:
 - c++20 compiler
@@ -15,37 +17,56 @@ Prerequisites:
 - SDL2_ttf 
 - cmake
 
+Documentation:
+- [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
+- [User documentation](https://binary-station.github.io/PaceLib)
+- [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
+
 Code:
 
 After the PaceLib initialization
 
-    Text::Create("title_txt");
-    Button::Create("new_btn");
+    Text::Create("title");
+    Button::Create("new");
     
 In the wconfs folder the corresponding json configurations:
 
-    title_txt.wconf:
+    title_Text.wconf:
 
-    {
-        "scene" : "Default",
-        "font" : "font_title",
-        "text" : "Game",
-        "pos" : ["W_2%", "H_1%"],
-        "text_color" : [140, 190, 140, 255]
-    }
+	{
+	    "scene" : "Default",
+	    "pos" : ["W_1%", "W_0.6%"],
+	    "font" : "default",
+	    "text" : "Text text text",
+	    "color" : [140, 140, 140, 255]
+	}
 
-    new_btn.wconf:
+    new_Button.wconf:
 
-    {
-        "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
-        "color" : [40, 40, 40, 255],
-        "scene" : "Default",
-        "font" : "default",
-        "text" : "New",
-        "text_color" : [140, 170, 140, 255],
-        "align" : ["mid", "mid"]
-    }
-
+	{
+	    "scene" : "Default",
+	    "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+	    "font" : "default",
+	    "text" : "Start",
+	    "text_color" : "$TEXT",
+	    "align" : "mid",
+	    "background" : "$BACKGROUND",
+	    "highlight" : "$HIGHLIGHT",
+	    "border" : "$BORDER"
+	}
+	
+    vars file:
+    
+	{
+	    "BACKGROUND" : [100, 100, 100, 255],
+	    "BORDER" : [0, 0, 0, 255],
+	    "HIGHLIGHT" : [120, 120, 120, 255],
+	    "TEXT" : [0, 0, 0, 255]
+	}
+	
+    Variables that can be use in the other wconf files
+    "highlight" : "$HIGHLIGHT", will be replaced with [120, 120, 120, 255]
+    
 Widgets can have child elements example:
 
     Tab::BeginBlock("second_tab");
@@ -72,13 +93,15 @@ Event handling:
    
 The other option is to use code:
 
-    Text::Begin({root, "text"},
-        {root->GetScene("Default")->GetFont("lazy_font"), "some text"},
-        600, 100, {50, 50, 50, 255});
+    TextProp prop = {600, 100,
+    		     root->GetScene("Default")->GetFont("lazy_font"),
+		     "some text", {0, 0, 0, 255}};
+    Text::Begin({root, "text"}, prop);
 	
 Screenshots:
 
-![s1_PaceLib](https://user-images.githubusercontent.com/5115332/187064366-f01e34fe-4b8e-4300-8235-5db7fa8178e3.png)
+![s1_PaceLib](https://user-images.githubusercontent.com/5115332/201306158-50a5a9c2-90cc-438b-ba41-dab2b5220173.png)
+
 
 ![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
 
