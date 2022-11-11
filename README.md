@@ -1,5 +1,7 @@
 # PaceLib (version 0.4.5)
 
+[Website](https://binary-station.github.io/PaceLib)
+
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
 - Easy to use!
@@ -91,9 +93,8 @@ Event handling:
    
 The other option is to use code:
 
-    TextProp prop = {600, 100,
-    		     root->GetScene("Default")->GetFont("lazy_font"),
-		     "some text", {0, 0, 0, 255}};
+    TextProp prop = {600, 100, root->GetScene("Default")->GetFont("lazy_font"),
+		        "some text", {0, 0, 0, 255}};
     Text::Begin({root, "text"}, prop);
 	
 Screenshots:
@@ -103,3 +104,4 @@ Screenshots:
 ![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
 
 
+Enjoy!
