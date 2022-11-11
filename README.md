@@ -12,9 +12,7 @@ Features:
 
 Prerequisites:
 - c++20 compiler
-- SDL2 for rendering
-- SDL2_image
-- SDL2_ttf 
+- SDL2, SDL2_image, SDL2_ttf 
 - cmake
 
 Documentation:
@@ -100,8 +98,7 @@ The other option is to use code:
 	
 Screenshots:
 
-![s1_PaceLib](https://user-images.githubusercontent.com/5115332/201306158-50a5a9c2-90cc-438b-ba41-dab2b5220173.png)
-
+![s1_PaceLib](https://user-images.githubusercontent.com/5115332/201312907-4951ca64-04c6-45c6-9f82-2d93ea74e303.png)
 
 ![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
 
