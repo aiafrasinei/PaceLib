@@ -16,8 +16,8 @@ Scene::Scene(std::string name, SDL_Window* window, SDL_Renderer* renderer)
 
 Scene::~Scene()
 {
-    delete tex_atlas;
     delete font_atlas;
+    delete tex_atlas;
 }
 
 void Scene::SetName(std::string name)

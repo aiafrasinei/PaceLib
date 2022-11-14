@@ -13,7 +13,7 @@ TexContainer::TexContainer(std::string name, SDL_Renderer* renderer)
 
 TexContainer::~TexContainer()
 {
-    for (auto const& pair : ntr) {
+    for (auto pair : ntr) {
         SDL_DestroyTexture(pair.second->tex);
     }
     ntr.clear();

@@ -31,10 +31,6 @@ Root::Root()
 
 Root::~Root()
 {
-    for (auto const& pair : scenes) {
-        delete pair.second;
-    }
-    scenes.clear();
 }
 
 void Root::Draw()

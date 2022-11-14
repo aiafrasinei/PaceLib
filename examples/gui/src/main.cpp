@@ -1,35 +1,14 @@
 #define SDL_MAIN_HANDLED
-#include "PaceLib.h"
+#include "core/Init.hpp"
 
 using namespace PaceLib;
 
 
-Window *win = nullptr;
+Init *starter = nullptr;
 
-Configuration* conf = nullptr;
-
-Root *root;
-
-bool init(int argc, const char *argv[])
+bool init()
 {
-	bool success = true;
-	ConLog::Info("gui\n");
-
-	ConLog::Info("Initialization");
-
-	conf = new Configuration("conf.json");
-
-	win = new Window(conf);
-				
-	return success;
-}
-
-bool start()
-{
-	ConLog::Info("Start");
-	
-	root = &Root::GetInstance();
-	root->SetCurrent(root);
+	Root *root = starter->GetRoot();
 
 	root->GetScene("Default")->AddTex("texs/sn_yellow.png", 0, 0, 512,512);
 	root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512,512);
@@ -85,58 +64,19 @@ bool start()
 	return true;
 }
 
-void stop()
+void deinit()
 {	
-	delete win;
 
-	ConLog::Info("Cleanup");
 }
 
 int main(int argc, const char *argv[])
 {
-    if(!init(argc, argv)) {
-		stop();
-		return 1;
-	}
+	starter = new Init();
+
+	starter->onInit = &init;
+	starter->onDeinit = &deinit;
 	
-    if(!start()) {
-		stop();
-		return 2;
-	}
-
-	SDL_Event e;
-	while(Window::running)
-	{
-		while(SDL_PollEvent(&e) != 0)
-		{
-			if(e.type == SDL_QUIT)
-			{
-				stop();
-				return 0;
-			}
-			else if(e.type == SDL_KEYDOWN)
-			{ 
-				switch(e.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						stop();
-						return 0;
-
-					default:	
-						break;
-				}
-			}
-
-			root->Update(&e);
-		}
-
-		win->Clear();
-
-		root->Draw();
-
-		win->Present();
-
-	}
+	starter->Loop();
 
     return 0;
 }
