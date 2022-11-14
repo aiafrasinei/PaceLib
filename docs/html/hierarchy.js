@@ -1,12 +1,12 @@
 var hierarchy =
 [
+    [ "PaceLib::ButtonTexProp", "structPaceLib_1_1ButtonTexProp.html", null ],
     [ "Configuration", "classConfiguration.html", null ],
     [ "ConLog", "classConLog.html", null ],
     [ "Drawable", "classDrawable.html", [
       [ "PaceLib::Scene", "classPaceLib_1_1Scene.html", null ],
       [ "PaceLib::Shape", "classPaceLib_1_1Shape.html", [
         [ "PaceLib::Circle", "classPaceLib_1_1Circle.html", null ],
-        [ "PaceLib::Ellipse", "classPaceLib_1_1Ellipse.html", null ],
         [ "PaceLib::Line", "classPaceLib_1_1Line.html", null ],
         [ "PaceLib::Lines", "classPaceLib_1_1Lines.html", null ],
         [ "PaceLib::Polygon", "classPaceLib_1_1Polygon.html", null ],
@@ -50,6 +50,8 @@ var hierarchy =
       [ "PaceLib::Tex", "classPaceLib_1_1Tex.html", null ]
     ] ],
     [ "PaceLib::HorizontalAlign", "structPaceLib_1_1HorizontalAlign.html", null ],
+    [ "PaceLib::HotspotProp", "structPaceLib_1_1HotspotProp.html", null ],
+    [ "PaceLib::Init", "classPaceLib_1_1Init.html", null ],
     [ "PaceLib::LabelProp", "structPaceLib_1_1LabelProp.html", null ],
     [ "PaceLib::Map", "classPaceLib_1_1Map.html", null ],
     [ "PaceLib::MultiItemsProp", "structPaceLib_1_1MultiItemsProp.html", null ],

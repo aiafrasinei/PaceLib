@@ -1,8 +1,8 @@
 var annotated_dup =
 [
     [ "PaceLib", null, [
+      [ "Init", "classPaceLib_1_1Init.html", "classPaceLib_1_1Init" ],
       [ "Circle", "classPaceLib_1_1Circle.html", "classPaceLib_1_1Circle" ],
-      [ "Ellipse", "classPaceLib_1_1Ellipse.html", "classPaceLib_1_1Ellipse" ],
       [ "ScrollingBackground", "classPaceLib_1_1ScrollingBackground.html", "classPaceLib_1_1ScrollingBackground" ],
       [ "Sprite", "classPaceLib_1_1Sprite.html", "classPaceLib_1_1Sprite" ],
       [ "Button", "classPaceLib_1_1Button.html", "classPaceLib_1_1Button" ],
@@ -21,6 +21,8 @@ var annotated_dup =
       [ "TexProp", "structPaceLib_1_1TexProp.html", "structPaceLib_1_1TexProp" ],
       [ "MultiItemsProp", "structPaceLib_1_1MultiItemsProp.html", "structPaceLib_1_1MultiItemsProp" ],
       [ "TooltipProp", "structPaceLib_1_1TooltipProp.html", "structPaceLib_1_1TooltipProp" ],
+      [ "ButtonTexProp", "structPaceLib_1_1ButtonTexProp.html", "structPaceLib_1_1ButtonTexProp" ],
+      [ "HotspotProp", "structPaceLib_1_1HotspotProp.html", "structPaceLib_1_1HotspotProp" ],
       [ "Root", "classPaceLib_1_1Root.html", "classPaceLib_1_1Root" ],
       [ "Tab", "classPaceLib_1_1Tab.html", "classPaceLib_1_1Tab" ],
       [ "Tabber", "classPaceLib_1_1Tabber.html", "classPaceLib_1_1Tabber" ],

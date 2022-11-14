@@ -1,4 +1,19 @@
 var NAVTREEINDEX2 =
 {
+"structPaceLib_1_1TextProp.html#a744c61ce507c3c80f2e0210512ea4a97":[0,0,0,16,1],
+"structPaceLib_1_1TextProp.html#ad1b8b95e7074493a8a9b150b7c0e02a9":[0,0,0,16,3],
+"structPaceLib_1_1TextProp.html#adf8ddc72bb8b6e29ae07d0cab0dc2988":[0,0,0,16,4],
+"structPaceLib_1_1TooltipProp.html":[0,0,0,19],
+"structPaceLib_1_1TooltipProp.html#a3c67e051d7d003f2515a96bced4e46bb":[0,0,0,19,1],
+"structPaceLib_1_1TooltipProp.html#a96f2981cef798c9152a478478a7dc412":[0,0,0,19,4],
+"structPaceLib_1_1TooltipProp.html#a9ca5c51260c16cce689a88d185fdfdfd":[0,0,0,19,3],
+"structPaceLib_1_1TooltipProp.html#aa2b44e3011c6a961138e62d4a34bfd8d":[0,0,0,19,2],
+"structPaceLib_1_1TooltipProp.html#aee2bc4b1bf7a1316d9b3c26ee5bf2c7f":[0,0,0,19,0],
+"structtColorRGBA.html":[0,0,16],
+"structtColorRGBA.html#a22f3efdc47c67f2672be345f7c7e8cb1":[0,0,16,2],
+"structtColorRGBA.html#a3177aa7ac55c6bdfa6288c6bc5e99628":[0,0,16,0],
+"structtColorRGBA.html#a96efe754f0357efcfb2fa56447dfb76e":[0,0,16,3],
+"structtColorRGBA.html#ab6aa469c65af3c3bc56dd3657698c3b3":[0,0,16,1],
+"structtColorY.html":[0,0,17],
 "structtColorY.html#a5bfc0bfa51aa91262c1f0dc59c2092a0":[0,0,17,0]
 };
