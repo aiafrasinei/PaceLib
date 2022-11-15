@@ -1,4 +1,4 @@
-# PaceLib (version 0.4.5)
+# PaceLib (version 0.4.6)
 
 [Website](https://binary-station.github.io/PaceLib)
 

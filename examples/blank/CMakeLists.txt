@@ -42,6 +42,7 @@ IF(UNIX)
 	    ../../src/ConLog.cpp
 	    ../../src/sdlu.cpp
         ../../src/Window.cpp
+        ../../src/Init.cpp
         ../../src/Scene.cpp
         ../../src/TexContainer.cpp
         ../../src/Place.cpp
@@ -88,6 +89,7 @@ ELSE (WIN32)
 	    ../../src/ConLog.cpp
 	    ../../src/sdlu.cpp
         ../../src/Window.cpp
+        ../../src/Init.cpp
         ../../src/Scene.cpp
         ../../src/TexContainer.cpp
         ../../src/Place.cpp

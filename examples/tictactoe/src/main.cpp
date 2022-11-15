@@ -1,13 +1,9 @@
 #define SDL_MAIN_HANDLED
-#include "PaceLib.h"
+#include "Init.hpp"
 
 using namespace PaceLib;
 
-Window *win = nullptr;
-
-Configuration* conf = nullptr;
-
-Root *root;
+Init *starter = nullptr;
 
 int arr[][3] = { {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 
@@ -60,6 +56,8 @@ bool win_check()
 
 void reset_game(int arr[3][3])
 {
+	Root *root = starter->GetRoot();
+
 	static int b_index = 1;
 	static bool gwin = false;
 
@@ -97,27 +95,11 @@ void on_click(Root *root, int arr[3][3],int bindex, int i, int j)
 	}
 }
 
-bool init(int argc, const char *argv[])
-{
-	bool success = true;
-	ConLog::Info("TicTacToe\n");
-
-	ConLog::Info("Initialization");
-
-	ConLog::Info("Loading configuration");
-	conf = new Configuration("conf.json");
-
-	win = new Window(conf);
-				
-	return success;
-}
-
-bool start()
+bool init()
 {
 	ConLog::Info("Start");
 
-	root = &Root::GetInstance();
-	root->SetCurrent(root);
+	Root *root = starter->GetRoot();
 
 	root->GetScene("Default")->GetFontContainer()->Add("ftext", "fonts/OpenSans_Condensed-Regular.ttf", 100, 0, 0, 0, 255);
 	
@@ -126,99 +108,52 @@ bool start()
 		Button::Begin(bis + "b");
 	}
 
-	root->GetButton("1b")->onClickCallback = []() {
+	root->GetButton("1b")->onClickCallback = [root]() {
 		on_click(root, arr, 1, 0, 0);
     };
 
-	root->GetButton("2b")->onClickCallback = []() {
+	root->GetButton("2b")->onClickCallback = [root]() {
 		on_click(root, arr, 2, 0, 1);
     };
 
-	root->GetButton("3b")->onClickCallback = []() {
+	root->GetButton("3b")->onClickCallback = [root]() {
 		on_click(root, arr, 3, 0, 2);
     };
 
-	root->GetButton("4b")->onClickCallback = []() {
+	root->GetButton("4b")->onClickCallback = [root]() {
 		on_click(root, arr, 4, 1, 0);
     };
 
-	root->GetButton("5b")->onClickCallback = []() {
+	root->GetButton("5b")->onClickCallback = [root]() {
 		on_click(root, arr, 5, 1, 1);
     };
 
-	root->GetButton("6b")->onClickCallback = []() {
+	root->GetButton("6b")->onClickCallback = [root]() {
 		on_click(root, arr, 6, 1, 2);
     };
 
-	root->GetButton("7b")->onClickCallback = []() {
+	root->GetButton("7b")->onClickCallback = [root]() {
 		on_click(root, arr, 7, 2, 0);
     };
 
-	root->GetButton("8b")->onClickCallback = []() {
+	root->GetButton("8b")->onClickCallback = [root]() {
 		on_click(root, arr, 8, 2, 1);
     };
 
-	root->GetButton("9b")->onClickCallback = []() {
+	root->GetButton("9b")->onClickCallback = [root]() {
 		on_click(root, arr, 9, 2, 2);
     };
 
 	return true;
 }
 
-void stop()
-{	
-	delete win;
-
-	ConLog::Info("Cleanup");
-}
-
 int main(int argc, const char *argv[])
 {
-    if(!init(argc, argv)) {
-		stop();
-		return 1;
-	}
+	starter = new Init();
+
+	starter->onInit = &init;
 	
-    if(!start()) {
-		stop();
-		return 2;
-	}
-
-	SDL_Event e;
-	while(Window::running)
-	{
-		while(SDL_PollEvent(&e) != 0)
-		{
-			if(e.type == SDL_QUIT)
-			{
-				stop();
-				return 0;
-			}
-			else if(e.type == SDL_KEYDOWN)
-			{ 
-				switch(e.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						stop();
-						return 0;
-
-					default:	
-						break;
-				}
-			}
-
-			root->Update(&e);
-		}
-
-		win->Clear();
-
-		root->Draw();
-
-		win->Present();
-
-	}
-
-	stop();
+	starter->Loop();
 
     return 0;
 }

@@ -1,39 +1,25 @@
 #define SDL_MAIN_HANDLED
-#include "PaceLib.h"
+#include "Init.hpp"
 
 using namespace PaceLib;
 
 
-Window *win = nullptr;
-Configuration* conf = nullptr;
-Root *root;
+Init *starter = nullptr;
+
 ScrollingBackground *scroll_background;
 Sprite *ex_sprite;
+Timer stepTimer;
 
-bool init(int argc, const char *argv[])
-{
-	bool success = true;
-
-	ConLog::Info("Initialization");
-
-	ConLog::Info("Loading configuration");
-	conf = new Configuration("conf.json");
-
-	win = new Window(conf);
-				
-	return success;
-}
-
-bool start()
+bool init()
 {
 	ConLog::Info("Start");
 	
 	int w,h;
 
-	SDL_GetRendererOutputSize(win->GetRenderer(), &w, &h);
-	SDL_RenderSetLogicalSize(win->GetRenderer(), w, h);
+	SDL_GetRendererOutputSize(starter->GetWindow()->GetRenderer(), &w, &h);
+	SDL_RenderSetLogicalSize(starter->GetWindow()->GetRenderer(), w, h);
 
-	root = &Root::GetInstance();
+	Root *root = starter->GetRoot();
 	
 	root->GetScene("Default")->GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
 
@@ -68,67 +54,23 @@ bool start()
 	return true;
 }
 
-void stop()
-{	
-	delete win;
+void draw()
+{
+	float timeStep = stepTimer.GetTicks() / 1000.f;
+	scroll_background->Draw(timeStep);
+	stepTimer.Start();
 
-	ConLog::Info("Cleanup");
 }
 
 int main(int argc, const char *argv[])
 {
-    if(!init(argc, argv)) {
-		stop();
-		return 1;
-	}
+    starter = new Init();
+
+	starter->onInit = &init;
+	starter->onDraw = &draw;
 	
-    if(!start()) {
-		stop();
-		return 2;
-	}
-
 	Timer stepTimer;
-
-	SDL_Event e;
-	while(Window::running)
-	{
-		while(SDL_PollEvent(&e) != 0)
-		{
-			if(e.type == SDL_QUIT)
-			{
-				stop();
-				return 0;
-			}
-			else if(e.type == SDL_KEYDOWN)
-			{ 
-				switch(e.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						stop();
-						return 0;
-
-					default:	
-						break;
-				}
-			}
-
-		}
-
-		win->Clear();
-
-
-		float timeStep = stepTimer.GetTicks() / 1000.f;
-		//ConLog::Info("timeStep: " + to_string(timeStep));
-		
-		scroll_background->Draw(timeStep);
-
-		stepTimer.Start();
-
-		root->Draw();
-
-		win->Present();
-
-	}
+	starter->Loop();
 
     return 0;
 }

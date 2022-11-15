@@ -35,11 +35,15 @@ Window *Init::GetWindow()
 void Init::Loop()
 {
     ConLog::Info("Init");
-    onInit();
+    if(onInit != nullptr)
+        onInit();
 
     SDL_Event e;
 	while(Window::running)
 	{
+		if(onUpdate != nullptr)
+			onUpdate();
+
 		while(SDL_PollEvent(&e) != 0)
 		{
 			if(e.type == SDL_QUIT)
@@ -47,14 +51,23 @@ void Init::Loop()
 				Window::running = false;
 			}
 
+			if(onEvent != nullptr)
+				onEvent(&e);
+
 			root->Update(&e);
 		}
 
 		win->Clear();
+		
+		if(onDraw != nullptr)
+			onDraw();
+
 		root->Draw();
+
 		win->Present();
 	}
 
     ConLog::Info("Deinit");
-    onDeinit();
+    if(onDeinit != nullptr)
+        onDeinit();
 }

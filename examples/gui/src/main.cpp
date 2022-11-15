@@ -52,8 +52,6 @@ bool init()
 	Button::Begin("astart");
 
 	ButtonTex::Begin("gfx0");
-	//root->GetButtonTex("gfx0")->SetHighlightColor({10, 10, 10, 255});
-
 	ButtonTex::Begin("gfx1");
 
 	ComboBox::Begin("testcomb");
@@ -64,17 +62,11 @@ bool init()
 	return true;
 }
 
-void deinit()
-{	
-
-}
-
 int main(int argc, const char *argv[])
 {
 	starter = new Init();
 
 	starter->onInit = &init;
-	starter->onDeinit = &deinit;
 	
 	starter->Loop();
 

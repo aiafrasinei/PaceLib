@@ -20,7 +20,10 @@ namespace PaceLib
             Root *GetRoot();
             Window *GetWindow();
 
-            std::function<void(void)> onInit;
-            std::function<void(void)> onDeinit;
+            std::function<void(void)> onInit = nullptr;
+            std::function<void(void)> onDeinit = nullptr;
+            std::function<void(void)> onDraw = nullptr;
+            std::function<void(void)> onUpdate = nullptr;
+            std::function<void(SDL_Event *)> onEvent = nullptr;
     };
 }

@@ -1,37 +1,16 @@
 #define SDL_MAIN_HANDLED
-#include "PaceLib.h"
-#include "graphics/gui/Texture.h"
-
+#include "Init.hpp"
 
 using namespace PaceLib;
 
-Window *win = nullptr;
 
-Configuration* conf = nullptr;
+Init *starter = nullptr;
 
-Root *root;
-
-bool init(int argc, const char *argv[])
-{
-	bool success = true;
-	ConLog::Info("Game\n");
-
-	ConLog::Info("Initialization");
-
-	ConLog::Info("Loading configuration");
-	conf = new Configuration("conf.json");
-
-	win = new Window(conf);
-				
-	return success;
-}
-
-bool start()
+bool init()
 {
 	ConLog::Info("Start");
 
-	root = &Root::GetInstance();
-	root->SetCurrent(root);
+	Root *root = starter->GetRoot();
 
 	root->GetScene("Default")->GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
 
@@ -47,7 +26,7 @@ bool start()
 	root->GetButton("new")->onClickCallback = []() {
     };
 
-	root->GetButton("options")->onClickCallback = []() {
+	root->GetButton("options")->onClickCallback = [root]() {
 		root->GetButton("back")->Show();
 		root->GetButton("new")->Hide();
 		root->GetButton("options")->Hide();
@@ -55,7 +34,7 @@ bool start()
 		root->GetButton("exit")->Hide();
     };
 
-	root->GetButton("help")->onClickCallback = []() {
+	root->GetButton("help")->onClickCallback = [root]() {
 		root->GetButton("new")->Hide();
 		root->GetButton("back")->Show();
 		root->GetButton("options")->Hide();
@@ -67,7 +46,7 @@ bool start()
 		Window::running = false;
     };
 
-	root->GetButton("back")->onClickCallback = []() {
+	root->GetButton("back")->onClickCallback = [root]() {
 		root->GetButton("back")->Hide();
 		root->GetButton("new")->Show();
 		root->GetButton("options")->Show();
@@ -78,60 +57,13 @@ bool start()
 	return true;
 }
 
-void stop()
-{	
-	delete win;
-
-	ConLog::Info("Cleanup");
-}
-
 int main(int argc, const char *argv[])
 {
-    if(!init(argc, argv)) {
-		stop();
-		return 1;
-	}
+	starter = new Init();
+
+	starter->onInit = &init;
 	
-    if(!start()) {
-		stop();
-		return 2;
-	}
-
-	SDL_Event e;
-	while(Window::running)
-	{
-		while(SDL_PollEvent(&e) != 0)
-		{
-			if(e.type == SDL_QUIT)
-			{
-				stop();
-				return 0;
-			}
-			else if(e.type == SDL_KEYDOWN)
-			{ 
-				switch(e.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						stop();
-						return 0;
-
-					default:	
-						break;
-				}
-			}
-
-			root->Update(&e);
-		}
-
-		win->Clear();
-
-		root->Draw();
-
-		win->Present();
-
-	}
-
-	stop();
+	starter->Loop();
 
     return 0;
 }
