@@ -54,9 +54,6 @@ IF(UNIX)
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp
         ../../src/SDL_FontCache.c
-        ../../src/SDL2_framerate.c
-        ../../src/SDL2_imageFilter.c
-        ../../src/SDL2_rotozoom.c
         ../../src/Timer.cpp
         ../../src/Label.cpp
         ../../src/Button.cpp
@@ -103,9 +100,6 @@ ELSE (WIN32)
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp
         ../../src/SDL_FontCache.c
-        ../../src/SDL2_framerate.c
-        ../../src/SDL2_imageFilter.c
-        ../../src/SDL2_rotozoom.c
         ../../src/Timer.cpp
         ../../src/Label.cpp
         ../../src/Button.cpp

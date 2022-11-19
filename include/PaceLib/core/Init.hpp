@@ -16,9 +16,12 @@ namespace PaceLib
             Init();
             ~Init();
 
+            static std::string GetVersion();
+
             void Loop();
             Root *GetRoot();
             Window *GetWindow();
+
 
             std::function<void(void)> onInit = nullptr;
             std::function<void(void)> onDeinit = nullptr;

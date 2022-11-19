@@ -74,7 +74,6 @@ Window::Window(Configuration *conf)
 
 Window::~Window()
 {
-    ConLog::Info("Stop");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = nullptr;

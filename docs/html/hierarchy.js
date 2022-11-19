@@ -63,8 +63,6 @@ var hierarchy =
     [ "State", "classState.html", null ],
     [ "PaceLib::TabberProp", "structPaceLib_1_1TabberProp.html", null ],
     [ "PaceLib::TabProp", "structPaceLib_1_1TabProp.html", null ],
-    [ "tColorRGBA", "structtColorRGBA.html", null ],
-    [ "tColorY", "structtColorY.html", null ],
     [ "PaceLib::TexContainer", "classPaceLib_1_1TexContainer.html", null ],
     [ "PaceLib::TexProp", "structPaceLib_1_1TexProp.html", null ],
     [ "PaceLib::TextProp", "structPaceLib_1_1TextProp.html", null ],

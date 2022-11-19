@@ -56,9 +56,6 @@ IF(UNIX)
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
             ../../src/SDL_FontCache.c
-            ../../src/SDL2_framerate.c
-            ../../src/SDL2_imageFilter.c
-            ../../src/SDL2_rotozoom.c
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp
@@ -69,8 +66,7 @@ IF(UNIX)
             ../../src/Tooltip.cpp
             ../../src/Hotspot.cpp
             ../../src/Texture.cpp
-            ../../src/Configuration.cpp
-            ../../src/Version.cpp)
+            ../../src/Configuration.cpp)
 
     target_link_libraries(main_menu m dl SDL2 SDL2_image SDL2_ttf pthread)
 
@@ -105,9 +101,6 @@ ELSE (WIN32)
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
             ../../src/SDL_FontCache.c
-            ../../src/SDL2_framerate.c
-            ../../src/SDL2_imageFilter.c
-            ../../src/SDL2_rotozoom.c
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp

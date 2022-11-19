@@ -5,7 +5,7 @@ using namespace PaceLib;
 
 Init::Init()
 {
-	ConLog::Info("PaceLib Init");
+	ConLog::Info("PaceLib " + Init::GetVersion() + " start\n");
 
 	conf = new Configuration("conf.json");
 
@@ -17,8 +17,12 @@ Init::Init()
 
 Init::~Init()
 {
+	ConLog::Info("End");
+	for(auto item : root->GetScenes()) {
+		delete item.second;
+	}
+
     delete conf;
-    delete root;
     delete win;
 }
 
@@ -34,7 +38,7 @@ Window *Init::GetWindow()
 
 void Init::Loop()
 {
-    ConLog::Info("Init");
+    ConLog::Info("Init callback");
     if(onInit != nullptr)
         onInit();
 
@@ -67,7 +71,14 @@ void Init::Loop()
 		win->Present();
 	}
 
-    ConLog::Info("Deinit");
+    ConLog::Info("Deinit callback");
     if(onDeinit != nullptr)
         onDeinit();
+
+	delete this;
+}
+
+std::string Init::GetVersion()
+{
+    return std::to_string(PACELIB_MAJOR_VERSION) + "." + std::to_string(PACELIB_MINOR_VERSION) + "." + std::to_string(PACELIB_PATCHLEVEL);
 }
