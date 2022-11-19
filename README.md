@@ -17,7 +17,7 @@ Prerequisites:
 
 Documentation:
 - [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
-- [Code documentation](https://github.com/aiafrasinei/PaceLib/tree/main/docs/html/index.html)
+- [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
 
 Code:
 
