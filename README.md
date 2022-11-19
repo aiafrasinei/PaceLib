@@ -1,6 +1,4 @@
-# PaceLib (version 0.4.6)
-
-[Website](https://binary-station.github.io/PaceLib)
+# PaceLib 1.0.0
 
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
@@ -19,8 +17,7 @@ Prerequisites:
 
 Documentation:
 - [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
-- [User documentation](https://binary-station.github.io/PaceLib)
-- [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
+- [Code documentation](https://github.com/aiafrasinei/PaceLib/tree/main/docs/html/index.html)
 
 Code:
 
