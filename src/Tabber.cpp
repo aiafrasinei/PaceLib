@@ -32,7 +32,7 @@ Tabber::Tabber(ShapeId sid, TabberProp prop)
 
     bcounter = 0;
     
-    top = {rect.x, rect.y, rect.w, rect.h/9};
+    top = {rect.x, rect.y, rect.w, Window::height*4/100};
 
     wtype = WidgetType::TAB;
 
@@ -130,7 +130,7 @@ void Tabber::BeginTabBlock(std::string text)
     Tabber *tabber = (Tabber *)root->GetCurrent();
 
     LabelProp prop = {
-                        {tabx, tabber->GetRect().h/98, 40, tabber->GetRect().h/11},
+                        {tabx, Window::height*1/100, 40, Window::height*3/100},
                         root->GetScene("Default")->GetFont("default"),
                         text,
                         tabber->GetProp().buttonsTextColor,
@@ -157,7 +157,7 @@ void Tabber::BeginTabBlock(std::string text)
 
     nrtitles++;
 
-    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, (tabber->GetRect().h/10), tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
+    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, Window::height*4/100, tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
     tabber->Get("t_" + std::to_string(nrtabs))->Hide();
     root->SetCurrent(tabber->Get("t_" + std::to_string(nrtabs)));
     root->GetCurrent()->SetParent(tabber);

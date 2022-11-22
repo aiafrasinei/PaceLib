@@ -93,7 +93,12 @@ The other option is to use code:
     TextProp prop = {600, 100, root->GetScene("Default")->GetFont("lazy_font"),
 		        "some text", {0, 0, 0, 255}};
     Text::Begin({root, "text"}, prop);
-	
+
+Limitations:
+
+Only use 16:9 resolutions!
+(1920x1080 1600x900, 1280x720 etc)
+
 Screenshots:
 
 ![s1_PaceLib](https://user-images.githubusercontent.com/5115332/201312907-4951ca64-04c6-45c6-9f82-2d93ea74e303.png)
