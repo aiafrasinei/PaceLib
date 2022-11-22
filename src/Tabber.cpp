@@ -130,7 +130,7 @@ void Tabber::BeginTabBlock(std::string text)
     Tabber *tabber = (Tabber *)root->GetCurrent();
 
     LabelProp prop = {
-                        {tabx, tabber->GetRect().y/99, 40, tabber->GetRect().y/17},
+                        {tabx, tabber->GetRect().h/98, 40, tabber->GetRect().h/11},
                         root->GetScene("Default")->GetFont("default"),
                         text,
                         tabber->GetProp().buttonsTextColor,
@@ -157,7 +157,7 @@ void Tabber::BeginTabBlock(std::string text)
 
     nrtitles++;
 
-    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, (tabber->GetRect().y/15), tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
+    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, (tabber->GetRect().h/10), tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
     tabber->Get("t_" + std::to_string(nrtabs))->Hide();
     root->SetCurrent(tabber->Get("t_" + std::to_string(nrtabs)));
     root->GetCurrent()->SetParent(tabber);
