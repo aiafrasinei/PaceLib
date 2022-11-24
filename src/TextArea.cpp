@@ -129,7 +129,7 @@ void TextArea::InternalInit()
 MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf)
 {
     int dim[4];
-    Widget::ParseDim(dim, conf);
+    Root::ParseDim(dim, conf);
 
     Root *root = &Root::GetInstance();
 

@@ -123,7 +123,7 @@ Widget *Tab::GetWidget(std::string child)
 TabProp Tab::LoadTabProp(Configuration *conf)
 {
     int dim[4];
-    Widget::ParseDim(dim, conf);
+    Root::ParseDim(dim, conf);
 
     Root *root = &Root::GetInstance();
 

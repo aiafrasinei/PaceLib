@@ -75,32 +75,6 @@ namespace PaceLib
                 return wtype;
             }
 
-            static void ParseDim(int dim[4], Configuration *conf) {
-                for(int i=0; i<4; i++) {
-                    std::string str = conf->Get("dim")[i].get<std::string>();
-                    std::string first_char = str.substr(0,1);
-
-                    float val = 0;
-                    if(str == "W") {
-                        val = Window::width;
-                    } else if(str == "H") {
-                        val = Window::height;
-                    } else if(first_char == "W" || first_char == "H") {
-                        std::size_t pos = str.find("%");
-                        if (pos != std::string::npos) {
-                            if(first_char == "W")
-                                val = Window::width*std::stoi(str.substr(2,pos))/100;
-                            if(first_char == "H")
-                                val = Window::height*std::stoi(str.substr(2,pos))/100;
-                        }
-                    } else {
-                        val = std::stof(str);
-                    }
-
-                    dim[i] = val;
-                }
-            }
-
             static void ParsePos(int pos[2], Configuration *conf) {
                 for(int i=0; i<2; i++) {
                     std::string str = conf->Get("pos")[i].get<std::string>();

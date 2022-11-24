@@ -37,7 +37,7 @@ void Rectangle::Begin(ShapeId sid)
         Configuration *conf = new Configuration(path);
 
         int dim[4];
-        Widget::ParseDim(dim, conf);
+        Root::ParseDim(dim, conf);
 
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 

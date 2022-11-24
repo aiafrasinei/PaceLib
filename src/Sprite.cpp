@@ -46,7 +46,7 @@ void Sprite::Begin(ShapeId sid)
         Configuration *conf = new Configuration(path);
 
         int dim[4];
-        Widget::ParseDim(dim, conf);
+        Root::ParseDim(dim, conf);
     
         SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetTex(conf->Get("tex_name").get<std::string>());
 

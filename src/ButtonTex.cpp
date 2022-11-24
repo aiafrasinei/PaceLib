@@ -177,12 +177,12 @@ void ButtonTex::SetDrawBorder(bool border)
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf)
 {
     int dim[4];
-    Widget::ParseDim(dim, conf);
-
-    Root *root = &Root::GetInstance();
+    Root::ParseDim(dim, conf);
 
     SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
 
+    Root *root = &Root::GetInstance();
+    
     SDL_Color borderColor = {0, 0, 0, 255};
     bool drawBorder = true;
     if(conf->Get("border") == "")

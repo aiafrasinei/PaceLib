@@ -179,3 +179,47 @@ bool Root::IsVarDefined(std::string name)
 
     return ret;
 }
+
+void Root::ParseDim(int dim[4], Configuration *conf) {
+    Root *root = &Root::GetInstance();
+    SDL_Rect r = ((Widget *)root->GetCurrent())->GetRect();
+
+    for(int i=0; i<4; i++) {
+        std::string str = conf->Get("dim")[i].get<std::string>();
+        std::string first_char = str.substr(0,1);
+
+        float val = 0;
+        if(str == "W") {
+            val = Window::width;
+        } else if(str == "H") {
+            val = Window::height;
+        } else if(first_char == "W" || first_char == "H") {
+            std::size_t pos = str.find("%");
+            if (pos != std::string::npos) {
+                if(first_char == "W")
+                    val = Window::width*std::stoi(str.substr(2,pos))/100;
+                if(first_char == "H")
+                    val = Window::height*std::stoi(str.substr(2,pos))/100;
+            }
+        } else if( str == "#W") {
+            val = r.w;
+        } else if( str == "#H") {
+            val = r.h;
+        } else if(first_char == "#" || first_char == "#") {
+            std::string second_char = str.substr(1,1);
+            if(second_char == "W" || second_char == "H") {
+                std::size_t pos = str.find("%");
+                if (pos != std::string::npos) {
+                    if(second_char == "W")
+                        val = r.w*std::stoi(str.substr(3,pos))/100;
+                    if(second_char == "H")
+                        val = r.h*std::stoi(str.substr(3,pos))/100;
+                }
+            }
+        } else {
+            val = std::stof(str);
+        }
+
+        dim[i] = val;
+    }
+}

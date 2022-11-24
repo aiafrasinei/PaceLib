@@ -47,7 +47,7 @@ void ComboBox::Begin(ShapeId sid)
         Configuration *conf = new Configuration(path);
 
         int dim[4];
-        Widget::ParseDim(dim, conf);
+        Root::ParseDim(dim, conf);
 
         Root *root = &Root::GetInstance();
 

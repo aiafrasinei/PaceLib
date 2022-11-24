@@ -69,6 +69,8 @@ namespace PaceLib
             Configuration *GetVars();
             bool IsVarDefined(std::string name);
 
+            static void ParseDim(int dim[4], Configuration *conf);
+
         private:
             State *state;
 

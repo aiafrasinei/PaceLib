@@ -130,7 +130,7 @@ void Tabber::BeginTabBlock(std::string text)
     Tabber *tabber = (Tabber *)root->GetCurrent();
 
     LabelProp prop = {
-                        {tabx, Window::height*1/100, 40, Window::height*3/100},
+                        {tabx, Window::height*1/100, Window::width/40, Window::height*3/100},
                         root->GetScene("Default")->GetFont("default"),
                         text,
                         tabber->GetProp().buttonsTextColor,
@@ -185,7 +185,7 @@ TabberProp Tabber::GetProp()
 TabberProp Tabber::LoadTabberProp(Configuration *conf)
 {
     int dim[4];
-    Widget::ParseDim(dim, conf);
+    Root::ParseDim(dim, conf);
 
     HorizontalAlign align;
     if (conf->Get("buttons_text_align") == "left")
