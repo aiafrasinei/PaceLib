@@ -77,6 +77,7 @@ namespace PaceLib
         SDL_Color backgroundColor;
         SDL_Color borderColor;
         SDL_Color headerBackgroundColor;
+        int headerHeight;
         FC_Font *buttonsFont;
         SDL_Color buttonsTextColor;
         HorizontalAlign buttonsTextAlign;

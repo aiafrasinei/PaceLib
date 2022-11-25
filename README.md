@@ -1,4 +1,4 @@
-# PaceLib 1.0.0
+# PaceLib 1.0.1
 
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
@@ -95,9 +95,9 @@ The other option is to use code:
     Text::Begin({root, "text"}, prop);
 
 Limitations:
-
-Only use 16:9 resolutions!
-(1920x1080 1600x900, 1280x720 etc)
+Not designed for complex desktop applications (just games)
+Doesnt take care of different aspect ratios for widgets
+(has the tools but you need to do manually)
 
 Screenshots:
 

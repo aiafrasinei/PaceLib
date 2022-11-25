@@ -26,6 +26,7 @@ namespace PaceLib
                 "background" : [70, 80, 70, 255],
                 "border" : "$BORDER",
                 "header_background" : [40, 40, 40, 255],
+                "header_height" : 10,
                 "buttons_font" : "default",
                 "buttons_text_color" : "$TEXT",
                 "buttons_text_align" : "left",
@@ -56,6 +57,10 @@ namespace PaceLib
             void AddTab(std::string name, std::string text);
 
             TabberProp GetProp();
+
+            Tab *GetTab(std::string child);
+
+            Tab *GetTab(int index);
 
             void Update(SDL_Event *e);
 

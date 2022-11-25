@@ -32,13 +32,13 @@ Tabber::Tabber(ShapeId sid, TabberProp prop)
 
     bcounter = 0;
     
-    top = {rect.x, rect.y, rect.w, Window::height*4/100};
+    top = {rect.x, rect.y, rect.w, Window::height*prop.headerHeight/100};
 
-    wtype = WidgetType::TAB;
+    wtype = WidgetType::TABBER;
 
     nrtabs = 0;
 
-    tabx = 0;
+    tabx = Window::height*1/100;
 }
 
 Tabber::~Tabber()
@@ -130,7 +130,7 @@ void Tabber::BeginTabBlock(std::string text)
     Tabber *tabber = (Tabber *)root->GetCurrent();
 
     LabelProp prop = {
-                        {tabx, Window::height*1/100, Window::width/40, Window::height*3/100},
+                        {tabx, Window::height*1/100, 0, Window::height*(tabber->prop.headerHeight-1)/100},
                         root->GetScene("Default")->GetFont("default"),
                         text,
                         tabber->GetProp().buttonsTextColor,
@@ -143,9 +143,13 @@ void Tabber::BeginTabBlock(std::string text)
     Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
     Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
-    b->SetRectW(b->GetTextSize() + b->GetTextSize()/3);
 
-    tabx = tabx + b->GetTextSize() + b->GetTextSize()/3 + tabber->GetRect().w/99;
+    float real_width = b->GetTextSize() + b->GetTextSize()/3;
+    b->SetRectW(real_width);
+    prop.rect.w = real_width;
+    b->SetTextAlign(prop.align);
+
+    tabx = tabx + real_width + tabber->GetRect().w/99;
 
     b->onClickCallback = [btext = b->name]() {
         std::size_t pos = btext.find("_");
@@ -157,9 +161,9 @@ void Tabber::BeginTabBlock(std::string text)
 
     nrtitles++;
 
-    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, Window::height*4/100, tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
-    tabber->Get("t_" + std::to_string(nrtabs))->Hide();
-    root->SetCurrent(tabber->Get("t_" + std::to_string(nrtabs)));
+    Tab::Begin({tabber, "t_" + std::to_string(nrtabs)} , { {0, Window::height*tabber->prop.headerHeight/100, tabber->GetRect().w, tabber->GetRect().h} , tabber->GetProp().backgroundColor});
+    tabber->GetTab("t_" + std::to_string(nrtabs))->Hide();
+    root->SetCurrent(tabber->GetTab("t_" + std::to_string(nrtabs)));
     root->GetCurrent()->SetParent(tabber);
     nrtabs++;
 }
@@ -201,6 +205,7 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf)
     SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
     SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
     SDL_Color headerBackgroundColor= Widget::ParseVar("header_background", conf, root->GetVars());
+    int headerHeightPercent = conf->Get("header_height").get<int>();
     FC_Font *buttonsFont = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("buttons_font").get<std::string>());
     SDL_Color buttonsTextColor = Widget::ParseVar("buttons_text_color", conf, root->GetVars());
     SDL_Color buttonsBackgroundColor = Widget::ParseVar("buttons_background", conf, root->GetVars());
@@ -212,6 +217,7 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf)
                         backgroundColor,
                         borderColor,
                         headerBackgroundColor,
+                        headerHeightPercent,
                         buttonsFont,
                         buttonsTextColor,
                         align,
@@ -220,4 +226,14 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf)
                         buttonsHighlightColor
                     };
     return prop;
+}
+
+Tab *Tabber::GetTab(std::string child)
+{
+    return static_cast<Tab *>(this->Get(child));
+}
+
+Tab *Tabber::GetTab(int index)
+{
+    return static_cast<Tab *>(this->Get("t_" + std::to_string(index)));
 }
