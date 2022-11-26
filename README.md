@@ -95,8 +95,11 @@ The other option is to use code:
     Text::Begin({root, "text"}, prop);
 
 Limitations:
+
 Not designed for complex desktop applications (just games)
+
 Doesnt take care of different aspect ratios for widgets
+
 (has the tools but you need to do manually)
 
 Screenshots:
@@ -104,6 +107,8 @@ Screenshots:
 ![s1_PaceLib](https://user-images.githubusercontent.com/5115332/201312907-4951ca64-04c6-45c6-9f82-2d93ea74e303.png)
 
 ![s2_PaceLib](https://user-images.githubusercontent.com/5115332/187064386-337f1fe8-5a97-47bc-9969-9f9a294eee2c.png)
+
+![s3_PaceLib](https://user-images.githubusercontent.com/5115332/204076851-175067f3-27cf-42c9-9d41-1fe68c2fdd4f.png)
 
 
 Enjoy!
