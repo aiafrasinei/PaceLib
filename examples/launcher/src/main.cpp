@@ -18,6 +18,7 @@ bool init()
 		Tabber::EndTabBlock();
 
 		Tabber::BeginTabBlock("Settings");
+			ComboBox::Begin("resolution");
 			CheckBox::Begin("fullscreen");
 			CheckBox::Begin("vsync");
 		Tabber::EndTabBlock();
@@ -26,6 +27,12 @@ bool init()
 			TextArea::Begin("help");
 		Tabber::EndTabBlock();
 	Tabber::EndBlock();
+
+	/*root->GetTabber("Bag")->GetTab(0)->GetButton("new_game")->onClickCallback = []() {
+		system("./launcher");
+    };*/
+
+	((ComboBox *)root->GetTabber("Bag")->GetTab("t_1")->Get("resolution"))->SetSelection(0);
 
 	root->GetTabber("Bag")->GetTab(0)->GetButton("exit")->onClickCallback = []() {
 		Window::running = false;

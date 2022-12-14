@@ -115,6 +115,7 @@ namespace PaceLib
         SDL_Color textColor;
         SDL_Color backgroundColor;
         SDL_Color borderColor;
+        SDL_Color highlightColor;
     };
 
     struct TooltipProp

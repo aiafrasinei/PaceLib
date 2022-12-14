@@ -75,6 +75,9 @@ void ButtonTex::BeginBlock(std::string name)
     Shape *prevParent = root->GetCurrent();
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->UpdateAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
 void ButtonTex::EndBlock()

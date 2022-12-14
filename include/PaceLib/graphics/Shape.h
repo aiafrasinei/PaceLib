@@ -103,6 +103,7 @@ namespace PaceLib
         }
 
         Configuration *conf;
+
     protected:
  
         void LoadDrawColor()

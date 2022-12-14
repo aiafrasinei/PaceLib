@@ -27,6 +27,8 @@ Root::Root()
     if(std::filesystem::exists("wconfs/vars")) {
         vars = new Configuration("wconfs/vars");
     }
+
+    currentAbsoluteCoords = {0, 0};
 }
 
 Root::~Root()

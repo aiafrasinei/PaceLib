@@ -39,6 +39,9 @@ Tabber::Tabber(ShapeId sid, TabberProp prop)
     nrtabs = 0;
 
     tabx = Window::height*1/100;
+
+    Root *root = &Root::GetInstance();
+    root->UpdateAbsoluteCoords({rect.x, rect.y});
 }
 
 Tabber::~Tabber()

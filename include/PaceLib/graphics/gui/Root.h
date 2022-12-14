@@ -69,6 +69,17 @@ namespace PaceLib
             Configuration *GetVars();
             bool IsVarDefined(std::string name);
 
+            SDL_Point GetCurrentAbsoluteCoords()
+            {
+                return currentAbsoluteCoords;
+            }
+
+            void UpdateAbsoluteCoords(SDL_Point p)
+            {
+                currentAbsoluteCoords.x = currentAbsoluteCoords.x + p.x;
+                currentAbsoluteCoords.y = currentAbsoluteCoords.y + p.y;
+            }
+
             static void ParseDim(int dim[4], Configuration *conf);
 
         private:
@@ -77,6 +88,8 @@ namespace PaceLib
             std::map<std::string, Scene *> scenes;
 
             Configuration *vars;
+
+            SDL_Point currentAbsoluteCoords;
 
             Root();
     };

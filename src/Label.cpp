@@ -68,6 +68,9 @@ void Label::BeginBlock(std::string name)
     Shape *prevParent = root->GetCurrent();
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->UpdateAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
 void Label::EndBlock()
@@ -115,15 +118,11 @@ int Label::GetTextSize()
 
 std::string Label::GetText()
 {
-    Root *root = &Root::GetInstance();
-    Text *to = (Text *)root->GetCurrent()->Get(name)->Get(this->name + "_text");
-    return to->GetText();
+    return this->prop.text;
 }
 
 void Label::SetText(std::string text)
 {
-    Root *root = &Root::GetInstance();
-
     if (this->prop.text == "")
     {
         delete shapes[0];
@@ -135,7 +134,7 @@ void Label::SetText(std::string text)
         InternalInit();
     }
 
-    Text *to = (Text *)(root->GetCurrent()->Get(name))->Get(this->name + "_text");
+    Text *to = (Text *)this->Get(this->name + "_text");
 
     to->SetText(text);
     this->prop.text = text;
@@ -144,9 +143,6 @@ void Label::SetText(std::string text)
 void Label::InternalInit()
 {
     // child text
-    Root *root = &Root::GetInstance();
-    Label *newb = (Label *)root->GetCurrent()->Get(name);
-
     TextProp tprop = {
          GetRect().x + GetRect().w / 20,
          GetRect().y,
@@ -155,10 +151,10 @@ void Label::InternalInit()
          prop.textColor
     };
 
-    Text::Begin({newb, name + "_text"}, tprop);
+    Text::Begin({this, name + "_text"}, tprop);
 
-    Text *to = (Text *)newb->Get(name + "_text");
-    to->SetColor({newb->GetProp().textColor});
+    Text *to = (Text *)this->Get(name + "_text");
+    to->SetColor({this->GetProp().textColor});
     textSize = to->GetWidth();
 
     SetTextAlign(prop.align);
