@@ -9,6 +9,7 @@ using namespace PaceLib;
 ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop)
 {
     this->prop = prop;
+    
     rect = prop.rect;
 
     if (sid.parent->name != "root") {
@@ -33,9 +34,6 @@ ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop)
     selected = -1;
     mainRendererSelected = false;
     this->name = sid.name;
-
-    Root *root = &Root::GetInstance();
-    root->UpdateAbsoluteCoords({rect.x, rect.y});
 }
 
 ComboBox::~ComboBox()
@@ -107,6 +105,7 @@ void ComboBox::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void ComboBox::Begin(ShapeId sid, MultiItemsProp prop)
@@ -149,11 +148,11 @@ void ComboBox::InternalInit()
     Triangle::Begin({root->GetCurrent(), "triangle_decorator"},
     root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y + this->GetRect().h,
     root->GetCurrentAbsoluteCoords().x + this->GetRect().w, root->GetCurrentAbsoluteCoords().y + this->GetRect().h,
-    root->GetCurrentAbsoluteCoords().x + this->GetRect().w/2, root->GetCurrentAbsoluteCoords().y + this->GetRect().h + this->GetRect().h/2,
+    root->GetCurrentAbsoluteCoords().x + this->GetRect().w/2, root->GetCurrentAbsoluteCoords().y + this->GetRect().h + this->GetRect().h/3,
     borderColor);
 
     for(int i=0; i<items.size(); i++) {
-        SDL_Rect r = {this->GetRect().x, this->GetRect().y+(i*this->GetRect().h), this->GetRect().w, this->GetRect().h};
+        SDL_Rect r = {root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y+(i*this->GetRect().h), this->GetRect().w, this->GetRect().h};
         LabelProp prop = { r,
                     Root::GetInstance().GetScene("Default")->GetFont("default"),
                     items[i],
@@ -167,7 +166,7 @@ void ComboBox::InternalInit()
         root->GetCurrent()->Get("item_" + std::to_string(i))->Hide();
     }
 
-    LabelProp prop = { this->GetRect(),
+    LabelProp prop = { {root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y, this->GetRect().w, this->GetRect().h },
                     Root::GetInstance().GetScene("Default")->GetFont("default"),
                     "",
                     this->prop.textColor,

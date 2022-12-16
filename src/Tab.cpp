@@ -96,7 +96,8 @@ void Tab::Update(SDL_Event *e)
 {
     for (Shape *s : shapes)
     {
-        s->Update(e);
+        if(!s->IsHidden())
+            s->Update(e);
     }
 }
 

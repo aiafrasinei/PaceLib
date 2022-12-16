@@ -39,9 +39,6 @@ Tabber::Tabber(ShapeId sid, TabberProp prop)
     nrtabs = 0;
 
     tabx = Window::height*1/100;
-
-    Root *root = &Root::GetInstance();
-    root->UpdateAbsoluteCoords({rect.x, rect.y});
 }
 
 Tabber::~Tabber()
@@ -82,6 +79,7 @@ void Tabber::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Tabber::Begin(ShapeId sid, TabberProp prop)
@@ -175,12 +173,14 @@ void Tabber::EndTabBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Tabber::Update(SDL_Event *e)
 {
     for(Shape *s : shapes) {
-        s->Update(e);
+        if(!s->IsHidden())
+            s->Update(e);
     }
 }
 

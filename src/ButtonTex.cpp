@@ -84,6 +84,7 @@ void ButtonTex::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void ButtonTex::Begin(ShapeId sid, ButtonTexProp prop)

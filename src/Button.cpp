@@ -5,8 +5,27 @@
 
 using namespace PaceLib;
 
-Button::Button(ShapeId sid, LabelProp prop) : Label(sid, prop)
+Button::Button(ShapeId sid, LabelProp prop)
 {
+    this->prop = prop;
+
+    rect = prop.rect;
+
+    if(sid.parent->name != "root") {
+        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
+        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
+    }
+    
+    this->prop.rect = rect;
+    color = prop.backgroundColor;
+    borderColor = prop.borderColor;
+
+    hidden = false;
+
+    this->name = sid.name;
+
+    textSize = 0;
+
     mouseOver = false;
 
     highlight = true;
@@ -60,6 +79,7 @@ void Button::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Button::Begin(ShapeId sid, LabelProp prop)

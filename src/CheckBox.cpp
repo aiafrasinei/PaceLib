@@ -74,6 +74,7 @@ void CheckBox::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void CheckBox::Begin(ShapeId sid, LabelProp prop)

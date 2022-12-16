@@ -77,6 +77,7 @@ void Label::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
+    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Label::Begin(ShapeId sid, LabelProp prop)
