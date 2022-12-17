@@ -1,4 +1,4 @@
-# PaceLib 1.0.1
+# PaceLib 1.0.2
 
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
