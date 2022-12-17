@@ -56,11 +56,18 @@ void Tab::BeginBlock(std::string name)
     Shape *prevParent = root->GetCurrent();
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
 void Tab::EndBlock()
 {
     Root *root = &Root::GetInstance();
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 

@@ -32,7 +32,7 @@ namespace PaceLib
 
             //used when the textarea will have child elements
             static void BeginBlock(std::string name);
-            static void End();
+            static void EndBlock();
 
 // programatic
             static void Begin(ShapeId sid, MultiItemsProp prop);

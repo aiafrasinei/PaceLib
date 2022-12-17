@@ -74,10 +74,22 @@ namespace PaceLib
                 return currentAbsoluteCoords;
             }
 
-            void UpdateAbsoluteCoords(SDL_Point p)
+            void PushAbsoluteCoords(SDL_Point p)
             {
                 currentAbsoluteCoords.x = currentAbsoluteCoords.x + p.x;
                 currentAbsoluteCoords.y = currentAbsoluteCoords.y + p.y;
+            }
+
+            void PopAbsoluteCoords(SDL_Point p)
+            {
+                currentAbsoluteCoords.x = currentAbsoluteCoords.x - p.x;
+                currentAbsoluteCoords.y = currentAbsoluteCoords.y - p.y;
+            }
+
+            void ResetAbsoluteCoords()
+            {
+                currentAbsoluteCoords.x = 0;
+                currentAbsoluteCoords.y = 0;
             }
 
             static void ParseDim(int dim[4], Configuration *conf);

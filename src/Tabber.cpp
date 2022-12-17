@@ -79,7 +79,6 @@ void Tabber::EndBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
-    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Tabber::Begin(ShapeId sid, TabberProp prop)
@@ -173,7 +172,6 @@ void Tabber::EndTabBlock()
 {
     Root *root = &Root::GetInstance();
     root->SetCurrent(root->GetCurrent()->GetParent());
-    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Tabber::Update(SDL_Event *e)

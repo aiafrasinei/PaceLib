@@ -70,14 +70,17 @@ void Label::BeginBlock(std::string name)
     root->GetCurrent()->SetParent(prevParent);
 
     Widget *c = ((Widget *)root->GetCurrent());
-    root->UpdateAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+    root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
 void Label::EndBlock()
 {
     Root *root = &Root::GetInstance();
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+
     root->SetCurrent(root->GetCurrent()->GetParent());
-    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Label::Begin(ShapeId sid, LabelProp prop)

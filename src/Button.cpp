@@ -5,29 +5,8 @@
 
 using namespace PaceLib;
 
-Button::Button(ShapeId sid, LabelProp prop)
+Button::Button(ShapeId sid, LabelProp prop) : Label(sid, prop)
 {
-    this->prop = prop;
-
-    rect = prop.rect;
-
-    if(sid.parent->name != "root") {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
-    }
-    
-    this->prop.rect = rect;
-    color = prop.backgroundColor;
-    borderColor = prop.borderColor;
-
-    hidden = false;
-
-    this->name = sid.name;
-
-    textSize = 0;
-
-    mouseOver = false;
-
     highlight = true;
 
     wtype = WidgetType::BUTTON;
@@ -72,14 +51,17 @@ void Button::BeginBlock(std::string name)
     root->GetCurrent()->SetParent(prevParent);
  
     Widget *c = ((Widget *)root->GetCurrent());
-    root->UpdateAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+    root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
 void Button::EndBlock()
 {
     Root *root = &Root::GetInstance();
+
+    Widget *c = ((Widget *)root->GetCurrent());
+    root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+
     root->SetCurrent(root->GetCurrent()->GetParent());
-    root->UpdateAbsoluteCoords({0, 0});
 }
 
 void Button::Begin(ShapeId sid, LabelProp prop)
