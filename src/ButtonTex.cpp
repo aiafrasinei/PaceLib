@@ -46,8 +46,13 @@ void ButtonTex::Begin(ShapeId sid)
         std::string scene_name = conf->Get("scene").get<std::string>();
 
         ButtonTex *btex = nullptr;
+        TexProp nullp = {nullptr, {0,0,0,255}};
+
         if(conf->Get("over_tex_name").get<std::string>() == "") {
-            TexProp nullp = {nullptr, {0,0,0,255}};
+            prop.over = nullp;
+            btex = new ButtonTex(sid, prop);
+        } else if(conf->Get("tex_name").get<std::string>() == "" && conf->Get("over_tex_name").get<std::string>() == "") {
+            prop.normal = nullp;
             prop.over = nullp;
             btex = new ButtonTex(sid, prop);
         } else {
@@ -99,30 +104,34 @@ void ButtonTex::Draw()
 {
     if(!hidden) {
         if(mouseOver) {
-            //SDL_SetRenderDrawColor(Window::GetRenderer(), prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b, prop.highlightColor.a);
-            if(prop.over.tex == nullptr) {
-                SDL_SetTextureColorMod( prop.normal.tex, prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b );
+            if(prop.normal.tex == nullptr) {
+                if(prop.over.tex == nullptr) {
+                    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b, prop.highlightColor.a);
+                    SDL_RenderFillRect(Window::GetRenderer(), &rect);
+                }
+            } else {
+                if(prop.over.tex == nullptr) {
+                    SDL_SetTextureColorMod( prop.normal.tex, prop.highlightColor.r, prop.highlightColor.g, prop.highlightColor.b );
+                    SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr, &prop.normal.rect);
+                } else {
+                    SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, nullptr, &prop.over.rect);
+                }
             }
         } else {
-            SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
+            if(prop.normal.tex != nullptr) {
+                SDL_SetTextureColorMod( prop.normal.tex, 255, 255, 255 );
+                SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr, &prop.normal.rect);
+            } else {
+                SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r, prop.backgroundColor.g, prop.backgroundColor.b, prop.backgroundColor.a);
+                SDL_RenderFillRect(Window::GetRenderer(), &rect);
+            }
         }
 
         if(prop.drawBorder) {
             SDL_SetRenderDrawColor(Window::GetRenderer(), borderColor.r, borderColor.g, borderColor.b, borderColor.a);
             SDL_RenderDrawRect(Window::GetRenderer(), &rect);
         }
-
-        SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr, &prop.normal.rect);
-        if(prop.over.tex == nullptr) {
-            SDL_SetTextureColorMod(prop.normal.tex, 255, 255, 255);
-        }
-
-        if(mouseOver) {
-            if(prop.over.tex != nullptr) {
-                SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, nullptr, &prop.over.rect);
-            }
-        }
-
+        
         for(Shape *w : shapes) {
             w->Draw();
         }
@@ -198,25 +207,34 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf)
         borderColor = Widget::ParseVar("border", conf, root->GetVars());
 
     SDL_Color highlightColor = Widget::ParseVar("highlight", conf, root->GetVars());
+    SDL_Color backgroundColor = Widget::ParseVar("background", conf, root->GetVars());
+    
 
     ButtonTexProp prop;
-    if(conf->Get("over_tex_name") == "") {
-        prop = {
-                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr},
-                {},
-                borderColor,
-                highlightColor,
-                drawBorder
-            };
+    TexProp tex_prop;
+    TexProp over_tex_prop;
+
+    if (conf->Get("tex_name") == "" && conf->Get("over_tex_name") == "") {
+        tex_prop = {nullptr, dimr};
+        over_tex_prop = {nullptr, dimr};
     } else {
-        prop = {
-                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr},
-                {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("over_tex_name")), dimr},
-                borderColor,
-                highlightColor,
-                drawBorder
-            };
+        if(conf->Get("over_tex_name") == "") {
+            tex_prop = {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr};
+            over_tex_prop = {};
+        } else {   
+            tex_prop = {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")), dimr};
+            over_tex_prop = {root->GetScene(conf->Get("scene"))->GetTex(conf->Get("over_tex_name")), dimr};
+        }
     }
+
+    prop = {
+            tex_prop,
+            over_tex_prop,
+            backgroundColor,
+            borderColor,
+            highlightColor,
+            drawBorder
+        };
 
     return prop;
 }

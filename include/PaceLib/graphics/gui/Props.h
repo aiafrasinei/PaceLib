@@ -131,6 +131,7 @@ namespace PaceLib
     {
         TexProp normal;
         TexProp over;
+        SDL_Color backgroundColor;
         SDL_Color borderColor;
         SDL_Color highlightColor;
         bool drawBorder;
