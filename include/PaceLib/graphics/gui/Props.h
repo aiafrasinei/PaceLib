@@ -84,6 +84,7 @@ namespace PaceLib
         SDL_Color buttonsBackgroundColor;
         SDL_Color buttonsBorderColor;
         SDL_Color buttonsHighlightColor;
+        SDL_Color buttonsSelectionColor;
     };
 
     struct TabProp

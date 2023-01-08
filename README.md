@@ -1,4 +1,4 @@
-# PaceLib 1.0.2
+# PaceLib 1.0.3
 
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
@@ -81,10 +81,10 @@ Event handling:
     Tab::BeginBlock("first_tab");
 		Label::Begin("label_lbl");
 		Button::Begin("start_btn");
-		Button::Begin("exit_btn");
+		Button::Begin("exit");
 	Tab::EndBlock();
 	
-	root->GetTab("first_tab")->GetButton("exit_btn")->onClickCallback = []() {
+	root->GetTab("first_tab")->GetButton("exit")->onClickCallback = []() {
 		Window::running = false;
     };
    

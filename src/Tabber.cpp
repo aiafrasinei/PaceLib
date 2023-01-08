@@ -139,7 +139,6 @@ void Tabber::BeginTabBlock(std::string text)
                         tabber->GetProp().buttonsBorderColor,
                         tabber->GetProp().buttonsHighlightColor
                     };
-
     Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
     Button *b = (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
@@ -148,14 +147,16 @@ void Tabber::BeginTabBlock(std::string text)
     b->SetRectW(real_width);
     prop.rect.w = real_width;
     b->SetTextAlign(prop.align);
-
+    
     tabx = tabx + real_width + tabber->GetRect().w/99;
 
-    b->onClickCallback = [btext = b->name]() {
-        std::size_t pos = btext.find("_");
-        int index = std::stoi(btext.substr(pos+1));
+    b->onClickCallback = [b, tabber, prop]() {
+        std::size_t pos = b->name.find("_");
+        int index = std::stoi(b->name.substr(pos+1));
         current = 1 + index*2;
 
+        tabber->ClearHeaderColor(tabber->prop.buttonsBackgroundColor);
+        b->SetColor(tabber->prop.buttonsSelectionColor);
         once = true;
     };
 
@@ -212,6 +213,7 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf)
     SDL_Color buttonsBackgroundColor = Widget::ParseVar("buttons_background", conf, root->GetVars());
     SDL_Color buttonsBorderColor = Widget::ParseVar("buttons_border", conf, root->GetVars());
     SDL_Color buttonsHighlightColor = Widget::ParseVar("buttons_highlight", conf, root->GetVars());
+    SDL_Color buttonsSelectionColor = Widget::ParseVar("buttons_selection_color", conf, root->GetVars());
 
     TabberProp prop = {
                         dimr,
@@ -224,7 +226,8 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf)
                         align,
                         buttonsBackgroundColor,
                         buttonsBorderColor,
-                        buttonsHighlightColor
+                        buttonsHighlightColor,
+                        buttonsSelectionColor
                     };
     return prop;
 }
@@ -237,4 +240,11 @@ Tab *Tabber::GetTab(std::string child)
 Tab *Tabber::GetTab(int index)
 {
     return static_cast<Tab *>(this->Get("t_" + std::to_string(index)));
+}
+
+void Tabber::ClearHeaderColor(SDL_Color col)
+{
+    for(int i=0; i<nrtitles; i++) {
+        this->Get("h_" + std::to_string(i))->SetColor(col);
+    }
 }

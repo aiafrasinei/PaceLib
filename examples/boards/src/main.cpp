@@ -39,7 +39,7 @@ bool init()
 					ButtonTexProp p = { {nullptr, {(Window::width*3/100) + i * Window::width/20, (Window::width*0.015) + j * Window::width/21, Window::width/22, Window::height/22}},
 										{nullptr, {(Window::width*3/100) + i * Window::width/20, (Window::width*0.015) + j * Window::width/21, Window::width/22, Window::height/22}},
 										{100, 100, 100, 255}, {0, 0, 0, 255}, {120, 120, 120, 255}, false };
-					ButtonTex::Begin({root->GetCurrent(), "shogi_b" + i}, p);
+					ButtonTex::Begin({root->GetCurrent(), "go_b" + i}, p);
 				}
 			}
 		Tabber::EndTabBlock();

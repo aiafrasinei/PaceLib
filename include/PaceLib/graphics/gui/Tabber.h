@@ -83,6 +83,8 @@ namespace PaceLib
             static TabberProp LoadTabberProp(Configuration *conf);
 
             Tabber(ShapeId sid, TabberProp prop);
+
+            void ClearHeaderColor(SDL_Color col);
     };
     
 }

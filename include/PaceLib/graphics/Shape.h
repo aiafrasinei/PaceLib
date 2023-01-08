@@ -96,10 +96,7 @@ namespace PaceLib
 
         void SetColor(SDL_Color col)
         {
-            color.r = col.r;
-            color.g = col.g;
-            color.b = col.b;
-            color.a = col.a;
+            color = col;
         }
 
         Configuration *conf;
