@@ -5,6 +5,7 @@
 using namespace PaceLib;
 
 static bool once = true;
+static bool just_once = true;
 static int nrtabs = 0;
 static int nrtitles = 0;
 
@@ -97,6 +98,10 @@ void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 void Tabber::Draw()
 {
     if(!hidden) {
+        if(just_once) {
+            this->Get("h_" + std::to_string(current-1))->SetColor(prop.buttonsSelectionColor);
+            just_once = false;
+        }
         if(once) {
             for(int i=0; i<shapesNames.size();i++) {
                 char fc = shapesNames[i][0];
