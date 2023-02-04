@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
-#include "utils/sdlu.h"
+#include "utils/Platform.h"
 #include "utils/SDL2/SDL_FontCache.h"
 #include "TexContainer.hpp"
 

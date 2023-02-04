@@ -4,7 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <filesystem>
-#include "utils/sdlu.h"
+#include "utils/Platform.h"
 #include "Props.h"
 #include <map>
 
@@ -43,6 +43,7 @@ namespace PaceLib
         std::map<std::string, TexProp *> ntr;
         std::string name;
 
+        SDL_Texture* LoadTexture(SDL_Renderer* renderer, std::string path);
     };
     
 }

@@ -4,7 +4,7 @@
 #include <vector>
 #include "TexContainer.hpp"
 #include "FontContainer.hpp"
-#include "utils/sdlu.h"
+#include "utils/Platform.h"
 #include "core/interfaces/Drawable.hpp"
 
 

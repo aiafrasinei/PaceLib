@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "../utils/sdlu.h"
+#include "../utils/Platform.h"
 #include "../core/interfaces/Drawable.hpp"
 #include "../core/interfaces/Hidable.hpp"
 #include "../core/interfaces/Updateable.hpp"

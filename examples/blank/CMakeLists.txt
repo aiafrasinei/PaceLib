@@ -40,7 +40,6 @@ IF(UNIX)
     add_executable (blank
         src/main.cpp
 	    ../../src/ConLog.cpp
-	    ../../src/sdlu.cpp
         ../../src/Window.cpp
         ../../src/Init.cpp
         ../../src/Scene.cpp
@@ -67,8 +66,7 @@ IF(UNIX)
         ../../src/TextArea.cpp
         ../../src/TextInput.cpp
         ../../src/Tabber.cpp
-	    ../../src/Configuration.cpp
-        ../../src/Version.cpp)
+	    ../../src/Configuration.cpp)
 
     target_link_libraries(blank m dl SDL2 SDL2_image SDL2_ttf pthread)
 
@@ -84,7 +82,6 @@ ELSE (WIN32)
     add_executable (blank
         src/main.cpp
 	    ../../src/ConLog.cpp
-	    ../../src/sdlu.cpp
         ../../src/Window.cpp
         ../../src/Init.cpp
         ../../src/Scene.cpp

@@ -1,5 +1,6 @@
 #include "TexContainer.hpp"
 #include "Window.hpp"
+#include "utils/ConLog.hpp"
 
 
 using namespace PaceLib;
@@ -31,7 +32,7 @@ void TexContainer::ChangeName(std::string name)
 
 bool TexContainer::Add(std::filesystem::path file_path)
 {
-    SDL_Texture* tex = load_texture(renderer, file_path.c_str());
+    SDL_Texture* tex = LoadTexture(renderer, file_path.c_str());
     if(tex == nullptr) {
 		return false;
     }
@@ -95,4 +96,29 @@ void TexContainer::Remove(std::string name)
 {    
     SDL_DestroyTexture(ntr[name]->tex);
     ntr.erase(name);
+}
+
+SDL_Texture* TexContainer::LoadTexture(SDL_Renderer* renderer, std::string path)
+{
+    SDL_Texture* new_tex = nullptr;
+
+    SDL_Surface* loaded_surface = IMG_Load(path.c_str());
+    if(loaded_surface == nullptr)
+    {
+		ConLog::Error("Unable to load image " + path + "! SDL_image Error: " + IMG_GetError());
+    }
+    else
+    {
+        new_tex = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+        if(new_tex == nullptr)
+        {
+			ConLog::Error("Unable to create texture from " + path + "! SDL Error: " + SDL_GetError());
+        } else {
+			ConLog::Info("Loaded " + path);
+		}
+
+        SDL_FreeSurface(loaded_surface);
+    }
+
+    return new_tex;
 }

@@ -37,7 +37,6 @@ IF(UNIX)
     add_executable (sdl2
         src/main.cpp
         ../../src/ConLog.cpp
-        ../../src/sdlu.cpp
         ../../src/Window.cpp
         ../../src/Init.cpp
         ../../src/Scene.cpp
@@ -81,7 +80,6 @@ ELSE (WIN32)
     add_executable (sdl2 
         src/main.cpp
         ../../src/ConLog.cpp
-        ../../src/sdlu.cpp
         ../../src/Window.cpp
         ../../src/Init.cpp
         ../../src/Scene.cpp
