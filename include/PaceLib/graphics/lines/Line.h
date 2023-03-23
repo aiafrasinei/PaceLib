@@ -32,7 +32,7 @@ namespace PaceLib
 
 // programmatic
 
-        static void Begin(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color);
+        static void Begin(ShapeId sid, LineProp prop);
 
 //end static methods
 
@@ -43,9 +43,10 @@ namespace PaceLib
     protected:         
 
     private:
+        LineProp prop;
         int x1, y1, x2, y2;
 
-        Line(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color);
+        Line(ShapeId sid, LineProp prop);
     };
 
 }

@@ -64,6 +64,26 @@ namespace PaceLib
         int radius;
         SDL_Color color;
     };
+
+    struct TriangleProp
+    {
+        float x1;
+        float y1;
+        float x2;
+        float y2;
+        float x3;
+        float y3;
+        SDL_Color color;
+    };
+
+    struct LineProp
+    {
+        float x1;
+        float y1;
+        float x2;
+        float y2;
+        SDL_Color color;
+    };
     
     struct SpriteProp
     {

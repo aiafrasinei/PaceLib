@@ -109,10 +109,7 @@ namespace PaceLib
 
         void SetRect(SDL_Rect rect)
         {
-            this->rect.x = rect.x;
-            this->rect.y = rect.y;
-            this->rect.w = rect.w;
-            this->rect.h = rect.h;
+            this->rect = rect;
         }
 
         void SetRectX(float x)

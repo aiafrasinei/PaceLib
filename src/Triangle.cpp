@@ -4,20 +4,21 @@
 using namespace PaceLib;
 
 
-Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+Triangle::Triangle(ShapeId sid, TriangleProp prop)
 {
-    SetColor(color);
+    this->prop = prop;
+    color = prop.color;
 
     if(sid.parent->name == "root") {
-        points[0] = {static_cast<int>(x1), static_cast<int>(y1)};
-        points[1] = {static_cast<int>(x2), static_cast<int>(y2)};
-        points[2] = {static_cast<int>(x3), static_cast<int>(y3)};
-        points[3] = {static_cast<int>(x1), static_cast<int>(y1)};
+        points[0] = {static_cast<int>(prop.x1), static_cast<int>(prop.y1)};
+        points[1] = {static_cast<int>(prop.x2), static_cast<int>(prop.y2)};
+        points[2] = {static_cast<int>(prop.x3), static_cast<int>(prop.y3)};
+        points[3] = {static_cast<int>(prop.x1), static_cast<int>(prop.y1)};
     } else {
-        points[0] = {static_cast<int>(sid.parent->GetRect().x + x1), static_cast<int>(sid.parent->GetRect().y + y1)};
-        points[1] = {static_cast<int>(sid.parent->GetRect().x + x2), static_cast<int>(sid.parent->GetRect().y + y2)};
-        points[2] = {static_cast<int>(sid.parent->GetRect().x + x3), static_cast<int>(sid.parent->GetRect().y + y3)};
-        points[3] = {static_cast<int>(sid.parent->GetRect().x + x1), static_cast<int>(sid.parent->GetRect().y + y1)};
+        points[0] = {static_cast<int>(sid.parent->GetRect().x + prop.x1), static_cast<int>(sid.parent->GetRect().y + prop.y1)};
+        points[1] = {static_cast<int>(sid.parent->GetRect().x + prop.x2), static_cast<int>(sid.parent->GetRect().y + prop.y2)};
+        points[2] = {static_cast<int>(sid.parent->GetRect().x + prop.x3), static_cast<int>(sid.parent->GetRect().y + prop.y3)};
+        points[3] = {static_cast<int>(sid.parent->GetRect().x + prop.x1), static_cast<int>(sid.parent->GetRect().y + prop.y1)};
     }
     
 
@@ -49,15 +50,15 @@ void Triangle::Begin(ShapeId sid)
     if(std::filesystem::exists(path)) {
         Configuration *conf = new Configuration(path);
 
-        int x1 = conf->Get("x1");
-        int y1 = conf->Get("y1");
-        int x2 = conf->Get("x2");
-        int y2 = conf->Get("y2");
-        int x3 = conf->Get("x3");
-        int y3 = conf->Get("y3");
+        float x1 = conf->Get("x1");
+        float y1 = conf->Get("y1");
+        float x2 = conf->Get("x2");
+        float y2 = conf->Get("y2");
+        float x3 = conf->Get("x3");
+        float y3 = conf->Get("y3");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
         
-        sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
+        sid.parent->Add(new Triangle(sid, { x1, y1, x2, y2, x3, y3, color } ));
     }
 }
 
@@ -90,9 +91,9 @@ void Triangle::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Triangle::Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color)
+void Triangle::Begin(ShapeId sid, TriangleProp prop)
 {
-    sid.parent->Add(new Triangle(sid, x1, y1, x2, y2, x3, y3, color));
+    sid.parent->Add(new Triangle(sid, prop));
 }
 
 void Triangle::SetColor(SDL_Color color)

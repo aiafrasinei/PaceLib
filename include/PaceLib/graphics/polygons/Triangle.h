@@ -34,7 +34,7 @@ namespace PaceLib
 
 // programmatic
 
-        static void Begin(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        static void Begin(ShapeId sid, TriangleProp prop);
 
 //end static methods
 
@@ -46,11 +46,13 @@ namespace PaceLib
     protected:         
 
     private:
+        TriangleProp prop;
+        
         SDL_Point points[4];
 
         SDL_Vertex verts[3];
 
-        Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3, float y3, SDL_Color color);
+        Triangle(ShapeId sid, TriangleProp prop);
     };
 
 }

@@ -27,18 +27,19 @@ bool init()
 	root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
 	root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
-	Line::Begin({root, "line"}, 200, 100 , 300 , 200, { 50, 100, 50, 255 } );
+	Line::Begin({root, "line"}, { 200, 100 , 300 , 200, { 50, 100, 50, 255 } } );
 
-	Line::Begin({root, "hline"}, 400, 300, 300, 300, { 50, 100, 150, 255 });
+	Line::Begin({root, "hline"}, { 400, 300, 300, 300, { 50, 100, 150, 255 } } );
 
-	Line::Begin({root, "vline"}, 350, 350, 350, 400, { 50, 100, 150, 255 });
+	Line::Begin({root, "vline"}, { 350, 350, 350, 400, { 50, 100, 150, 255 } } );
 
-	Triangle::Begin({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
+	Triangle::Begin({root, "tri"}, { 0, 0, 150, 0, 150, 150, { 50, 150, 50, 255 } } );
 
 	Rectangle::Begin({root, "rect1"}, { { 500, 300, 200, 200 } , { 100, 50, 50, 255 } } );
 
 	Circle::Begin({root, "cir1"}, { 200, 100, 30, { 20, 20, 50, 255 } } );
 	Circle::Begin({root, "cir2"}, { 400, 100, 30, { 50, 50, 70, 255 } } );
+	((Circle *)root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
 
 	TextProp prop = { 600, 100, root->GetScene("Default")->GetFont("lazy_font"), "some text", {50, 50, 50, 255} };
 	Text::Begin({root, "text"}, prop);

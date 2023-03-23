@@ -3,26 +3,22 @@
 
 using namespace PaceLib;
 
-Line::Line(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
+Line::Line(ShapeId sid, LineProp prop)
 {
-    if(sid.name == "root") {
-        this->x1 = x1;
-        this->y1 = y1;
-        this->x2 = x2;
-        this->y2 = y2;
-    } else {
-        this->x1 = sid.parent->GetRect().x + x1;
-        this->y1 = sid.parent->GetRect().y + y1;
-        this->x2 = sid.parent->GetRect().x + x2;
-        this->y2 = sid.parent->GetRect().y + y2;
+    this->prop = prop;
+
+    if(sid.name != "root") {
+        this->prop.x1 = sid.parent->GetRect().x + prop.x1;
+        this->prop.y1 = sid.parent->GetRect().y + prop.y1;
+        this->prop.x2 = sid.parent->GetRect().x + prop.x2;
+        this->prop.y2 = sid.parent->GetRect().y + prop.y2;
     }
 
     hidden = false;
 
     this->name = name;
 
-    SetColor(color);
-
+    color = prop.color;
 }
 
 Line::~Line()
@@ -36,13 +32,13 @@ void Line::Begin(ShapeId sid)
     if(std::filesystem::exists(path)) {
         Configuration *conf = new Configuration(path);
 
-        int x1 = conf->Get("x1");
-        int y1 = conf->Get("y1");
-        int x2 = conf->Get("x2");
-        int y2 = conf->Get("y2");
+        float x1 = conf->Get("x1");
+        float y1 = conf->Get("y1");
+        float x2 = conf->Get("x2");
+        float y2 = conf->Get("y2");
 
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
-        sid.parent->Add(new Line(sid, x1, y1, x2, y2, color));
+        sid.parent->Add(new Line(sid, { x1, y1, x2, y2, color } ));
     }
 }
 
@@ -62,9 +58,9 @@ void Line::BeginBlock(std::string name)
     root->GetCurrent()->SetParent(prevParent);
 }
 
-void Line::Begin(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
+void Line::Begin(ShapeId sid, LineProp prop)
 {
-    sid.parent->Add(new Line(sid, x1, y1, x2, y2, color));
+    sid.parent->Add(new Line(sid, prop));
 }
 
 void Line::EndBlock()
@@ -77,7 +73,7 @@ void Line::Draw()
 {
     if(!hidden) {
         SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
-        SDL_RenderDrawLine(Window::GetRenderer(), x1, y1, x2, y2);
+        SDL_RenderDrawLine(Window::GetRenderer(), prop.x1, prop.y1, prop.x2, prop.y2);
     }
 }
 
