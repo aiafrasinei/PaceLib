@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "PaceLib::ButtonTexProp", "structPaceLib_1_1ButtonTexProp.html", null ],
+    [ "PaceLib::CircleProp", "structPaceLib_1_1CircleProp.html", null ],
     [ "Configuration", "classConfiguration.html", null ],
     [ "ConLog", "classConLog.html", null ],
     [ "Drawable", "classDrawable.html", [
@@ -60,6 +61,7 @@ var hierarchy =
     [ "PaceLib::PropFontText", "structPaceLib_1_1PropFontText.html", null ],
     [ "Random", "classRandom.html", null ],
     [ "PaceLib::ShapeId", "structPaceLib_1_1ShapeId.html", null ],
+    [ "PaceLib::SpriteProp", "structPaceLib_1_1SpriteProp.html", null ],
     [ "State", "classState.html", null ],
     [ "PaceLib::TabberProp", "structPaceLib_1_1TabberProp.html", null ],
     [ "PaceLib::TabProp", "structPaceLib_1_1TabProp.html", null ],
