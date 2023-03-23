@@ -14,10 +14,10 @@ Triangle::Triangle(ShapeId sid, float x1, float y1, float x2, float y2, float x3
         points[2] = {static_cast<int>(x3), static_cast<int>(y3)};
         points[3] = {static_cast<int>(x1), static_cast<int>(y1)};
     } else {
-        points[0] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
-        points[1] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x2), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y2)};
-        points[2] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x3), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y3)};
-        points[3] = {static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().x + x1), static_cast<int>(static_cast<Widget *>(sid.parent)->GetRect().y + y1)};
+        points[0] = {static_cast<int>(sid.parent->GetRect().x + x1), static_cast<int>(sid.parent->GetRect().y + y1)};
+        points[1] = {static_cast<int>(sid.parent->GetRect().x + x2), static_cast<int>(sid.parent->GetRect().y + y2)};
+        points[2] = {static_cast<int>(sid.parent->GetRect().x + x3), static_cast<int>(sid.parent->GetRect().y + y3)};
+        points[3] = {static_cast<int>(sid.parent->GetRect().x + x1), static_cast<int>(sid.parent->GetRect().y + y1)};
     }
     
 
@@ -76,7 +76,7 @@ void Triangle::BeginBlock(std::string name)
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
@@ -84,7 +84,7 @@ void Triangle::EndBlock()
 {
     Root *root = &Root::GetInstance();
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
     root->SetCurrent(root->GetCurrent()->GetParent());

@@ -10,8 +10,8 @@ Lines::Lines(ShapeId sid, std::vector<SDL_Point> verts)
     for (int i=0; i<verts.size(); i++)
     {
         if(sid.parent->name != "root") {
-            verts[i].x = static_cast<Widget *>(sid.parent)->GetRect().x + verts[i].x;
-            verts[i].y = static_cast<Widget *>(sid.parent)->GetRect().y + verts[i].y;
+            verts[i].x = sid.parent->GetRect().x + verts[i].x;
+            verts[i].y = sid.parent->GetRect().y + verts[i].y;
         }
     }
 

@@ -12,8 +12,8 @@ Label::Label(ShapeId sid, LabelProp prop)
     rect = prop.rect;
 
     if(sid.parent->name != "root") {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
+        rect.x = sid.parent->GetRect().x + prop.rect.x;
+        rect.y = sid.parent->GetRect().y + prop.rect.y;
     }
     
     this->prop.rect = rect;
@@ -69,7 +69,7 @@ void Label::BeginBlock(std::string name)
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
@@ -77,7 +77,7 @@ void Label::EndBlock()
 {
     Root *root = &Root::GetInstance();
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
     root->SetCurrent(root->GetCurrent()->GetParent());

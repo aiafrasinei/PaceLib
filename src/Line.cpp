@@ -11,10 +11,10 @@ Line::Line(ShapeId sid, int x1, int y1, int x2, int y2, SDL_Color color)
         this->x2 = x2;
         this->y2 = y2;
     } else {
-        this->x1 = static_cast<Widget *>(sid.parent)->GetRect().x + x1;
-        this->y1 = static_cast<Widget *>(sid.parent)->GetRect().y + y1;
-        this->x2 = static_cast<Widget *>(sid.parent)->GetRect().x + x2;
-        this->y2 = static_cast<Widget *>(sid.parent)->GetRect().y + y2;
+        this->x1 = sid.parent->GetRect().x + x1;
+        this->y1 = sid.parent->GetRect().y + y1;
+        this->x2 = sid.parent->GetRect().x + x2;
+        this->y2 = sid.parent->GetRect().y + y2;
     }
 
     hidden = false;

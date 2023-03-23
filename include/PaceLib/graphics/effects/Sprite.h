@@ -32,7 +32,7 @@ namespace PaceLib
 
 // programmatic
 
-        static void Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+        static void Begin(ShapeId sid, SpriteProp prop);
 
 //end static methods
 
@@ -46,6 +46,8 @@ namespace PaceLib
     protected:         
 
     private:
+        SpriteProp prop;
+        
         SDL_Texture *tex;
 
         SDL_Rect src_rect;
@@ -54,7 +56,7 @@ namespace PaceLib
         int offset;
         int nr;
 
-        Sprite(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr);
+        Sprite(ShapeId sid, SpriteProp prop);
     };
 
 }

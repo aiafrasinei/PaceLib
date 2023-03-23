@@ -4,23 +4,21 @@
 
 using namespace PaceLib;
 
-Rectangle::Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color)
+Rectangle::Rectangle(ShapeId sid, PropDimColor prop)
 {
-    SetColor(color);
+    this->prop = prop;
+    rect = prop.rect;
 
-    if(sid.parent->name == "root") {
-        rect.x = dim.x;
-        rect.y = dim.y;
-    } else {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
+    color = prop.color;
+
+    if(sid.parent->name != "root") {
+        rect.x = sid.parent->GetRect().x + prop.rect.x;
+        rect.y = sid.parent->GetRect().y + prop.rect.y;
     }
 
-    rect.w = dim.w;
-    rect.h = dim.h;
+  
 
     hidden = false;
-    rounded = false;
 
     this->name = sid.name;
 }
@@ -41,7 +39,7 @@ void Rectangle::Begin(ShapeId sid)
 
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        sid.parent->Add(new Rectangle(sid, {dim[0], dim[1], dim[2], dim[3]}, color));
+        sid.parent->Add(new Rectangle(sid, { {dim[0], dim[1], dim[2], dim[3]} , color } ));
     }
 }
 
@@ -61,9 +59,9 @@ void Rectangle::BeginBlock(std::string name)
     root->GetCurrent()->SetParent(prevParent);
 }
 
-void Rectangle::Begin(ShapeId sid, SDL_Rect shape, SDL_Color color)
+void Rectangle::Begin(ShapeId sid, PropDimColor prop)
 {
-    sid.parent->Add(new Rectangle(sid, shape, color));
+    sid.parent->Add(new Rectangle(sid, prop));
 }
 
 void Rectangle::EndBlock()
@@ -79,17 +77,4 @@ void Rectangle::Draw()
 
         SDL_RenderFillRect(Window::GetRenderer(), &rect);
     }
-}
-
-void Rectangle::SetRect(float x, float y, float w , float h)
-{
-    rect.x = x;
-    rect.y = y;
-    rect.w = w;
-    rect.h = h;
-}
-
-void Rectangle::SetRounded(bool rounded)
-{
-    this->rounded = rounded;
 }

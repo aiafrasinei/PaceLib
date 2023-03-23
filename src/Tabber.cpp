@@ -19,8 +19,8 @@ Tabber::Tabber(ShapeId sid, TabberProp prop)
     rect = prop.rect;
 
     if(sid.parent->name != "root") {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.rect.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.rect.y;
+        rect.x = sid.parent->GetRect().x + prop.rect.x;
+        rect.y = sid.parent->GetRect().y + prop.rect.y;
     }
 
     this->prop.rect = rect;

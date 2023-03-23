@@ -13,51 +13,6 @@ namespace PaceLib
         public:
             virtual void Draw() = 0;
 
-            void SetRect(float x, float y, float w , float h)
-            {
-                rect.x = x;
-                rect.y = y;
-                rect.w = w;
-                rect.h = h;
-            }
-
-            void SetRect(SDL_Rect rect)
-            {
-                this->rect.x = rect.x;
-                this->rect.y = rect.y;
-                this->rect.w = rect.w;
-                this->rect.h = rect.h;
-            }
-
-            void SetRectX(float x)
-            {
-                rect.x = x;
-            }
-
-            void SetRectY(float y)
-            {
-                rect.y = y;
-            }
-
-            void SetRectW(float w)
-            {
-                rect.w = w;
-            }
-
-            void SetRectH(float h)
-            {
-                rect.h = h;
-            }
-
-
-            SDL_Rect GetRect()
-            {
-                return rect;
-            }
-
-            float GetHalfX() { return rect.x + rect.w/2; }
-            float GetHalfY() { return rect.y + rect.h/2; }
-
             void SetBorderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
             {
                 borderColor.r = r;
@@ -116,8 +71,6 @@ namespace PaceLib
                 return color;
             }
         protected:
-            SDL_Rect rect = {0, 0, 0, 0};
-
             SDL_Color borderColor;
 
             WidgetType wtype;

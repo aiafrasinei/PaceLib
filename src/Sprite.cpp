@@ -5,32 +5,34 @@
 
 using namespace PaceLib;
 
-Sprite::Sprite(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+Sprite::Sprite(ShapeId sid, SpriteProp prop)
 {
-    this->tex = tex;
+    this->prop = prop;
 
-    if(sid.parent->name == "root") {
-        dest_rect.x = dim.x;
-        dest_rect.y = dim.y;
-    } else {
-        dest_rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
-        dest_rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
+    rect = this->prop.dim;
+
+    dest_rect = this->prop.dim;
+    tex = this->prop.tex;
+
+    if(sid.parent->name != "root") {
+        dest_rect.x = sid.parent->GetRect().x + prop.dim.x;
+        dest_rect.y = sid.parent->GetRect().y + prop.dim.y;
     }
 
-    dest_rect.w = dim.w;
-    dest_rect.h = dim.h;
+    dest_rect.w = this->prop.dim.w;
+    dest_rect.h = this->prop.dim.h;
 
     hidden = false;
     
-    this->name = sid.name;
+    name = sid.name;
 
-    this->offset = offset;
-    this->nr = nr;
+    offset = this->prop.offset;
+    nr = this->prop.nr;
 
     src_rect.x = 0;
     src_rect.y = 0;
-    src_rect.w = offset;
-    src_rect.h = offset;
+    src_rect.w = this->prop.offset;
+    src_rect.h = this->prop.offset;
 
 }
 
@@ -50,7 +52,7 @@ void Sprite::Begin(ShapeId sid)
     
         SDL_Texture *tex = Root::GetInstance().GetScene(conf->Get("scene").get<std::string>())->GetTex(conf->Get("tex_name").get<std::string>());
 
-        sid.parent->Add(new Sprite(sid, tex, {dim[0], dim[1], dim[2], dim[3]}, conf->Get("offset").get<int>(), conf->Get("nr").get<int>()));
+        sid.parent->Add(new Sprite(sid, { tex, {dim[0], dim[1], dim[2], dim[3]}, conf->Get("offset").get<int>(), conf->Get("nr").get<int>() } ));
     }
 }
 
@@ -76,9 +78,9 @@ void Sprite::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Sprite::Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim, int offset, int nr)
+void Sprite::Begin(ShapeId sid, SpriteProp prop)
 {
-    sid.parent->Add(new Sprite(sid, tex, dim, offset, nr));
+    sid.parent->Add(new Sprite(sid, prop));
 }
 
 void Sprite::Draw()

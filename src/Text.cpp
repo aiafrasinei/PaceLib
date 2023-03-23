@@ -9,8 +9,8 @@ Text::Text(ShapeId sid, TextProp prop)
     this->prop = prop;
 
     if(sid.parent->name != "root") {
-        this->prop.x = static_cast<Widget *>(sid.parent)->GetRect().x + prop.x;
-        this->prop.y = static_cast<Widget *>(sid.parent)->GetRect().y + prop.y;
+        this->prop.x = sid.parent->GetRect().x + prop.x;
+        this->prop.y = sid.parent->GetRect().y + prop.y;
     }
 
     hidden = false;
@@ -58,7 +58,7 @@ void Text::BeginBlock(std::string name)
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
@@ -66,7 +66,7 @@ void Text::EndBlock()
 {
     Root *root = &Root::GetInstance();
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
     root->SetCurrent(root->GetCurrent()->GetParent());

@@ -29,25 +29,18 @@ namespace PaceLib
         
 // programmatic
 
-        static void Begin(ShapeId sid, SDL_Rect dim, SDL_Color color);
+        static void Begin(ShapeId sid, PropDimColor prop);
 
 //end static methods
-
-        void SetRect(float x, float y, float w , float h);
-
-        void SetRounded(bool rounded);
-
         void Draw();
         
         ~Rectangle();
     protected:         
 
     private:
-        SDL_Rect rect;
+        PropDimColor prop;
 
-        bool rounded;
-
-        Rectangle(ShapeId sid, SDL_Rect dim, SDL_Color color);
+        Rectangle(ShapeId sid, PropDimColor prop);
     };
 
 }

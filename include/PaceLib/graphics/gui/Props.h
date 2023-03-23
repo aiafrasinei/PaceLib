@@ -56,8 +56,22 @@ namespace PaceLib
         FC_Font *font;
         std::string text;
     };
-    
 
+    struct CircleProp
+    {
+        int x;
+        int y;
+        int radius;
+        SDL_Color color;
+    };
+    
+    struct SpriteProp
+    {
+        SDL_Texture *tex;
+        SDL_Rect dim;
+        int offset;
+        int nr;
+    };
 
     struct LabelProp
     {

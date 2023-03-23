@@ -50,7 +50,7 @@ void Button::BeginBlock(std::string name)
     root->SetCurrent(root->GetCurrent()->Get(name));
     root->GetCurrent()->SetParent(prevParent);
  
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
@@ -58,7 +58,7 @@ void Button::EndBlock()
 {
     Root *root = &Root::GetInstance();
 
-    Widget *c = ((Widget *)root->GetCurrent());
+    Shape *c = root->GetCurrent();
     root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
     root->SetCurrent(root->GetCurrent()->GetParent());

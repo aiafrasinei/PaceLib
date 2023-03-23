@@ -31,7 +31,7 @@ namespace PaceLib
 
 // programmatic
 
-        static void Begin(ShapeId sid, float x, float y, float radius, SDL_Color color);
+        static void Begin(ShapeId sid, CircleProp prop);
 
 //end static methods
 
@@ -43,11 +43,11 @@ namespace PaceLib
     protected:         
 
     private:
+        CircleProp prop;
+
         DrawTypes rtype;
 
-        float x, y, radius;
-
-        Circle(ShapeId sid, float x, float y, float radius, SDL_Color color);
+        Circle(ShapeId sid, CircleProp prop);
     };
 
 }

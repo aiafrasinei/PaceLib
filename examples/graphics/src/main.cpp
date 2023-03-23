@@ -35,15 +35,15 @@ bool init()
 
 	Triangle::Begin({root, "tri"}, 0, 0, 150, 0, 150, 150, { 50, 100, 50, 255 } );
 
-	Rectangle::Begin({root, "rect1"}, { 500, 300, 200, 200 } , { 100, 50, 50, 255 } );
+	Rectangle::Begin({root, "rect1"}, { { 500, 300, 200, 200 } , { 100, 50, 50, 255 } } );
 
-	Circle::Begin({root, "cir1"}, 200, 100, 30, { 20, 20, 50, 255 });
-	Circle::Begin({root, "cir2"}, 400, 100, 30, { 50, 50, 70, 255 });
+	Circle::Begin({root, "cir1"}, { 200, 100, 30, { 20, 20, 50, 255 } } );
+	Circle::Begin({root, "cir2"}, { 400, 100, 30, { 50, 50, 70, 255 } } );
 
 	TextProp prop = { 600, 100, root->GetScene("Default")->GetFont("lazy_font"), "some text", {50, 50, 50, 255} };
 	Text::Begin({root, "text"}, prop);
 
-	Sprite::Begin({root, "sprite"}, root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5);
+	Sprite::Begin({root, "sprite"}, { root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5 } );
 
 	scroll_background = ScrollingBackground::Begin(root->GetScene("Default")->GetTex("bg.png"), { 0, 0, w, h } );
 

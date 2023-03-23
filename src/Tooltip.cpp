@@ -9,10 +9,10 @@ Tooltip::Tooltip(ShapeId sid, TooltipProp prop)
 
     this->parent = sid.parent;
 
-    SDL_Rect child = static_cast<Widget *>(sid.parent)->GetRect();
+    SDL_Rect child = sid.parent->GetRect();
 
-    child.x = child.x + static_cast<Widget *>(sid.parent)->GetRect().w / 2;
-    child.y = child.y + static_cast<Widget *>(sid.parent)->GetRect().h / 2;
+    child.x = child.x + sid.parent->GetRect().w / 2;
+    child.y = child.y + sid.parent->GetRect().h / 2;
 
     rect = child;
 

@@ -5,23 +5,20 @@
 using namespace PaceLib;
 
 
-Circle::Circle(ShapeId sid, float x, float y, float radius, SDL_Color color)
+Circle::Circle(ShapeId sid, CircleProp prop)
 {
-    if(sid.parent->name == "root") {
-        this->x = x;
-        this->y = y;
-    } else {
-        this->x = static_cast<Widget *>(sid.parent)->GetRect().x + x;
-        this->y = static_cast<Widget *>(sid.parent)->GetRect().y + y;
-    }
+    this->prop = prop;
 
-    this->radius = radius;
+    if(sid.parent->name != "root") {
+        this->prop.x = sid.parent->GetRect().x + prop.x;
+        this->prop.y = sid.parent->GetRect().y + prop.y;
+    }
 
     hidden = false;
 
     rtype = DrawTypes::OUTLINE;
 
-    SetColor(color);
+    color = prop.color;
 
     this->name = sid.name;
 }
@@ -47,7 +44,7 @@ void Circle::Begin(ShapeId sid)
         int radius = conf->Get("radius");
         SDL_Color color = { conf->Get("color")[0], conf->Get("color")[1], conf->Get("color")[2], conf->Get("color")[3]};
 
-        sid.parent->Add(new Circle(sid, x, y, radius, color));
+        sid.parent->Add(new Circle(sid, { x, y, radius, color }));
     }
 }
 
@@ -73,9 +70,9 @@ void Circle::EndBlock()
     root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Circle::Begin(ShapeId sid, float x, float y, float radius, SDL_Color color)
+void Circle::Begin(ShapeId sid, CircleProp prop)
 {
-    sid.parent->Add(new Circle(sid, x, y, radius, color));
+    sid.parent->Add(new Circle(sid,  prop ));
 }
 
 void Circle::Draw()
@@ -88,19 +85,19 @@ void Circle::Draw()
             int status;
             
             offsetx = 0;
-            offsety = radius;
-            d = radius -1;
+            offsety = prop.radius;
+            d = prop.radius -1;
             status = 0;
 
             while (offsety >= offsetx) {
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x + offsetx, y + offsety);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x + offsety, y + offsetx);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x - offsetx, y + offsety);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x - offsety, y + offsetx);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x + offsetx, y - offsety);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x + offsety, y - offsetx);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x - offsetx, y - offsety);
-                status += SDL_RenderDrawPoint(Window::GetRenderer(), x - offsety, y - offsetx);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x + offsetx, prop.y + offsety);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x + offsety, prop.y + offsetx);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x - offsetx, prop.y + offsety);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x - offsety, prop.y + offsetx);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x + offsetx, prop.y - offsety);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x + offsety, prop.y - offsetx);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x - offsetx, prop.y - offsety);
+                status += SDL_RenderDrawPoint(Window::GetRenderer(), prop.x - offsety, prop.y - offsetx);
 
                 if (status < 0) {
                     status = -1;
@@ -111,7 +108,7 @@ void Circle::Draw()
                     d -= 2*offsetx + 1;
                     offsetx +=1;
                 }
-                else if (d < 2 * (radius - offsety)) {
+                else if (d < 2 * (prop.radius - offsety)) {
                     d += 2 * offsety - 1;
                     offsety -= 1;
                 }
@@ -126,16 +123,16 @@ void Circle::Draw()
             int status;
 
             offsetx = 0;
-            offsety = radius;
-            d = radius -1;
+            offsety = prop.radius;
+            d = prop.radius -1;
             status = 0;
 
             while (offsety >= offsetx) {
 
-                status += SDL_RenderDrawLine(Window::GetRenderer(), x - offsety, y + offsetx, x + offsety, y + offsetx);
-                status += SDL_RenderDrawLine(Window::GetRenderer(), x - offsetx, y + offsety, x + offsetx, y + offsety);
-                status += SDL_RenderDrawLine(Window::GetRenderer(), x - offsetx, y - offsety, x + offsetx, y - offsety);
-                status += SDL_RenderDrawLine(Window::GetRenderer(), x - offsety, y - offsetx, x + offsety, y - offsetx);
+                status += SDL_RenderDrawLine(Window::GetRenderer(), prop.x - offsety, prop.y + offsetx, prop.x + offsety, prop.y + offsetx);
+                status += SDL_RenderDrawLine(Window::GetRenderer(), prop.x - offsetx, prop.y + offsety, prop.x + offsetx, prop.y + offsety);
+                status += SDL_RenderDrawLine(Window::GetRenderer(), prop.x - offsetx, prop.y - offsety, prop.x + offsetx, prop.y - offsety);
+                status += SDL_RenderDrawLine(Window::GetRenderer(), prop.x - offsety, prop.y - offsetx, prop.x + offsety, prop.y - offsetx);
 
                 if (status < 0) {
                     status = -1;
@@ -146,7 +143,7 @@ void Circle::Draw()
                     d -= 2*offsetx + 1;
                     offsetx +=1;
                 }
-                else if (d < 2 * (radius - offsety)) {
+                else if (d < 2 * (prop.radius - offsety)) {
                     d += 2 * offsety - 1;
                     offsety -= 1;
                 }

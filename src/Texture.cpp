@@ -153,8 +153,8 @@ Texture::Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim)
         rect.x = dim.x;
         rect.y = dim.y;
     } else {
-        rect.x = static_cast<Widget *>(sid.parent)->GetRect().x + dim.x;
-        rect.y = static_cast<Widget *>(sid.parent)->GetRect().y + dim.y;
+        rect.x = sid.parent->GetRect().x + dim.x;
+        rect.y = sid.parent->GetRect().y + dim.y;
     }
     
     rect.w = dim.w;
@@ -209,7 +209,7 @@ void Texture::BeginBlock(std::string name)
 	root->SetCurrent(root->GetCurrent()->Get(name));
 	root->GetCurrent()->SetParent(prevParent);
 
-	Widget *c = ((Widget *)root->GetCurrent());
+	Shape *c = root->GetCurrent();
     root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
@@ -217,7 +217,7 @@ void Texture::EndBlock()
 {
     Root *root = &Root::GetInstance();
 
-	Widget *c = ((Widget *)root->GetCurrent());
+	Shape *c = root->GetCurrent();
     root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
     root->SetCurrent(root->GetCurrent()->GetParent());

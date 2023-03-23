@@ -10,8 +10,8 @@ Polygon::Polygon(ShapeId sid, std::vector<SDL_Vertex> verts)
     for (int i=0; i<verts.size(); i++)
     {
         if(sid.parent->name != "root") {
-            verts[i].position.x = static_cast<Widget *>(sid.parent)->GetRect().x + verts[i].position.x;
-            verts[i].position.y = static_cast<Widget *>(sid.parent)->GetRect().y + verts[i].position.y;
+            verts[i].position.x = sid.parent->GetRect().x + verts[i].position.x;
+            verts[i].position.y = sid.parent->GetRect().y + verts[i].position.y;
         }
     }
 
