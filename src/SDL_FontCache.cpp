@@ -11,62 +11,11 @@ See SDL_FontCache.h for license info.
 #include <stdlib.h>
 #include <string.h>
 
-// Visual C does not support static inline
-#ifndef static_inline
-	#ifdef _MSC_VER
-		#define static_inline static
-	#else
-		#define static_inline static inline
-	#endif
-#endif
 
-#if SDL_VERSION_ATLEAST(2,0,0)
-    #define FC_GET_ALPHA(sdl_color) ((sdl_color).a)
-#else
-    #define FC_GET_ALPHA(sdl_color) ((sdl_color).unused)
-#endif
-
-// Need SDL_RenderIsClipEnabled() for proper clipping support
-#if SDL_VERSION_ATLEAST(2,0,4)
-    #define ENABLE_SDL_CLIPPING
-#endif
+#define FC_GET_ALPHA(sdl_color) ((sdl_color).a)
 
 #define FC_MIN(a,b) ((a) < (b)? (a) : (b))
 #define FC_MAX(a,b) ((a) > (b)? (a) : (b))
-
-
-// vsnprintf replacement from Valentin Milea:
-// http://stackoverflow.com/questions/2915672/snprintf-and-visual-studio-2010
-#if defined(_MSC_VER) && _MSC_VER < 1900
-
-#define snprintf c99_snprintf
-#define vsnprintf c99_vsnprintf
-
-__inline int c99_vsnprintf(char *outBuf, size_t size, const char *format, va_list ap)
-{
-    int count = -1;
-
-    if (size != 0)
-        count = _vsnprintf_s(outBuf, size, _TRUNCATE, format, ap);
-    if (count == -1)
-        count = _vscprintf(format, ap);
-
-    return count;
-}
-
-__inline int c99_snprintf(char *outBuf, size_t size, const char *format, ...)
-{
-    int count;
-    va_list ap;
-
-    va_start(ap, format);
-    count = c99_vsnprintf(outBuf, size, format, ap);
-    va_end(ap);
-
-    return count;
-}
-
-#endif
 
 
 #define FC_EXTRACT_VARARGS(buffer, start_args) \
@@ -82,54 +31,28 @@ __inline int c99_snprintf(char *outBuf, size_t size, const char *format, ...)
 
 
 
-static Uint8 has_clip(FC_Target* dest)
+static Uint8 has_clip(SDL_Renderer* dest)
 {
-    #ifdef FC_USE_SDL_GPU
-    return dest->use_clip_rect;
-    #elif defined(ENABLE_SDL_CLIPPING)
     return SDL_RenderIsClipEnabled(dest);
-    #else
-    return 0;
-    #endif
 }
 
-static FC_Rect get_clip(FC_Target* dest)
+static SDL_Rect get_clip(SDL_Renderer* dest)
 {
-    #ifdef FC_USE_SDL_GPU
-    return dest->clip_rect;
-    #elif defined(ENABLE_SDL_CLIPPING)
     SDL_Rect r;
     SDL_RenderGetClipRect(dest, &r);
     return r;
-    #else
-    SDL_Rect r = {0, 0, 0, 0};
-    return r;
-    #endif
 }
 
-static void set_clip(FC_Target* dest, FC_Rect* rect)
+static void set_clip(SDL_Renderer* dest, SDL_Rect* rect)
 {
-    #ifdef FC_USE_SDL_GPU
-    if(rect != NULL)
-        GPU_SetClipRect(dest, *rect);
-    else
-        GPU_UnsetClip(dest);
-    #elif defined(ENABLE_SDL_CLIPPING)
     SDL_RenderSetClipRect(dest, rect);
-    #endif
 }
 
-static void set_color(FC_Image* src, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+static void set_color(SDL_Texture* src, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-    #ifdef FC_USE_SDL_GPU
-    GPU_SetRGBA(src, r, g, b, a);
-    #else
     SDL_SetTextureColorMod(src, r, g, b);
     SDL_SetTextureAlphaMod(src, a);
-    #endif
 }
-
-
 
 static char* new_concat(const char* a, const char* b)
 {
@@ -157,7 +80,7 @@ static char* replace_concat(char** a, const char* b)
 static unsigned int fc_tab_width = 4;
 
 // Shared buffer for variadic text
-static char* fc_buffer = NULL;
+static char* fc_buffer = nullptr;
 static unsigned int fc_buffer_size = 1024;
 
 static Uint8 fc_has_render_target_support = 0;
@@ -166,13 +89,13 @@ static Uint8 fc_has_render_target_support = 0;
 static int NUM_EXISTING_FONTS = 0;
 
 // Globals for GetString functions
-static char* ASCII_STRING = NULL;
-static char* LATIN_1_STRING = NULL;
-static char* ASCII_LATIN_1_STRING = NULL;
+static char* ASCII_STRING = nullptr;
+static char* LATIN_1_STRING = nullptr;
+static char* ASCII_LATIN_1_STRING = nullptr;
 
 char* FC_GetStringASCII(void)
 {
-    if(ASCII_STRING == NULL)
+    if(ASCII_STRING == nullptr)
     {
         int i;
         char c;
@@ -194,7 +117,7 @@ char* FC_GetStringASCII(void)
 
 char* FC_GetStringLatin1(void)
 {
-    if(LATIN_1_STRING == NULL)
+    if(LATIN_1_STRING == nullptr)
     {
         int i;
         unsigned char c;
@@ -228,30 +151,10 @@ char* FC_GetStringLatin1(void)
 
 char* FC_GetStringASCII_Latin1(void)
 {
-    if(ASCII_LATIN_1_STRING == NULL)
+    if(ASCII_LATIN_1_STRING == nullptr)
 		ASCII_LATIN_1_STRING = new_concat(FC_GetStringASCII(), FC_GetStringLatin1());
 
     return U8_strdup(ASCII_LATIN_1_STRING);
-}
-
-FC_Rect FC_MakeRect(float x, float y, float w, float h)
-{
-    FC_Rect r = {x, y, w, h};
-    return r;
-}
-
-FC_Scale FC_MakeScale(float x, float y)
-{
-    FC_Scale s = {x, y};
-
-    return s;
-}
-
-SDL_Color FC_MakeColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-{
-    SDL_Color c = {r, g, b, a};
-
-    return c;
 }
 
 FC_Effect FC_MakeEffect(FC_AlignEnum alignment, FC_Scale scale, SDL_Color color)
@@ -307,38 +210,16 @@ static FC_Map* FC_MapCreate(int num_buckets)
 
     for(i = 0; i < num_buckets; ++i)
     {
-        map->buckets[i] = NULL;
+        map->buckets[i] = nullptr;
     }
 
     return map;
 }
 
-/*static void FC_MapClear(FC_Map* map)
-{
-    int i;
-    if(map == NULL)
-        return;
-
-    // Go through each bucket
-    for(i = 0; i < map->num_buckets; ++i)
-    {
-        // Delete the nodes in order
-        FC_MapNode* node = map->buckets[i];
-        while(node != NULL)
-        {
-            FC_MapNode* last = node;
-            node = node->next;
-            free(last);
-        }
-        // Set the bucket to empty
-        map->buckets[i] = NULL;
-    }
-}*/
-
 static void FC_MapFree(FC_Map* map)
 {
     int i;
-    if(map == NULL)
+    if(map == nullptr)
         return;
 
     // Go through each bucket
@@ -346,7 +227,7 @@ static void FC_MapFree(FC_Map* map)
     {
         // Delete the nodes in order
         FC_MapNode* node = map->buckets[i];
-        while(node != NULL)
+        while(node != nullptr)
         {
             FC_MapNode* last = node;
             node = node->next;
@@ -363,67 +244,65 @@ static FC_GlyphData* FC_MapInsert(FC_Map* map, Uint32 codepoint, FC_GlyphData gl
 {
     Uint32 index;
     FC_MapNode* node;
-    if(map == NULL)
-        return NULL;
+    if(map == nullptr)
+        return nullptr;
 
     // Get index for bucket
     index = codepoint % map->num_buckets;
 
     // If this bucket is empty, create a node and return its value
-    if(map->buckets[index] == NULL)
+    if(map->buckets[index] == nullptr)
     {
         node = map->buckets[index] = (FC_MapNode*)malloc(sizeof(FC_MapNode));
         node->key = codepoint;
         node->value = glyph;
-        node->next = NULL;
+        node->next = nullptr;
         return &node->value;
     }
 
-    for(node = map->buckets[index]; node != NULL; node = node->next)
+    for(node = map->buckets[index]; node != nullptr; node = node->next)
     {
         // Find empty node and add a new one on.
-        if(node->next == NULL)
+        if(node->next == nullptr)
         {
             node->next = (FC_MapNode*)malloc(sizeof(FC_MapNode));
             node = node->next;
 
             node->key = codepoint;
             node->value = glyph;
-            node->next = NULL;
+            node->next = nullptr;
             return &node->value;
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 static FC_GlyphData* FC_MapFind(FC_Map* map, Uint32 codepoint)
 {
     Uint32 index;
     FC_MapNode* node;
-    if(map == NULL)
-        return NULL;
+    if(map == nullptr)
+        return nullptr;
 
     // Get index for bucket
     index = codepoint % map->num_buckets;
 
     // Go through list until we find a match
-    for(node = map->buckets[index]; node != NULL; node = node->next)
+    for(node = map->buckets[index]; node != nullptr; node = node->next)
     {
         if(node->key == codepoint)
             return &node->value;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 
 
 struct FC_Font
 {
-    #ifndef FC_USE_SDL_GPU
     SDL_Renderer* renderer;
-    #endif
 
     TTF_Font* ttf_source;  // TTF_Font source of characters
     Uint8 owns_ttf_source;  // Can we delete the TTF_Font ourselves?
@@ -448,7 +327,7 @@ struct FC_Font
     FC_GlyphData last_glyph;  // Texture packing cursor
     int glyph_cache_size;
     int glyph_cache_count;
-    FC_Image** glyph_cache;
+    SDL_Texture** glyph_cache;
 
     char* loading_string;
 
@@ -458,12 +337,12 @@ struct FC_Font
 static FC_GlyphData* FC_PackGlyphData(FC_Font* font, Uint32 codepoint, Uint16 width, Uint16 maxWidth, Uint16 maxHeight);
 
 
-static FC_Rect FC_RenderLeft(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text);
-static FC_Rect FC_RenderCenter(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text);
-static FC_Rect FC_RenderRight(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text);
+static SDL_Rect FC_RenderLeft(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text);
+static SDL_Rect FC_RenderCenter(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text);
+static SDL_Rect FC_RenderRight(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text);
 
 
-static_inline SDL_Surface* FC_CreateSurface32(Uint32 width, Uint32 height)
+static inline SDL_Surface* FC_CreateSurface32(Uint32 width, Uint32 height)
 {
     #if SDL_BYTEORDER == SDL_BIG_ENDIAN
         return SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
@@ -477,7 +356,7 @@ char* U8_alloc(unsigned int size)
 {
     char* result;
     if(size == 0)
-        return NULL;
+        return nullptr;
 
     result = (char*)malloc(size);
     result[0] = '\0';
@@ -493,8 +372,8 @@ void U8_free(char* string)
 char* U8_strdup(const char* string)
 {
     char* result;
-    if(string == NULL)
-        return NULL;
+    if(string == nullptr)
+        return nullptr;
 
     result = (char*)malloc(strlen(string)+1);
     strcpy(result, string);
@@ -505,7 +384,7 @@ char* U8_strdup(const char* string)
 int U8_strlen(const char* string)
 {
     int length = 0;
-    if(string == NULL)
+    if(string == nullptr)
         return 0;
 
     while(*string != '\0')
@@ -519,7 +398,7 @@ int U8_strlen(const char* string)
 
 int U8_charsize(const char* character)
 {
-    if(character == NULL)
+    if(character == nullptr)
         return 0;
 
     if((unsigned char)*character <= 0x7F)
@@ -536,7 +415,7 @@ int U8_charsize(const char* character)
 int U8_charcpy(char* buffer, const char* source, int buffer_size)
 {
     int charsize;
-    if(buffer == NULL || source == NULL || buffer_size < 1)
+    if(buffer == nullptr || source == nullptr || buffer_size < 1)
         return 0;
 
     charsize = U8_charsize(source);
@@ -560,7 +439,7 @@ int U8_strinsert(char* string, int position, const char* source, int max_bytes)
     int ulen;
     const char* string_start = string;
 
-    if(string == NULL || source == NULL)
+    if(string == nullptr || source == nullptr)
         return 0;
 
     len = strlen(string);
@@ -592,7 +471,7 @@ int U8_strinsert(char* string, int position, const char* source, int max_bytes)
 
 void U8_strdel(char* string, int position)
 {
-    if(string == NULL || position < 0)
+    if(string == nullptr || position < 0)
         return;
 
     while(*string != '\0')
@@ -610,27 +489,23 @@ void U8_strdel(char* string, int position)
     }
 }
 
-
-
-
-
-static_inline FC_Rect FC_RectUnion(FC_Rect A, FC_Rect B)
+static inline SDL_Rect SDL_RectUnion(SDL_Rect A, SDL_Rect B)
 {
-    float x,x2,y,y2;
+    int x,x2,y,y2;
     x = FC_MIN(A.x, B.x);
     y = FC_MIN(A.y, B.y);
     x2 = FC_MAX(A.x+A.w, B.x+B.w);
     y2 = FC_MAX(A.y+A.h, B.y+B.h);
     {
-        FC_Rect result = {x, y, FC_MAX(0, x2 - x), FC_MAX(0, y2 - y)};
+        SDL_Rect result = {x, y, FC_MAX(0, x2 - x), FC_MAX(0, y2 - y)};
         return result;
     }
 }
 
 // Adapted from SDL_IntersectRect
-static_inline FC_Rect FC_RectIntersect(FC_Rect A, FC_Rect B)
+static inline SDL_Rect SDL_RectIntersect(SDL_Rect A, SDL_Rect B)
 {
-    FC_Rect result;
+    SDL_Rect result;
 	float Amin, Amax, Bmin, Bmax;
 
 	// Horizontal intersection
@@ -673,19 +548,13 @@ static_inline FC_Rect FC_RectIntersect(FC_Rect A, FC_Rect B)
 
 
 
-FC_Rect FC_DefaultRenderCallback(FC_Image* src, FC_Rect* srcrect, FC_Target* dest, float x, float y, float xscale, float yscale)
+SDL_Rect FC_DefaultRenderCallback(SDL_Texture* src, SDL_Rect* srcrect, SDL_Renderer* dest, int x, int y, float xscale, float yscale)
 {
     float w = srcrect->w * xscale;
     float h = srcrect->h * yscale;
-    FC_Rect result;
+    SDL_Rect result;
 
     // FIXME: Why does the scaled offset look so wrong?
-    #ifdef FC_USE_SDL_GPU
-    {
-        GPU_Rect r = *srcrect;
-        GPU_BlitScale(src, &r, dest, x + xscale*r.w/2.0f, y + r.h/2.0f, xscale, yscale);
-    }
-    #else
     {
         SDL_RendererFlip flip = SDL_FLIP_NONE;
         if(xscale < 0)
@@ -701,9 +570,8 @@ FC_Rect FC_DefaultRenderCallback(FC_Image* src, FC_Rect* srcrect, FC_Target* des
 
         SDL_Rect r = *srcrect;
         SDL_Rect dr = {(int)x, (int)y, (int)(xscale*r.w), (int)(yscale*r.h)};
-        SDL_RenderCopyEx(dest, src, &r, &dr, 0, NULL, flip);
+        SDL_RenderCopyEx(dest, src, &r, &dr, 0, nullptr, flip);
     }
-    #endif
 
     result.x = x;
     result.y = y;
@@ -712,11 +580,11 @@ FC_Rect FC_DefaultRenderCallback(FC_Image* src, FC_Rect* srcrect, FC_Target* des
     return result;
 }
 
-static FC_Rect (*fc_render_callback)(FC_Image* src, FC_Rect* srcrect, FC_Target* dest, float x, float y, float xscale, float yscale) = &FC_DefaultRenderCallback;
+static SDL_Rect (*fc_render_callback)(SDL_Texture* src, SDL_Rect* srcrect, SDL_Renderer* dest, int x, int y, float xscale, float yscale) = &FC_DefaultRenderCallback;
 
-void FC_SetRenderCallback(FC_Rect (*callback)(FC_Image* src, FC_Rect* srcrect, FC_Target* dest, float x, float y, float xscale, float yscale))
+void FC_SetRenderCallback(SDL_Rect (*callback)(SDL_Texture* src, SDL_Rect* srcrect, SDL_Renderer* dest, int x, int y, float xscale, float yscale))
 {
-    if(callback == NULL)
+    if(callback == nullptr)
         fc_render_callback = &FC_DefaultRenderCallback;
     else
         fc_render_callback = callback;
@@ -726,7 +594,7 @@ void FC_GetUTF8FromCodepoint(char* result, Uint32 codepoint)
 {
     char a, b, c, d;
 
-    if(result == NULL)
+    if(result == nullptr)
         return;
 
     a = (codepoint >> 24) & 0xFF;
@@ -772,7 +640,7 @@ Uint32 FC_GetCodepointFromUTF8(const char** c, Uint8 advance_pointer)
 {
     Uint32 result = 0;
     const char* str;
-    if(c == NULL || *c == NULL)
+    if(c == nullptr || *c == nullptr)
         return 0;
 
     str = *c;
@@ -808,7 +676,7 @@ Uint32 FC_GetCodepointFromUTF8(const char** c, Uint8 advance_pointer)
 
 void FC_SetLoadingString(FC_Font* font, const char* string)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     free(font->loading_string);
@@ -852,14 +720,12 @@ void FC_SetTabWidth(unsigned int width_in_spaces)
 
 static void FC_Init(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
-    #ifndef FC_USE_SDL_GPU
-    font->renderer = NULL;
-    #endif
+    font->renderer = nullptr;
 
-    font->ttf_source = NULL;
+    font->ttf_source = nullptr;
     font->owns_ttf_source = 0;
 
     font->filter = FC_FILTER_NEAREST;
@@ -886,7 +752,7 @@ static void FC_Init(FC_Font* font)
     font->last_glyph.rect.h = 0;
     font->last_glyph.cache_level = 0;
 
-    if(font->glyphs != NULL)
+    if(font->glyphs != nullptr)
         FC_MapFree(font->glyphs);
 
     font->glyphs = FC_MapCreate(FC_DEFAULT_NUM_BUCKETS);
@@ -895,40 +761,33 @@ static void FC_Init(FC_Font* font)
     font->glyph_cache_count = 0;
 
 
-    font->glyph_cache = (FC_Image**)malloc(font->glyph_cache_size * sizeof(FC_Image*));
+    font->glyph_cache = (SDL_Texture**)malloc(font->glyph_cache_size * sizeof(SDL_Texture*));
 
-	if (font->loading_string == NULL)
+	if (font->loading_string == nullptr)
 		font->loading_string = FC_GetStringASCII();
 
-    if(fc_buffer == NULL)
+    if(fc_buffer == nullptr)
         fc_buffer = (char*)malloc(fc_buffer_size);
 }
 
 static Uint8 FC_GrowGlyphCache(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
-    #ifdef FC_USE_SDL_GPU
-    GPU_Image* new_level = GPU_CreateImage(font->height * 12, font->height * 12, GPU_FORMAT_RGBA);
-    GPU_SetAnchor(new_level, 0.5f, 0.5f);  // Just in case the default is different
-    #else
+
     SDL_Texture* new_level = SDL_CreateTexture(font->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, font->height * 12, font->height * 12);
-    #endif
-    if(new_level == NULL || !FC_SetGlyphCacheLevel(font, font->glyph_cache_count, new_level))
+    
+    if(new_level == nullptr || !FC_SetGlyphCacheLevel(font, font->glyph_cache_count, new_level))
     {
-        FC_Log("Error: SDL_FontCache ran out of packing space and could not add another cache level.\n");
-        #ifdef FC_USE_SDL_GPU
-        GPU_FreeImage(new_level);
-        #else
+        SDL_Log("Error: SDL_FontCache ran out of packing space and could not add another cache level.\n");
         SDL_DestroyTexture(new_level);
-        #endif
+        
         return 0;
     }
     // bug: we do not have the correct color here, this might be the wrong color!
     //      , most functions use set_color_for_all_caches()
     //   - for evading this bug, you must use FC_SetDefaultColor(), before using any draw functions
     set_color(new_level, font->default_color.r, font->default_color.g, font->default_color.b, FC_GET_ALPHA(font->default_color));
-#ifndef FC_USE_SDL_GPU
     {
         Uint8 r, g, b, a;
         SDL_Texture* prev_target = SDL_GetRenderTarget(font->renderer);
@@ -963,22 +822,15 @@ static Uint8 FC_GrowGlyphCache(FC_Font* font)
             }
         }
     }
-#endif
+
     return 1;
 }
 
 Uint8 FC_UploadGlyphCache(FC_Font* font, int cache_level, SDL_Surface* data_surface)
 {
-    if(font == NULL || data_surface == NULL)
+    if(font == nullptr || data_surface == nullptr)
         return 0;
-    #ifdef FC_USE_SDL_GPU
-    GPU_Image* new_level = GPU_CopyImageFromSurface(data_surface);
-    GPU_SetAnchor(new_level, 0.5f, 0.5f);  // Just in case the default is different
-    if(FC_GetFilterMode(font) == FC_FILTER_LINEAR)
-        GPU_SetImageFilter(new_level, GPU_FILTER_LINEAR);
-    else
-        GPU_SetImageFilter(new_level, GPU_FILTER_NEAREST);
-    #else
+
     SDL_Texture* new_level;
     if(!fc_has_render_target_support)
         new_level = SDL_CreateTextureFromSurface(font->renderer, data_surface);
@@ -1030,7 +882,7 @@ Uint8 FC_UploadGlyphCache(FC_Font* font, int cache_level, SDL_Surface* data_surf
             SDL_RenderClear(renderer);
             SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
-            SDL_RenderCopy(renderer, temp, NULL, NULL);
+            SDL_RenderCopy(renderer, temp, nullptr, nullptr);
             SDL_SetRenderTarget(renderer, prev_target);
             if (prev_target) {
                 if (prev_clip_enabled)
@@ -1050,15 +902,12 @@ Uint8 FC_UploadGlyphCache(FC_Font* font, int cache_level, SDL_Surface* data_surf
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, old_filter_mode);
 
     }
-    #endif
-    if(new_level == NULL || !FC_SetGlyphCacheLevel(font, cache_level, new_level))
+    
+    if(new_level == nullptr || !FC_SetGlyphCacheLevel(font, cache_level, new_level))
     {
-        FC_Log("Error: SDL_FontCache ran out of packing space and could not add another cache level.\n");
-        #ifdef FC_USE_SDL_GPU
-        GPU_FreeImage(new_level);
-        #else
+        SDL_Log("Error: SDL_FontCache ran out of packing space and could not add another cache level.\n");
         SDL_DestroyTexture(new_level);
-        #endif
+        
         return 0;
     }
     return 1;
@@ -1087,7 +936,7 @@ static FC_GlyphData* FC_PackGlyphData(FC_Font* font, Uint32 codepoint, Uint16 wi
             last_glyph->rect.x = FC_CACHE_PADDING;
             last_glyph->rect.y = FC_CACHE_PADDING;
             last_glyph->rect.w = 0;
-            return NULL;
+            return nullptr;
         }
         else
         {
@@ -1106,17 +955,17 @@ static FC_GlyphData* FC_PackGlyphData(FC_Font* font, Uint32 codepoint, Uint16 wi
 }
 
 
-FC_Image* FC_GetGlyphCacheLevel(FC_Font* font, int cache_level)
+SDL_Texture* FC_GetGlyphCacheLevel(FC_Font* font, int cache_level)
 {
-    if(font == NULL || cache_level < 0 || cache_level > font->glyph_cache_count)
-        return NULL;
+    if(font == nullptr || cache_level < 0 || cache_level > font->glyph_cache_count)
+        return nullptr;
 
     return font->glyph_cache[cache_level];
 }
 
-Uint8 FC_SetGlyphCacheLevel(FC_Font* font, int cache_level, FC_Image* cache_texture)
+Uint8 FC_SetGlyphCacheLevel(FC_Font* font, int cache_level, SDL_Texture* cache_texture)
 {
-    if(font == NULL || cache_level < 0)
+    if(font == nullptr || cache_level < 0)
         return 0;
 
     // Must be sequentially added
@@ -1132,8 +981,8 @@ Uint8 FC_SetGlyphCacheLevel(FC_Font* font, int cache_level, FC_Image* cache_text
         {
             // Copy old cache to new one
             int i;
-            FC_Image** new_cache;
-            new_cache = (FC_Image**)malloc(font->glyph_cache_count * sizeof(FC_Image*));
+            SDL_Texture** new_cache;
+            new_cache = (SDL_Texture**)malloc(font->glyph_cache_count * sizeof(SDL_Texture*));
             for(i = 0; i < font->glyph_cache_size; ++i)
                 new_cache[i] = font->glyph_cache[i];
 
@@ -1166,32 +1015,23 @@ FC_Font* FC_CreateFont(void)
 // Assume this many will be enough...
 #define FC_LOAD_MAX_SURFACES 10
 
-#ifdef FC_USE_SDL_GPU
-Uint8 FC_LoadFontFromTTF(FC_Font* font, TTF_Font* ttf, SDL_Color color)
-#else
 Uint8 FC_LoadFontFromTTF(FC_Font* font, SDL_Renderer* renderer, TTF_Font* ttf, SDL_Color color)
-#endif
 {
-    if(font == NULL || ttf == NULL)
-        return 2;
-    #ifndef FC_USE_SDL_GPU
-    if(renderer == NULL)
-        return 1;
-    #endif
-
+    if(font == nullptr || ttf == nullptr)
+        return 0;
+    
+    if(renderer == nullptr)
+        return 0;
+    
     FC_ClearFont(font);
 
 
     // Might as well check render target support here
-    #ifdef FC_USE_SDL_GPU
-    fc_has_render_target_support = GPU_IsFeatureEnabled(GPU_FEATURE_RENDER_TARGETS);
-    #else
     SDL_RendererInfo info;
     SDL_GetRendererInfo(renderer, &info);
     fc_has_render_target_support = (info.flags & SDL_RENDERER_TARGETTEXTURE);
 
     font->renderer = renderer;
-    #endif
 
     font->ttf_source = ttf;
 
@@ -1236,18 +1076,18 @@ Uint8 FC_LoadFontFromTTF(FC_Font* font, SDL_Renderer* renderer, TTF_Font* ttf, S
             if(!U8_charcpy(buff, source_string, 5))
                 continue;
             glyph_surf = TTF_RenderUTF8_Blended(ttf, buff, white);
-            if(glyph_surf == NULL)
+            if(glyph_surf == nullptr)
                 continue;
 
             // Try packing.  If it fails, create a new surface for the next cache level.
-            packed = (FC_PackGlyphData(font, FC_GetCodepointFromUTF8(&buff_ptr, 0), glyph_surf->w, surfaces[num_surfaces-1]->w, surfaces[num_surfaces-1]->h) != NULL);
+            packed = (FC_PackGlyphData(font, FC_GetCodepointFromUTF8(&buff_ptr, 0), glyph_surf->w, surfaces[num_surfaces-1]->w, surfaces[num_surfaces-1]->h) != nullptr);
             if(!packed)
             {
                 int i = num_surfaces-1;
                 if(num_surfaces >= FC_LOAD_MAX_SURFACES)
                 {
                     // Can't do any more!
-                    FC_Log("SDL_FontCache error: Could not create enough cache surfaces to fit all of the loading string!\n");
+                    SDL_Log("SDL_FontCache error: Could not create enough cache surfaces to fit all of the loading string!\n");
                     SDL_FreeSurface(glyph_surf);
                     break;
                 }
@@ -1255,9 +1095,9 @@ Uint8 FC_LoadFontFromTTF(FC_Font* font, SDL_Renderer* renderer, TTF_Font* ttf, S
                 // Upload the current surface to the glyph cache now so we can keep the cache level packing cursor up to date as we go.
                 FC_UploadGlyphCache(font, i, surfaces[i]);
                 SDL_FreeSurface(surfaces[i]);
-                #ifndef FC_USE_SDL_GPU
+                
                 SDL_SetTextureBlendMode(font->glyph_cache[i], SDL_BLENDMODE_BLEND);
-                #endif
+                
                 // Update the glyph cursor to the new cache level.  We need to do this here because the actual cache lags behind our use of the packing above.
                 font->last_glyph.cache_level = num_surfaces;
 
@@ -1267,7 +1107,7 @@ Uint8 FC_LoadFontFromTTF(FC_Font* font, SDL_Renderer* renderer, TTF_Font* ttf, S
             }
 
             // Try packing for the new surface, then blit onto it.
-            if(packed || FC_PackGlyphData(font, FC_GetCodepointFromUTF8(&buff_ptr, 0), glyph_surf->w, surfaces[num_surfaces-1]->w, surfaces[num_surfaces-1]->h) != NULL)
+            if(packed || FC_PackGlyphData(font, FC_GetCodepointFromUTF8(&buff_ptr, 0), glyph_surf->w, surfaces[num_surfaces-1]->w, surfaces[num_surfaces-1]->h) != nullptr)
             {
                 SDL_SetSurfaceBlendMode(glyph_surf, SDL_BLENDMODE_NONE);
                 SDL_Rect srcRect = {0, 0, glyph_surf->w, glyph_surf->h};
@@ -1282,58 +1122,43 @@ Uint8 FC_LoadFontFromTTF(FC_Font* font, SDL_Renderer* renderer, TTF_Font* ttf, S
             int i = num_surfaces-1;
             FC_UploadGlyphCache(font, i, surfaces[i]);
             SDL_FreeSurface(surfaces[i]);
-            #ifndef FC_USE_SDL_GPU
             SDL_SetTextureBlendMode(font->glyph_cache[i], SDL_BLENDMODE_BLEND);
-            #endif
         }
     }
 
-    return 0;
+    return 1;
 }
 
-
-#ifdef FC_USE_SDL_GPU
-Uint8 FC_LoadFont(FC_Font* font, const char* filename_ttf, Uint32 pointSize, SDL_Color color, int style)
-#else
-Uint8 FC_LoadFont(FC_Font* font, FC_Target* renderer, const char* filename_ttf, Uint32 pointSize, SDL_Color color, int style)
-#endif
+Uint8 FC_LoadFont(FC_Font* font, SDL_Renderer* renderer, const char* filename_ttf, Uint32 pointSize, SDL_Color color, int style)
 {
     SDL_RWops* rwops;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     rwops = SDL_RWFromFile(filename_ttf, "rb");
 
-    if(rwops == NULL)
+    if(rwops == nullptr)
     {
-        FC_Log("Unable to open file for reading: %s \n", SDL_GetError());
+        SDL_Log("Unable to open file for reading: %s \n", SDL_GetError());
         return 0;
     }
 
-    #ifdef FC_USE_SDL_GPU
-    return FC_LoadFont_RW(font, rwops, 1, pointSize, color, style);
-    #else
     return FC_LoadFont_RW(font, renderer, rwops, 1, pointSize, color, style);
-    #endif
 }
 
-#ifdef FC_USE_SDL_GPU
-Uint8 FC_LoadFont_RW(FC_Font* font, SDL_RWops* file_rwops_ttf, Uint8 own_rwops, Uint32 pointSize, SDL_Color color, int style)
-#else
-Uint8 FC_LoadFont_RW(FC_Font* font, FC_Target* renderer, SDL_RWops* file_rwops_ttf, Uint8 own_rwops, Uint32 pointSize, SDL_Color color, int style)
-#endif
+Uint8 FC_LoadFont_RW(FC_Font* font, SDL_Renderer* renderer, SDL_RWops* file_rwops_ttf, Uint8 own_rwops, Uint32 pointSize, SDL_Color color, int style)
 {
     Uint8 result;
     TTF_Font* ttf;
     Uint8 outline;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     if(!TTF_WasInit() && TTF_Init() < 0)
     {
-        FC_Log("Unable to initialize SDL_ttf: %s \n", TTF_GetError());
+        SDL_Log("Unable to initialize SDL_ttf: %s \n", TTF_GetError());
         if(own_rwops)
             SDL_RWclose(file_rwops_ttf);
         return 0;
@@ -1341,9 +1166,9 @@ Uint8 FC_LoadFont_RW(FC_Font* font, FC_Target* renderer, SDL_RWops* file_rwops_t
 
     ttf = TTF_OpenFontRW(file_rwops_ttf, own_rwops, pointSize);
 
-    if(ttf == NULL)
+    if(ttf == nullptr)
     {
-        FC_Log("Unable to load TrueType font: %s \n", TTF_GetError());
+        SDL_Log("Unable to load TrueType font: %s \n", TTF_GetError());
         if(own_rwops)
             SDL_RWclose(file_rwops_ttf);
         return 0;
@@ -1357,57 +1182,23 @@ Uint8 FC_LoadFont_RW(FC_Font* font, FC_Target* renderer, SDL_RWops* file_rwops_t
     }
     TTF_SetFontStyle(ttf, style);
 
-    #ifdef FC_USE_SDL_GPU
-    result = FC_LoadFontFromTTF(font, ttf, color);
-    #else
     result = FC_LoadFontFromTTF(font, renderer, ttf, color);
-    #endif
 
     // Can only load new (uncached) glyphs if we can keep the SDL_RWops open.
     font->owns_ttf_source = own_rwops;
     if(!own_rwops)
     {
         TTF_CloseFont(font->ttf_source);
-        font->ttf_source = NULL;
+        font->ttf_source = nullptr;
     }
 
     return result;
 }
 
-
-#ifndef FC_USE_SDL_GPU
-void FC_ResetFontFromRendererReset(FC_Font* font, SDL_Renderer* renderer, Uint32 evType)
-{
-    TTF_Font* ttf;
-    SDL_Color col;
-    Uint8 owns_ttf;
-    if (font == NULL)
-        return;
-
-    // Destroy glyph cache
-    if (evType == SDL_RENDER_TARGETS_RESET) {
-        int i;
-        for (i = 0; i < font->glyph_cache_count; ++i)
-            SDL_DestroyTexture(font->glyph_cache[i]);
-    }
-    free(font->glyph_cache);
-
-    ttf = font->ttf_source;
-    col = font->default_color;
-    owns_ttf = font->owns_ttf_source;
-    FC_Init(font);
-
-    // Can only reload glyphs if we own the SDL_RWops.
-    if (owns_ttf)
-        FC_LoadFontFromTTF(font, renderer, ttf, col);
-    font->owns_ttf_source = owns_ttf;
-}
-#endif
-
 void FC_ClearFont(FC_Font* font)
 {
     int i;
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     // Release resources
@@ -1415,23 +1206,19 @@ void FC_ClearFont(FC_Font* font)
         TTF_CloseFont(font->ttf_source);
 
     font->owns_ttf_source = 0;
-    font->ttf_source = NULL;
+    font->ttf_source = nullptr;
 
     // Delete glyph map
     FC_MapFree(font->glyphs);
-    font->glyphs = NULL;
+    font->glyphs = nullptr;
 
     // Delete glyph cache
     for(i = 0; i < font->glyph_cache_count; ++i)
     {
-        #ifdef FC_USE_SDL_GPU
-        GPU_FreeImage(font->glyph_cache[i]);
-        #else
         SDL_DestroyTexture(font->glyph_cache[i]);
-        #endif
     }
     free(font->glyph_cache);
-    font->glyph_cache = NULL;
+    font->glyph_cache = nullptr;
 
     // Reset font
     FC_Init(font);
@@ -1441,7 +1228,7 @@ void FC_ClearFont(FC_Font* font)
 void FC_FreeFont(FC_Font* font)
 {
     int i;
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     // Release resources
@@ -1454,11 +1241,7 @@ void FC_FreeFont(FC_Font* font)
     // Delete glyph cache
     for(i = 0; i < font->glyph_cache_count; ++i)
     {
-        #ifdef FC_USE_SDL_GPU
-        GPU_FreeImage(font->glyph_cache[i]);
-        #else
         SDL_DestroyTexture(font->glyph_cache[i]);
-        #endif
     }
     free(font->glyph_cache);
 
@@ -1470,16 +1253,16 @@ void FC_FreeFont(FC_Font* font)
     if (--NUM_EXISTING_FONTS <= 0)
     {
         free(ASCII_STRING);
-        ASCII_STRING = NULL;
+        ASCII_STRING = nullptr;
 
         free(LATIN_1_STRING);
-        LATIN_1_STRING = NULL;
+        LATIN_1_STRING = nullptr;
 
         free(ASCII_LATIN_1_STRING);
-        ASCII_LATIN_1_STRING = NULL;
+        ASCII_LATIN_1_STRING = nullptr;
 
         free(fc_buffer);
-        fc_buffer = NULL;
+        fc_buffer = nullptr;
     }
 }
 
@@ -1490,31 +1273,14 @@ int FC_GetNumCacheLevels(FC_Font* font)
 
 Uint8 FC_AddGlyphToCache(FC_Font* font, SDL_Surface* glyph_surface)
 {
-    if(font == NULL || glyph_surface == NULL)
+    if(font == nullptr || glyph_surface == nullptr)
         return 0;
 
     SDL_SetSurfaceBlendMode(glyph_surface, SDL_BLENDMODE_NONE);
-    FC_Image* dest = FC_GetGlyphCacheLevel(font, font->last_glyph.cache_level);
-    if(dest == NULL)
+    SDL_Texture* dest = FC_GetGlyphCacheLevel(font, font->last_glyph.cache_level);
+    if(dest == nullptr)
         return 0;
 
-    #ifdef FC_USE_SDL_GPU
-    {
-        GPU_Target* target = GPU_LoadTarget(dest);
-        if(target == NULL)
-            return 0;
-        GPU_Image* img = GPU_CopyImageFromSurface(glyph_surface);
-        GPU_SetAnchor(img, 0.5f, 0.5f);  // Just in case the default is different
-        GPU_SetImageFilter(img, GPU_FILTER_NEAREST);
-        GPU_SetBlendMode(img, GPU_BLEND_SET);
-
-        SDL_Rect destrect = font->last_glyph.rect;
-        GPU_Blit(img, NULL, target, destrect.x + destrect.w/2, destrect.y + destrect.h/2);
-
-        GPU_FreeImage(img);
-        GPU_FreeTarget(target);
-    }
-    #else
     {
         SDL_Renderer* renderer = font->renderer;
         SDL_Texture* img;
@@ -1538,7 +1304,7 @@ Uint8 FC_AddGlyphToCache(FC_Font* font, SDL_Surface* glyph_surface)
 
         destrect = font->last_glyph.rect;
         SDL_SetRenderTarget(renderer, dest);
-        SDL_RenderCopy(renderer, img, NULL, &destrect);
+        SDL_RenderCopy(renderer, img, nullptr, &destrect);
         SDL_SetRenderTarget(renderer, prev_target);
         if (prev_target) {
             if (prev_clip_enabled)
@@ -1553,7 +1319,6 @@ Uint8 FC_AddGlyphToCache(FC_Font* font, SDL_Surface* glyph_surface)
 
         SDL_DestroyTexture(img);
     }
-    #endif
 
     return 1;
 }
@@ -1564,7 +1329,7 @@ unsigned int FC_GetNumCodepoints(FC_Font* font)
     FC_Map* glyphs;
     int i;
     unsigned int result = 0;
-    if(font == NULL || font->glyphs == NULL)
+    if(font == nullptr || font->glyphs == nullptr)
         return 0;
 
     glyphs = font->glyphs;
@@ -1572,7 +1337,7 @@ unsigned int FC_GetNumCodepoints(FC_Font* font)
     for(i = 0; i < glyphs->num_buckets; ++i)
     {
         FC_MapNode* node;
-        for(node = glyphs->buckets[i]; node != NULL; node = node->next)
+        for(node = glyphs->buckets[i]; node != nullptr; node = node->next)
         {
             result++;
         }
@@ -1586,7 +1351,7 @@ void FC_GetCodepoints(FC_Font* font, Uint32* result)
     FC_Map* glyphs;
     int i;
     unsigned int count = 0;
-    if(font == NULL || font->glyphs == NULL)
+    if(font == nullptr || font->glyphs == nullptr)
         return;
 
     glyphs = font->glyphs;
@@ -1594,7 +1359,7 @@ void FC_GetCodepoints(FC_Font* font, Uint32* result)
     for(i = 0; i < glyphs->num_buckets; ++i)
     {
         FC_MapNode* node;
-        for(node = glyphs->buckets[i]; node != NULL; node = node->next)
+        for(node = glyphs->buckets[i]; node != nullptr; node = node->next)
         {
             result[count] = node->key;
             count++;
@@ -1605,48 +1370,43 @@ void FC_GetCodepoints(FC_Font* font, Uint32* result)
 Uint8 FC_GetGlyphData(FC_Font* font, FC_GlyphData* result, Uint32 codepoint)
 {
     FC_GlyphData* e = FC_MapFind(font->glyphs, codepoint);
-    if(e == NULL)
+    if(e == nullptr)
     {
         char buff[5];
         int w, h;
         SDL_Color white = {255, 255, 255, 255};
         SDL_Surface* surf;
-        FC_Image* cache_image;
+        SDL_Texture* cache_image;
 
-        if(font->ttf_source == NULL)
+        if(font->ttf_source == nullptr)
             return 0;
 
         FC_GetUTF8FromCodepoint(buff, codepoint);
 
         cache_image = FC_GetGlyphCacheLevel(font, font->last_glyph.cache_level);
-        if(cache_image == NULL)
+        if(cache_image == nullptr)
         {
-            FC_Log("SDL_FontCache: Failed to load cache image, so cannot add new glyphs!\n");
+            SDL_Log("SDL_FontCache: Failed to load cache image, so cannot add new glyphs!\n");
             return 0;
         }
 
-        #ifdef FC_USE_SDL_GPU
-        w = cache_image->w;
-        h = cache_image->h;
-        #else
-        SDL_QueryTexture(cache_image, NULL, NULL, &w, &h);
-        #endif
+        SDL_QueryTexture(cache_image, nullptr, nullptr, &w, &h);
 
         surf = TTF_RenderUTF8_Blended(font->ttf_source, buff, white);
-        if(surf == NULL)
+        if(surf == nullptr)
         {
             return 0;
         }
 
         e = FC_PackGlyphData(font, codepoint, surf->w, w, h);
-        if(e == NULL)
+        if(e == nullptr)
         {
             // Grow the cache
             FC_GrowGlyphCache(font);
 
             // Try packing again
             e = FC_PackGlyphData(font, codepoint, surf->w, w, h);
-            if(e == NULL)
+            if(e == nullptr)
             {
                 SDL_FreeSurface(surf);
                 return 0;
@@ -1659,7 +1419,7 @@ Uint8 FC_GetGlyphData(FC_Font* font, FC_GlyphData* result, Uint32 codepoint)
         SDL_FreeSurface(surf);
     }
 
-    if(result != NULL && e != NULL)
+    if(result != nullptr && e != nullptr)
         *result = *e;
 
     return 1;
@@ -1674,12 +1434,12 @@ FC_GlyphData* FC_SetGlyphData(FC_Font* font, Uint32 codepoint, FC_GlyphData glyp
 
 
 // Drawing
-static FC_Rect FC_RenderLeft(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text)
+static SDL_Rect FC_RenderLeft(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text)
 {
     const char* c = text;
-    FC_Rect srcRect;
-    FC_Rect dstRect;
-    FC_Rect dirtyRect = FC_MakeRect(x, y, 0, 0);
+    SDL_Rect srcRect;
+    SDL_Rect dstRect;
+    SDL_Rect dirtyRect = {x, y, 0, 0};
 
     FC_GlyphData glyph;
     Uint32 codepoint;
@@ -1690,14 +1450,14 @@ static FC_Rect FC_RenderLeft(FC_Font* font, FC_Target* dest, float x, float y, F
     float destLineSpacing;
     float destLetterSpacing;
 
-    if(font == NULL)
+    if(font == nullptr)
         return dirtyRect;
 
     destH = font->height * scale.y;
     destLineSpacing = font->lineSpacing*scale.y;
     destLetterSpacing = font->letterSpacing*scale.x;
 
-    if(c == NULL || font->glyph_cache_count == 0 || dest == NULL)
+    if(c == nullptr || font->glyph_cache_count == 0 || dest == nullptr)
         return dirtyRect;
 
     int newlineX = x;
@@ -1729,19 +1489,13 @@ static FC_Rect FC_RenderLeft(FC_Font* font, FC_Target* dest, float x, float y, F
         if(destY >= dest->h)
             continue;*/
 
-        #ifdef FC_USE_SDL_GPU
-        srcRect.x = glyph.rect.x;
-        srcRect.y = glyph.rect.y;
-        srcRect.w = glyph.rect.w;
-        srcRect.h = glyph.rect.h;
-        #else
         srcRect = glyph.rect;
-        #endif
+    
         dstRect = fc_render_callback(FC_GetGlyphCacheLevel(font, glyph.cache_level), &srcRect, dest, destX, destY, scale.x, scale.y);
         if(dirtyRect.w == 0 || dirtyRect.h == 0)
             dirtyRect = dstRect;
         else
-            dirtyRect = FC_RectUnion(dirtyRect, dstRect);
+            dirtyRect = SDL_RectUnion(dirtyRect, dstRect);
 
         destX += glyph.rect.w*scale.x + destLetterSpacing;
     }
@@ -1752,7 +1506,7 @@ static FC_Rect FC_RenderLeft(FC_Font* font, FC_Target* dest, float x, float y, F
 static void set_color_for_all_caches(FC_Font* font, SDL_Color color)
 {
     // TODO: How can I predict which glyph caches are to be used?
-    FC_Image* img;
+    SDL_Texture* img;
     int i;
     int num_levels = FC_GetNumCacheLevels(font);
     for(i = 0; i < num_levels; ++i)
@@ -1762,16 +1516,16 @@ static void set_color_for_all_caches(FC_Font* font, SDL_Color color)
     }
 }
 
-FC_Rect FC_Draw(FC_Font* font, FC_Target* dest, float x, float y, const char* formatted_text, ...)
+SDL_Rect FC_Draw(FC_Font* font, SDL_Renderer* dest, int x, int y, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, font->default_color);
 
-    return FC_RenderLeft(font, dest, x, y, FC_MakeScale(1,1), fc_buffer);
+    return FC_RenderLeft(font, dest, x, y, {1,1}, fc_buffer);
 }
 
 
@@ -1785,7 +1539,7 @@ typedef struct FC_StringList
 void FC_StringListFree(FC_StringList* node)
 {
     // Delete the nodes in order
-    while(node != NULL)
+    while(node != nullptr)
     {
         FC_StringList* last = node;
         node = node->next;
@@ -1797,13 +1551,13 @@ void FC_StringListFree(FC_StringList* node)
 
 FC_StringList** FC_StringListPushBack(FC_StringList** node, char* value, Uint8 copy)
 {
-    if(node == NULL)
+    if(node == nullptr)
     {
-        return NULL;
+        return nullptr;
     }
 
     // Get to the last node
-    while(*node != NULL)
+    while(*node != nullptr)
     {
         node = &(*node)->next;
     }
@@ -1811,20 +1565,20 @@ FC_StringList** FC_StringListPushBack(FC_StringList** node, char* value, Uint8 c
     *node = (FC_StringList*)malloc(sizeof(FC_StringList));
 
     (*node)->value = (copy? U8_strdup(value) : value);
-    (*node)->next = NULL;
+    (*node)->next = nullptr;
 
     return node;
 }
 
 FC_StringList** FC_StringListPushBackBytes(FC_StringList** node, const char* data, int num_bytes)
 {
-    if(node == NULL)
+    if(node == nullptr)
     {
         return node;
     }
 
     // Get to the last node
-    while(*node != NULL)
+    while(*node != nullptr)
     {
         node = &(*node)->next;
     }
@@ -1834,7 +1588,7 @@ FC_StringList** FC_StringListPushBackBytes(FC_StringList** node, const char* dat
     (*node)->value = (char*)malloc(num_bytes + 1);
     memcpy((*node)->value, data, num_bytes);
     (*node)->value[num_bytes] = '\0';
-    (*node)->next = NULL;
+    (*node)->next = nullptr;
 
     return node;
 }
@@ -1847,10 +1601,10 @@ static FC_StringList* FC_Explode(const char* text, char delimiter)
     const char* start;
     const char* end;
     unsigned int size;
-    if(text == NULL)
-        return NULL;
+    if(text == nullptr)
+        return nullptr;
 
-    head = NULL;
+    head = nullptr;
     node = &head;
 
     // Doesn't technically support UTF-8, but it's probably fine, right?
@@ -1867,7 +1621,7 @@ static FC_StringList* FC_Explode(const char* text, char delimiter)
             memcpy(new_node->value, start, size);
             new_node->value[size] = '\0';
 
-            new_node->next = NULL;
+            new_node->next = nullptr;
 
             if(*end == '\0')
                 break;
@@ -1892,14 +1646,14 @@ static FC_StringList* FC_ExplodeBreakingSpace(const char* text, FC_StringList** 
     const char* start;
     const char* end;
     unsigned int size;
-    if(text == NULL)
-        return NULL;
+    if(text == nullptr)
+        return nullptr;
 
-    head = NULL;
+    head = nullptr;
     node = &head;
 
     // Warning: spaces must not be initialized before this function
-    *spaces = NULL;
+    *spaces = nullptr;
 
     // Doesn't technically support UTF-8, but it's probably fine, right?
     size = 0;
@@ -1935,10 +1689,10 @@ static FC_StringList* FC_ExplodeAndKeep(const char* text, char delimiter)
     const char* start;
     const char* end;
     unsigned int size;
-    if(text == NULL)
-        return NULL;
+    if(text == nullptr)
+        return nullptr;
 
-    head = NULL;
+    head = nullptr;
     node = &head;
 
     // Doesn't technically support UTF-8, but it's probably fine, right?
@@ -1966,7 +1720,7 @@ static FC_StringList* FC_ExplodeAndKeep(const char* text, char delimiter)
     return head;
 }
 
-static void FC_RenderAlign(FC_Font* font, FC_Target* dest, float x, float y, int width, FC_Scale scale, FC_AlignEnum align, const char* text)
+static void FC_RenderAlign(FC_Font* font, SDL_Renderer* dest, int x, int y, int width, FC_Scale scale, FC_AlignEnum align, const char* text)
 {
     switch(align)
     {
@@ -1984,13 +1738,13 @@ static void FC_RenderAlign(FC_Font* font, FC_Target* dest, float x, float y, int
 
 static FC_StringList* FC_GetBufferFitToColumn(FC_Font* font, int width, FC_Scale scale, Uint8 keep_newlines)
 {
-    FC_StringList* result = NULL;
+    FC_StringList* result = nullptr;
     FC_StringList** current = &result;
 
     FC_StringList *ls, *iter;
 
     ls = (keep_newlines? FC_ExplodeAndKeep(fc_buffer, '\n') : FC_Explode(fc_buffer, '\n'));
-    for(iter = ls; iter != NULL; iter = iter->next)
+    for(iter = ls; iter != nullptr; iter = iter->next)
     {
         char* line = iter->value;
 
@@ -2002,7 +1756,7 @@ static FC_StringList* FC_GetBufferFitToColumn(FC_Font* font, int width, FC_Scale
             words = FC_ExplodeBreakingSpace(line, &spaces);
             // Skip the first word for the iterator, so there will always be at least one word per line
             line = new_concat(words->value, spaces->value);
-            for(word_iter = words->next, spaces_iter = spaces->next; word_iter != NULL && spaces_iter != NULL; word_iter = word_iter->next, spaces_iter = spaces_iter->next)
+            for(word_iter = words->next, spaces_iter = spaces->next; word_iter != nullptr && spaces_iter != nullptr; word_iter = word_iter->next, spaces_iter = spaces_iter->next)
             {
                 char* line_plus_word = new_concat(line, word_iter->value);
                 char* word_plus_space = new_concat(word_iter->value, spaces_iter->value);
@@ -2026,7 +1780,7 @@ static FC_StringList* FC_GetBufferFitToColumn(FC_Font* font, int width, FC_Scale
         else
         {
             current = FC_StringListPushBack(current, line, 0);
-            iter->value = NULL;
+            iter->value = nullptr;
         }
     }
     FC_StringListFree(ls);
@@ -2034,37 +1788,37 @@ static FC_StringList* FC_GetBufferFitToColumn(FC_Font* font, int width, FC_Scale
     return result;
 }
 
-static void FC_DrawColumnFromBuffer(FC_Font* font, FC_Target* dest, FC_Rect box, int* total_height, FC_Scale scale, FC_AlignEnum align)
+static void FC_DrawColumnFromBuffer(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, int* total_height, FC_Scale scale, FC_AlignEnum align)
 {
     int y = box.y;
     FC_StringList *ls, *iter;
 
     ls = FC_GetBufferFitToColumn(font, box.w, scale, 0);
-    for(iter = ls; iter != NULL; iter = iter->next)
+    for(iter = ls; iter != nullptr; iter = iter->next)
     {
         FC_RenderAlign(font, dest, box.x, y, box.w, scale, align, iter->value);
         y += FC_GetLineHeight(font);
     }
     FC_StringListFree(ls);
 
-    if(total_height != NULL)
+    if(total_height != nullptr)
         *total_height = y - box.y;
 }
 
-FC_Rect FC_DrawBox(FC_Font* font, FC_Target* dest, FC_Rect box, const char* formatted_text, ...)
+SDL_Rect FC_DrawBox(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, const char* formatted_text, ...)
 {
     Uint8 useClip;
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(box.x, box.y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {box.x, box.y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     useClip = has_clip(dest);
-    FC_Rect oldclip, newclip;
+    SDL_Rect oldclip, newclip;
     if(useClip)
     {
         oldclip = get_clip(dest);
-        newclip = FC_RectIntersect(oldclip, box);
+        newclip = SDL_RectIntersect(oldclip, box);
     }
     else
         newclip = box;
@@ -2073,30 +1827,30 @@ FC_Rect FC_DrawBox(FC_Font* font, FC_Target* dest, FC_Rect box, const char* form
 
     set_color_for_all_caches(font, font->default_color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, NULL, FC_MakeScale(1,1), FC_ALIGN_LEFT);
+    FC_DrawColumnFromBuffer(font, dest, box, nullptr, {1,1}, FC_ALIGN_LEFT);
 
     if(useClip)
         set_clip(dest, &oldclip);
     else
-        set_clip(dest, NULL);
+        set_clip(dest, nullptr);
 
     return box;
 }
 
-FC_Rect FC_DrawBoxAlign(FC_Font* font, FC_Target* dest, FC_Rect box, FC_AlignEnum align, const char* formatted_text, ...)
+SDL_Rect FC_DrawBoxAlign(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, FC_AlignEnum align, const char* formatted_text, ...)
 {
     Uint8 useClip;
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(box.x, box.y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {box.x, box.y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     useClip = has_clip(dest);
-    FC_Rect oldclip, newclip;
+    SDL_Rect oldclip, newclip;
     if(useClip)
     {
         oldclip = get_clip(dest);
-        newclip = FC_RectIntersect(oldclip, box);
+        newclip = SDL_RectIntersect(oldclip, box);
     }
     else
         newclip = box;
@@ -2104,30 +1858,30 @@ FC_Rect FC_DrawBoxAlign(FC_Font* font, FC_Target* dest, FC_Rect box, FC_AlignEnu
 
     set_color_for_all_caches(font, font->default_color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, NULL, FC_MakeScale(1,1), align);
+    FC_DrawColumnFromBuffer(font, dest, box, nullptr, {1,1}, align);
 
     if(useClip)
         set_clip(dest, &oldclip);
     else
-        set_clip(dest, NULL);
+        set_clip(dest, nullptr);
 
     return box;
 }
 
-FC_Rect FC_DrawBoxScale(FC_Font* font, FC_Target* dest, FC_Rect box, FC_Scale scale, const char* formatted_text, ...)
+SDL_Rect FC_DrawBoxScale(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, FC_Scale scale, const char* formatted_text, ...)
 {
     Uint8 useClip;
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(box.x, box.y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {box.x, box.y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     useClip = has_clip(dest);
-    FC_Rect oldclip, newclip;
+    SDL_Rect oldclip, newclip;
     if(useClip)
     {
         oldclip = get_clip(dest);
-        newclip = FC_RectIntersect(oldclip, box);
+        newclip = SDL_RectIntersect(oldclip, box);
     }
     else
         newclip = box;
@@ -2135,30 +1889,30 @@ FC_Rect FC_DrawBoxScale(FC_Font* font, FC_Target* dest, FC_Rect box, FC_Scale sc
 
     set_color_for_all_caches(font, font->default_color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, NULL, scale, FC_ALIGN_LEFT);
+    FC_DrawColumnFromBuffer(font, dest, box, nullptr, scale, FC_ALIGN_LEFT);
 
     if(useClip)
         set_clip(dest, &oldclip);
     else
-        set_clip(dest, NULL);
+        set_clip(dest, nullptr);
 
     return box;
 }
 
-FC_Rect FC_DrawBoxColor(FC_Font* font, FC_Target* dest, FC_Rect box, SDL_Color color, const char* formatted_text, ...)
+SDL_Rect FC_DrawBoxColor(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, SDL_Color color, const char* formatted_text, ...)
 {
     Uint8 useClip;
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(box.x, box.y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {box.x, box.y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     useClip = has_clip(dest);
-    FC_Rect oldclip, newclip;
+    SDL_Rect oldclip, newclip;
     if(useClip)
     {
         oldclip = get_clip(dest);
-        newclip = FC_RectIntersect(oldclip, box);
+        newclip = SDL_RectIntersect(oldclip, box);
     }
     else
         newclip = box;
@@ -2166,30 +1920,30 @@ FC_Rect FC_DrawBoxColor(FC_Font* font, FC_Target* dest, FC_Rect box, SDL_Color c
 
     set_color_for_all_caches(font, color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, NULL, FC_MakeScale(1,1), FC_ALIGN_LEFT);
+    FC_DrawColumnFromBuffer(font, dest, box, nullptr, {1,1}, FC_ALIGN_LEFT);
 
     if(useClip)
         set_clip(dest, &oldclip);
     else
-        set_clip(dest, NULL);
+        set_clip(dest, nullptr);
 
     return box;
 }
 
-FC_Rect FC_DrawBoxEffect(FC_Font* font, FC_Target* dest, FC_Rect box, FC_Effect effect, const char* formatted_text, ...)
+SDL_Rect FC_DrawBoxEffect(FC_Font* font, SDL_Renderer* dest, SDL_Rect box, FC_Effect effect, const char* formatted_text, ...)
 {
     Uint8 useClip;
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(box.x, box.y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {box.x, box.y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     useClip = has_clip(dest);
-    FC_Rect oldclip, newclip;
+    SDL_Rect oldclip, newclip;
     if(useClip)
     {
         oldclip = get_clip(dest);
-        newclip = FC_RectIntersect(oldclip, box);
+        newclip = SDL_RectIntersect(oldclip, box);
     }
     else
         newclip = box;
@@ -2197,40 +1951,40 @@ FC_Rect FC_DrawBoxEffect(FC_Font* font, FC_Target* dest, FC_Rect box, FC_Effect 
 
     set_color_for_all_caches(font, effect.color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, NULL, effect.scale, effect.alignment);
+    FC_DrawColumnFromBuffer(font, dest, box, nullptr, effect.scale, effect.alignment);
 
     if(useClip)
         set_clip(dest, &oldclip);
     else
-        set_clip(dest, NULL);
+        set_clip(dest, nullptr);
 
     return box;
 }
 
-FC_Rect FC_DrawColumn(FC_Font* font, FC_Target* dest, float x, float y, Uint16 width, const char* formatted_text, ...)
+SDL_Rect FC_DrawColumn(FC_Font* font, SDL_Renderer* dest, int x, int y, Uint16 width, const char* formatted_text, ...)
 {
-    FC_Rect box = {x, y, width, 0};
+    SDL_Rect box = {x, y, width, 0};
     int total_height;
 
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, font->default_color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, &total_height, FC_MakeScale(1,1), FC_ALIGN_LEFT);
+    FC_DrawColumnFromBuffer(font, dest, box, &total_height, {1,1}, FC_ALIGN_LEFT);
 
-    return FC_MakeRect(box.x, box.y, width, total_height);
+    return {box.x, box.y, width, total_height};
 }
 
-FC_Rect FC_DrawColumnAlign(FC_Font* font, FC_Target* dest, float x, float y, Uint16 width, FC_AlignEnum align, const char* formatted_text, ...)
+SDL_Rect FC_DrawColumnAlign(FC_Font* font, SDL_Renderer* dest, int x, int y, Uint16 width, FC_AlignEnum align, const char* formatted_text, ...)
 {
-    FC_Rect box = {x, y, width, 0};
+    SDL_Rect box = {x, y, width, 0};
     int total_height;
 
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
@@ -2248,18 +2002,18 @@ FC_Rect FC_DrawColumnAlign(FC_Font* font, FC_Target* dest, float x, float y, Uin
         break;
     }
 
-    FC_DrawColumnFromBuffer(font, dest, box, &total_height, FC_MakeScale(1,1), align);
+    FC_DrawColumnFromBuffer(font, dest, box, &total_height, {1,1}, align);
 
-    return FC_MakeRect(box.x, box.y, width, total_height);
+    return {box.x, box.y, width, total_height};
 }
 
-FC_Rect FC_DrawColumnScale(FC_Font* font, FC_Target* dest, float x, float y, Uint16 width, FC_Scale scale, const char* formatted_text, ...)
+SDL_Rect FC_DrawColumnScale(FC_Font* font, SDL_Renderer* dest, int x, int y, Uint16 width, FC_Scale scale, const char* formatted_text, ...)
 {
-    FC_Rect box = {x, y, width, 0};
+    SDL_Rect box = {x, y, width, 0};
     int total_height;
 
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
@@ -2267,33 +2021,33 @@ FC_Rect FC_DrawColumnScale(FC_Font* font, FC_Target* dest, float x, float y, Uin
 
     FC_DrawColumnFromBuffer(font, dest, box, &total_height, scale, FC_ALIGN_LEFT);
 
-    return FC_MakeRect(box.x, box.y, width, total_height);
+    return {box.x, box.y, width, total_height};
 }
 
-FC_Rect FC_DrawColumnColor(FC_Font* font, FC_Target* dest, float x, float y, Uint16 width, SDL_Color color, const char* formatted_text, ...)
+SDL_Rect FC_DrawColumnColor(FC_Font* font, SDL_Renderer* dest, int x, int y, Uint16 width, SDL_Color color, const char* formatted_text, ...)
 {
-    FC_Rect box = {x, y, width, 0};
+    SDL_Rect box = {x, y, width, 0};
     int total_height;
 
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, color);
 
-    FC_DrawColumnFromBuffer(font, dest, box, &total_height, FC_MakeScale(1,1), FC_ALIGN_LEFT);
+    FC_DrawColumnFromBuffer(font, dest, box, &total_height, {1,1}, FC_ALIGN_LEFT);
 
-    return FC_MakeRect(box.x, box.y, width, total_height);
+    return {box.x, box.y, width, total_height};
 }
 
-FC_Rect FC_DrawColumnEffect(FC_Font* font, FC_Target* dest, float x, float y, Uint16 width, FC_Effect effect, const char* formatted_text, ...)
+SDL_Rect FC_DrawColumnEffect(FC_Font* font, SDL_Renderer* dest, int x, int y, Uint16 width, FC_Effect effect, const char* formatted_text, ...)
 {
-    FC_Rect box = {x, y, width, 0};
+    SDL_Rect box = {x, y, width, 0};
     int total_height;
 
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
@@ -2313,13 +2067,13 @@ FC_Rect FC_DrawColumnEffect(FC_Font* font, FC_Target* dest, float x, float y, Ui
 
     FC_DrawColumnFromBuffer(font, dest, box, &total_height, effect.scale, effect.alignment);
 
-    return FC_MakeRect(box.x, box.y, width, total_height);
+    return {box.x, box.y, width, total_height};
 }
 
-static FC_Rect FC_RenderCenter(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text)
+static SDL_Rect FC_RenderCenter(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text)
 {
-    FC_Rect result = {x, y, 0, 0};
-    if(text == NULL || font == NULL)
+    SDL_Rect result = {x, y, 0, 0};
+    if(text == nullptr || font == nullptr)
         return result;
 
     char* str = U8_strdup(text);
@@ -2333,7 +2087,7 @@ static FC_Rect FC_RenderCenter(FC_Font* font, FC_Target* dest, float x, float y,
         if(*c == '\n')
         {
             *c = '\0';
-            result = FC_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str)/2.0f, y, scale, str), result);
+            result = SDL_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str)/2, y, scale, str), result);
             *c = '\n';
             c++;
             str = c;
@@ -2343,16 +2097,16 @@ static FC_Rect FC_RenderCenter(FC_Font* font, FC_Target* dest, float x, float y,
             c++;
     }
 
-    result = FC_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str)/2.0f, y, scale, str), result);
+    result = SDL_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str)/2, y, scale, str), result);
 
     free(del);
     return result;
 }
 
-static FC_Rect FC_RenderRight(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* text)
+static SDL_Rect FC_RenderRight(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* text)
 {
-    FC_Rect result = {x, y, 0, 0};
-    if(text == NULL || font == NULL)
+    SDL_Rect result = {x, y, 0, 0};
+    if(text == nullptr || font == nullptr)
         return result;
 
     char* str = U8_strdup(text);
@@ -2364,7 +2118,7 @@ static FC_Rect FC_RenderRight(FC_Font* font, FC_Target* dest, float x, float y, 
         if(*c == '\n')
         {
             *c = '\0';
-            result = FC_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str), y, scale, str), result);
+            result = SDL_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str), y, scale, str), result);
             *c = '\n';
             c++;
             str = c;
@@ -2374,7 +2128,7 @@ static FC_Rect FC_RenderRight(FC_Font* font, FC_Target* dest, float x, float y, 
             c++;
     }
 
-    result = FC_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str), y, scale, str), result);
+    result = SDL_RectUnion(FC_RenderLeft(font, dest, x - scale.x*FC_GetWidth(font, "%s", str), y, scale, str), result);
 
     free(del);
     return result;
@@ -2382,10 +2136,10 @@ static FC_Rect FC_RenderRight(FC_Font* font, FC_Target* dest, float x, float y, 
 
 
 
-FC_Rect FC_DrawScale(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale scale, const char* formatted_text, ...)
+SDL_Rect FC_DrawScale(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Scale scale, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
@@ -2394,58 +2148,58 @@ FC_Rect FC_DrawScale(FC_Font* font, FC_Target* dest, float x, float y, FC_Scale 
     return FC_RenderLeft(font, dest, x, y, scale, fc_buffer);
 }
 
-FC_Rect FC_DrawAlign(FC_Font* font, FC_Target* dest, float x, float y, FC_AlignEnum align, const char* formatted_text, ...)
+SDL_Rect FC_DrawAlign(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_AlignEnum align, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, font->default_color);
 
-    FC_Rect result;
+    SDL_Rect result;
     switch(align)
     {
         case FC_ALIGN_LEFT:
-            result = FC_RenderLeft(font, dest, x, y, FC_MakeScale(1,1), fc_buffer);
+            result = FC_RenderLeft(font, dest, x, y, {1,1}, fc_buffer);
             break;
         case FC_ALIGN_CENTER:
-            result = FC_RenderCenter(font, dest, x, y, FC_MakeScale(1,1), fc_buffer);
+            result = FC_RenderCenter(font, dest, x, y, {1,1}, fc_buffer);
             break;
         case FC_ALIGN_RIGHT:
-            result = FC_RenderRight(font, dest, x, y, FC_MakeScale(1,1), fc_buffer);
+            result = FC_RenderRight(font, dest, x, y, {1,1}, fc_buffer);
             break;
         default:
-            result = FC_MakeRect(x, y, 0, 0);
+            result = {x, y, 0, 0};
             break;
     }
 
     return result;
 }
 
-FC_Rect FC_DrawColor(FC_Font* font, FC_Target* dest, float x, float y, SDL_Color color, const char* formatted_text, ...)
+SDL_Rect FC_DrawColor(FC_Font* font, SDL_Renderer* dest, int x, int y, SDL_Color color, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, color);
 
-    return FC_RenderLeft(font, dest, x, y, FC_MakeScale(1,1), fc_buffer);
+    return FC_RenderLeft(font, dest, x, y, {1,1}, fc_buffer);
 }
 
 
-FC_Rect FC_DrawEffect(FC_Font* font, FC_Target* dest, float x, float y, FC_Effect effect, const char* formatted_text, ...)
+SDL_Rect FC_DrawEffect(FC_Font* font, SDL_Renderer* dest, int x, int y, FC_Effect effect, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
-        return FC_MakeRect(x, y, 0, 0);
+    if(formatted_text == nullptr || font == nullptr)
+        return {x, y, 0, 0};
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
     set_color_for_all_caches(font, effect.color);
 
-    FC_Rect result;
+    SDL_Rect result;
     switch(effect.alignment)
     {
         case FC_ALIGN_LEFT:
@@ -2458,7 +2212,7 @@ FC_Rect FC_DrawEffect(FC_Font* font, FC_Target* dest, float x, float y, FC_Effec
             result = FC_RenderRight(font, dest, x, y, effect.scale, fc_buffer);
             break;
         default:
-            result = FC_MakeRect(x, y, 0, 0);
+            result = {x, y, 0, 0};
             break;
     }
 
@@ -2473,7 +2227,7 @@ FC_Rect FC_DrawEffect(FC_Font* font, FC_Target* dest, float x, float y, FC_Effec
 
 FC_FilterEnum FC_GetFilterMode(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return FC_FILTER_NEAREST;
 
     return font->filter;
@@ -2481,7 +2235,7 @@ FC_FilterEnum FC_GetFilterMode(FC_Font* font)
 
 Uint16 FC_GetLineHeight(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     return font->height;
@@ -2489,7 +2243,7 @@ Uint16 FC_GetLineHeight(FC_Font* font)
 
 Uint16 FC_GetHeight(FC_Font* font, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
+    if(formatted_text == nullptr || font == nullptr)
         return 0;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
@@ -2509,7 +2263,7 @@ Uint16 FC_GetHeight(FC_Font* font, const char* formatted_text, ...)
 
 Uint16 FC_GetWidth(FC_Font* font, const char* formatted_text, ...)
 {
-    if(formatted_text == NULL || font == NULL)
+    if(formatted_text == nullptr || font == nullptr)
         return 0;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
@@ -2538,27 +2292,27 @@ Uint16 FC_GetWidth(FC_Font* font, const char* formatted_text, ...)
 }
 
 // If width == -1, use no width limit
-FC_Rect FC_GetCharacterOffset(FC_Font* font, Uint16 position_index, int column_width, const char* formatted_text, ...)
+SDL_Rect FC_GetCharacterOffset(FC_Font* font, Uint16 position_index, int column_width, const char* formatted_text, ...)
 {
-    FC_Rect result = {0, 0, 1, FC_GetLineHeight(font)};
+    SDL_Rect result = {0, 0, 1, FC_GetLineHeight(font)};
     FC_StringList *ls, *iter;
     int num_lines = 0;
     Uint8 done = 0;
 
-    if(formatted_text == NULL || column_width == 0 || position_index == 0 || font == NULL)
+    if(formatted_text == nullptr || column_width == 0 || position_index == 0 || font == nullptr)
         return result;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
-    ls = FC_GetBufferFitToColumn(font, column_width, FC_MakeScale(1,1), 1);
-    for(iter = ls; iter != NULL;)
+    ls = FC_GetBufferFitToColumn(font, column_width, {1,1}, 1);
+    for(iter = ls; iter != nullptr;)
     {
         char* line;
         int i = 0;
         FC_StringList* next_iter = iter->next;
 
         ++num_lines;
-        for(line = iter->value; line != NULL && *line != '\0'; line = (char*)U8_next(line))
+        for(line = iter->value; line != nullptr && *line != '\0'; line = (char*)U8_next(line))
         {
             ++i;
             --position_index;
@@ -2576,7 +2330,7 @@ FC_Rect FC_GetCharacterOffset(FC_Font* font, Uint16 position_index, int column_w
             break;
 
         // Prevent line wrapping if there are no more lines
-        if(next_iter == NULL && !done)
+        if(next_iter == nullptr && !done)
             result.x = FC_GetWidth(font, "%s", iter->value);
         iter = next_iter;
     }
@@ -2597,16 +2351,16 @@ Uint16 FC_GetColumnHeight(FC_Font* font, Uint16 width, const char* formatted_tex
 
     FC_StringList *ls, *iter;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
-    if(formatted_text == NULL || width == 0)
+    if(formatted_text == nullptr || width == 0)
         return font->height;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
-    ls = FC_GetBufferFitToColumn(font, width, FC_MakeScale(1,1), 0);
-    for(iter = ls; iter != NULL; iter = iter->next)
+    ls = FC_GetBufferFitToColumn(font, width, {1,1}, 0);
+    for(iter = ls; iter != nullptr; iter = iter->next)
     {
         y += FC_GetLineHeight(font);
     }
@@ -2619,7 +2373,7 @@ static int FC_GetAscentFromCodepoint(FC_Font* font, Uint32 codepoint)
 {
     FC_GlyphData glyph;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     // FIXME: Store ascent so we can return it here
@@ -2631,7 +2385,7 @@ static int FC_GetDescentFromCodepoint(FC_Font* font, Uint32 codepoint)
 {
     FC_GlyphData glyph;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     // FIXME: Store descent so we can return it here
@@ -2645,10 +2399,10 @@ int FC_GetAscent(FC_Font* font, const char* formatted_text, ...)
     int max, ascent;
     const char* c;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
-    if(formatted_text == NULL)
+    if(formatted_text == nullptr)
         return font->ascent;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
@@ -2676,10 +2430,10 @@ int FC_GetDescent(FC_Font* font, const char* formatted_text, ...)
     int max, descent;
     const char* c;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
-    if(formatted_text == NULL)
+    if(formatted_text == nullptr)
         return font->descent;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
@@ -2703,7 +2457,7 @@ int FC_GetDescent(FC_Font* font, const char* formatted_text, ...)
 
 int FC_GetBaseline(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     return font->baseline;
@@ -2711,7 +2465,7 @@ int FC_GetBaseline(FC_Font* font)
 
 int FC_GetSpacing(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     return font->letterSpacing;
@@ -2719,7 +2473,7 @@ int FC_GetSpacing(FC_Font* font)
 
 int FC_GetLineSpacing(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     return font->lineSpacing;
@@ -2727,7 +2481,7 @@ int FC_GetLineSpacing(FC_Font* font)
 
 Uint16 FC_GetMaxWidth(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
     return font->maxWidth;
@@ -2735,7 +2489,7 @@ Uint16 FC_GetMaxWidth(FC_Font* font)
 
 SDL_Color FC_GetDefaultColor(FC_Font* font)
 {
-    if(font == NULL)
+    if(font == nullptr)
     {
         SDL_Color c = {0,0,0,255};
         return c;
@@ -2744,11 +2498,11 @@ SDL_Color FC_GetDefaultColor(FC_Font* font)
     return font->default_color;
 }
 
-FC_Rect FC_GetBounds(FC_Font* font, float x, float y, FC_AlignEnum align, FC_Scale scale, const char* formatted_text, ...)
+SDL_Rect FC_GetBounds(FC_Font* font, int x, int y, FC_AlignEnum align, FC_Scale scale, const char* formatted_text, ...)
 {
-    FC_Rect result = {x, y, 0, 0};
+    SDL_Rect result = {x, y, 0, 0};
 
-    if(formatted_text == NULL)
+    if(formatted_text == nullptr)
         return result;
 
     // Create a temp buffer while GetWidth and GetHeight use fc_buffer.
@@ -2777,13 +2531,13 @@ FC_Rect FC_GetBounds(FC_Font* font, float x, float y, FC_AlignEnum align, FC_Sca
     return result;
 }
 
-Uint8 FC_InRect(float x, float y, FC_Rect input_rect)
+Uint8 FC_InRect(int x, int y, SDL_Rect input_rect)
 {
     return (input_rect.x <= x && x <= input_rect.x + input_rect.w && input_rect.y <= y && y <= input_rect.y + input_rect.h);
 }
 
 // TODO: Make it work with alignment
-Uint16 FC_GetPositionFromOffset(FC_Font* font, float x, float y, int column_width, FC_AlignEnum align, const char* formatted_text, ...)
+Uint16 FC_GetPositionFromOffset(FC_Font* font, int x, int y, int column_width, FC_AlignEnum align, const char* formatted_text, ...)
 {
     FC_StringList *ls, *iter;
     Uint8 done = 0;
@@ -2793,21 +2547,21 @@ Uint16 FC_GetPositionFromOffset(FC_Font* font, float x, float y, int column_widt
     int current_y = 0;
     FC_GlyphData glyph_data;
 
-    if(formatted_text == NULL || column_width == 0 || font == NULL)
+    if(formatted_text == nullptr || column_width == 0 || font == nullptr)
         return 0;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
-    ls = FC_GetBufferFitToColumn(font, column_width, FC_MakeScale(1,1), 1);
-    for(iter = ls; iter != NULL; iter = iter->next)
+    ls = FC_GetBufferFitToColumn(font, column_width, {1,1}, 1);
+    for(iter = ls; iter != nullptr; iter = iter->next)
     {
         char* line;
 
-        for(line = iter->value; line != NULL && *line != '\0'; line = (char*)U8_next(line))
+        for(line = iter->value; line != nullptr && *line != '\0'; line = (char*)U8_next(line))
         {
             if(FC_GetGlyphData(font, &glyph_data, FC_GetCodepointFromUTF8((const char**)&line, 0)))
             {
-                if(FC_InRect(x, y, FC_MakeRect(current_x, current_y, glyph_data.rect.w, glyph_data.rect.h)))
+                if(FC_InRect(x, y, {current_x, current_y, glyph_data.rect.w, glyph_data.rect.h}))
                 {
                     done = 1;
                     break;
@@ -2834,18 +2588,18 @@ int FC_GetWrappedText(FC_Font* font, char* result, int max_result_size, Uint16 w
 {
     FC_StringList *ls, *iter;
 
-    if(font == NULL)
+    if(font == nullptr)
         return 0;
 
-    if(formatted_text == NULL || width == 0)
+    if(formatted_text == nullptr || width == 0)
         return 0;
 
     FC_EXTRACT_VARARGS(fc_buffer, formatted_text);
 
-    ls = FC_GetBufferFitToColumn(font, width, FC_MakeScale(1,1), 0);
+    ls = FC_GetBufferFitToColumn(font, width, {1,1}, 0);
     int size_so_far = 0;
     int size_remaining = max_result_size-1; // reserve for \0
-    for(iter = ls; iter != NULL && size_remaining > 0; iter = iter->next)
+    for(iter = ls; iter != nullptr && size_remaining > 0; iter = iter->next)
     {
         // Copy as much of this line as we can
         int len = strlen(iter->value);
@@ -2854,7 +2608,7 @@ int FC_GetWrappedText(FC_Font* font, char* result, int max_result_size, Uint16 w
         size_so_far += num_bytes;
 
         // If there's another line, add newline character
-        if(size_remaining > 0 && iter->next != NULL)
+        if(size_remaining > 0 && iter->next != nullptr)
         {
             --size_remaining;
             result[size_so_far] = '\n';
@@ -2875,34 +2629,19 @@ int FC_GetWrappedText(FC_Font* font, char* result, int max_result_size, Uint16 w
 
 void FC_SetFilterMode(FC_Font* font, FC_FilterEnum filter)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     if(font->filter != filter)
     {
         font->filter = filter;
-
-        #ifdef FC_USE_SDL_GPU
-        // Update each texture to use this filter mode
-        {
-            int i;
-            GPU_FilterEnum gpu_filter = GPU_FILTER_NEAREST;
-            if(FC_GetFilterMode(font) == FC_FILTER_LINEAR)
-                gpu_filter = GPU_FILTER_LINEAR;
-
-            for(i = 0; i < font->glyph_cache_count; ++i)
-            {
-                GPU_SetImageFilter(font->glyph_cache[i], gpu_filter);
-            }
-        }
-        #endif
     }
 }
 
 
 void FC_SetSpacing(FC_Font* font, int LetterSpacing)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     font->letterSpacing = LetterSpacing;
@@ -2910,7 +2649,7 @@ void FC_SetSpacing(FC_Font* font, int LetterSpacing)
 
 void FC_SetLineSpacing(FC_Font* font, int LineSpacing)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     font->lineSpacing = LineSpacing;
@@ -2918,7 +2657,7 @@ void FC_SetLineSpacing(FC_Font* font, int LineSpacing)
 
 void FC_SetDefaultColor(FC_Font* font, SDL_Color color)
 {
-    if(font == NULL)
+    if(font == nullptr)
         return;
 
     font->default_color = color;

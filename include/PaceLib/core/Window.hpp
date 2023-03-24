@@ -19,10 +19,8 @@ public:
     void Close();
 
     static void SetDrawColor(SDL_Color col);
-    static void SetDrawColor(int r, int g, int b, int a);
 
     static void SetBackgroundColor(SDL_Color col);
-    static void SetBackgroundColor(int r, int g, int b, int a);
 
     static SDL_Color GetBackgroundColor();
 

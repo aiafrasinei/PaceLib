@@ -42,9 +42,9 @@ bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w, int h)
     return true;
 }
 
-bool Scene::AddFont(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a)
+bool Scene::AddFont(std::string name, std::filesystem::path file_path, int size, SDL_Color color)
 {
-    return font_atlas->Add(name, file_path, size, r, g, b, a);
+    return font_atlas->Add(name, file_path, size, color);
 }
 
 SDL_Texture *Scene::GetTex(std::string name)

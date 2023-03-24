@@ -24,7 +24,7 @@ include_directories("${PACE_INCLUDE_PATH}/resources")
 include_directories("${PACE_INCLUDE_PATH}/scene")
 
 IF(UNIX)
-    set(CMAKE_CXX_FLAGS "-std=c++20")
+    set(CMAKE_CXX_FLAGS "-std=c++23")
 
     include_directories("/opt/homebrew/include")
 
@@ -52,7 +52,7 @@ IF(UNIX)
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp
-        ../../src/SDL_FontCache.c
+        ../../src/SDL_FontCache.cpp
         ../../src/Timer.cpp
         ../../src/Label.cpp
         ../../src/Button.cpp
@@ -63,8 +63,7 @@ IF(UNIX)
         ../../src/TextArea.cpp
         ../../src/TextInput.cpp
         ../../src/Tabber.cpp
-        ../../src/Configuration.cpp
-        ../../src/Version.cpp)
+        ../../src/Configuration.cpp)
 
     target_link_libraries(sdl2 m dl SDL2 SDL2_image SDL2_ttf pthread)
 
@@ -97,7 +96,7 @@ ELSE (WIN32)
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
         ../../src/FontContainer.cpp
-        ../../src/SDL_FontCache.c
+        ../../src/SDL_FontCache.cpp
         ../../src/Timer.cpp
         ../../src/Label.cpp
         ../../src/Button.cpp
@@ -114,7 +113,7 @@ ELSE (WIN32)
 
 ENDIF (UNIX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_BUILD_TYPE Debug)

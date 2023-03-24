@@ -112,11 +112,6 @@ void Window::SetDrawColor(SDL_Color col)
 	SDL_SetRenderDrawColor(Window::GetRenderer(), col.r, col.g, col.b, col.a);
 }
 
-void Window::SetDrawColor(int r, int g, int b, int a)
-{
-	SDL_SetRenderDrawColor(Window::GetRenderer(), r, g, b, a);
-}
-
 void Window::SetBackgroundColor(SDL_Color col)
 {
 	backgroundColor.r = col.r;
@@ -125,16 +120,6 @@ void Window::SetBackgroundColor(SDL_Color col)
 	backgroundColor.a = col.a;
 
 	SetDrawColor(backgroundColor);
-}
-
-void Window::SetBackgroundColor(int r, int g, int b, int a)
-{
-	backgroundColor.r = r;
-	backgroundColor.g = g;
-	backgroundColor.b = b;
-	backgroundColor.a = a;
-
-	SetDrawColor(r, g, b, a);
 }
 
 SDL_Color Window::GetBackgroundColor()

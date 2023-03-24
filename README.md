@@ -1,4 +1,4 @@
-# PaceLib 1.0.4
+# PaceLib 1.0.5
 
 Features:
 - Open source 2d c++ graphics library (based on SDL2)
@@ -11,7 +11,7 @@ Features:
 - Examples and good documentation
 
 Prerequisites:
-- c++20 compiler
+- c++23 compiler
 - SDL2, SDL2_image, SDL2_ttf 
 - cmake
 

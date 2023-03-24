@@ -28,7 +28,7 @@ namespace PaceLib
         PaceLib::FontContainer *GetFontContainer();
 
         bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
-        bool AddFont(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a);
+        bool AddFont(std::string name, std::filesystem::path file_path, int size, SDL_Color color);
 
         SDL_Texture *GetTex(std::string name);
 

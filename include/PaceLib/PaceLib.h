@@ -9,9 +9,6 @@
 //utils
 #include "utils/ConLog.hpp"
 #include "utils/SDL2/SDL_FontCache.h"
-#include "utils/SDL2/SDL2_framerate.h"
-#include "utils/SDL2/SDL2_rotozoom.h"
-#include "utils/SDL2/SDL2_imageFilter.h"
 #include "utils/Timer.h"
 #include "utils/Random.h"
 #include "utils/Scale.h"

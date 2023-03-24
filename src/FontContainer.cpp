@@ -39,13 +39,13 @@ void FontContainer::Remove(std::string name)
     fnm.erase(name);
 }
 
-bool FontContainer::Add(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a)
+bool FontContainer::Add(std::string name, std::filesystem::path file_path, int size, SDL_Color color)
 {
     FC_Font* font = FC_CreateFont();
 
-    int ret=FC_LoadFont(font, Window::GetRenderer(), file_path.string().c_str(), size, FC_MakeColor(r,g,b,a), TTF_STYLE_NORMAL);
+    int ret=FC_LoadFont(font, Window::GetRenderer(), file_path.string().c_str(), size, color, TTF_STYLE_NORMAL);
     
-    if(ret != 0)
+    if(ret != 1) // wtf
     {
         printf( "Failed to load font");
         return false;

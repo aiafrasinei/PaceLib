@@ -7,7 +7,7 @@ This is the recomended way to use PaceLib.
 Can be used in other ways but your on your own there.
 
 Prerequisites:
-- c++20 compiler
+- c++23 compiler
 - SDL2, SDL2_image, SDL2_ttf 
 - cmake
 

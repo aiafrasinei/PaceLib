@@ -8,6 +8,8 @@ Text::Text(ShapeId sid, TextProp prop)
 {
     this->prop = prop;
 
+    color = prop.color;
+
     if(sid.parent->name != "root") {
         this->prop.x = sid.parent->GetRect().x + prop.x;
         this->prop.y = sid.parent->GetRect().y + prop.y;
@@ -19,8 +21,7 @@ Text::Text(ShapeId sid, TextProp prop)
 
     wtype = WidgetType::TEXT;
 
-    rect = FC_DrawColor(prop.font, Window::GetRenderer(), prop.x, prop.y, prop.color, prop.text.c_str());
-
+    rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x, (float)prop.y, prop.color, prop.text.c_str());
 }
 
 Text::~Text()
@@ -83,7 +84,7 @@ void Text::Draw()
 {
     if(!hidden) {
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g, prop.color.b, prop.color.a);
-        rect = FC_DrawColor(prop.font, Window::GetRenderer(), prop.x, prop.y, prop.color, prop.text.c_str());
+        rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x, (float)prop.y, prop.color, prop.text.c_str());
     }
 }
 

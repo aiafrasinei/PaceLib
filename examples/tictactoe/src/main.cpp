@@ -101,7 +101,7 @@ bool init()
 
 	Root *root = starter->GetRoot();
 
-	root->GetScene("Default")->GetFontContainer()->Add("ftext", "fonts/OpenSans_Condensed-Regular.ttf", 100, 0, 0, 0, 255);
+	root->GetScene("Default")->GetFontContainer()->Add("ftext", "fonts/OpenSans_Condensed-Regular.ttf", 100, {0, 0, 0, 255} );
 	
 	for(int i=0; i<10; i++) {
 		std::string bis = std::to_string(i);

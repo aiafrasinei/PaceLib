@@ -17,7 +17,7 @@ namespace PaceLib
         FontContainer(std::string name);    
         ~FontContainer();
 
-        bool Add(std::string name, std::filesystem::path file_path, int size, int r, int g, int b, int a);
+        bool Add(std::string name, std::filesystem::path file_path, int size, SDL_Color color);
 
         void Remove(std::string name);
 

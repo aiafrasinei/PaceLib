@@ -21,7 +21,7 @@ bool init()
 
 	Root *root = starter->GetRoot();
 	
-	root->GetScene("Default")->GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, 0, 0, 0, 255);
+	root->GetScene("Default")->GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, {0, 0, 0, 255} );
 
 	root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
 	root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);

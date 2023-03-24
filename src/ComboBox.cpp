@@ -149,10 +149,10 @@ void ComboBox::InternalInit()
     Shape *current = root->GetCurrent();
 
     Triangle::Begin({root->GetCurrent(), "triangle_decorator"},
-    root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y + this->GetRect().h,
+    { root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y + this->GetRect().h,
     root->GetCurrentAbsoluteCoords().x + this->GetRect().w, root->GetCurrentAbsoluteCoords().y + this->GetRect().h,
     root->GetCurrentAbsoluteCoords().x + this->GetRect().w/2, root->GetCurrentAbsoluteCoords().y + this->GetRect().h + this->GetRect().h/3,
-    borderColor);
+    borderColor } );
 
     for(int i=0; i<items.size(); i++) {
         SDL_Rect r = {root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y+(i*this->GetRect().h), this->GetRect().w, this->GetRect().h};

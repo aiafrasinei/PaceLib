@@ -12,7 +12,7 @@ bool init()
 
 	Root *root = starter->GetRoot();
 
-	root->GetScene("Default")->GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, 0, 0, 0, 255);
+	root->GetScene("Default")->GetFontContainer()->Add("font_title", "fonts/OpenSans_Condensed-Regular.ttf", 40, {0, 0, 0, 255} );
 
 	Text::Begin("title");
 	Button::Begin("new");
