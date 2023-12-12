@@ -1,41 +1,38 @@
 #pragma once
 
-#include "../utils/Platform.h"
 #include "../config/Configuration.hpp"
+#include "../utils/Platform.h"
 
-
-class Window
-{
+class Window {
 
 public:
-    Window(Configuration *conf);
-    ~Window();
-    
-    static SDL_Renderer *GetRenderer();
-    static SDL_Window *GetWindow();
+  Window(Configuration *conf);
+  ~Window();
 
-    void Clear();
-    void Present();
-    void Close();
+  static SDL_Renderer *GetRenderer();
+  static SDL_Window *GetWindow();
 
-    static void SetDrawColor(SDL_Color col);
+  void Clear();
+  void Present();
+  void Close();
 
-    static void SetBackgroundColor(SDL_Color col);
+  static void SetDrawColor(SDL_Color col);
 
-    static SDL_Color GetBackgroundColor();
+  static void SetBackgroundColor(SDL_Color col);
 
-    static bool running;
+  static SDL_Color GetBackgroundColor();
 
-    static int width, height;
+  static bool running;
+
+  static int width, height;
 
 private:
-    static SDL_Renderer* renderer;
-    static SDL_Window* window;
+  static SDL_Renderer *renderer;
+  static SDL_Window *window;
 
-    static SDL_Color backgroundColor;
+  static SDL_Color backgroundColor;
 
-    bool success;
+  bool success;
 
 protected:
-
 };

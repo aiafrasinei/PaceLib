@@ -1,37 +1,33 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <filesystem>
+#include "TexContainer.hpp"
 #include "utils/Platform.h"
 #include "utils/SDL2/SDL_FontCache.h"
-#include "TexContainer.hpp"
+#include <filesystem>
+#include <string>
+#include <vector>
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class FontContainer {
+public:
+  FontContainer(std::string name);
+  ~FontContainer();
 
-    class FontContainer
-    {
-    public:
-        FontContainer(std::string name);    
-        ~FontContainer();
+  bool Add(std::string name, std::filesystem::path file_path, int size,
+           SDL_Color color);
 
-        bool Add(std::string name, std::filesystem::path file_path, int size, SDL_Color color);
+  void Remove(std::string name);
 
-        void Remove(std::string name);
+  FC_Font *Get(std::string name);
 
-        FC_Font *Get(std::string name);
-        
-        std::string GetName();
-        void ChangeName(std::string name);
+  std::string GetName();
+  void ChangeName(std::string name);
 
-    protected:
+protected:
+private:
+  std::map<std::string, FC_Font *> fnm;
+  std::string name;
+};
 
-    private:
-        std::map<std::string, FC_Font *> fnm;
-        std::string name;
-
-    };
-    
-}
+} // namespace PaceLib

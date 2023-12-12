@@ -2,15 +2,11 @@
 
 #include "SDL2/SDL.h"
 
-
-class Updateable
-{
+class Updateable {
 
 public:
-    virtual void Update(SDL_Event *e) = 0;
+  virtual void Update(SDL_Event *e) = 0;
 
 private:
-
 protected:
-
 };

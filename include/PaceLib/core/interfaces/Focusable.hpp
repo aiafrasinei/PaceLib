@@ -1,25 +1,13 @@
-class Focusable
-{
+class Focusable {
 
 public:
-    bool IsFocused()
-    {
-        return focus;
-    }
+  bool IsFocused() { return focus; }
 
-    void Focus()
-    {
-        focus = true;
-    }
+  void Focus() { focus = true; }
 
-    void Unfocus()
-    {
-        focus = false;
-    }
+  void Unfocus() { focus = false; }
 
 private:
-
 protected:
-    bool focus;
-    
+  bool focus;
 };

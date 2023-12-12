@@ -1,38 +1,34 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-#include <fstream>
 #include "../externals/nlohmann/json.hpp"
-
+#include <fstream>
+#include <iostream>
+#include <string>
 
 using json = nlohmann::json;
 
-class Configuration
-{
+class Configuration {
 public:
-    Configuration(std::string fname);
-    ~Configuration();
+  Configuration(std::string fname);
+  ~Configuration();
 
-    auto Get(std::string name)
-    {
-        return j[name];
-    }
+  auto Get(std::string name) { return j[name]; }
 
-    void Reload();
+  void Reload();
 
-    void Set(std::string key, std::string val);
+  void Set(std::string key, std::string val);
 
-    void Set(std::string key, int val);
+  void Set(std::string key, int val);
 
-    void Set(std::string key, bool val);
+  void Set(std::string key, bool val);
 
-    void Set(std::string key, json j);
+  void Set(std::string key, json j);
 
-    void Dump();
+  void Dump();
+
 private:
-    std::ifstream ifs;
-    std::string jsons;
-    json j;
-    std::string fname;
+  std::ifstream ifs;
+  std::string jsons;
+  json j;
+  std::string fname;
 };

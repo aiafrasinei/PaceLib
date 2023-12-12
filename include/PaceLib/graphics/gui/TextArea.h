@@ -1,60 +1,57 @@
 #pragma once
 
-#include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
+#include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class TextArea : public Widget {
+public:
+  ~TextArea();
 
-    class TextArea : public Widget
-    {
-        public:
-            ~TextArea();
+  // static methods
 
-//static methods
+  // json configuration
 
-// json configuration
+  /* Loads wconf file
+  {
+      "scene" : "Default",
+      "dim" : ["W_1%", "H_11%", "W_10%", "H_14%"],
+      "font" : "default",
+      "text_arr" : [ "first", "second line", "third line"],
+      "text_color" : "$TEXT",
+      "background" : "$BACKGROUND",
+      "border" : "$BORDER"
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-            /* Loads wconf file
-            {
-                "scene" : "Default",
-                "dim" : ["W_1%", "H_11%", "W_10%", "H_14%"],
-                "font" : "default",
-                "text_arr" : [ "first", "second line", "third line"],
-                "text_color" : "$TEXT",
-                "background" : "$BACKGROUND",
-                "border" : "$BORDER"
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  // used when the textarea will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            //used when the textarea will have child elements
-            static void BeginBlock(std::string name);
-            static void EndBlock();
+  // programatic
+  static void Begin(ShapeId sid, MultiItemsProp prop);
 
-// programatic
-            static void Begin(ShapeId sid, MultiItemsProp prop);
+  // end static methods
 
-//end static methods
+  SDL_Color GetTextColor();
 
-            SDL_Color GetTextColor();
+  void SetTextSpacing(int size);
 
-            void SetTextSpacing(int size);
+  void Draw();
 
-            void Draw();
+private:
+  MultiItemsProp prop;
 
-        private:
-            MultiItemsProp prop;
+  int textSpacing;
 
-            int textSpacing;
+  TextArea(ShapeId sid, MultiItemsProp prop);
 
-            TextArea(ShapeId sid, MultiItemsProp prop);
+  static MultiItemsProp LoadTextAreaProp(Configuration *conf);
 
-            static MultiItemsProp LoadTextAreaProp(Configuration *conf);
+  void InternalInit();
+};
 
-            void InternalInit();
-    };
-
-}
+} // namespace PaceLib

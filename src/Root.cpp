@@ -2,226 +2,188 @@
 
 using namespace PaceLib;
 
+Root::Root() {
+  rect.x = 0;
+  rect.y = 0;
+  rect.w = 0;
+  rect.h = 0;
 
-Root::Root()
-{
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 0;
-    rect.h = 0;
+  hidden = false;
 
-    color.r = Window::GetBackgroundColor().r;
-    color.g = Window::GetBackgroundColor().g;
-    color.b = Window::GetBackgroundColor().b;
-    color.a = Window::GetBackgroundColor().a;
+  name = "root";
 
-    hidden = false;
+  scenes["Default"] =
+      new Scene("Default", Window::GetWindow(), Window::GetRenderer());
+  scenes["Default"]->GetFontContainer()->Add(
+      "default", "fonts/OpenSans_Condensed-Regular.ttf", 20, {0, 0, 0, 255});
 
-    name = "root";
+  wtype = WidgetType::ROOT;
 
-    scenes["Default"] = new Scene("Default", Window::GetWindow(), Window::GetRenderer());
-    scenes["Default"]->GetFontContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, { 0, 0, 0, 255 } );
+  if (std::filesystem::exists("wconfs/vars")) {
+    vars = new Configuration("wconfs/vars");
+  }
 
-    wtype = WidgetType::ROOT;
-
-    if(std::filesystem::exists("wconfs/vars")) {
-        vars = new Configuration("wconfs/vars");
-    }
-
-    currentAbsoluteCoords = {0, 0};
+  currentAbsoluteCoords = {0, 0};
 }
 
-Root::~Root()
-{
+Root::~Root() {}
+
+void Root::Draw() {
+  SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r,
+                         Window::GetBackgroundColor().g,
+                         Window::GetBackgroundColor().b,
+                         Window::GetBackgroundColor().a);
+
+  if (this->state != nullptr) {
+    this->state->Loop();
+  }
+
+  for (Shape *w : shapes) {
+    w->Draw();
+  }
+
+  SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r,
+                         Window::GetBackgroundColor().g,
+                         Window::GetBackgroundColor().b,
+                         Window::GetBackgroundColor().a);
 }
 
-void Root::Draw()
-{
-    SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
+void Root::Add(Shape *s) { shapes.push_back(s); }
 
-    if(this->state != nullptr) {
-        this->state->Loop();
-    }
-
-    for(Shape *w : shapes) {
-        w->Draw();
-    }
-
-    
-
-    SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r, Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,  Window::GetBackgroundColor().a);
+Button *Root::GetButton(std::string child) {
+  return static_cast<Button *>(this->Get(child));
 }
 
-void Root::Add(Shape *s)
-{
-    shapes.push_back(s);
+ButtonTex *Root::GetButtonTex(std::string child) {
+  return static_cast<ButtonTex *>(this->Get(child));
 }
 
-
-Button *Root::GetButton(std::string child)
-{
-    return static_cast<Button *>(this->Get(child));
+Label *Root::GetLabel(std::string child) {
+  return static_cast<Label *>(this->Get(child));
 }
 
-ButtonTex *Root::GetButtonTex(std::string child)
-{
-    return static_cast<ButtonTex *>(this->Get(child));
+Widget *Root::GetWidget(std::string child) {
+  return static_cast<Widget *>(this->Get(child));
 }
 
-Label *Root::GetLabel(std::string child)
-{
-    return static_cast<Label *>(this->Get(child));
+Tab *Root::GetTab(std::string child) {
+  return static_cast<Tab *>(this->Get(child));
 }
 
-Widget *Root::GetWidget(std::string child)
-{
-    return static_cast<Widget *>(this->Get(child));
+Tabber *Root::GetTabber(std::string child) {
+  return static_cast<Tabber *>(this->Get(child));
 }
 
-Tab *Root::GetTab(std::string child)
-{
-    return static_cast<Tab *>(this->Get(child));
+Hotspot *Root::GetHotspot(std::string child) {
+  return static_cast<Hotspot *>(this->Get(child));
 }
 
-Tabber *Root::GetTabber(std::string child)
-{
-    return static_cast<Tabber *>(this->Get(child));
+Text *Root::GetText(std::string child) {
+  return static_cast<Text *>(this->Get(child));
 }
 
-Hotspot *Root::GetHotspot(std::string child)
-{
-    return static_cast<Hotspot *>(this->Get(child));
+Tooltip *Root::GetTooltip(std::string child) {
+  return static_cast<Tooltip *>(this->Get(child));
 }
 
-
-Text *Root::GetText(std::string child)
-{
-    return static_cast<Text *>(this->Get(child));
+CheckBox *Root::GetCheckBox(std::string child) {
+  return static_cast<CheckBox *>(this->Get(child));
 }
 
-Tooltip *Root::GetTooltip(std::string child)
-{
-    return static_cast<Tooltip *>(this->Get(child));
+TextInput *Root::GetTextInput(std::string child) {
+  return static_cast<TextInput *>(this->Get(child));
 }
 
-CheckBox *Root::GetCheckBox(std::string child)
-{
-    return static_cast<CheckBox *>(this->Get(child));
+TextArea *Root::GetTextArea(std::string child) {
+  return static_cast<TextArea *>(this->Get(child));
 }
 
-TextInput *Root::GetTextInput(std::string child)
-{
-    return static_cast<TextInput *>(this->Get(child));
+ComboBox *Root::GetComboBox(std::string child) {
+  return static_cast<ComboBox *>(this->Get(child));
 }
 
-TextArea *Root::GetTextArea(std::string child)
-{
-    return static_cast<TextArea *>(this->Get(child));
+void Root::Update(SDL_Event *e) {
+  for (Shape *s : shapes) {
+    s->Update(e);
+  }
 }
 
-ComboBox *Root::GetComboBox(std::string child)
-{
-    return static_cast<ComboBox *>(this->Get(child));
+void Root::SetState(State *state) {
+  this->state = state;
+  this->state->Execute();
 }
 
-void Root::Update(SDL_Event *e)
-{
-    for(Shape *s : shapes) {
-        s->Update(e);
-    }
+std::map<std::string, Scene *> Root::GetScenes() { return scenes; }
+
+Scene *Root::GetScene(std::string name) { return scenes[name]; }
+
+void Root::HideAll() {
+  for (Shape *s : shapes) {
+    s->Hide();
+  }
 }
 
-void Root::SetState(State *state)
-{
-    this->state = state;
-    this->state->Execute();
+void Root::AddScene(std::string name) {
+  scenes[name] = new Scene(name, Window::GetWindow(), Window::GetRenderer());
 }
 
-std::map<std::string, Scene *> Root::GetScenes()
-{
-    return scenes;
+void Root::RemoveScene(std::string name) {
+  delete scenes[name];
+  scenes.erase(name);
 }
 
+Configuration *Root::GetVars() { return vars; }
 
-Scene *Root::GetScene(std::string name)
-{
-    return scenes[name];
-}
+bool Root::IsVarDefined(std::string name) {
+  bool ret = false;
 
-void Root::HideAll()
-{
-    for(Shape *s : shapes) {
-        s->Hide();
-    }
-}
+  if (vars->Get(name) != nullptr) {
+    ret = true;
+  }
 
-void Root::AddScene(std::string name)
-{
-    scenes[name] = new Scene(name, Window::GetWindow(), Window::GetRenderer());
-}
-
-void Root::RemoveScene(std::string name)
-{
-    delete scenes[name];
-    scenes.erase(name);
-}
-
-Configuration *Root::GetVars()
-{
-    return vars;
-}
-
-bool Root::IsVarDefined(std::string name)
-{
-    bool ret = false;
-
-    if(vars->Get(name) != nullptr) {
-        ret = true;
-    }
-
-    return ret;
+  return ret;
 }
 
 void Root::ParseDim(int dim[4], Configuration *conf) {
-    Root *root = &Root::GetInstance();
-    SDL_Rect r = ((Widget *)root->GetCurrent())->GetRect();
+  Root *root = &Root::GetInstance();
+  SDL_Rect r = ((Widget *)root->GetCurrent())->GetRect();
 
-    for(int i=0; i<4; i++) {
-        std::string str = conf->Get("dim")[i].get<std::string>();
-        std::string first_char = str.substr(0,1);
+  for (int i = 0; i < 4; i++) {
+    std::string str = conf->Get("dim")[i].get<std::string>();
+    std::string first_char = str.substr(0, 1);
 
-        float val = 0;
-        if(str == "W") {
-            val = Window::width;
-        } else if(str == "H") {
-            val = Window::height;
-        } else if(first_char == "W" || first_char == "H") {
-            std::size_t pos = str.find("%");
-            if (pos != std::string::npos) {
-                if(first_char == "W")
-                    val = Window::width*std::stoi(str.substr(2,pos))/100;
-                if(first_char == "H")
-                    val = Window::height*std::stoi(str.substr(2,pos))/100;
-            }
-        } else if( str == "#W") {
-            val = r.w;
-        } else if( str == "#H") {
-            val = r.h;
-        } else if(first_char == "#" || first_char == "#") {
-            std::string second_char = str.substr(1,1);
-            if(second_char == "W" || second_char == "H") {
-                std::size_t pos = str.find("%");
-                if (pos != std::string::npos) {
-                    if(second_char == "W")
-                        val = r.w*std::stoi(str.substr(3,pos))/100;
-                    if(second_char == "H")
-                        val = r.h*std::stoi(str.substr(3,pos))/100;
-                }
-            }
-        } else {
-            val = std::stof(str);
+    float val = 0;
+    if (str == "W") {
+      val = Window::width;
+    } else if (str == "H") {
+      val = Window::height;
+    } else if (first_char == "W" || first_char == "H") {
+      std::size_t pos = str.find("%");
+      if (pos != std::string::npos) {
+        if (first_char == "W")
+          val = Window::width * std::stoi(str.substr(2, pos)) / 100;
+        if (first_char == "H")
+          val = Window::height * std::stoi(str.substr(2, pos)) / 100;
+      }
+    } else if (str == "#W") {
+      val = r.w;
+    } else if (str == "#H") {
+      val = r.h;
+    } else if (first_char == "#" || first_char == "#") {
+      std::string second_char = str.substr(1, 1);
+      if (second_char == "W" || second_char == "H") {
+        std::size_t pos = str.find("%");
+        if (pos != std::string::npos) {
+          if (second_char == "W")
+            val = r.w * std::stoi(str.substr(3, pos)) / 100;
+          if (second_char == "H")
+            val = r.h * std::stoi(str.substr(3, pos)) / 100;
         }
-
-        dim[i] = val;
+      }
+    } else {
+      val = std::stof(str);
     }
+
+    dim[i] = val;
+  }
 }

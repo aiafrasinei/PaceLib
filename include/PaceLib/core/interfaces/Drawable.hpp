@@ -2,15 +2,11 @@
 
 #include "SDL2/SDL.h"
 
-class Drawable
-{
+class Drawable {
 
 public:
-    virtual void Draw() = 0;
+  virtual void Draw() = 0;
 
 private:
-
 protected:
-    SDL_Color color;
-    
 };

@@ -1,146 +1,110 @@
 #include "Text.h"
-#include "Window.hpp"
 #include "Root.h"
+#include "Window.hpp"
 
 using namespace PaceLib;
 
-Text::Text(ShapeId sid, TextProp prop)
-{
-    this->prop = prop;
+Text::Text(ShapeId sid, TextProp prop) {
+  this->prop = prop;
 
-    color = prop.color;
+  if (sid.parent->name != "root") {
+    this->prop.x = sid.parent->GetRect().x + prop.x;
+    this->prop.y = sid.parent->GetRect().y + prop.y;
+  }
 
-    if(sid.parent->name != "root") {
-        this->prop.x = sid.parent->GetRect().x + prop.x;
-        this->prop.y = sid.parent->GetRect().y + prop.y;
-    }
+  hidden = false;
 
-    hidden = false;
+  this->name = sid.name;
 
-    this->name = sid.name;
+  wtype = WidgetType::TEXT;
 
-    wtype = WidgetType::TEXT;
-
-    rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x, (float)prop.y, prop.color, prop.text.c_str());
+  rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x,
+                      (float)prop.y, prop.color, prop.text.c_str());
 }
 
-Text::~Text()
-{
+Text::~Text() {}
 
+void Text::Begin(ShapeId sid) {
+  std::string path = "wconfs/" + sid.name + "_Text.conf";
+  if (std::filesystem::exists(path)) {
+    Configuration *conf = new Configuration(path);
+
+    TextProp prop = LoadTextProp(conf);
+
+    Text *t = new Text(sid, prop);
+
+    t->conf = conf;
+    sid.parent->Add(t);
+  }
 }
 
-void Text::Begin(ShapeId sid)
-{
-    std::string path = "wconfs/" + sid.name + "_Text.conf";
-    if(std::filesystem::exists(path)) {
-        Configuration *conf = new Configuration(path);
-
-        TextProp prop = LoadTextProp(conf);
-
-        Text *t = new Text(sid, prop);
-
-        t->conf = conf;
-        sid.parent->Add(t);
-    }
+void Text::Begin(std::string name) {
+  Root *root = &Root::GetInstance();
+  Text::Begin({root->GetCurrent(), name});
 }
 
-void Text::Begin(std::string name)
-{
-    Root *root = &Root::GetInstance();
-    Text::Begin({root->GetCurrent(), name});
+void Text::BeginBlock(std::string name) {
+  Root *root = &Root::GetInstance();
+  Text::Begin({root->GetCurrent(), name});
+
+  Shape *prevParent = root->GetCurrent();
+  root->SetCurrent(root->GetCurrent()->Get(name));
+  root->GetCurrent()->SetParent(prevParent);
+
+  Shape *c = root->GetCurrent();
+  root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
-void Text::BeginBlock(std::string name)
-{
-    Root *root = &Root::GetInstance();
-    Text::Begin({root->GetCurrent(), name});
+void Text::EndBlock() {
+  Root *root = &Root::GetInstance();
 
-    Shape *prevParent = root->GetCurrent();
-    root->SetCurrent(root->GetCurrent()->Get(name));
-    root->GetCurrent()->SetParent(prevParent);
+  Shape *c = root->GetCurrent();
+  root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 
-    Shape *c = root->GetCurrent();
-    root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
+  root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Text::EndBlock()
-{
-    Root *root = &Root::GetInstance();
+void Text::Begin(ShapeId sid, TextProp prop) {
+  Text *txt = new Text(sid, prop);
 
-    Shape *c = root->GetCurrent();
-    root->PopAbsoluteCoords({c->GetRect().x, c->GetRect().y});
-
-    root->SetCurrent(root->GetCurrent()->GetParent());
+  sid.parent->Add(txt);
 }
 
-void Text::Begin(ShapeId sid, TextProp prop)
-{
-    Text *txt = new Text(sid, prop);
-
-    sid.parent->Add(txt);
+void Text::Draw() {
+  if (!hidden) {
+    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
+                           prop.color.b, prop.color.a);
+    rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x,
+                        (float)prop.y, prop.color, prop.text.c_str());
+  }
 }
 
-void Text::Draw()
-{
-    if(!hidden) {
-        SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g, prop.color.b, prop.color.a);
-        rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x, (float)prop.y, prop.color, prop.text.c_str());
-    }
-}
+int Text::GetWidth() { return rect.w; }
 
-int Text::GetWidth()
-{
-    return rect.w;
-}
+int Text::GetHeight() { return rect.h; }
 
-int Text::GetHeight()
-{
-    return rect.h;
-}
+void Text::SetX(int x) { prop.x = x; }
 
-void Text::SetX(int x)
-{
-    prop.x = x;
-}
+void Text::SetY(int y) { prop.y = y; }
 
-void Text::SetY(int y)
-{
-    prop.y = y;
-}
+std::string Text::GetText() { return prop.text; }
 
-std::string Text::GetText()
-{
-    return prop.text;
-}
+void Text::SetText(std::string text) { prop.text = text; }
 
-void Text::SetText(std::string text)
-{
-    prop.text = text;
-}
+void Text::SetFont(FC_Font *font) { prop.font = font; }
 
-void Text::SetFont(FC_Font *font)
-{
-    prop.font = font;
-}
+TextProp Text::LoadTextProp(Configuration *conf) {
+  int pos[2];
+  Widget::ParsePos(pos, conf);
 
-TextProp Text::LoadTextProp(Configuration *conf)
-{
-    int pos[2];
-    Widget::ParsePos(pos, conf);
+  Root *root = &Root::GetInstance();
 
-    Root *root = &Root::GetInstance();
+  FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
+                      ->GetFont(conf->Get("font").get<std::string>());
+  std::string text = conf->Get("text").get<std::string>();
+  SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
 
-    FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())->GetFont(conf->Get("font").get<std::string>());
-    std::string text = conf->Get("text").get<std::string>();
-    SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
+  TextProp prop = {pos[0], pos[1], font, text, color};
 
-    TextProp prop = {
-                        pos[0],
-                        pos[1],
-                        font,
-                        text,
-                        color
-                    };
-
-    return prop;
+  return prop;
 }

@@ -1,6 +1,7 @@
-# PaceLib 1.0.5
+# PaceLib 1.0.6
 
 Features:
+
 - Open source 2d c++ graphics library (based on SDL2)
 - Easy to use!
 - Flexible widget system (json configuration or code)
@@ -11,11 +12,13 @@ Features:
 - Examples and good documentation
 
 Prerequisites:
+
 - c++23 compiler
-- SDL2, SDL2_image, SDL2_ttf 
+- SDL2, SDL2_image, SDL2_ttf
 - cmake
 
 Documentation:
+
 - [Install](https://github.com/aiafrasinei/PaceLib/blob/main/INSTALL.md)
 - [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
 - [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)

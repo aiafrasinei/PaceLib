@@ -1,51 +1,48 @@
 #pragma once
 
+#include "FontContainer.hpp"
+#include "TexContainer.hpp"
+#include "core/interfaces/Drawable.hpp"
+#include "utils/Platform.h"
 #include <string>
 #include <vector>
-#include "TexContainer.hpp"
-#include "FontContainer.hpp"
-#include "utils/Platform.h"
-#include "core/interfaces/Drawable.hpp"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Scene : public Drawable {
+public:
+  Scene(std::string name, SDL_Window *window, SDL_Renderer *renderer);
+  ~Scene();
 
-    class Scene : public Drawable
-    {
-    public:
-        Scene(std::string name, SDL_Window* window, SDL_Renderer* renderer);    
-        ~Scene();
-        
-        void Start();
-        void Draw();
-        void Stop();
+  void Start();
+  void Draw();
+  void Stop();
 
-        std::string GetName();
-        void SetName(std::string name);
+  std::string GetName();
+  void SetName(std::string name);
 
-        PaceLib::TexContainer *GetTexContainer();
-        PaceLib::FontContainer *GetFontContainer();
+  PaceLib::TexContainer *GetTexContainer();
+  PaceLib::FontContainer *GetFontContainer();
 
-        bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
-        bool AddFont(std::string name, std::filesystem::path file_path, int size, SDL_Color color);
+  bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
+  bool AddFont(std::string name, std::filesystem::path file_path, int size,
+               SDL_Color color);
 
-        SDL_Texture *GetTex(std::string name);
+  SDL_Texture *GetTex(std::string name);
 
-        FC_Font *GetFont(std::string name);
+  FC_Font *GetFont(std::string name);
 
-        void Update(SDL_Event *event);
+  void Update(SDL_Event *event);
 
-    protected:
+protected:
+private:
+  PaceLib::TexContainer *tex_atlas;
+  PaceLib::FontContainer *font_atlas;
 
-    private:
-        PaceLib::TexContainer *tex_atlas;
-        PaceLib::FontContainer *font_atlas;
+  SDL_Window *window;
+  SDL_Renderer *renderer;
 
-        SDL_Window* window;
-        SDL_Renderer* renderer;
+  std::string name;
+};
 
-        std::string name;
-    };
-
-}
+} // namespace PaceLib

@@ -1,49 +1,45 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <filesystem>
-#include "utils/Platform.h"
 #include "Props.h"
+#include "utils/Platform.h"
+#include <filesystem>
 #include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class TexContainer {
+public:
+  TexContainer(std::string name, SDL_Renderer *renderer);
+  ~TexContainer();
 
-    class TexContainer
-    {
-    public:
-        TexContainer(std::string name, SDL_Renderer* renderer);    
-        ~TexContainer();
-        
-        bool Add(std::filesystem::path file_path);
-        bool Add(std::string name, SDL_Texture *tex);
-        bool Add(std::filesystem::path file_path, int x, int y, int w , int h);
-        
-        void Remove(std::string name);
+  bool Add(std::filesystem::path file_path);
+  bool Add(std::string name, SDL_Texture *tex);
+  bool Add(std::filesystem::path file_path, int x, int y, int w, int h);
 
-        SDL_Texture *Get(std::string name);
-        
-        SDL_Rect *GetRect(std::string name);
+  void Remove(std::string name);
 
-        long GetNrTexs();
+  SDL_Texture *Get(std::string name);
 
-        void SetRect(std::string name, int x, int y, int w , int h);
+  SDL_Rect *GetRect(std::string name);
 
-        std::string GetName();
-        void ChangeName(std::string name);
+  long GetNrTexs();
 
-    protected:
+  void SetRect(std::string name, int x, int y, int w, int h);
 
-    private:
-        SDL_Renderer* renderer;
+  std::string GetName();
+  void ChangeName(std::string name);
 
-        std::map<std::string, TexProp *> ntr;
-        std::string name;
+protected:
+private:
+  SDL_Renderer *renderer;
 
-        SDL_Texture* LoadTexture(SDL_Renderer* renderer, std::string path);
-    };
-    
-}
+  std::map<std::string, TexProp *> ntr;
+  std::string name;
+
+  SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
+};
+
+} // namespace PaceLib

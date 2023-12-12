@@ -1,12 +1,7 @@
 #pragma once
 
-namespace PaceLib
-{
+namespace PaceLib {
 
-    enum class DrawTypes
-    {
-        FILLED,
-        OUTLINE
-    };
+enum class DrawTypes { FILLED, OUTLINE };
 
 }

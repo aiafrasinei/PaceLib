@@ -1,90 +1,86 @@
 #pragma once
 
-#include "Widget.h"
+#include "../../utils/SDL2/SDL_FontCache.h"
 #include "Button.h"
 #include "Tab.h"
-#include "../../utils/SDL2/SDL_FontCache.h"
 #include "Text.h"
+#include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Tabber : public Widget {
+public:
+  // static methods
 
-    class Tabber : public Widget
-    {
-        public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
+      "background" : [70, 80, 70, 255],
+      "border" : "$BORDER",
+      "header_background" : [40, 40, 40, 255],
+      "header_height" : 10,
+      "buttons_font" : "default",
+      "buttons_text_color" : "$TEXT",
+      "buttons_text_align" : "left",
+      "buttons_background" : "$BACKGROUND",
+      "buttons_border" : "$BORDER",
+      "buttons_highlight" : "$HIGHLIGHT"
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            /* Loads wconf file
-            example format:
-            {
-                "scene" : "Default",
-                "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
-                "background" : [70, 80, 70, 255],
-                "border" : "$BORDER",
-                "header_background" : [40, 40, 40, 255],
-                "header_height" : 10,
-                "buttons_font" : "default",
-                "buttons_text_color" : "$TEXT",
-                "buttons_text_align" : "left",
-                "buttons_background" : "$BACKGROUND", 
-                "buttons_border" : "$BORDER",
-                "buttons_highlight" : "$HIGHLIGHT"
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  static void BeginTabBlock(std::string text);
+  static void EndTabBlock();
 
-            static void BeginBlock(std::string name);
-            static void EndBlock();
+  // programmatic
 
-            static void BeginTabBlock(std::string text);
-            static void EndTabBlock();
+  static void Begin(ShapeId sid, TabberProp prop);
 
-// programmatic
+  // end static methods
 
-            static void Begin(ShapeId sid, TabberProp prop);
+  void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
-//end static methods
+  void Draw();
 
-            void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+  void AddTab(std::string text);
+  void AddTab(std::string name, std::string text);
 
-            void Draw();
+  TabberProp GetProp();
 
-            void AddTab(std::string text);
-            void AddTab(std::string name, std::string text);
+  Tab *GetTab(std::string child);
 
-            TabberProp GetProp();
+  Tab *GetTab(int index);
 
-            Tab *GetTab(std::string child);
+  void Update(SDL_Event *e);
 
-            Tab *GetTab(int index);
+  ~Tabber();
 
-            void Update(SDL_Event *e);
+private:
+  std::vector<std::string> titles;
 
-            ~Tabber();
-            
-        private:
-            std::vector<std::string> titles;
+  SDL_Color textColor;
 
-            SDL_Color textColor;
+  int bcounter;
 
-            int bcounter;
+  SDL_Rect top;
 
-            SDL_Rect top;
+  static unsigned int current;
+  static int tabx;
 
-            static unsigned int current;
-            static int tabx;
+  TabberProp prop;
 
-            TabberProp prop;
+  static TabberProp LoadTabberProp(Configuration *conf);
 
-            static TabberProp LoadTabberProp(Configuration *conf);
+  Tabber(ShapeId sid, TabberProp prop);
 
-            Tabber(ShapeId sid, TabberProp prop);
+  void ClearHeaderColor(SDL_Color col);
+};
 
-            void ClearHeaderColor(SDL_Color col);
-    };
-    
-}
+} // namespace PaceLib

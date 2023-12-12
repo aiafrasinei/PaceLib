@@ -1,65 +1,60 @@
 #pragma once
 
-#include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
-#include "Text.h"
-#include "Label.h"
 #include "../core/interfaces/Updateable.hpp"
+#include "Label.h"
+#include "Text.h"
+#include "Widget.h"
 #include <functional>
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Button : public Label {
+public:
+  // static methods
 
-    class Button : public Label
-    {
-        public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+      "font" : "default",
+      "text" : "Start",
+      "text_color" : "$TEXT",
+      "align" : "mid",
+      "background" : "$BACKGROUND",
+      "border" : "$BORDER",
+      "highlight" : "$HIGHLIGHT"
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the button will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            /* Loads wconf file
-            example format:
-            {
-                "scene" : "Default",
-                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
-                "font" : "default",
-                "text" : "Start",
-                "text_color" : "$TEXT",
-                "align" : "mid",
-                "background" : "$BACKGROUND",
-                "border" : "$BORDER",
-                "highlight" : "$HIGHLIGHT"
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  // programmatic
+  static void Begin(ShapeId sid, LabelProp prop);
 
-            //used when the button will have child elements
-            static void BeginBlock(std::string name);
-            static void EndBlock();
+  // end static methods
 
-// programmatic
-            static void Begin(ShapeId sid, LabelProp prop);
+  void SetHighlight(bool state);
 
-//end static methods
+  std::function<void(void)> onClickCallback;
 
-            void SetHighlight(bool state);
+  void Draw();
+  void Update(SDL_Event *e);
 
-            std::function<void(void)> onClickCallback;
+  ~Button();
 
-            void Draw();
-            void Update(SDL_Event *e);
+private:
+  bool mouseOver;
 
-            ~Button();
+  bool highlight;
 
-        private:
+  Button(ShapeId sid, LabelProp prop);
+};
 
-            bool mouseOver;
-
-            bool highlight;
-
-            Button(ShapeId sid, LabelProp prop);
-    };
-
-}
+} // namespace PaceLib

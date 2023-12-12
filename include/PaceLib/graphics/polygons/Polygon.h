@@ -2,47 +2,41 @@
 
 #include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Polygon : public Shape {
+public:
+  // static methods
 
-    class Polygon : public Shape
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "verts" : [ 0, 0, 10, 10, 100, 100 ]
+      "colors" : [ 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255 ]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the polygon will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "verts" : [ 0, 0, 10, 10, 100, 100 ]
-            "colors" : [ 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255 ]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+  // programmatic
+  static void Begin(ShapeId sid, std::vector<SDL_Vertex> verts);
 
-        //used when the polygon will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  // end static methods
 
-// programmatic
-        static void Begin(ShapeId sid, std::vector<SDL_Vertex> verts);
+  void Draw();
 
+  ~Polygon();
 
-//end static methods
+protected:
+private:
+  std::vector<SDL_Vertex> verts;
 
-        void Draw();
+  Polygon(ShapeId sid, std::vector<SDL_Vertex> verts);
+};
 
-        ~Polygon();
-        
-    protected:         
-
-    private:
-        std::vector<SDL_Vertex> verts;
-
-        Polygon(ShapeId sid, std::vector<SDL_Vertex> verts);
-    };
-
-}
+} // namespace PaceLib

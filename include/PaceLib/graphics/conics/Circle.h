@@ -1,53 +1,50 @@
 #pragma once
 
-#include "Widget.h"
 #include "DrawTypes.h"
+#include "Widget.h"
 
-namespace PaceLib
-{
+namespace PaceLib {
 
-    class Circle : public Shape
-    {
-    public:
+class Circle : public Shape {
+public:
+  // static methods
 
-//static methods
+  // json configuration
 
-// json configuration
+  /* Loads wconf file
+  example format:
+  {
+      "x" : 100,
+      "y" : 100,
+      "radius" : 100,
+      "color" : [0, 0, 0, 255]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-        /* Loads wconf file
-        example format:
-        {
-            "x" : 100,
-            "y" : 100,
-            "radius" : 100,
-            "color" : [0, 0, 0, 255]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
-        
-        //used when the cicle will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  // used when the cicle will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-// programmatic
+  // programmatic
 
-        static void Begin(ShapeId sid, CircleProp prop);
+  static void Begin(ShapeId sid, CircleProp prop);
 
-//end static methods
+  // end static methods
 
-        void SetDrawType(DrawTypes rtype);
+  void SetDrawType(DrawTypes rtype);
 
-        void Draw();
-        
-        ~Circle();
-    protected:         
+  void Draw();
 
-    private:
-        CircleProp prop;
+  ~Circle();
 
-        DrawTypes rtype;
+protected:
+private:
+  CircleProp prop;
 
-        Circle(ShapeId sid, CircleProp prop);
-    };
+  DrawTypes rtype;
 
-}
+  Circle(ShapeId sid, CircleProp prop);
+};
+
+} // namespace PaceLib

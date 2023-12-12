@@ -1,10 +1,8 @@
 #pragma once
 
-
-class State
-{
+class State {
 public:
-    virtual ~State() {};
-    virtual void Execute() {};
-    virtual void Loop() {};
+  virtual ~State(){};
+  virtual void Execute(){};
+  virtual void Loop(){};
 };

@@ -3,21 +3,16 @@
 
 using namespace PaceLib;
 
-
 Init *starter = nullptr;
 
-void draw()
-{
-	Window::SetDrawColor({10, 10 , 90});
-}
+void draw() { Window::SetDrawColor({10, 10, 90}); }
 
-int main(int argc, const char *argv[])
-{
-    starter = new Init();
+int main(int argc, const char *argv[]) {
+  starter = new Init();
 
-	starter->onDraw = &draw;
-	
-	starter->Loop();
+  starter->onDraw = &draw;
 
-    return 0;
+  starter->Loop();
+
+  return 0;
 }

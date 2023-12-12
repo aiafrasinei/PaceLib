@@ -3,75 +3,81 @@
 
 using namespace PaceLib;
 
-
 Init *starter = nullptr;
 
 ScrollingBackground *scroll_background;
 Sprite *ex_sprite;
 Timer stepTimer;
 
-bool init()
-{
-	ConLog::Info("Start");
-	
-	int w,h;
+bool init() {
+  ConLog::Info("Start");
 
-	SDL_GetRendererOutputSize(starter->GetWindow()->GetRenderer(), &w, &h);
-	SDL_RenderSetLogicalSize(starter->GetWindow()->GetRenderer(), w, h);
+  int w, h;
 
-	Root *root = starter->GetRoot();
-	
-	root->GetScene("Default")->GetFontContainer()->Add("lazy_font", "fonts/lazy.ttf", 20, {0, 0, 0, 255} );
+  SDL_GetRendererOutputSize(starter->GetWindow()->GetRenderer(), &w, &h);
+  SDL_RenderSetLogicalSize(starter->GetWindow()->GetRenderer(), w, h);
 
-	root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w/2, h/2);
-	root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
-	root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
+  Root *root = starter->GetRoot();
 
-	Line::Begin({root, "line"}, { 200, 100 , 300 , 200, { 50, 100, 50, 255 } } );
+  root->GetScene("Default")->GetFontContainer()->Add(
+      "lazy_font", "fonts/lazy.ttf", 20, {0, 0, 0, 255});
 
-	Line::Begin({root, "hline"}, { 400, 300, 300, 300, { 50, 100, 150, 255 } } );
+  root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w / 2,
+                                    h / 2);
+  root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
+  root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
-	Line::Begin({root, "vline"}, { 350, 350, 350, 400, { 50, 100, 150, 255 } } );
+  Line::Begin({root, "line"}, {200, 100, 300, 200, {50, 100, 50, 255}});
 
-	Triangle::Begin({root, "tri"}, { 0, 0, 150, 0, 150, 150, { 50, 150, 50, 255 } } );
+  Line::Begin({root, "hline"}, {400, 300, 300, 300, {50, 100, 150, 255}});
 
-	Rectangle::Begin({root, "rect1"}, { { 500, 300, 200, 200 } , { 100, 50, 50, 255 } } );
+  Line::Begin({root, "vline"}, {350, 350, 350, 400, {50, 100, 150, 255}});
 
-	Circle::Begin({root, "cir1"}, { 200, 100, 30, { 20, 20, 50, 255 } } );
-	Circle::Begin({root, "cir2"}, { 400, 100, 30, { 50, 50, 70, 255 } } );
-	((Circle *)root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
+  Triangle::Begin({root, "tri"}, {0, 0, 150, 0, 150, 150, {50, 150, 50, 255}});
 
-	TextProp prop = { 600, 100, root->GetScene("Default")->GetFont("lazy_font"), "some text", {50, 50, 50, 255} };
-	Text::Begin({root, "text"}, prop);
+  Rectangle::Begin({root, "rect1"}, {{500, 300, 200, 200}, {100, 50, 50, 255}});
 
-	Sprite::Begin({root, "sprite"}, { root->GetScene("Default")->GetTex("sprite_sheet.png"), {400, 600, 300, 300 }, 300, 5 } );
+  Circle::Begin({root, "cir1"}, {200, 100, 30, {20, 20, 50, 255}});
+  Circle::Begin({root, "cir2"}, {400, 100, 30, {50, 50, 70, 255}});
+  ((Circle *)root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
 
-	scroll_background = ScrollingBackground::Begin(root->GetScene("Default")->GetTex("bg.png"), { 0, 0, w, h } );
+  TextProp prop = {600,
+                   100,
+                   root->GetScene("Default")->GetFont("lazy_font"),
+                   "some text",
+                   {50, 50, 50, 255}};
+  Text::Begin({root, "text"}, prop);
 
-	Polygon::Begin({root, "poly"});
+  Sprite::Begin({root, "sprite"},
+                {root->GetScene("Default")->GetTex("sprite_sheet.png"),
+                 {400, 600, 300, 300},
+                 300,
+                 5});
 
-	Lines::Begin({root, "ln"});
+  scroll_background = ScrollingBackground::Begin(
+      root->GetScene("Default")->GetTex("bg.png"), {0, 0, w, h});
 
-	return true;
+  Polygon::Begin({root, "poly"});
+
+  Lines::Begin({root, "ln"});
+
+  return true;
 }
 
-void draw()
-{
-	float timeStep = stepTimer.GetTicks() / 1000.f;
-	scroll_background->Draw(timeStep);
-	stepTimer.Start();
-
+void draw() {
+  float timeStep = stepTimer.GetTicks() / 1000.f;
+  scroll_background->Draw(timeStep);
+  stepTimer.Start();
 }
 
-int main(int argc, const char *argv[])
-{
-    starter = new Init();
+int main(int argc, const char *argv[]) {
+  starter = new Init();
 
-	starter->onInit = &init;
-	starter->onDraw = &draw;
-	
-	Timer stepTimer;
-	starter->Loop();
+  starter->onInit = &init;
+  starter->onDraw = &draw;
 
-    return 0;
+  Timer stepTimer;
+  starter->Loop();
+
+  return 0;
 }

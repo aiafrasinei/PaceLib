@@ -2,57 +2,53 @@
 
 #include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Triangle : public Shape {
+public:
+  // static methods
 
-    class Triangle : public Shape
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "x1" : 0,
+      "y1" : 0,
+      "x2" : 150,
+      "y2" : 0,
+      "x3" : 150,
+      "y3" : 150,
+      "color" : [40, 40, 40, 255]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the triangle will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "x1" : 0,
-            "y1" : 0,
-            "x2" : 150,
-            "y2" : 0,
-            "x3" : 150,
-            "y3" : 150,
-            "color" : [40, 40, 40, 255]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+  // programmatic
 
-        //used when the triangle will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  static void Begin(ShapeId sid, TriangleProp prop);
 
-// programmatic
+  // end static methods
 
-        static void Begin(ShapeId sid, TriangleProp prop);
+  void SetColor(SDL_Color color);
 
-//end static methods
+  void Draw();
 
-        void SetColor(SDL_Color color);
+  ~Triangle();
 
-        void Draw();
-        
-        ~Triangle();
-    protected:         
+protected:
+private:
+  TriangleProp prop;
 
-    private:
-        TriangleProp prop;
-        
-        SDL_Point points[4];
+  SDL_Point points[4];
 
-        SDL_Vertex verts[3];
+  SDL_Vertex verts[3];
 
-        Triangle(ShapeId sid, TriangleProp prop);
-    };
+  Triangle(ShapeId sid, TriangleProp prop);
+};
 
-}
+} // namespace PaceLib

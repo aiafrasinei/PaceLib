@@ -2,61 +2,56 @@
 
 #include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Sprite : public Shape {
+public:
+  // static methods
 
-    class Sprite : public Shape
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "dim" : ["H_82%", "H_11%", "H_32%", "H_32%"],
+      "tex_name" : "sprite_sheet.png",
+      "offset" : 300,
+      "nr" : 5
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string);
 
-// json configuration
+  // used when the sprite will have child elements
+  static void BeginBlock(std::string);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "scene" : "Default",
-            "dim" : ["H_82%", "H_11%", "H_32%", "H_32%"],
-            "tex_name" : "sprite_sheet.png",
-            "offset" : 300,
-            "nr" : 5
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string);
+  // programmatic
 
-        //used when the sprite will have child elements
-        static void BeginBlock(std::string);
-        static void EndBlock();
+  static void Begin(ShapeId sid, SpriteProp prop);
 
-// programmatic
+  // end static methods
 
-        static void Begin(ShapeId sid, SpriteProp prop);
+  void SetTex(SDL_Texture *tex);
+  void SetRect(SDL_Rect dim);
 
-//end static methods
+  void Draw();
 
-        void SetTex(SDL_Texture *tex);
-        void SetRect(SDL_Rect dim);
+  ~Sprite();
 
-        void Draw();
+protected:
+private:
+  SpriteProp prop;
 
-        ~Sprite();
-        
-    protected:         
+  SDL_Texture *tex;
 
-    private:
-        SpriteProp prop;
-        
-        SDL_Texture *tex;
+  SDL_Rect src_rect;
+  SDL_Rect dest_rect;
 
-        SDL_Rect src_rect;
-        SDL_Rect dest_rect;
+  int offset;
+  int nr;
 
-        int offset;
-        int nr;
+  Sprite(ShapeId sid, SpriteProp prop);
+};
 
-        Sprite(ShapeId sid, SpriteProp prop);
-    };
-
-}
+} // namespace PaceLib

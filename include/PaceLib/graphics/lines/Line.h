@@ -2,51 +2,46 @@
 
 #include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Line : public Shape {
+public:
+  // static methods
 
-    class Line : public Shape
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "x1" : 0,
+      "y1" : 0,
+      "x2" : 300,
+      "y2" : 200,
+      "color" : [0, 0, 0, 255]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the line will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "x1" : 0,
-            "y1" : 0,
-            "x2" : 300,
-            "y2" : 200,
-            "color" : [0, 0, 0, 255]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+  // programmatic
 
-        //used when the line will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  static void Begin(ShapeId sid, LineProp prop);
 
-// programmatic
+  // end static methods
 
-        static void Begin(ShapeId sid, LineProp prop);
+  void Draw();
 
-//end static methods
+  ~Line();
 
-        void Draw();
+protected:
+private:
+  LineProp prop;
+  int x1, y1, x2, y2;
 
-        ~Line();
+  Line(ShapeId sid, LineProp prop);
+};
 
-    protected:         
-
-    private:
-        LineProp prop;
-        int x1, y1, x2, y2;
-
-        Line(ShapeId sid, LineProp prop);
-    };
-
-}
+} // namespace PaceLib

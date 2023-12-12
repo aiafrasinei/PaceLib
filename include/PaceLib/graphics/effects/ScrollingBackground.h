@@ -1,34 +1,31 @@
 #pragma once
 
+#include "../../core/Window.hpp"
+#include "../../core/interfaces/Hidable.hpp"
+#include "../../utils/Platform.h"
 #include <string>
 #include <vector>
-#include "../../utils/Platform.h"
-#include "../../core/interfaces/Hidable.hpp"
-#include "../../core/Window.hpp"
 
-namespace PaceLib
-{
+namespace PaceLib {
 
-    class ScrollingBackground : public Hidable
-    {
-    public:
-        ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
-        ~ScrollingBackground();
+class ScrollingBackground : public Hidable {
+public:
+  ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
+  ~ScrollingBackground();
 
-        static ScrollingBackground *Begin(SDL_Texture *tex, SDL_Rect shape);
-        
+  static ScrollingBackground *Begin(SDL_Texture *tex, SDL_Rect shape);
 
-        void SetTex(SDL_Texture *tex);
-        void SetRect(float x, float y, float w , float h);
+  void SetTex(SDL_Texture *tex);
+  void SetRect(float x, float y, float w, float h);
 
-        void Draw(float timeStep);
-    protected:         
+  void Draw(float timeStep);
 
-    private:
-        SDL_Texture *tex;
-        SDL_Rect rect;
+protected:
+private:
+  SDL_Texture *tex;
+  SDL_Rect rect;
 
-        float scrollingOffset;
-    };
+  float scrollingOffset;
+};
 
-}
+} // namespace PaceLib

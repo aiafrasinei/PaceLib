@@ -1,66 +1,61 @@
 #pragma once
 
-#include "Widget.h"
 #include "../utils/SDL2/SDL_FontCache.h"
+#include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Text : public Widget {
+public:
+  // static methods
 
-    class Text : public Widget
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "pos" : ["W_1%", "W_0.6%"],
+      "font" : "default",
+      "text" : "Text text text",
+      "color" : [140, 140, 140, 255]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the text will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "scene" : "Default",
-            "pos" : ["W_1%", "W_0.6%"],
-            "font" : "default",
-            "text" : "Text text text",
-            "color" : [140, 140, 140, 255]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+  // programatic
 
-        //used when the text will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  static void Begin(ShapeId sid, TextProp prop);
 
-// programatic
+  // end static methods
 
-        static void Begin(ShapeId sid, TextProp prop);
+  void Draw();
 
-//end static methods
+  int GetWidth();
+  int GetHeight();
 
-        void Draw();
+  void SetX(int x);
+  void SetY(int y);
 
-        int GetWidth();
-        int GetHeight();
+  std::string GetText();
+  void SetText(std::string text);
 
-        void SetX(int x);
-        void SetY(int y);
+  void SetFont(FC_Font *font);
 
-        std::string GetText();
-        void SetText(std::string text);
+  ~Text();
 
-        void SetFont(FC_Font *font);
+protected:
+private:
+  TextProp prop;
 
-        ~Text();
-        
-    protected:         
+  static TextProp LoadTextProp(Configuration *conf);
 
-    private:
-        TextProp prop;
-        
-        static TextProp LoadTextProp(Configuration *conf);
+  Text(ShapeId sid, TextProp prop);
+  Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
+};
 
-        Text(ShapeId sid, TextProp prop);
-        Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
-    };
-
-}
+} // namespace PaceLib

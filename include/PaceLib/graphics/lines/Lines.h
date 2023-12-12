@@ -2,45 +2,39 @@
 
 #include "Widget.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Lines : public Shape {
+public:
+  // static methods
 
-    class Lines : public Shape
-    {
-    public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "verts" : [ 0, 0, 10, 10, 100, 100 ]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the polygon will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-        /* Loads wconf file
-        example format:
-        {
-            "verts" : [ 0, 0, 10, 10, 100, 100 ]
-        }*/
-        static void Begin(ShapeId sid);
-        static void Begin(std::string name);
+  // programmatic
+  static void Begin(ShapeId sid, std::vector<SDL_Point> verts);
 
-        //used when the polygon will have child elements
-        static void BeginBlock(std::string name);
-        static void EndBlock();
+  // end static methods
+  void Draw();
 
-// programmatic
-        static void Begin(ShapeId sid, std::vector<SDL_Point> verts);
+  ~Lines();
 
+protected:
+private:
+  std::vector<SDL_Point> verts;
 
-//end static methods
-        void Draw();
+  Lines(ShapeId sid, std::vector<SDL_Point> verts);
+};
 
-        ~Lines();
-        
-    protected:         
-
-    private:
-        std::vector<SDL_Point> verts;
-
-        Lines(ShapeId sid, std::vector<SDL_Point> verts);
-    };
-
-}
+} // namespace PaceLib

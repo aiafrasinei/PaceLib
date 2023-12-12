@@ -1,76 +1,72 @@
 #pragma once
 
-#include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
-#include "Text.h"
 #include "../core/interfaces/Updateable.hpp"
+#include "Text.h"
+#include "Widget.h"
 #include <functional>
 
+namespace PaceLib {
+class Hotspot : public Widget {
+public:
+  // static methods
 
-namespace PaceLib
-{
-    class Hotspot : public Widget
-    {
-        public:
+  // json configuration
 
-//static methods
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
+      "background" : [80, 70, 80, 255],
+      "type" : "rect",
+      "texture" : ""
+  }
+  More info:
+  "texture" : "" means do not use a texture
+  "type" can be: "rect", "filled", "texture"
+  */
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-// json configuration
+  // used when the hotspot will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            /* Loads wconf file
-            example format:
-            {
-                "scene" : "Default",
-                "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
-                "background" : [80, 70, 80, 255],
-                "type" : "rect",
-                "texture" : ""
-            }
-            More info:
-            "texture" : "" means do not use a texture
-            "type" can be: "rect", "filled", "texture"
-            */
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  // programmatic
 
-            //used when the hotspot will have child elements
-            static void BeginBlock(std::string name);
-            static void EndBlock();
+  static void Begin(ShapeId sid, HotspotProp prop);
 
-// programmatic
+  // end static methods
 
-            static void Begin(ShapeId sid, HotspotProp prop);
+  void SetHighlight(bool state);
 
-//end static methods
+  void SetHighlightColor(SDL_Color color);
 
-            void SetHighlight(bool state);
-            
-            void SetHighlightColor(SDL_Color color);
+  void SetRec(SDL_Rect rect);
 
-            void SetRec(SDL_Rect rect);
+  void Draw();
 
-            void Draw();
+  void Update(SDL_Event *e);
 
-            void Update(SDL_Event *e);
+  std::function<void(void)> onClickCallback;
 
-            std::function<void(void)> onClickCallback;
+  ~Hotspot();
 
-            ~Hotspot();
+private:
+  Hotspot(ShapeId sid, HotspotProp prop);
 
-        private:
-            Hotspot(ShapeId sid, HotspotProp prop);
+  HotspotProp prop;
 
-            HotspotProp prop;
+  bool mouseOver;
 
-            bool mouseOver;
+  bool isHighlight;
 
-            bool isHighlight;
+  SDL_Color highlightColor;
 
-            SDL_Color highlightColor;
+  SDL_Texture *tex;
 
-            SDL_Texture *tex;
+  static HotspotProp LoadHotspotProp(Configuration *conf);
+};
 
-            static HotspotProp LoadHotspotProp(Configuration *conf);
-    };
-
-}
+} // namespace PaceLib

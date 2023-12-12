@@ -1,33 +1,29 @@
 #pragma once
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class Timer {
+public:
+  Timer();
+  ~Timer();
 
-    class Timer
-    {
-        public:
-            Timer();
-            ~Timer();
+  void Start();
+  void Stop();
+  void Pause();
+  void Unpause();
 
-            void Start();
-            void Stop();
-            void Pause();
-            void Unpause();
+  unsigned int GetTicks();
 
-            unsigned int GetTicks();
+  bool IsStarted();
+  bool IsPaused();
 
-            bool IsStarted();
-            bool IsPaused();
+private:
+  unsigned int start_ticks;
 
-        private:
-            unsigned int start_ticks;
+  unsigned int paused_ticks;
 
-            unsigned int paused_ticks;
+  bool paused;
+  bool started;
+};
 
-            bool paused;
-            bool started;
-
-    };
-
-}
+} // namespace PaceLib

@@ -1,74 +1,71 @@
 #pragma once
 
-#include "Widget.h"
 #include "../../utils/SDL2/SDL_FontCache.h"
-#include "Text.h"
-#include "Label.h"
 #include "../core/interfaces/Updateable.hpp"
+#include "Label.h"
+#include "Text.h"
+#include "Widget.h"
 #include <functional>
 
+namespace PaceLib {
 
-namespace PaceLib
-{
+class CheckBox : public Label {
+public:
+  ~CheckBox();
 
-    class CheckBox : public Label
-    {
-        public:
-            ~CheckBox();
+  // static methods
 
-//static methods
+  // json configuration
 
-// json configuration
+  /* Loads wconf file
+  example format:
+  {
+      "scene" : "Default",
+      "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+      "font" : "default",
+      "text" : "Start",
+      "text_color" : "$TEXT",
+      "align" : "mid",
+      "background" : "$BACKGROUND",
+      "border" : "$BORDER",
+      "highlight" : "$HIGHLIGHT"
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-            /* Loads wconf file
-            example format:
-            {
-                "scene" : "Default",
-                "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
-                "font" : "default",
-                "text" : "Start",
-                "text_color" : "$TEXT",
-                "align" : "mid",
-                "background" : "$BACKGROUND",
-                "border" : "$BORDER",
-                "highlight" : "$HIGHLIGHT"
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  // used when the checkbox will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            //used when the checkbox will have child elements
-            static void BeginBlock(std::string name);
-            static void EndBlock();
+  // programmatic
+  static void Begin(ShapeId sid, LabelProp prop);
 
-// programmatic
-            static void Begin(ShapeId sid, LabelProp prop);
+  // end static methods
 
-//end static methods
+  CheckBox(ShapeId sid, LabelProp prop);
 
-            CheckBox(ShapeId sid, LabelProp prop);
+  void Draw();
 
-            void Draw();
+  void Update(SDL_Event *e);
 
-            void Update(SDL_Event *e);
+  std::function<void(void)> onClickCallback;
 
-            std::function<void(void)> onClickCallback;
+  bool IsChecked();
 
-            bool IsChecked();
+  SDL_Color GetTextColor();
 
-            SDL_Color GetTextColor();
+private:
+  bool mouseOver;
 
-        private:
-            bool mouseOver;
+  bool highlight;
 
-            bool highlight;
+  bool checked;
 
-            bool checked;
+  SDL_Rect midrect;
 
-            SDL_Rect midrect;
+  int textSize;
 
-            int textSize;
+  void InternalInit();
+};
 
-            void InternalInit();
-    };
-
-}
+} // namespace PaceLib

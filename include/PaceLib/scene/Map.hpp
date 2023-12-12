@@ -1,33 +1,29 @@
 #pragma once
 
-#include <string>
-#include <vector>
 #include "Place.hpp"
 #include "utils/Platform.h"
+#include <string>
+#include <vector>
 
-namespace PaceLib
-{
+namespace PaceLib {
 
-    class Map
-    {
-    public:
-        Map(std::string name, SDL_Window* window, SDL_Renderer* renderer);    
-        ~Map();
-        
-        void SetName(std::string name);
+class Map {
+public:
+  Map(std::string name, SDL_Window *window, SDL_Renderer *renderer);
+  ~Map();
 
-        void Loop(SDL_Event *event);
+  void SetName(std::string name);
 
-    protected:
+  void Loop(SDL_Event *event);
 
-    private:
-        std::vector<PaceLib::Place> *places;
+protected:
+private:
+  std::vector<PaceLib::Place> *places;
 
-        SDL_Window* window;
-        SDL_Renderer* renderer;
+  SDL_Window *window;
+  SDL_Renderer *renderer;
 
-        std::string name;
+  std::string name;
+};
 
-    };
-    
-}
+} // namespace PaceLib

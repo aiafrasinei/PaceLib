@@ -1,28 +1,15 @@
 #pragma once
 
-
-class Hidable
-{
+class Hidable {
 
 public:
-    bool IsHidden()
-    {
-        return hidden;
-    }
+  bool IsHidden() { return hidden; }
 
-    void Hide()
-    {
-        hidden = true;
-    }
+  void Hide() { hidden = true; }
 
-    void Show()
-    {
-        hidden = false;
-    }
+  void Show() { hidden = false; }
 
 private:
-
 protected:
-    bool hidden=false;
-    
+  bool hidden = false;
 };

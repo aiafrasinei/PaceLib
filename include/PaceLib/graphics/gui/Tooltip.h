@@ -1,56 +1,51 @@
 #pragma once
 
-#include "Text.h"
 #include "Label.h"
+#include "Text.h"
 
+namespace PaceLib {
 
-namespace PaceLib
-{
-    
-    class Tooltip : public Widget
-    {
-        public:
+class Tooltip : public Widget {
+public:
+  // static methods
 
-//static methods
+  // json configuration
 
-// json configuration
+  /* Loads wconf file
+  {
+      "scene" : "Default",
+      "font" : "default",
+      "text" : "this is a color label",
+      "text_color" : "$TEXT",
+      "align" : "mid",
+      "background" : [70, 80, 90, 255],
+      "border" : [70, 80, 90, 255]
+  }*/
+  static void Begin(ShapeId sid);
+  static void Begin(std::string name);
 
-            /* Loads wconf file
-            {
-                "scene" : "Default",
-                "font" : "default",
-                "text" : "this is a color label",
-                "text_color" : "$TEXT",
-                "align" : "mid",
-                "background" : [70, 80, 90, 255],
-                "border" : [70, 80, 90, 255]
-            }*/
-            static void Begin(ShapeId sid);
-            static void Begin(std::string name);
+  // used when the tooltip will have child elements
+  static void BeginBlock(std::string name);
+  static void EndBlock();
 
-            //used when the tooltip will have child elements
-            static void BeginBlock(std::string name);
-            static void EndBlock();
-            
-// programmatic
+  // programmatic
 
-            static void Begin(ShapeId sid, TooltipProp prop);
+  static void Begin(ShapeId sid, TooltipProp prop);
 
-//end static methods
+  // end static methods
 
-            void Draw();
+  void Draw();
 
-        private:
-            
-            TooltipProp prop;
+private:
+  TooltipProp prop;
 
-            int textSize;
+  int textSize;
 
-            Tooltip(ShapeId sid, TooltipProp prop);
+  Tooltip(ShapeId sid, TooltipProp prop);
 
-            void InternalInit();
+  void InternalInit();
 
-            static TooltipProp LoadTooltipProp(Configuration *conf);
-    };
+  static TooltipProp LoadTooltipProp(Configuration *conf);
+};
 
-}
+} // namespace PaceLib
