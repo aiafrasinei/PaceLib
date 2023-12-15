@@ -38,16 +38,11 @@ public:
 
   // end static methods
 
-  void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-
   void Draw();
 
   void Update(SDL_Event *e);
 
-  std::string GetText();
-
-  void SetTextColor(SDL_Color color);
-  SDL_Color GetTextColor();
+  LabelProp *GetProp() { return &prop; }
 
   ~TextInput();
 

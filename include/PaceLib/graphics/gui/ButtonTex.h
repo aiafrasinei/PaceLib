@@ -37,21 +37,15 @@ public:
 
   // end static methods
 
-  void SetTex(SDL_Texture *tex);
-
-  void SetHighlightTex(SDL_Texture *tex);
-
   void SetHighlight(bool state);
-
-  void SetHighlightColor(SDL_Color color);
-
-  void SetDrawBorder(bool border);
 
   void Draw();
 
   void Update(SDL_Event *e);
 
   std::function<void(void)> onClickCallback;
+
+  ButtonTexProp *GetProp() { return &prop; }
 
   ~ButtonTex();
 

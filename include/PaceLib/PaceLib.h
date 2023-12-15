@@ -19,7 +19,7 @@
 #include "scene/Scene.hpp"
 
 // shapes
-#include "graphics/Shape.h"
+#include "graphics/Shape.hpp"
 
 // lines
 #include "graphics/lines/Line.h"

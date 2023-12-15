@@ -36,11 +36,11 @@ public:
 
   // end static methods
 
-  SDL_Color GetTextColor();
-
   void SetTextSpacing(int size);
 
   void Draw();
+
+  MultiItemsProp *GetProp() { return &prop; }
 
 private:
   MultiItemsProp prop;

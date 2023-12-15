@@ -46,6 +46,8 @@ public:
 
   void SetFont(FC_Font *font);
 
+  TextProp *GetProp() { return &prop; }
+
   ~Text();
 
 protected:

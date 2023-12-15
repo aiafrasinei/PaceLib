@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Props.h"
-#include "Shape.h"
+#include "Shape.hpp"
 #include <map>
 
 namespace PaceLib {

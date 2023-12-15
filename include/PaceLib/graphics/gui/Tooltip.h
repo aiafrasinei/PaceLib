@@ -36,6 +36,8 @@ public:
 
   void Draw();
 
+  TooltipProp *GetProp() { return &prop; }
+
 private:
   TooltipProp prop;
 

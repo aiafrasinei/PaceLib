@@ -38,6 +38,8 @@ public:
 
   void Draw();
 
+  TriangleProp *GetProp() { return &prop; }
+
   ~Triangle();
 
 protected:

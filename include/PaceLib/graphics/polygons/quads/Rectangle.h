@@ -30,6 +30,8 @@ public:
   // end static methods
   void Draw();
 
+  PropDimColor *GetProp() { return &prop; }
+
   ~Rectangle();
 
 protected:

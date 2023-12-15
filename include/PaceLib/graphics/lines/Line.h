@@ -34,6 +34,8 @@ public:
 
   void Draw();
 
+  LineProp *GetProp() { return &prop; }
+
   ~Line();
 
 protected:

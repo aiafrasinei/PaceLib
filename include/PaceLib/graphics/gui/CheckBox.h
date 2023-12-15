@@ -52,7 +52,7 @@ public:
 
   bool IsChecked();
 
-  SDL_Color GetTextColor();
+  LabelProp *GetProp() { return &prop; }
 
 private:
   bool mouseOver;

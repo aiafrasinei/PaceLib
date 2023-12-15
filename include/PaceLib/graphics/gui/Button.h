@@ -47,6 +47,8 @@ public:
   void Draw();
   void Update(SDL_Event *e);
 
+  LabelProp *GetProp() { return &prop; }
+
   ~Button();
 
 private:

@@ -45,6 +45,8 @@ public:
 
   void Update(SDL_Event *e);
 
+  TabProp *GetProp() { return &prop; }
+  
   Button *GetButton(std::string child);
   ButtonTex *GetButtonTex(std::string child);
   Label *GetLabel(std::string child);

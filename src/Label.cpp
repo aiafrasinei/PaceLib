@@ -80,8 +80,6 @@ void Label::Begin(ShapeId sid, LabelProp prop) {
   ((Label *)root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
-LabelProp Label::GetProp() { return prop; }
-
 void Label::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r,
@@ -101,8 +99,6 @@ void Label::Draw() {
 }
 
 int Label::GetTextSize() { return textSize; }
-
-std::string Label::GetText() { return this->prop.text; }
 
 void Label::SetText(std::string text) {
   if (this->prop.text == "") {
@@ -129,8 +125,7 @@ void Label::InternalInit() {
   Text::Begin({this, name + "_text"}, tprop);
 
   Text *to = (Text *)this->Get(name + "_text");
-  // TODO ALEX
-  // to->SetColor({this->GetProp().textColor});
+  to->GetProp()->color = this->GetProp()->textColor;
   textSize = to->GetWidth();
 
   SetTextAlign(prop.align);

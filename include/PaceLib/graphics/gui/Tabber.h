@@ -52,7 +52,7 @@ public:
   void AddTab(std::string text);
   void AddTab(std::string name, std::string text);
 
-  TabberProp GetProp();
+  TabberProp *GetProp() { return &prop; }
 
   Tab *GetTab(std::string child);
 

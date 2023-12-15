@@ -6,14 +6,11 @@ using namespace PaceLib;
 
 Hotspot::Hotspot(ShapeId sid, HotspotProp prop) {
   this->prop = prop;
-  rect = prop.rect;
 
   if (sid.parent->name != "root") {
-    rect.x = sid.parent->GetRect().x + prop.rect.x;
-    rect.y = sid.parent->GetRect().y + prop.rect.y;
+    this->prop.rect.x = sid.parent->GetRect().x + prop.rect.x;
+    this->prop.rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
-
-  this->prop.rect = rect;
 
   hidden = false;
 
@@ -78,8 +75,6 @@ void Hotspot::EndBlock() {
   root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Hotspot::SetRec(SDL_Rect rect) { this->rect = rect; }
-
 void Hotspot::Draw() {
   if (!hidden) {
     if (mouseOver) {
@@ -87,12 +82,12 @@ void Hotspot::Draw() {
                              highlightColor.g, highlightColor.b,
                              highlightColor.a);
       if (prop.type == Hover::FILLED) {
-        SDL_RenderFillRect(Window::GetRenderer(), &rect);
+        SDL_RenderFillRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::RECT) {
-        SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+        SDL_RenderDrawRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::TEXTURE) {
         if (tex != nullptr) {
-          SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
+          SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &prop.rect);
         }
       }
     }
@@ -109,7 +104,7 @@ void Hotspot::Update(SDL_Event *e) {
     SDL_GetMouseState(&x, &y);
 
     if (e->type == SDL_MOUSEBUTTONUP) {
-      if (PointInRect({x, y}, rect)) {
+      if (PointInRect({x, y}, prop.rect)) {
         if (onClickCallback != nullptr) {
           onClickCallback();
           SDL_PollEvent(e);
@@ -118,7 +113,7 @@ void Hotspot::Update(SDL_Event *e) {
     }
 
     if (isHighlight) {
-      if (PointInRect({x, y}, rect)) {
+      if (PointInRect({x, y}, prop.rect)) {
         mouseOver = true;
       } else {
         mouseOver = false;

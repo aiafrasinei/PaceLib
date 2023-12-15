@@ -51,6 +51,8 @@ public:
   void AddItems(std::vector<std::string> items);
   void ReplaceItems(std::vector<std::string> items);
 
+  MultiItemsProp *GetProp() { return &prop; }
+
 private:
   ComboBox(ShapeId sid, MultiItemsProp prop);
 

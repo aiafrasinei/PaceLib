@@ -90,6 +90,7 @@ void Tabber::Draw() {
       // TODO ALEX
       // this->Get("h_" +
       // std::to_string(current-1))->SetColor(prop.buttonsSelectionColor);
+      
       just_once = false;
     }
     if (once) {
@@ -133,11 +134,11 @@ void Tabber::BeginTabBlock(std::string text) {
                      Window::height * (tabber->prop.headerHeight - 1) / 100},
                     root->GetScene("Default")->GetFont("default"),
                     text,
-                    tabber->GetProp().buttonsTextColor,
-                    tabber->GetProp().buttonsTextAlign,
-                    tabber->GetProp().buttonsBackgroundColor,
-                    tabber->GetProp().buttonsBorderColor,
-                    tabber->GetProp().buttonsHighlightColor};
+                    tabber->GetProp()->buttonsTextColor,
+                    tabber->GetProp()->buttonsTextAlign,
+                    tabber->GetProp()->buttonsBackgroundColor,
+                    tabber->GetProp()->buttonsBorderColor,
+                    tabber->GetProp()->buttonsHighlightColor};
   Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
   Button *b =
@@ -156,8 +157,7 @@ void Tabber::BeginTabBlock(std::string text) {
     current = 1 + index * 2;
 
     tabber->ClearHeaderColor(tabber->prop.buttonsBackgroundColor);
-    // TODO ALEX
-    // b->SetColor(tabber->prop.buttonsSelectionColor);
+    b->GetProp()->backgroundColor = tabber->prop.buttonsSelectionColor;
     once = true;
   };
 
@@ -166,7 +166,7 @@ void Tabber::BeginTabBlock(std::string text) {
   Tab::Begin({tabber, "t_" + std::to_string(nrtabs)},
              {{0, Window::height * tabber->prop.headerHeight / 100,
                tabber->GetRect().w, tabber->GetRect().h},
-              tabber->GetProp().backgroundColor});
+              tabber->GetProp()->backgroundColor});
   tabber->GetTab("t_" + std::to_string(nrtabs))->Hide();
   root->SetCurrent(tabber->GetTab("t_" + std::to_string(nrtabs)));
   root->GetCurrent()->SetParent(tabber);
@@ -184,8 +184,6 @@ void Tabber::Update(SDL_Event *e) {
       s->Update(e);
   }
 }
-
-TabberProp Tabber::GetProp() { return prop; }
 
 TabberProp Tabber::LoadTabberProp(Configuration *conf) {
   int dim[4];

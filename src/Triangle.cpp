@@ -46,12 +46,12 @@ void Triangle::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    float x1 = conf->Get("x1");
-    float y1 = conf->Get("y1");
-    float x2 = conf->Get("x2");
-    float y2 = conf->Get("y2");
-    float x3 = conf->Get("x3");
-    float y3 = conf->Get("y3");
+    int x1 = conf->Get("x1");
+    int y1 = conf->Get("y1");
+    int x2 = conf->Get("x2");
+    int y2 = conf->Get("y2");
+    int x3 = conf->Get("x3");
+    int y3 = conf->Get("y3");
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
 

@@ -40,12 +40,11 @@ public:
   // end static methods
 
   void SetText(std::string text);
-  std::string GetText();
   void SetTextAlign(HorizontalAlign align);
 
   int GetTextSize();
 
-  LabelProp GetProp();
+  LabelProp *GetProp() { return &prop; }
 
   void Draw();
 

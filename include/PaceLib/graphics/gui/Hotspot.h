@@ -43,11 +43,11 @@ public:
 
   void SetHighlightColor(SDL_Color color);
 
-  void SetRec(SDL_Rect rect);
-
   void Draw();
 
   void Update(SDL_Event *e);
+
+  HotspotProp *GetProp() { return &prop; }
 
   std::function<void(void)> onClickCallback;
 

@@ -111,12 +111,6 @@ void TextInput::Update(SDL_Event *e) {
   }
 }
 
-std::string TextInput::GetText() {
-  Root *root = &Root::GetInstance();
-  Text *to = (Text *)root->GetLabel(name)->Get(name + "_text");
-  return to->GetText();
-}
-
 void TextInput::InternalInit() {
   // child text
   Root *root = &Root::GetInstance();
@@ -128,8 +122,7 @@ void TextInput::InternalInit() {
   Text::Begin({tin, tin->name + "_text"}, tprop);
 
   Text *to = (Text *)tin->Get(name + "_text");
-  // TODO ALEX
-  // to->SetColor(prop.textColor);
+  to->GetProp()->color = prop.textColor;
   textSize = to->GetWidth();
 
   to->SetX(GetRect().x + rect.w / 20);
