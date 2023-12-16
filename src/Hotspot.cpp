@@ -1,6 +1,5 @@
 #include "Hotspot.h"
 #include "Root.h"
-#include <functional>
 
 using namespace PaceLib;
 

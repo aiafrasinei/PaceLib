@@ -1,11 +1,11 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include "FontContainer.hpp"
 #include "TexContainer.hpp"
 #include "core/interfaces/Drawable.hpp"
 #include "utils/Platform.h"
-#include <string>
-#include <vector>
 
 namespace PaceLib {
 

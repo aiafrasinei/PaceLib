@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Props.h"
-#include "utils/Platform.h"
 #include <filesystem>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include "Props.h"
+#include "utils/Platform.h"
 
 namespace PaceLib {
 

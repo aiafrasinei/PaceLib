@@ -5,7 +5,6 @@
 #include "Label.h"
 #include "Text.h"
 #include "Widget.h"
-#include <functional>
 
 namespace PaceLib {
 

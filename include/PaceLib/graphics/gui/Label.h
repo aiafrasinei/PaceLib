@@ -4,7 +4,6 @@
 #include "../core/interfaces/Updateable.hpp"
 #include "Text.h"
 #include "Widget.h"
-#include <functional>
 
 namespace PaceLib {
 

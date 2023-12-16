@@ -5,11 +5,10 @@ by Jonathan Dearborn
 See SDL_FontCache.h for license info.
 */
 
-#include "SDL_FontCache.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "SDL_FontCache.h"
 
 #define FC_GET_ALPHA(sdl_color) ((sdl_color).a)
 

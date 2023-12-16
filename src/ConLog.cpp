@@ -1,7 +1,7 @@
-#include "ConLog.hpp"
 #include <ctime>
 #include <iomanip>
 #include <iostream>
+#include "ConLog.hpp"
 
 std::string ConLog::format = "%c %Z";
 

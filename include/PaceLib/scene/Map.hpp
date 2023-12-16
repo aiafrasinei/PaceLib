@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Place.hpp"
-#include "utils/Platform.h"
 #include <string>
 #include <vector>
+#include "Place.hpp"
+#include "utils/Platform.h"
 
 namespace PaceLib {
 

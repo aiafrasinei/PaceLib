@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../utils/SDL2/SDL_FontCache.h"
-#include <SDL2/SDL.h>
 #include <string>
 #include <vector>
+#include "../utils/SDL2/SDL_FontCache.h"
+#include <SDL2/SDL.h>
 
 namespace PaceLib {
 

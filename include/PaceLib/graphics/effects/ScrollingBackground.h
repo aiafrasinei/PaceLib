@@ -1,10 +1,10 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include "../../core/Window.hpp"
 #include "../../core/interfaces/Hidable.hpp"
 #include "../../utils/Platform.h"
-#include <string>
-#include <vector>
 
 namespace PaceLib {
 

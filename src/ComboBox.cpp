@@ -1,8 +1,7 @@
+#include <algorithm>
 #include "ComboBox.h"
 #include "Root.h"
 #include "Triangle.h"
-#include <algorithm>
-#include <functional>
 
 using namespace PaceLib;
 
@@ -72,11 +71,6 @@ void ComboBox::Begin(ShapeId sid) {
 void ComboBox::Begin(std::string name) {
   Root *root = &Root::GetInstance();
   ComboBox::Begin({root->GetCurrent(), name});
-
-  Configuration *conf = new Configuration("wconfs/" + name + "_ComboBox.conf");
-  ComboBox *curr = ((ComboBox *)root->GetCurrent()->Get(name));
-  SDL_Rect currRect = curr->GetRect();
-  SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
 }
 
 void ComboBox::BeginBlock(std::string name) {
@@ -211,7 +205,6 @@ int ComboBox::GetSelected() { return selected; }
 void ComboBox::SetSelection(int index) {
   selected = index;
 
-  Root *root = &Root::GetInstance();
   Button *main_renderer = ((Button *)this->Get("main_item_renderer"));
   Button *sel = ((Button *)this->Get("item_" + std::to_string(selected)));
 

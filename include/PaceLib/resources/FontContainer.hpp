@@ -1,11 +1,11 @@
 #pragma once
 
-#include "TexContainer.hpp"
-#include "utils/Platform.h"
-#include "utils/SDL2/SDL_FontCache.h"
 #include <filesystem>
 #include <string>
 #include <vector>
+#include "TexContainer.hpp"
+#include "utils/Platform.h"
+#include "utils/SDL2/SDL_FontCache.h"
 
 namespace PaceLib {
 

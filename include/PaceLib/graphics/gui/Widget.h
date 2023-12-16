@@ -1,8 +1,9 @@
 #pragma once
 
+#include <functional>
+#include <map>
 #include "Props.h"
 #include "Shape.hpp"
-#include <map>
 
 namespace PaceLib {
 

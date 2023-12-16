@@ -94,7 +94,6 @@ void Circle::Draw() {
                                       prop.y - offsetx);
 
         if (status < 0) {
-          status = -1;
           break;
         }
 
@@ -135,7 +134,6 @@ void Circle::Draw() {
                                      prop.y - offsetx);
 
         if (status < 0) {
-          status = -1;
           break;
         }
 

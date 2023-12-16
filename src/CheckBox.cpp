@@ -1,6 +1,5 @@
 #include "CheckBox.h"
 #include "Root.h"
-#include <functional>
 
 using namespace PaceLib;
 
