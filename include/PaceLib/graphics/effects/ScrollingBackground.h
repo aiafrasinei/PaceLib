@@ -4,7 +4,7 @@
 #include <vector>
 #include "../../core/Window.hpp"
 #include "../../core/interfaces/Hidable.hpp"
-#include "../../utils/Platform.h"
+#include "../../utils/Platform.hpp"
 
 namespace PaceLib {
 

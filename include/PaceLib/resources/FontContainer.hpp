@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "TexContainer.hpp"
-#include "utils/Platform.h"
+#include "utils/Platform.hpp"
 #include "utils/SDL2/SDL_FontCache.h"
 
 namespace PaceLib {

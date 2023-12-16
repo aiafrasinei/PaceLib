@@ -26,7 +26,6 @@ void ConLog::Warn(std::string message) {
 void ConLog::Error(std::string message) {
   time_t t = time(nullptr);
   std::tm tm = *std::localtime(&t);
-  ;
   std::cout << " ERROR"
             << " [" << std::put_time(&tm, format.c_str()) << "]"
             << " - " + message << std::endl;

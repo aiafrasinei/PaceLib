@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "Place.hpp"
-#include "utils/Platform.h"
+#include "utils/Platform.hpp"
 
 namespace PaceLib {
 

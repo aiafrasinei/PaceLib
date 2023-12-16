@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 #include "Props.h"
-#include "utils/Platform.h"
+#include "utils/Platform.hpp"
 
 namespace PaceLib {
 

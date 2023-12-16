@@ -5,7 +5,7 @@
 #include "FontContainer.hpp"
 #include "TexContainer.hpp"
 #include "core/interfaces/Drawable.hpp"
-#include "utils/Platform.h"
+#include "utils/Platform.hpp"
 
 namespace PaceLib {
 

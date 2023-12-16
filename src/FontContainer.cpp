@@ -31,8 +31,7 @@ bool FontContainer::Add(std::string name, std::filesystem::path file_path,
   int ret = FC_LoadFont(font, Window::GetRenderer(), file_path.string().c_str(),
                         size, color, TTF_STYLE_NORMAL);
 
-  if (ret != 1) // wtf
-  {
+  if (ret != 1) {
     printf("Failed to load font");
     return false;
   } else {

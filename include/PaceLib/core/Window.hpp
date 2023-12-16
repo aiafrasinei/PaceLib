@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../config/Configuration.hpp"
-#include "../utils/Platform.h"
+#include "../utils/Platform.hpp"
 
 class Window {
 

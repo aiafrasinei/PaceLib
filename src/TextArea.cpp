@@ -100,7 +100,6 @@ void TextArea::InternalInit() {
   int ry = rect.y;
   int i = 0;
   for (std::string text : prop.tarr) {
-
     TextProp tprop = {rect.x + rect.w / 50, ry, prop.font, text,
                       prop.textColor};
 
