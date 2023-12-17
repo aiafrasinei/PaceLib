@@ -8,7 +8,7 @@ static bool just_once = true;
 static int nrtabs = 0;
 static int nrtitles = 0;
 
-unsigned int Tabber::current = 1;
+unsigned int Tabber::current = 0;
 int Tabber::tabx = 0;
 
 Tabber::Tabber(ShapeId sid, TabberProp prop) {
@@ -27,7 +27,7 @@ Tabber::Tabber(ShapeId sid, TabberProp prop) {
 
   this->name = sid.name;
 
-  current = 1;
+  current = 0;
 
   bcounter = 0;
 
@@ -87,10 +87,7 @@ void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 void Tabber::Draw() {
   if (!hidden) {
     if (just_once) {
-      // TODO ALEX
-      // this->Get("h_" +
-      // std::to_string(current-1))->SetColor(prop.buttonsSelectionColor);
-      
+      ((Button *) this->Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
       just_once = false;
     }
     if (once) {
@@ -98,9 +95,9 @@ void Tabber::Draw() {
         char fc = shapesNames[i][0];
         if (fc == 't') {
           shapes[i]->Hide();
-          shapes[current]->Show();
         }
       }
+      ((Tab *)this->Get("t_" + std::to_string(current)))->Show();
       once = false;
     }
 
@@ -154,7 +151,8 @@ void Tabber::BeginTabBlock(std::string text) {
   b->onClickCallback = [b, tabber, prop]() {
     std::size_t pos = b->name.find("_");
     int index = std::stoi(b->name.substr(pos + 1));
-    current = 1 + index * 2;
+    //current = 1 + index * 2;
+    current = index;
 
     tabber->ClearHeaderColor(tabber->prop.buttonsBackgroundColor);
     b->GetProp()->backgroundColor = tabber->prop.buttonsSelectionColor;
@@ -243,9 +241,17 @@ Tab *Tabber::GetTab(int index) {
   return static_cast<Tab *>(this->Get("t_" + std::to_string(index)));
 }
 
+int Tabber::GetNrTabs() {
+  return shapes.size();
+}
+
+void Tabber::SelectTab(int index) {
+  current = index;
+  once = true;
+}
+
 void Tabber::ClearHeaderColor(SDL_Color col) {
   for (int i = 0; i < nrtitles; i++) {
-    // TODO ALEX
-    // this->Get("h_" + std::to_string(i))->SetColor(col);
+    ((Button *) this->Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
   }
 }

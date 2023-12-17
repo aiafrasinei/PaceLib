@@ -58,6 +58,10 @@ public:
 
   Tab *GetTab(int index);
 
+  int GetNrTabs();
+  
+  void SelectTab(int index);
+
   void Update(SDL_Event *e);
 
   ~Tabber();
