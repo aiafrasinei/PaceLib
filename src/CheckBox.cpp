@@ -12,7 +12,7 @@ CheckBox::CheckBox(ShapeId sid, LabelProp prop) : Label(sid, prop) {
 
   wtype = WidgetType::CHECKBOX;
 
-  onClickCallback = [this]() {
+  mouseLeftButtonUpCallback = [this]() {
     if (checked) {
       checked = false;
     } else {
@@ -106,14 +106,7 @@ void CheckBox::Update(SDL_Event *e) {
     int x, y;
     SDL_GetMouseState(&x, &y);
 
-    if (e->type == SDL_MOUSEBUTTONUP) {
-      if (PointInRect({x, y}, rect)) {
-        if (onClickCallback != nullptr) {
-          onClickCallback();
-          SDL_PollEvent(e);
-        }
-      }
-    }
+    UpdateMouse(e, x, y);
 
     if (highlight) {
       if (PointInRect({x, y}, rect)) {

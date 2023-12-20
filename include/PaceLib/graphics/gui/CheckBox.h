@@ -47,8 +47,6 @@ public:
 
   void Update(SDL_Event *e);
 
-  std::function<void(void)> onClickCallback;
-
   bool IsChecked();
 
   LabelProp *GetProp() { return &prop; }

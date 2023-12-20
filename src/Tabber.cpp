@@ -148,10 +148,9 @@ void Tabber::BeginTabBlock(std::string text) {
 
   tabx = tabx + real_width + tabber->GetRect().w / 99;
 
-  b->onClickCallback = [b, tabber, prop]() {
+  b->mouseLeftButtonUpCallback = [b, tabber, prop]() {
     std::size_t pos = b->name.find("_");
     int index = std::stoi(b->name.substr(pos + 1));
-    //current = 1 + index * 2;
     current = index;
 
     tabber->ClearHeaderColor(tabber->prop.buttonsBackgroundColor);
@@ -246,6 +245,19 @@ int Tabber::GetNrTabs() {
 }
 
 void Tabber::SelectTab(int index) {
+  current = index;
+  once = true;
+}
+
+void Tabber::SelectTab(std::string name) {
+  int index = 0;
+  for (int i = 0; i < shapes.size(); i++) {
+    if(((Button *) this->Get("h_" + std::to_string(i)))->GetProp()->text == name) {
+      index = i;
+      break;
+    }
+  }
+
   current = index;
   once = true;
 }

@@ -18,7 +18,7 @@ bool init() {
   Button::Begin("exit");
   Tab::EndBlock();
 
-  root->GetTab("first")->GetButton("exit")->onClickCallback = []() {
+  root->GetTab("first")->GetButton("exit")->mouseLeftButtonDownCallback = []() {
     Window::running = false;
   };
 

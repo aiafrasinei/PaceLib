@@ -25,7 +25,6 @@ Hotspot::Hotspot(ShapeId sid, HotspotProp prop) {
 
   wtype = WidgetType::HOTSPOT;
 
-  onClickCallback = nullptr;
 }
 
 Hotspot::~Hotspot() {}
@@ -102,14 +101,7 @@ void Hotspot::Update(SDL_Event *e) {
     int x, y;
     SDL_GetMouseState(&x, &y);
 
-    if (e->type == SDL_MOUSEBUTTONUP) {
-      if (PointInRect({x, y}, prop.rect)) {
-        if (onClickCallback != nullptr) {
-          onClickCallback();
-          SDL_PollEvent(e);
-        }
-      }
-    }
+    UpdateMouse(e, x, y);
 
     if (isHighlight) {
       if (PointInRect({x, y}, prop.rect)) {

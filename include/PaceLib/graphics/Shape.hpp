@@ -6,15 +6,21 @@
 #include "../core/interfaces/Drawable.hpp"
 #include "../core/interfaces/Hidable.hpp"
 #include "../core/interfaces/Updateable.hpp"
+#include "../core/interfaces/Mouseable.hpp"
 #include "../utils/Platform.hpp"
 
 namespace PaceLib {
 
-class Shape : public Drawable, public Hidable, public Updateable {
+class Shape : public Drawable, public Hidable, public Updateable, public Mouseable {
 public:
   Shape() {
     hidden = false;
     conf = nullptr;
+
+    mouseLeftButtonDownCallback = nullptr;
+    mouseLeftButtonUpCallback = nullptr;
+    mouseRightButtonDownCallback = nullptr;
+    mouseRightButtonUpCallback = nullptr;
   }
 
   virtual ~Shape() {
@@ -83,6 +89,13 @@ public:
   float GetHalfX() { return rect.x + rect.w / 2; }
   float GetHalfY() { return rect.y + rect.h / 2; }
 
+  bool PointInRect(SDL_Point p, SDL_Rect r) {
+    return ((p.x >= r.x) && (p.x < (r.x + r.w)) && (p.y >= r.y) &&
+            (p.y < (r.y + r.h)))
+               ? true
+               : false;
+  }
+
   Configuration *conf;
 
 protected:
@@ -98,7 +111,39 @@ protected:
 
   SDL_Rect rect = {0, 0, 0, 0};
 
+  void UpdateMouse(SDL_Event *e, int x, int y) {
+    if (e->type == SDL_MOUSEBUTTONDOWN) {
+      if(e->button.button == SDL_BUTTON_LEFT) {
+        if (PointInRect({x, y}, rect)) {
+          callMouseCallback(e, mouseLeftButtonDownCallback);
+        }
+      } else if (e->button.button == SDL_BUTTON_RIGHT) {
+        if (PointInRect({x, y}, rect)) {
+          callMouseCallback(e, mouseRightButtonDownCallback);
+        }
+      }
+    }
+
+    if (e->type == SDL_MOUSEBUTTONUP) {
+      if(e->button.button == SDL_BUTTON_LEFT) {
+        if (PointInRect({x, y}, rect)) {
+          callMouseCallback(e, mouseLeftButtonUpCallback);
+        }
+      } else if (e->button.button == SDL_BUTTON_RIGHT) {
+        if (PointInRect({x, y}, rect)) {
+          callMouseCallback(e, mouseRightButtonUpCallback);
+        }
+      }
+    }
+  }
+
 private:
+  void callMouseCallback(SDL_Event *e, std::function<void(void)> fun) {
+    if (fun != nullptr) {
+      fun();
+      SDL_PollEvent(e);
+    }
+  }
 };
 
 } // namespace PaceLib

@@ -41,8 +41,6 @@ public:
 
   void SetHighlight(bool state);
 
-  std::function<void(void)> onClickCallback;
-
   void Draw();
   void Update(SDL_Event *e);
 

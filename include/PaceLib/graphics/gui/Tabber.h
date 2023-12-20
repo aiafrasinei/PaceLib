@@ -62,6 +62,8 @@ public:
   
   void SelectTab(int index);
 
+  void SelectTab(std::string name);
+
   void Update(SDL_Event *e);
 
   ~Tabber();

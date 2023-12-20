@@ -105,39 +105,39 @@ bool init() {
     Button::Begin(bis + "b");
   }
 
-  root->GetButton("1b")->onClickCallback = [root]() {
+  root->GetButton("1b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 1, 0, 0);
   };
 
-  root->GetButton("2b")->onClickCallback = [root]() {
+  root->GetButton("2b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 2, 0, 1);
   };
 
-  root->GetButton("3b")->onClickCallback = [root]() {
+  root->GetButton("3b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 3, 0, 2);
   };
 
-  root->GetButton("4b")->onClickCallback = [root]() {
+  root->GetButton("4b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 4, 1, 0);
   };
 
-  root->GetButton("5b")->onClickCallback = [root]() {
+  root->GetButton("5b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 5, 1, 1);
   };
 
-  root->GetButton("6b")->onClickCallback = [root]() {
+  root->GetButton("6b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 6, 1, 2);
   };
 
-  root->GetButton("7b")->onClickCallback = [root]() {
+  root->GetButton("7b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 7, 2, 0);
   };
 
-  root->GetButton("8b")->onClickCallback = [root]() {
+  root->GetButton("8b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 8, 2, 1);
   };
 
-  root->GetButton("9b")->onClickCallback = [root]() {
+  root->GetButton("9b")->mouseLeftButtonDownCallback = [root]() {
     on_click(root, arr, 9, 2, 2);
   };
 

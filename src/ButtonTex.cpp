@@ -140,15 +140,8 @@ void ButtonTex::Update(SDL_Event *e) {
   if (!hidden) {
     int x, y;
     SDL_GetMouseState(&x, &y);
-    static int nr = 0;
-    if (e->type == SDL_MOUSEBUTTONUP) {
-      if (PointInRect({x, y}, rect)) {
-        if (onClickCallback != nullptr) {
-          onClickCallback();
-          SDL_PollEvent(e);
-        }
-      }
-    }
+   
+    UpdateMouse(e, x, y);
 
     if (highlight) {
       if (PointInRect({x, y}, rect)) {

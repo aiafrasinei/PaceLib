@@ -22,9 +22,9 @@ bool init() {
   Button::Begin("back");
   root->GetButton("back")->Hide();
 
-  root->GetButton("new")->onClickCallback = []() {};
+  root->GetButton("new")->mouseLeftButtonDownCallback = []() {};
 
-  root->GetButton("options")->onClickCallback = [root]() {
+  root->GetButton("options")->mouseLeftButtonDownCallback = [root]() {
     root->GetButton("back")->Show();
     root->GetButton("new")->Hide();
     root->GetButton("options")->Hide();
@@ -32,7 +32,7 @@ bool init() {
     root->GetButton("exit")->Hide();
   };
 
-  root->GetButton("help")->onClickCallback = [root]() {
+  root->GetButton("help")->mouseLeftButtonDownCallback = [root]() {
     root->GetButton("new")->Hide();
     root->GetButton("back")->Show();
     root->GetButton("options")->Hide();
@@ -40,9 +40,9 @@ bool init() {
     root->GetButton("exit")->Hide();
   };
 
-  root->GetButton("exit")->onClickCallback = []() { Window::running = false; };
+  root->GetButton("exit")->mouseLeftButtonDownCallback = []() { Window::running = false; };
 
-  root->GetButton("back")->onClickCallback = [root]() {
+  root->GetButton("back")->mouseLeftButtonDownCallback = [root]() {
     root->GetButton("back")->Hide();
     root->GetButton("new")->Show();
     root->GetButton("options")->Show();

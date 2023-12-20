@@ -9,7 +9,6 @@ Button::Button(ShapeId sid, LabelProp prop) : Label(sid, prop) {
 
   wtype = WidgetType::BUTTON;
 
-  onClickCallback = nullptr;
 }
 
 Button::~Button() {}
@@ -94,16 +93,7 @@ void Button::Update(SDL_Event *e) {
     int x, y;
     SDL_GetMouseState(&x, &y);
 
-    static int nr = 0;
-    if (e->type == SDL_MOUSEBUTTONUP) {
-
-      if (PointInRect({x, y}, rect)) {
-        if (onClickCallback != nullptr) {
-          onClickCallback();
-          SDL_PollEvent(e);
-        }
-      }
-    }
+    UpdateMouse(e, x, y);
 
     if (highlight) {
       if (PointInRect({x, y}, rect)) {

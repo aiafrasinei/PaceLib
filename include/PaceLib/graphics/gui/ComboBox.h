@@ -40,8 +40,6 @@ public:
   void Draw();
   void Update(SDL_Event *e);
 
-  std::function<void(void)> onClickCallback;
-
   int GetSelected();
   int GetNrItems();
   void SetSelection(int index);

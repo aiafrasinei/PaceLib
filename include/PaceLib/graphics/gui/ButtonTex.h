@@ -42,8 +42,6 @@ public:
 
   void Update(SDL_Event *e);
 
-  std::function<void(void)> onClickCallback;
-
   ButtonTexProp *GetProp() { return &prop; }
 
   ~ButtonTex();

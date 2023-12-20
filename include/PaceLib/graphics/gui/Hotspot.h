@@ -48,8 +48,6 @@ public:
 
   HotspotProp *GetProp() { return &prop; }
 
-  std::function<void(void)> onClickCallback;
-
   ~Hotspot();
 
 private:

@@ -23,8 +23,6 @@ ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop) {
 
   wtype = WidgetType::COMBOBOX;
 
-  onClickCallback = nullptr;
-
   textSize = 0;
 
   selected = -1;
@@ -167,7 +165,7 @@ void ComboBox::InternalInit() {
 
   Button *main_renderer =
       ((Button *)root->GetCurrent()->Get("main_item_renderer"));
-  main_renderer->onClickCallback = [this, main_renderer, root, current]() {
+  main_renderer->mouseLeftButtonUpCallback = [this, main_renderer, root, current]() {
     mainRendererSelected = !mainRendererSelected;
     if (mainRendererSelected) {
       if (items.size() > 0) {
@@ -184,7 +182,7 @@ void ComboBox::InternalInit() {
   for (int i = 0; i < items.size(); i++) {
     Button *currentb =
         ((Button *)root->GetCurrent()->Get("item_" + std::to_string(i)));
-    currentb->onClickCallback = [this, i, main_renderer, current, currentb,
+    currentb->mouseLeftButtonUpCallback = [this, i, main_renderer, current, currentb,
                                  root]() {
       for (int i = 0; i < items.size(); i++) {
         current->Get("item_" + std::to_string(i))->Hide();
