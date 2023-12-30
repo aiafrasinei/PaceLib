@@ -3,7 +3,7 @@
 using namespace PaceLib;
 
 Init::Init() {
-  ConLog::Info("PaceLib " + Init::GetVersion() + " start\n");
+  SDL_Log("PaceLib %s start\n", Init::GetVersion());
 
   conf = new Configuration("conf.json");
 
@@ -14,7 +14,7 @@ Init::Init() {
 }
 
 Init::~Init() {
-  ConLog::Info("End");
+  SDL_Log("End");
   for (auto item : root->GetScenes()) {
     delete item.second;
   }
@@ -28,7 +28,7 @@ Root *Init::GetRoot() { return root; }
 Window *Init::GetWindow() { return win; }
 
 void Init::Loop() {
-  ConLog::Info("Init callback");
+  SDL_Log("Init callback");
   if (onInit != nullptr)
     onInit();
 
@@ -58,7 +58,7 @@ void Init::Loop() {
     win->Present();
   }
 
-  ConLog::Info("Deinit callback");
+  SDL_Log("Deinit callback");
   if (onDeinit != nullptr)
     onDeinit();
 

@@ -8,7 +8,6 @@
 
 // utils
 #include "Version.h"
-#include "utils/ConLog.hpp"
 #include "utils/Random.h"
 #include "utils/SDL2/SDL_FontCache.h"
 #include "utils/Scale.h"

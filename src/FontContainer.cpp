@@ -1,5 +1,4 @@
 #include "FontContainer.hpp"
-#include "ConLog.hpp"
 #include "core/Window.hpp"
 
 using namespace PaceLib;
@@ -37,8 +36,7 @@ bool FontContainer::Add(std::string name, std::filesystem::path file_path,
   } else {
     fnm[name] = font;
 
-    ConLog::Info("Loaded font " + name +
-                 " filepath: " + file_path.filename().string());
+    SDL_Log("Loaded font %s filepath: %s", name, file_path.filename().string());
   }
 
   return true;

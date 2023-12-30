@@ -1,5 +1,4 @@
 #include "Texture.h"
-#include "ConLog.hpp"
 #include "Root.h"
 
 using namespace PaceLib;
@@ -16,14 +15,14 @@ Tex::Tex(std::string path, int x, int y) {
 
   SDL_Surface *loadedSurface = IMG_Load(path.c_str());
   if (loadedSurface == nullptr) {
-    ConLog::Error("Unable to load image " + path + " Error: " + IMG_GetError());
+    SDL_Log("Unable to load image " + path + " Error: " + IMG_GetError());
   } else {
     SDL_SetColorKey(loadedSurface, SDL_TRUE,
                     SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      ConLog::Error("Unable to create texture from " + path + " Error " +
+      SDL_Log("Unable to create texture from " + path + " Error " +
                     SDL_GetError());
     } else {
       rect.w = loadedSurface->w;
@@ -48,14 +47,14 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
 
   SDL_Surface *loadedSurface = IMG_Load(path.c_str());
   if (loadedSurface == nullptr) {
-    ConLog::Error("Unable to load image " + path + " Error: " + IMG_GetError());
+    SDL_Log("Unable to load image " + path + " Error: " + IMG_GetError());
   } else {
     SDL_SetColorKey(loadedSurface, SDL_TRUE,
                     SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      ConLog::Error("Unable to create texture from " + path + " Error " +
+      SDL_Log("Unable to create texture from " + path + " Error " +
                     SDL_GetError());
     } else {
       rect.w = w;

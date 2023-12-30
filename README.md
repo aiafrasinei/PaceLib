@@ -1,4 +1,4 @@
-# PaceLib 1.0.7
+# PaceLib 1.0.8
 
 Features:
 
@@ -88,7 +88,7 @@ Event handling:
 		Button::Begin("exit");
 	Tab::EndBlock();
 	
-	root->GetTab("first_tab")->GetButton("exit")->onClickCallback = []() {
+	root->GetTab("first_tab")->GetButton("exit")->mouseLeftButtonUpCallback = []() {
 		Window::running = false;
     };
    

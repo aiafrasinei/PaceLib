@@ -10,7 +10,7 @@ Sprite *ex_sprite;
 Timer stepTimer;
 
 bool init() {
-  ConLog::Info("Start");
+  SDL_Log("Start");
 
   int w, h;
 

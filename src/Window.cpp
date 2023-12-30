@@ -1,5 +1,4 @@
 #include "Window.hpp"
-#include "utils/ConLog.hpp"
 
 using namespace std;
 
@@ -14,12 +13,11 @@ Window::Window(Configuration *conf) {
   success = true;
 
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    ConLog::Error("SDL could not initialize! SDL Error: " +
-                  string(SDL_GetError()));
+    SDL_Log("SDL could not initialize! SDL Error: %s", SDL_GetError());
     success = false;
   } else {
     if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-      ConLog::Warn("Linear texture filtering not enabled!");
+      SDL_Log("Linear texture filtering not enabled!");
     }
 
     std::string title = conf->Get("Title").get<std::string>();
@@ -39,11 +37,10 @@ Window::Window(Configuration *conf) {
     }
 
     if (window == nullptr) {
-      ConLog::Error("Window could not be created! SDL Error: " +
-                    string(SDL_GetError()));
+      SDL_Log("Window could not be created! SDL Error: %s", SDL_GetError());
       success = false;
     } else {
-      ConLog::Info("Window created");
+      SDL_Log("Window created");
 
       width = conf->Get("Width");
       height = conf->Get("Height");
@@ -56,11 +53,10 @@ Window::Window(Configuration *conf) {
       }
 
       if (renderer == nullptr) {
-        ConLog::Error("Renderer could not be created! SDL Error: " +
-                      string(SDL_GetError()));
+        SDL_Log("Renderer could not be created! SDL Error: %s", SDL_GetError());
         success = false;
       } else {
-        ConLog::Info("Renderer created");
+        SDL_Log("Renderer created");
         SDL_SetRenderDrawColor(
             Window::GetRenderer(), Window::GetBackgroundColor().r,
             Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,
@@ -68,14 +64,12 @@ Window::Window(Configuration *conf) {
 
         int img_flags = IMG_INIT_PNG;
         if (!(IMG_Init(img_flags) & img_flags)) {
-          ConLog::Error("SDL_image could not initialize! SDL_image Error: " +
-                        string(IMG_GetError()));
+          SDL_Log("SDL_image could not initialize! SDL_image Error: %s", IMG_GetError());
           success = false;
         }
 
         if (TTF_Init() == -1) {
-          ConLog::Error("SDL_ttf could not initialize! SDL_ttf Error: " +
-                        string(TTF_GetError()));
+          SDL_Log("SDL_ttf could not initialize! SDL_ttf Error: %s", TTF_GetError());
           success = false;
         }
       }
@@ -83,7 +77,7 @@ Window::Window(Configuration *conf) {
   }
 
   if (success) {
-    ConLog::Info("Subsystems initialized");
+    SDL_Log("Subsystems initialized");
   }
 }
 

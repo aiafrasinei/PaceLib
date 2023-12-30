@@ -39,7 +39,6 @@ IF(UNIX)
 
     add_executable (launcher
             src/main.cpp
-	        ../../src/ConLog.cpp
             ../../src/Window.cpp
             ../../src/Init.cpp
             ../../src/Scene.cpp
@@ -84,7 +83,6 @@ ELSE (WIN32)
 
     add_executable (launcher 
             src/main.cpp
-	        ../../src/ConLog.cpp
             ../../src/Window.cpp
             ../../src/Init.cpp
             ../../src/Scene.cpp

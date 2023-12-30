@@ -93,7 +93,7 @@ void on_click(Root *root, int arr[3][3], int bindex, int i, int j) {
 }
 
 bool init() {
-  ConLog::Info("Start");
+  SDL_Log("Start");
 
   Root *root = starter->GetRoot();
 

@@ -38,7 +38,6 @@ IF(UNIX)
 
     add_executable (boards
             src/main.cpp
-	        ../../src/ConLog.cpp
             ../../src/Window.cpp
             ../../src/Init.cpp
             ../../src/Scene.cpp
@@ -83,7 +82,6 @@ ELSE (WIN32)
 
     add_executable (boards 
             src/main.cpp
-	        ../../src/ConLog.cpp
             ../../src/Window.cpp
             ../../src/Init.cpp
             ../../src/Scene.cpp

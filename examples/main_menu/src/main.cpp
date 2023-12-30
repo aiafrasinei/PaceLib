@@ -6,7 +6,7 @@ using namespace PaceLib;
 Init *starter = nullptr;
 
 bool init() {
-  ConLog::Info("Start");
+  SDL_Log("Start");
 
   Root *root = starter->GetRoot();
 

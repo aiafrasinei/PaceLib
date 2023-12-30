@@ -1,5 +1,4 @@
 #include "Label.h"
-#include "ConLog.hpp"
 #include "Root.h"
 
 using namespace PaceLib;
