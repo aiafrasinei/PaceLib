@@ -32,16 +32,16 @@ bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w,
   return tex_atlas->Add(file_path, x, y, w, h);
 }
 
-bool Scene::AddFont(std::string name, std::string text, SDL_Color color) {
-  SDL_Surface* surface = TTF_RenderText_Solid(GetTtfContainer()->Get("default"), text.c_str(), color);
+bool Scene::AddFont(std::string name, std::string font, std::string text, SDL_Color color) {
+  SDL_Surface* surface = TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), color);
   SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surface);
   font_atlas->Add(name, tex);
 
   return true;
 }
 
-bool Scene::AddTtf(std::string name, std::filesystem::path file_path, int size, int style) {
-  return ttf_atlas->Add(name, file_path, size, style);
+bool Scene::AddTtf(std::string name, std::filesystem::path file_path, int size, int style, int outline) {
+  return ttf_atlas->Add(name, file_path, size, style, outline);
 }
 
 SDL_Texture *Scene::GetTex(std::string name) { return tex_atlas->Get(name); }

@@ -13,9 +13,8 @@ Root::Root() {
   name = "root";
 
   scenes["Default"] = new Scene("Default", Window::GetWindow(), Window::GetRenderer());
-  scenes["Default"]->GetTtfContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, TTF_STYLE_NORMAL);
-  //TODO ALEX NOW
-  
+  scenes["Default"]->GetTtfContainer()->Add("default", "fonts/OpenSans_Condensed-Regular.ttf", 20, TTF_STYLE_NORMAL, 1);
+ 
   wtype = WidgetType::ROOT;
 
   if (std::filesystem::exists("wconfs/vars")) {

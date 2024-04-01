@@ -19,18 +19,18 @@ Text::Text(ShapeId sid, TextProp inputProp) {
   wtype = WidgetType::TEXT;
 
   Root *root = &Root::GetInstance();
-  root->GetScene("Default")->AddFont(name, prop.text, prop.color);
+  root->GetScene(prop.scene)->AddFont(name, prop.font, prop.text, prop.color);
 
-  SDL_Texture *font = root->GetScene("Default")->GetFont(name);
-  prop.font = font;
+  SDL_Texture *tex = root->GetScene(prop.scene)->GetFont(name);
+  prop.tex = tex;
 
   int w, h;
-  SDL_QueryTexture(prop.font, nullptr, nullptr, &w, &h);
+  SDL_QueryTexture(prop.tex, nullptr, nullptr, &w, &h);
   rect = {prop.x, prop.y, w, h};
 
   SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-  SDL_RenderCopy(Window::GetRenderer(), prop.font, NULL, &rect);
+  SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
 }
 
 Text::~Text() {}
@@ -50,8 +50,7 @@ void Text::Begin(ShapeId sid) {
 }
 
 void Text::Begin(std::string name) {
-  Root *root = &Root::GetInstance();
-  Text::Begin({root->GetCurrent(), name});
+  Text::Begin({Root::GetInstance().GetCurrent(), name});
 }
 
 void Text::BeginBlock(std::string name) {
@@ -85,7 +84,7 @@ void Text::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderCopy(Window::GetRenderer(), prop.font, NULL, &rect);
+    SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
   }
 }
 
@@ -107,15 +106,16 @@ TextProp Text::LoadTextProp(Configuration *conf) {
 
   Root *root = &Root::GetInstance();
 
+  std::string font = conf->Get("font").get<std::string>();
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
 
-  root->GetScene(conf->Get("scene").get<std::string>())->AddFont(root->GetCurrent()->name, text, color);
+  root->GetScene(conf->Get("scene").get<std::string>())->AddFont(root->GetCurrent()->name, font, text, color);
 
-  SDL_Texture *font = root->GetScene(conf->Get("scene").get<std::string>())
+  SDL_Texture *tex = root->GetScene(conf->Get("scene").get<std::string>())
                       ->GetFont(root->GetCurrent()->name);
 
-  TextProp prop = {pos[0], pos[1], font, text, color};
+  TextProp prop = {conf->Get("scene").get<std::string>(), font, pos[0], pos[1], tex, text, color};
 
   return prop;
 }

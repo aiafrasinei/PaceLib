@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../core/interfaces/Focusable.hpp"
-#include "../../utils/SDL2/SDL_FontCache.h"
 #include "Label.h"
 #include "Text.h"
 #include "Widget.h"

@@ -13,7 +13,7 @@ public:
   TtfContainer(std::string name);
   ~TtfContainer();
 
-  bool Add(std::string name, std::filesystem::path file_path, int size, int style);
+  bool Add(std::string name, std::filesystem::path file_path, int size, int style, int outline);
 
   void Remove(std::string name);
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../utils/SDL2/SDL_FontCache.h"
 #include "../core/interfaces/Updateable.hpp"
 #include "Label.h"
 #include "Text.h"

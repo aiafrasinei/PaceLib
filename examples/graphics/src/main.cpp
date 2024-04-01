@@ -20,7 +20,7 @@ bool init() {
   Root *root = starter->GetRoot();
 
   root->GetScene("Default")->GetTtfContainer()->Add(
-      "lazy_font", "fonts/lazy.ttf", 20, TTF_STYLE_NORMAL);
+      "lazy_font", "fonts/lazy.ttf", 20, TTF_STYLE_NORMAL, 1);
 
   root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w / 2,
                                     h / 2);
@@ -41,7 +41,9 @@ bool init() {
   Circle::Begin({root, "cir2"}, {400, 100, 30, {50, 50, 70, 255}});
   ((Circle *)root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
 
-  TextProp prop = {600,
+  TextProp prop = {"Default",
+                   "lazy_font",
+                   600,
                    100,
                    nullptr,
                    "some text",

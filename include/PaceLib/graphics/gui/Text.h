@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../utils/SDL2/SDL_FontCache.h"
 #include "Widget.h"
 
 namespace PaceLib {
@@ -55,7 +54,6 @@ private:
   static TextProp LoadTextProp(Configuration *conf);
 
   Text(ShapeId sid, TextProp prop);
-  Text(FC_Font *font, int x, int y, SDL_Color color, std::string text);
 };
 
 } // namespace PaceLib

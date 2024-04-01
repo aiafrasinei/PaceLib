@@ -23,7 +23,7 @@ void TtfContainer::Remove(std::string name) {
   container.erase(name);
 }
 
-bool TtfContainer::Add(std::string name, std::filesystem::path file_path, int size, int style) {
+bool TtfContainer::Add(std::string name, std::filesystem::path file_path, int size, int style, int outline) {
     TTF_Font *ttf = TTF_OpenFont(file_path.c_str(), size);
 
     if (ttf == nullptr) {
@@ -31,7 +31,7 @@ bool TtfContainer::Add(std::string name, std::filesystem::path file_path, int si
       return false;
     }
 
-    TTF_SetFontOutline(ttf, 1);
+    TTF_SetFontOutline(ttf, outline);
     TTF_SetFontStyle(ttf, style);
 
     container[name] = ttf;

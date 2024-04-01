@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include "../utils/SDL2/SDL_FontCache.h"
 #include <SDL2/SDL.h>
 
 namespace PaceLib {
@@ -39,7 +38,7 @@ struct PropDimColor {
 };
 
 struct PropFontText {
-  FC_Font *font;
+  //FC_Font *font;
   std::string text;
 };
 
@@ -77,7 +76,7 @@ struct SpriteProp {
 
 struct LabelProp {
   SDL_Rect rect;
-  FC_Font *font;
+  //FC_Font *font;
   std::string text;
   SDL_Color textColor;
   HorizontalAlign align;
@@ -92,7 +91,7 @@ struct TabberProp {
   SDL_Color borderColor;
   SDL_Color headerBackgroundColor;
   int headerHeight;
-  FC_Font *buttonsFont;
+  //FC_Font *buttonsFont;
   SDL_Color buttonsTextColor;
   HorizontalAlign buttonsTextAlign;
   SDL_Color buttonsBackgroundColor;
@@ -108,8 +107,10 @@ struct TabProp {
 };
 
 struct TextProp {
+  std::string scene;
+  std::string font;
   int x, y;
-  SDL_Texture *font;
+  SDL_Texture *tex;
   std::string text;
   SDL_Color color;
 };
@@ -121,7 +122,7 @@ struct TexProp {
 
 struct MultiItemsProp {
   SDL_Rect rect;
-  FC_Font *font;
+  //FC_Font *font;
   std::vector<std::string> tarr;
   SDL_Color textColor;
   SDL_Color backgroundColor;
@@ -130,7 +131,7 @@ struct MultiItemsProp {
 };
 
 struct TooltipProp {
-  FC_Font *font;
+  //FC_Font *font;
   std::string text;
   SDL_Color textColor;
   SDL_Color backgroundColor;
