@@ -3,7 +3,7 @@
 using namespace PaceLib;
 
 Init::Init() {
-  SDL_Log("PaceLib %s start\n", Init::GetVersion());
+  SDL_Log("PaceLib %s start\n", Init::GetVersion().c_str());
 
   conf = new Configuration("conf.json");
 

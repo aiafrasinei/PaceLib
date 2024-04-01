@@ -9,34 +9,46 @@ Scene::Scene(std::string name, SDL_Window *window, SDL_Renderer *renderer) {
   this->renderer = renderer;
 
   tex_atlas = new TexContainer(name, renderer);
-  font_atlas = new FontContainer(name);
+  font_atlas = new TexContainer(name, renderer);
+  ttf_atlas = new TtfContainer(name);
 }
 
 Scene::~Scene() {
   delete font_atlas;
   delete tex_atlas;
+  delete ttf_atlas;
 }
 
 void Scene::SetName(std::string name) { this->name = name; }
 
 TexContainer *Scene::GetTexContainer() { return tex_atlas; }
 
-FontContainer *Scene::GetFontContainer() { return font_atlas; }
+TexContainer *Scene::GetFontContainer() { return font_atlas; }
+
+TtfContainer *Scene::GetTtfContainer() { return ttf_atlas; }
 
 bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w,
                    int h) {
-  tex_atlas->Add(file_path, x, y, w, h);
+  return tex_atlas->Add(file_path, x, y, w, h);
+}
+
+bool Scene::AddFont(std::string name, std::string text, SDL_Color color) {
+  SDL_Surface* surface = TTF_RenderText_Solid(GetTtfContainer()->Get("default"), text.c_str(), color);
+  SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surface);
+  font_atlas->Add(name, tex);
+
   return true;
 }
 
-bool Scene::AddFont(std::string name, std::filesystem::path file_path, int size,
-                    SDL_Color color) {
-  return font_atlas->Add(name, file_path, size, color);
+bool Scene::AddTtf(std::string name, std::filesystem::path file_path, int size, int style) {
+  return ttf_atlas->Add(name, file_path, size, style);
 }
 
 SDL_Texture *Scene::GetTex(std::string name) { return tex_atlas->Get(name); }
 
-FC_Font *Scene::GetFont(std::string name) { return font_atlas->Get(name); }
+SDL_Texture *Scene::GetFont(std::string name) { return font_atlas->Get(name); }
+
+TTF_Font *Scene::GetTtf(std::string name) { return ttf_atlas->Get(name); }
 
 void Scene::Start() {}
 

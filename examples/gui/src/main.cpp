@@ -9,8 +9,7 @@ bool init() {
   Root *root = starter->GetRoot();
 
   root->GetScene("Default")->AddTex("texs/sn_yellow.png", 0, 0, 512, 512);
-  root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512,
-                                    512);
+  root->GetScene("Default")->AddTex("texs/sn_yellow_border.png", 0, 0, 512, 512);
 
   Tab::BeginBlock("first");
   Label::Begin("label");

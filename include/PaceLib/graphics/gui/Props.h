@@ -109,7 +109,7 @@ struct TabProp {
 
 struct TextProp {
   int x, y;
-  FC_Font *font;
+  SDL_Texture *font;
   std::string text;
   SDL_Color color;
 };

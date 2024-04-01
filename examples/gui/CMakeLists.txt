@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 project(gui)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -53,8 +53,6 @@ IF(UNIX)
             ../../src/Triangle.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp
@@ -99,8 +97,6 @@ ELSE (WIN32)
             ../../src/Hexagon.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp

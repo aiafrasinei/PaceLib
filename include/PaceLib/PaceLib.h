@@ -4,12 +4,12 @@
 #include "core/Window.hpp"
 
 // resources
-#include "resources/FontContainer.hpp"
+#include "resources/TexContainer.hpp"
+#include "resources/TtfContainer.hpp"
 
 // utils
 #include "Version.h"
 #include "utils/Random.h"
-#include "utils/SDL2/SDL_FontCache.h"
 #include "utils/Scale.h"
 #include "utils/Timer.h"
 

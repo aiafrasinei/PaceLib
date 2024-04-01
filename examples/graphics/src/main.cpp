@@ -19,8 +19,8 @@ bool init() {
 
   Root *root = starter->GetRoot();
 
-  root->GetScene("Default")->GetFontContainer()->Add(
-      "lazy_font", "fonts/lazy.ttf", 20, {0, 0, 0, 255});
+  root->GetScene("Default")->GetTtfContainer()->Add(
+      "lazy_font", "fonts/lazy.ttf", 20, TTF_STYLE_NORMAL);
 
   root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w / 2,
                                     h / 2);
@@ -43,9 +43,9 @@ bool init() {
 
   TextProp prop = {600,
                    100,
-                   root->GetScene("Default")->GetFont("lazy_font"),
+                   nullptr,
                    "some text",
-                   {50, 50, 50, 255}};
+                   {150, 50, 50, 255}};
   Text::Begin({root, "text"}, prop);
 
   Sprite::Begin({root, "sprite"},

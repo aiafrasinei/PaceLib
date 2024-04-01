@@ -4,22 +4,33 @@
 
 using namespace PaceLib;
 
-Text::Text(ShapeId sid, TextProp prop) {
-  this->prop = prop;
+Text::Text(ShapeId sid, TextProp inputProp) {
+  prop = inputProp;
 
   if (sid.parent->name != "root") {
-    this->prop.x = sid.parent->GetRect().x + prop.x;
-    this->prop.y = sid.parent->GetRect().y + prop.y;
+    prop.x = sid.parent->GetRect().x + prop.x;
+    prop.y = sid.parent->GetRect().y + prop.y;
   }
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   wtype = WidgetType::TEXT;
 
-  rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x,
-                      (float)prop.y, prop.color, prop.text.c_str());
+  Root *root = &Root::GetInstance();
+  root->GetScene("Default")->AddFont(name, prop.text, prop.color);
+
+  SDL_Texture *font = root->GetScene("Default")->GetFont(name);
+  prop.font = font;
+
+  int w, h;
+  SDL_QueryTexture(prop.font, nullptr, nullptr, &w, &h);
+  rect = {prop.x, prop.y, w, h};
+
+  SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
+                           prop.color.b, prop.color.a);
+  SDL_RenderCopy(Window::GetRenderer(), prop.font, NULL, &rect);
 }
 
 Text::~Text() {}
@@ -65,17 +76,16 @@ void Text::EndBlock() {
 }
 
 void Text::Begin(ShapeId sid, TextProp prop) {
-  Text *txt = new Text(sid, prop);
+  Text *t = new Text(sid, prop);
 
-  sid.parent->Add(txt);
+  sid.parent->Add(t);
 }
 
 void Text::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    rect = FC_DrawColor(prop.font, Window::GetRenderer(), (float)prop.x,
-                        (float)prop.y, prop.color, prop.text.c_str());
+    SDL_RenderCopy(Window::GetRenderer(), prop.font, NULL, &rect);
   }
 }
 
@@ -91,18 +101,19 @@ std::string Text::GetText() { return prop.text; }
 
 void Text::SetText(std::string text) { prop.text = text; }
 
-void Text::SetFont(FC_Font *font) { prop.font = font; }
-
 TextProp Text::LoadTextProp(Configuration *conf) {
   int pos[2];
   Widget::ParsePos(pos, conf);
 
   Root *root = &Root::GetInstance();
 
-  FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
-                      ->GetFont(conf->Get("font").get<std::string>());
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
+
+  root->GetScene(conf->Get("scene").get<std::string>())->AddFont(root->GetCurrent()->name, text, color);
+
+  SDL_Texture *font = root->GetScene(conf->Get("scene").get<std::string>())
+                      ->GetFont(root->GetCurrent()->name);
 
   TextProp prop = {pos[0], pos[1], font, text, color};
 

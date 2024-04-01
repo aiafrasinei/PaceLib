@@ -5,7 +5,6 @@
 #include <vector>
 #include "TexContainer.hpp"
 #include "utils/Platform.hpp"
-#include "utils/SDL2/SDL_FontCache.h"
 
 namespace PaceLib {
 
@@ -14,8 +13,7 @@ public:
   TtfContainer(std::string name);
   ~TtfContainer();
 
-  bool Add(std::string name, std::filesystem::path file_path, int size,
-           SDL_Color color);
+  bool Add(std::string name, std::filesystem::path file_path, int size, int style);
 
   void Remove(std::string name);
 

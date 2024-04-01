@@ -44,8 +44,6 @@ public:
   std::string GetText();
   void SetText(std::string text);
 
-  void SetFont(FC_Font *font);
-
   TextProp *GetProp() { return &prop; }
 
   ~Text();

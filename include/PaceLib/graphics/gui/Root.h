@@ -13,7 +13,6 @@
 #include "Tooltip.h"
 #include "Widget.h"
 #include "core/interfaces/State.hpp"
-#include "resources/FontContainer.hpp"
 #include "scene/Scene.hpp"
 
 namespace PaceLib {

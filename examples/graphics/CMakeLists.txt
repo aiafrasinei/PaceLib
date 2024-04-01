@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 project(graphics)
 
@@ -26,7 +26,8 @@ include_directories("${PACE_INCLUDE_PATH}/resources")
 include_directories("${PACE_INCLUDE_PATH}/scene")
 
 IF(UNIX)
-    set(CMAKE_CXX_FLAGS "-std=c++23 -fanalyzer")
+    #set(CMAKE_CXX_FLAGS "-std=c++23 -fanalyzer")
+    set(CMAKE_CXX_FLAGS "-std=c++23")
 
     include_directories("/opt/homebrew/include")
 
@@ -53,19 +54,18 @@ IF(UNIX)
             ../../src/Triangle.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
-            ../../src/SDL_FontCache.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Timer.cpp
-            ../../src/Label.cpp
-            ../../src/Button.cpp
-            ../../src/ButtonTex.cpp
-            ../../src/CheckBox.cpp
-            ../../src/Tab.cpp
+            #../../src/Label.cpp
+            #../../src/Button.cpp
+            #../../src/ButtonTex.cpp
+            #../../src/CheckBox.cpp
+            #../../src/Tab.cpp
 	        ../../src/Root.cpp
-            ../../src/Tooltip.cpp
-            ../../src/TextArea.cpp
-            ../../src/TextInput.cpp
-            ../../src/Tabber.cpp
+            #../../src/Tooltip.cpp
+            #../../src/TextArea.cpp
+            #../../src/TextInput.cpp
+            #../../src/Tabber.cpp
             ../../src/Texture.cpp
             ../../src/Configuration.cpp)
 
@@ -97,8 +97,6 @@ ELSE (WIN32)
         ../../src/Triangle.cpp
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
-        ../../src/FontContainer.cpp
-        ../../src/SDL_FontCache.cpp
         ../../src/Tex.cpp
         ../../src/Timer.cpp
         ../../src/Label.cpp
