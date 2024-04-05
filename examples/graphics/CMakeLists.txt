@@ -43,6 +43,7 @@ IF(UNIX)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -54,18 +55,17 @@ IF(UNIX)
             ../../src/Triangle.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/TtfContainer.cpp
             ../../src/Timer.cpp
-            #../../src/Label.cpp
-            #../../src/Button.cpp
-            #../../src/ButtonTex.cpp
-            #../../src/CheckBox.cpp
-            #../../src/Tab.cpp
+            ../../src/Label.cpp
+            ../../src/Button.cpp
+            ../../src/ButtonTex.cpp
+            ../../src/CheckBox.cpp
+            ../../src/Tab.cpp
 	        ../../src/Root.cpp
-            #../../src/Tooltip.cpp
-            #../../src/TextArea.cpp
-            #../../src/TextInput.cpp
-            #../../src/Tabber.cpp
+            ../../src/Tooltip.cpp
+            ../../src/TextArea.cpp
+            ../../src/TextInput.cpp
+            ../../src/Tabber.cpp
             ../../src/Texture.cpp
             ../../src/Configuration.cpp)
 
@@ -86,6 +86,7 @@ ELSE (WIN32)
         ../../src/Init.cpp
         ../../src/Scene.cpp
         ../../src/TexContainer.cpp
+        ../../src/TtfContainer.cpp
         ../../src/Place.cpp
         ../../src/Map.cpp
         ../../src/Rectangle.cpp

@@ -12,8 +12,6 @@ set(PACE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../include/PaceLib")
 include_directories("${INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}/utils")
-include_directories("${PACE_INCLUDE_PATH}/utils/sqlite3")
-include_directories("${PACE_INCLUDE_PATH}/utils/sqlht")
 include_directories("${PACE_INCLUDE_PATH}/utils/SDL2")
 include_directories("${PACE_INCLUDE_PATH}/config")
 include_directories("${PACE_INCLUDE_PATH}/core")
@@ -42,6 +40,7 @@ IF(UNIX)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -52,8 +51,6 @@ IF(UNIX)
             ../../src/Triangle.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp
@@ -86,6 +83,7 @@ ELSE (WIN32)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -98,8 +96,6 @@ ELSE (WIN32)
             ../../src/Hexagon.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/FontContainer.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp

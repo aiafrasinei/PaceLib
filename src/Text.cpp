@@ -7,9 +7,12 @@ using namespace PaceLib;
 Text::Text(ShapeId sid, TextProp inputProp) {
   prop = inputProp;
 
+  rect.x = prop.x;
+  rect.y = prop.y;
+  
   if (sid.parent->name != "root") {
-    prop.x = sid.parent->GetRect().x + prop.x;
-    prop.y = sid.parent->GetRect().y + prop.y;
+    rect.x = sid.parent->GetRect().x;
+    rect.y = sid.parent->GetRect().y;
   }
 
   hidden = false;
@@ -26,7 +29,7 @@ Text::Text(ShapeId sid, TextProp inputProp) {
 
   int w, h;
   SDL_QueryTexture(prop.tex, nullptr, nullptr, &w, &h);
-  rect = {prop.x, prop.y, w, h};
+  rect = {rect.x, rect.y, w, h};
 
   SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);

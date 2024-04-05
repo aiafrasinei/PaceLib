@@ -5,7 +5,7 @@ using namespace PaceLib;
 
 Init *starter = nullptr;
 
-void draw() { Window::SetDrawColor({10, 10, 90}); }
+void draw() { Window::SetBackgroundColor({10, 10, 90}); }
 
 int main(int argc, const char *argv[]) {
   starter = new Init();

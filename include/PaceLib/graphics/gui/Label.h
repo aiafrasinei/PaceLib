@@ -59,7 +59,7 @@ protected:
 
   static LabelProp LoadLabelProp(Configuration *conf);
 
-  Label(ShapeId sid, LabelProp prop);
+  Label(ShapeId sid, LabelProp inputProp);
 };
 
 } // namespace PaceLib

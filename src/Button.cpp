@@ -3,7 +3,7 @@
 
 using namespace PaceLib;
 
-Button::Button(ShapeId sid, LabelProp prop) : Label(sid, prop) {
+Button::Button(ShapeId sid, LabelProp inputProp) : Label(sid, inputProp) {
   highlight = true;
 
   wtype = WidgetType::BUTTON;

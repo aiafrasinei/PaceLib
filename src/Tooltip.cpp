@@ -101,8 +101,8 @@ void Tooltip::InternalInit() {
   Root *root = &Root::GetInstance();
   Tooltip *dt = (Tooltip *)root->GetCurrent()->Get(name);
 
-  TextProp tprop = {dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y,
-                    prop.font, prop.text, prop.textColor};
+  TextProp tprop = {"Default", "default", dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y,
+                    nullptr, prop.text, prop.textColor};
 
   Text::Begin({dt, dt->name + "_text"}, tprop);
 
@@ -121,11 +121,9 @@ TooltipProp Tooltip::LoadTooltipProp(Configuration *conf) {
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
   SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
-  FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
-                      ->GetFont(conf->Get("font").get<std::string>());
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
 
-  TooltipProp prop = {font, text, textColor, backgroundColor, borderColor};
+  TooltipProp prop = {text, textColor, backgroundColor, borderColor};
   return prop;
 }

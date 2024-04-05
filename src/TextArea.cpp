@@ -100,7 +100,7 @@ void TextArea::InternalInit() {
   int ry = rect.y;
   int i = 0;
   for (std::string text : prop.tarr) {
-    TextProp tprop = {rect.x + rect.w / 50, ry, prop.font, text,
+    TextProp tprop = {"Default", "default", rect.x + rect.w / 50, ry, nullptr, text,
                       prop.textColor};
 
     Text::Begin({ta, ta->name + "_text" + std::to_string(i)}, tprop);
@@ -124,13 +124,11 @@ MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
   SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
-  FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
-                      ->GetFont(conf->Get("font").get<std::string>());
   SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
   std::vector<std::string> tarr =
       conf->Get("text_arr").get<std::vector<std::string>>();
 
-  MultiItemsProp prop = {dimr,       font, tarr, textColor, backgroundColor,
+  MultiItemsProp prop = {dimr, tarr, textColor, backgroundColor,
                          borderColor};
   return prop;
 }

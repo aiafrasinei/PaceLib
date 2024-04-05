@@ -52,7 +52,7 @@ private:
 
   bool highlight;
 
-  Button(ShapeId sid, LabelProp prop);
+  Button(ShapeId sid, LabelProp inputProp);
 };
 
 } // namespace PaceLib

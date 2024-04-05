@@ -42,7 +42,7 @@ IF(UNIX)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
-            ../../src/FontContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -53,7 +53,6 @@ IF(UNIX)
             ../../src/Triangle.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp
@@ -83,7 +82,7 @@ ELSE (WIN32)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
-            ../../src/FontContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -96,7 +95,6 @@ ELSE (WIN32)
             ../../src/Hexagon.cpp
             ../../src/Polygon.cpp
             ../../src/ScrollingBackground.cpp
-            ../../src/SDL_FontCache.cpp
             ../../src/Timer.cpp
             ../../src/Label.cpp
             ../../src/Button.cpp

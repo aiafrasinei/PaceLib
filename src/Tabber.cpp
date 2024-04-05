@@ -11,8 +11,8 @@ static int nrtitles = 0;
 unsigned int Tabber::current = 0;
 int Tabber::tabx = 0;
 
-Tabber::Tabber(ShapeId sid, TabberProp prop) {
-  this->prop = prop;
+Tabber::Tabber(ShapeId sid, TabberProp inputProp) {
+  prop = inputProp;
 
   rect = prop.rect;
 
@@ -21,11 +21,11 @@ Tabber::Tabber(ShapeId sid, TabberProp prop) {
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
-  this->prop.rect = rect;
+  prop.rect = rect;
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   current = 0;
 
@@ -87,7 +87,7 @@ void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 void Tabber::Draw() {
   if (!hidden) {
     if (just_once) {
-      ((Button *) this->Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
+      ((Button *) Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
       just_once = false;
     }
     if (once) {
@@ -97,7 +97,7 @@ void Tabber::Draw() {
           shapes[i]->Hide();
         }
       }
-      ((Tab *)this->Get("t_" + std::to_string(current)))->Show();
+      ((Tab *)Get("t_" + std::to_string(current)))->Show();
       once = false;
     }
 
@@ -127,9 +127,8 @@ void Tabber::BeginTabBlock(std::string text) {
   Root *root = &Root::GetInstance();
   Tabber *tabber = (Tabber *)root->GetCurrent();
 
-  LabelProp prop = {{tabx, Window::height * 1 / 100, 0,
+  LabelProp prop = {"Default", "default", {tabx, Window::height * 1 / 100, 0,
                      Window::height * (tabber->prop.headerHeight - 1) / 100},
-                    root->GetScene("Default")->GetFont("default"),
                     text,
                     tabber->GetProp()->buttonsTextColor,
                     tabber->GetProp()->buttonsTextAlign,
@@ -143,12 +142,11 @@ void Tabber::BeginTabBlock(std::string text) {
 
   float real_width = b->GetTextSize() + b->GetTextSize() / 3;
   b->SetRectW(real_width);
-  prop.rect.w = real_width;
   b->SetTextAlign(prop.align);
 
   tabx = tabx + real_width + tabber->GetRect().w / 99;
 
-  b->mouseLeftButtonUpCallback = [b, tabber, prop]() {
+  b->mouseLeftButtonUpCallback = [b, tabber]() {
     std::size_t pos = b->name.find("_");
     int index = std::stoi(b->name.substr(pos + 1));
     current = index;
@@ -203,9 +201,6 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
   SDL_Color headerBackgroundColor =
       Widget::ParseVar("header_background", conf, root->GetVars());
   int headerHeightPercent = conf->Get("header_height").get<int>();
-  FC_Font *buttonsFont =
-      root->GetScene(conf->Get("scene").get<std::string>())
-          ->GetFont(conf->Get("buttons_font").get<std::string>());
   SDL_Color buttonsTextColor =
       Widget::ParseVar("buttons_text_color", conf, root->GetVars());
   SDL_Color buttonsBackgroundColor =
@@ -222,7 +217,6 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
                      borderColor,
                      headerBackgroundColor,
                      headerHeightPercent,
-                     buttonsFont,
                      buttonsTextColor,
                      align,
                      buttonsBackgroundColor,
@@ -233,11 +227,11 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
 }
 
 Tab *Tabber::GetTab(std::string child) {
-  return static_cast<Tab *>(this->Get(child));
+  return static_cast<Tab *>(Get(child));
 }
 
 Tab *Tabber::GetTab(int index) {
-  return static_cast<Tab *>(this->Get("t_" + std::to_string(index)));
+  return static_cast<Tab *>(Get("t_" + std::to_string(index)));
 }
 
 int Tabber::GetNrTabs() {
@@ -252,7 +246,7 @@ void Tabber::SelectTab(int index) {
 void Tabber::SelectTab(std::string name) {
   int index = 0;
   for (int i = 0; i < shapes.size(); i++) {
-    if(((Button *) this->Get("h_" + std::to_string(i)))->GetProp()->text == name) {
+    if(((Button *) Get("h_" + std::to_string(i)))->GetProp()->text == name) {
       index = i;
       break;
     }
@@ -264,6 +258,6 @@ void Tabber::SelectTab(std::string name) {
 
 void Tabber::ClearHeaderColor(SDL_Color col) {
   for (int i = 0; i < nrtitles; i++) {
-    ((Button *) this->Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
+    ((Button *) Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
   }
 }

@@ -37,11 +37,6 @@ struct PropDimColor {
   SDL_Color color;
 };
 
-struct PropFontText {
-  //FC_Font *font;
-  std::string text;
-};
-
 struct CircleProp {
   int x;
   int y;
@@ -75,8 +70,9 @@ struct SpriteProp {
 };
 
 struct LabelProp {
+  std::string scene;
+  std::string font;
   SDL_Rect rect;
-  //FC_Font *font;
   std::string text;
   SDL_Color textColor;
   HorizontalAlign align;
@@ -91,7 +87,6 @@ struct TabberProp {
   SDL_Color borderColor;
   SDL_Color headerBackgroundColor;
   int headerHeight;
-  //FC_Font *buttonsFont;
   SDL_Color buttonsTextColor;
   HorizontalAlign buttonsTextAlign;
   SDL_Color buttonsBackgroundColor;
@@ -122,7 +117,6 @@ struct TexProp {
 
 struct MultiItemsProp {
   SDL_Rect rect;
-  //FC_Font *font;
   std::vector<std::string> tarr;
   SDL_Color textColor;
   SDL_Color backgroundColor;
@@ -131,7 +125,6 @@ struct MultiItemsProp {
 };
 
 struct TooltipProp {
-  //FC_Font *font;
   std::string text;
   SDL_Color textColor;
   SDL_Color backgroundColor;

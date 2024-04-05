@@ -83,7 +83,7 @@ private:
 
   static TabberProp LoadTabberProp(Configuration *conf);
 
-  Tabber(ShapeId sid, TabberProp prop);
+  Tabber(ShapeId sid, TabberProp inputProp);
 
   void ClearHeaderColor(SDL_Color col);
 };

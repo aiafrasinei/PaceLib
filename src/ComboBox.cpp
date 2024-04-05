@@ -48,14 +48,13 @@ void ComboBox::Begin(ShapeId sid) {
     SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
     SDL_Color highlightColor =
         Widget::ParseVar("highlight", conf, root->GetVars());
-    FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
-                        ->GetFont(conf->Get("font").get<std::string>());
+
     SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
     std::vector<std::string> tarr =
         conf->Get("text_arr").get<std::vector<std::string>>();
 
     MultiItemsProp prop = {
-        dimr,        font,          tarr, textColor, backgroundColor,
+        dimr, tarr, textColor, backgroundColor,
         borderColor, highlightColor};
 
     ComboBox *newcb = new ComboBox(sid, prop);
@@ -137,8 +136,9 @@ void ComboBox::InternalInit() {
                   root->GetCurrentAbsoluteCoords().y + (i * this->GetRect().h),
                   this->GetRect().w, this->GetRect().h};
     LabelProp prop = {
+        "Default",
+        "default",
         r,
-        Root::GetInstance().GetScene("Default")->GetFont("default"),
         items[i],
         this->prop.textColor,
         {H::MID},
@@ -150,10 +150,10 @@ void ComboBox::InternalInit() {
     root->GetCurrent()->Get("item_" + std::to_string(i))->Hide();
   }
 
-  LabelProp prop = {{root->GetCurrentAbsoluteCoords().x,
+  LabelProp prop = {"Default", "default",
+                    {root->GetCurrentAbsoluteCoords().x,
                      root->GetCurrentAbsoluteCoords().y, this->GetRect().w,
                      this->GetRect().h},
-                    Root::GetInstance().GetScene("Default")->GetFont("default"),
                     "",
                     this->prop.textColor,
                     {H::MID},

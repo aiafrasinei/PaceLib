@@ -3,8 +3,8 @@
 
 using namespace PaceLib;
 
-Label::Label(ShapeId sid, LabelProp prop) {
-  this->prop = prop;
+Label::Label(ShapeId sid, LabelProp inputProp) {
+  prop = inputProp;
 
   rect = prop.rect;
 
@@ -13,11 +13,11 @@ Label::Label(ShapeId sid, LabelProp prop) {
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
-  this->prop.rect = rect;
+  prop.rect = rect;
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   wtype = WidgetType::LABEL;
 
@@ -99,38 +99,38 @@ void Label::Draw() {
 int Label::GetTextSize() { return textSize; }
 
 void Label::SetText(std::string text) {
-  if (this->prop.text == "") {
+  if (prop.text == "") {
     delete shapes[0];
     shapes.clear();
     shapesNames.clear();
 
-    this->prop.text = text;
+    prop.text = text;
 
     InternalInit();
   }
 
-  Text *to = (Text *)this->Get(this->name + "_text");
+  Text *to = (Text *)Get(name + "_text");
 
   to->SetText(text);
-  this->prop.text = text;
+  prop.text = text;
 }
 
 void Label::InternalInit() {
   // child text
-  TextProp tprop = {GetRect().x + GetRect().w / 20, GetRect().y, prop.font,
+  TextProp tprop = {"Default", "default", GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
                     prop.text, prop.textColor};
 
   Text::Begin({this, name + "_text"}, tprop);
 
-  Text *to = (Text *)this->Get(name + "_text");
-  to->GetProp()->color = this->GetProp()->textColor;
+  Text *to = (Text *)Get(name + "_text");
+  to->GetProp()->color = GetProp()->textColor;
   textSize = to->GetWidth();
 
   SetTextAlign(prop.align);
 }
 
 void Label::SetTextAlign(HorizontalAlign align) {
-  Text *to = (Text *)this->Get(name + "_text");
+  Text *to = (Text *)Get(name + "_text");
 
   to->SetY(GetHalfY() - to->GetHeight() / 2);
 
@@ -163,12 +163,10 @@ LabelProp Label::LoadLabelProp(Configuration *conf) {
   SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
   SDL_Color highlightColor =
       Widget::ParseVar("highlight", conf, root->GetVars());
-  FC_Font *font = root->GetScene(conf->Get("scene").get<std::string>())
-                      ->GetFont(conf->Get("font").get<std::string>());
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
 
-  LabelProp prop = {dimr,        font,          text,
+  LabelProp prop = {"Default", "default", dimr,          text,
                     textColor,   align,         backgroundColor,
                     borderColor, highlightColor};
   return prop;
