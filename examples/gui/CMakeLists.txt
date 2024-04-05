@@ -43,6 +43,7 @@ IF(UNIX)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
@@ -85,6 +86,7 @@ ELSE (WIN32)
             ../../src/Init.cpp
             ../../src/Scene.cpp
             ../../src/TexContainer.cpp
+            ../../src/TtfContainer.cpp
             ../../src/Place.cpp
             ../../src/Map.cpp
             ../../src/Rectangle.cpp
