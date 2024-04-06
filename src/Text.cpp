@@ -95,9 +95,9 @@ int Text::GetWidth() { return rect.w; }
 
 int Text::GetHeight() { return rect.h; }
 
-void Text::SetX(int x) { prop.x = x; }
+void Text::SetX(int x) { rect.x = x; }
 
-void Text::SetY(int y) { prop.y = y; }
+void Text::SetY(int y) { rect.y = y; }
 
 std::string Text::GetText() { return prop.text; }
 
