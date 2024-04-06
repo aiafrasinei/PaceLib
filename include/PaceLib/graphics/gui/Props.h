@@ -82,6 +82,8 @@ struct LabelProp {
 };
 
 struct TabberProp {
+  std::string scene;
+  std::string font;
   SDL_Rect rect;
   SDL_Color backgroundColor;
   SDL_Color borderColor;
@@ -116,6 +118,8 @@ struct TexProp {
 };
 
 struct MultiItemsProp {
+  std::string scene;
+  std::string font;
   SDL_Rect rect;
   std::vector<std::string> tarr;
   SDL_Color textColor;
@@ -125,6 +129,8 @@ struct MultiItemsProp {
 };
 
 struct TooltipProp {
+  std::string scene;
+  std::string font;
   std::string text;
   SDL_Color textColor;
   SDL_Color backgroundColor;

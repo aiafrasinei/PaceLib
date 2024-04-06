@@ -117,7 +117,7 @@ void Label::SetText(std::string text) {
 
 void Label::InternalInit() {
   // child text
-  TextProp tprop = {"Default", "default", GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
+  TextProp tprop = {prop.scene, prop.font, GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
                     prop.text, prop.textColor};
 
   Text::Begin({this, name + "_text"}, tprop);
@@ -165,9 +165,11 @@ LabelProp Label::LoadLabelProp(Configuration *conf) {
       Widget::ParseVar("highlight", conf, root->GetVars());
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+  std::string font = conf->Get("font").get<std::string>();
+  std::string scene = conf->Get("scene").get<std::string>();
 
-  LabelProp prop = {"Default", "default", dimr,          text,
-                    textColor,   align,         backgroundColor,
+  LabelProp prop = {scene, font, dimr, text,
+                    textColor, align, backgroundColor,
                     borderColor, highlightColor};
   return prop;
 }

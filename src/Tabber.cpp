@@ -127,7 +127,7 @@ void Tabber::BeginTabBlock(std::string text) {
   Root *root = &Root::GetInstance();
   Tabber *tabber = (Tabber *)root->GetCurrent();
 
-  LabelProp prop = {"Default", "default", {tabx, Window::height * 1 / 100, 0,
+  LabelProp prop = {tabber->GetProp()->scene, tabber->GetProp()->font, {tabx, Window::height * 1 / 100, 0,
                      Window::height * (tabber->prop.headerHeight - 1) / 100},
                     text,
                     tabber->GetProp()->buttonsTextColor,

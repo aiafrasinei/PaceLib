@@ -1,4 +1,4 @@
-# PaceLib 1.0.8
+# PaceLib 1.1.0
 
 Features:
 

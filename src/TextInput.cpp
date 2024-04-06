@@ -116,7 +116,7 @@ void TextInput::InternalInit() {
   Root *root = &Root::GetInstance();
   TextInput *tin = (TextInput *)root->GetCurrent()->Get(name);
 
-  TextProp tprop = {"Default", "default", GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
+  TextProp tprop = {prop.scene, prop.font, GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
                     prop.text, prop.textColor};
 
   Text::Begin({tin, tin->name + "_text"}, tprop);

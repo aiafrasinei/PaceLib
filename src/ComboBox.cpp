@@ -136,8 +136,8 @@ void ComboBox::InternalInit() {
                   root->GetCurrentAbsoluteCoords().y + (i * this->GetRect().h),
                   this->GetRect().w, this->GetRect().h};
     LabelProp prop = {
-        "Default",
-        "default",
+        this->prop.scene,
+        this->prop.font,
         r,
         items[i],
         this->prop.textColor,
@@ -150,7 +150,7 @@ void ComboBox::InternalInit() {
     root->GetCurrent()->Get("item_" + std::to_string(i))->Hide();
   }
 
-  LabelProp prop = {"Default", "default",
+  LabelProp prop = {this->prop.scene, this->prop.font,
                     {root->GetCurrentAbsoluteCoords().x,
                      root->GetCurrentAbsoluteCoords().y, this->GetRect().w,
                      this->GetRect().h},

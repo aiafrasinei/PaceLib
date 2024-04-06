@@ -66,7 +66,7 @@ void reset_game(int arr[3][3]) {
   }
 
   for (int i = 1; i < 10; i++) {
-    root->GetButton(std::to_string(i) + "b")->SetText("");
+    root->GetButton(std::to_string(i) + "b")->SetText(" ");
   }
 
   xSel = !xSel;
