@@ -194,6 +194,7 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
 
   Root *root = &Root::GetInstance();
 
+  std::string font = conf->Get("font").get<std::string>();
   SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
@@ -212,7 +213,8 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
   SDL_Color buttonsSelectionColor =
       Widget::ParseVar("buttons_selection_color", conf, root->GetVars());
 
-  TabberProp prop = {dimr,
+  TabberProp prop = {conf->Get("scene").get<std::string>(), font,
+                     dimr,
                      backgroundColor,
                      borderColor,
                      headerBackgroundColor,

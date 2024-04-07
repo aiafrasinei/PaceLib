@@ -42,6 +42,7 @@ void ComboBox::Begin(ShapeId sid) {
 
     Root *root = &Root::GetInstance();
 
+    std::string font = conf->Get("font").get<std::string>();
     SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
     SDL_Color backgroundColor =
         Widget::ParseVar("background", conf, root->GetVars());
@@ -53,7 +54,7 @@ void ComboBox::Begin(ShapeId sid) {
     std::vector<std::string> tarr =
         conf->Get("text_arr").get<std::vector<std::string>>();
 
-    MultiItemsProp prop = {
+    MultiItemsProp prop = { conf->Get("scene").get<std::string>(), font,
         dimr, tarr, textColor, backgroundColor,
         borderColor, highlightColor};
 

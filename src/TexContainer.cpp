@@ -35,10 +35,6 @@ bool TexContainer::Add(std::filesystem::path file_path) {
 }
 
 bool TexContainer::Add(std::string name, SDL_Texture *tex) {
-  if (tex == nullptr) {
-    return false;
-  }
-
   TexProp *pt = new TexProp();
   pt->tex = tex;
   pt->rect = {0, 0, 0, 0};
