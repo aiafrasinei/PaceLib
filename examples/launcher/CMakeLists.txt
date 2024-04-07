@@ -36,6 +36,7 @@ IF(UNIX)
     link_directories("${LIBS_PATH}/unix/SDL2_ttf/")
 
     link_directories("/opt/homebrew/lib/")
+    link_directories("/usr/local/lib64/")
 
     add_executable (launcher
             src/main.cpp
@@ -69,7 +70,7 @@ IF(UNIX)
             ../../src/ComboBox.cpp
             ../../src/Hotspot.cpp)
 
-    target_link_libraries(launcher m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(launcher m dl SDL3 SDL3_image SDL3_ttf)
 
 ELSE (WIN32)
     include_directories("${LIBS_PATH}/windows/SDL2/include")

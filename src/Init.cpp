@@ -38,7 +38,7 @@ void Init::Loop() {
       onUpdate();
 
     while (SDL_PollEvent(&e) != 0) {
-      if (e.type == SDL_QUIT) {
+      if (e.type == SDL_EVENT_QUIT) {
         Window::running = false;
       }
 

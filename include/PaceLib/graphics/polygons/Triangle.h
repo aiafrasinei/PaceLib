@@ -34,7 +34,7 @@ public:
 
   // end static methods
 
-  void SetColor(SDL_Color color);
+  void SetColor(SDL_FColor color);
 
   void Draw();
 

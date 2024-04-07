@@ -79,7 +79,7 @@ void Button::Draw() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                            prop.borderColor.g, prop.borderColor.b,
                            prop.borderColor.a);
-    SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+    SDL_RenderRect(Window::GetRenderer(), &rect);
 
     for (Shape *w : shapes) {
       w->Draw();
@@ -89,7 +89,7 @@ void Button::Draw() {
 
 void Button::Update(SDL_Event *e) {
   if (!hidden) {
-    int x, y;
+    float x, y;
     SDL_GetMouseState(&x, &y);
 
     UpdateMouse(e, x, y);

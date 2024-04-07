@@ -25,10 +25,10 @@ void Line::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int x1 = conf->Get("x1");
-    int y1 = conf->Get("y1");
-    int x2 = conf->Get("x2");
-    int y2 = conf->Get("y2");
+    float x1 = conf->Get("x1");
+    float y1 = conf->Get("y1");
+    float x2 = conf->Get("x2");
+    float y2 = conf->Get("y2");
 
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
@@ -63,7 +63,7 @@ void Line::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderDrawLine(Window::GetRenderer(), prop.x1, prop.y1, prop.x2,
+    SDL_RenderLine(Window::GetRenderer(), prop.x1, prop.y1, prop.x2,
                        prop.y2);
   }
 }

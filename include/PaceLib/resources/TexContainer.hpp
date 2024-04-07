@@ -23,7 +23,7 @@ public:
 
   SDL_Texture *Get(std::string name);
 
-  SDL_Rect *GetRect(std::string name);
+  SDL_FRect *GetRect(std::string name);
 
   long GetNrTexs();
 

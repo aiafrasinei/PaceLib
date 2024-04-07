@@ -53,13 +53,13 @@ TTF_Font *Scene::GetTtf(std::string name) { return ttf_atlas->Get(name); }
 void Scene::Start() {}
 
 void Scene::Draw() {
-  // SDL_RenderCopy(renderer, tex_atlas->Get(0), NULL, tex_atlas->GetRect(0));
+  // SDL_RenderTexture(renderer, tex_atlas->Get(0), NULL, tex_atlas->GetRect(0));
 }
 
 void Scene::Stop() {}
 
 void Scene::Update(SDL_Event *e) {
-  if ((*e).type == SDL_KEYDOWN) {
+  if ((*e).type == SDL_EVENT_KEY_DOWN) {
     switch ((*e).key.keysym.sym) {
     case SDLK_LEFT:
       // if(current_tex_index>0)

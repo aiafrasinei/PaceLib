@@ -29,11 +29,11 @@ Text::Text(ShapeId sid, TextProp inputProp) {
 
   int w, h;
   SDL_QueryTexture(prop.tex, nullptr, nullptr, &w, &h);
-  rect = {rect.x, rect.y, w, h};
+  rect = {rect.x, rect.y, (float)w, (float)h};
 
   SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-  SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
+  SDL_RenderTexture(Window::GetRenderer(), prop.tex, NULL, &rect);
 }
 
 Text::~Text() {}
@@ -87,7 +87,7 @@ void Text::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
+    SDL_RenderTexture(Window::GetRenderer(), prop.tex, NULL, &rect);
   }
 }
 
@@ -104,7 +104,7 @@ std::string Text::GetText() { return prop.text; }
 void Text::SetText(std::string text) { prop.text = text; }
 
 TextProp Text::LoadTextProp(Configuration *conf) {
-  int pos[2];
+  float pos[2];
   Widget::ParsePos(pos, conf);
 
   Root *root = &Root::GetInstance();

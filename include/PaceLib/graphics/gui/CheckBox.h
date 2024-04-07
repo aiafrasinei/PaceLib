@@ -57,7 +57,7 @@ private:
 
   bool checked;
 
-  SDL_Rect midrect;
+  SDL_FRect midrect;
 
   int textSize;
 

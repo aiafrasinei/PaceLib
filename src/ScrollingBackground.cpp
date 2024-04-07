@@ -2,7 +2,7 @@
 
 using namespace PaceLib;
 
-ScrollingBackground::ScrollingBackground(SDL_Texture *tex, SDL_Rect shape) {
+ScrollingBackground::ScrollingBackground(SDL_Texture *tex, SDL_FRect shape) {
   this->tex = tex;
   rect.x = shape.x;
   rect.y = shape.y;
@@ -17,7 +17,7 @@ ScrollingBackground::ScrollingBackground(SDL_Texture *tex, SDL_Rect shape) {
 ScrollingBackground::~ScrollingBackground() {}
 
 ScrollingBackground *ScrollingBackground::Begin(SDL_Texture *tex,
-                                                SDL_Rect shape) {
+                                                SDL_FRect shape) {
   return new ScrollingBackground(tex, shape);
 }
 
@@ -30,9 +30,9 @@ void ScrollingBackground::Draw(float timeStep) {
     }
 
     rect.x = scrollingOffset;
-    SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
+    SDL_RenderTexture(Window::GetRenderer(), tex, nullptr, &rect);
     rect.x = scrollingOffset + rect.w;
-    SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &rect);
+    SDL_RenderTexture(Window::GetRenderer(), tex, nullptr, &rect);
   }
 }
 

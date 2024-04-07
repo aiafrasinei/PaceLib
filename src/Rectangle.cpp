@@ -25,7 +25,7 @@ void Rectangle::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int dim[4];
+    float dim[4];
     Root::ParseDim(dim, conf);
 
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],

@@ -46,13 +46,13 @@ void Triangle::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int x1 = conf->Get("x1");
-    int y1 = conf->Get("y1");
-    int x2 = conf->Get("x2");
-    int y2 = conf->Get("y2");
-    int x3 = conf->Get("x3");
-    int y3 = conf->Get("y3");
-    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
+    float x1 = conf->Get("x1");
+    float y1 = conf->Get("y1");
+    float x2 = conf->Get("x2");
+    float y2 = conf->Get("y2");
+    float x3 = conf->Get("x3");
+    float y3 = conf->Get("y3");
+    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(new Triangle(sid, {x1, y1, x2, y2, x3, y3, color}));
@@ -89,7 +89,7 @@ void Triangle::Begin(ShapeId sid, TriangleProp prop) {
   sid.parent->Add(new Triangle(sid, prop));
 }
 
-void Triangle::SetColor(SDL_Color color) {
+void Triangle::SetColor(SDL_FColor color) {
   verts[0].color = {color.r, color.g, color.b, color.a};
   verts[1].color = {color.r, color.g, color.b, color.a};
   verts[2].color = {color.r, color.g, color.b, color.a};

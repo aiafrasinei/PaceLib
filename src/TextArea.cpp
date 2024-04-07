@@ -83,7 +83,7 @@ void TextArea::Draw() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                            prop.borderColor.g, prop.borderColor.b,
                            prop.borderColor.a);
-    SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+    SDL_RenderRect(Window::GetRenderer(), &rect);
 
     for (Shape *w : shapes) {
       w->Draw();
@@ -97,7 +97,7 @@ void TextArea::InternalInit() {
   Root *root = &Root::GetInstance();
   TextArea *ta = (TextArea *)root->GetCurrent()->Get(name);
 
-  int ry = rect.y;
+  float ry = rect.y;
   int i = 0;
   for (std::string text : prop.tarr) {
     TextProp tprop = {prop.scene, prop.font, rect.x + rect.w / 50, ry, nullptr, text,
@@ -115,12 +115,12 @@ void TextArea::InternalInit() {
 }
 
 MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
-  int dim[4];
+  float dim[4];
   Root::ParseDim(dim, conf);
 
   Root *root = &Root::GetInstance();
 
-  SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+  SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
   SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());

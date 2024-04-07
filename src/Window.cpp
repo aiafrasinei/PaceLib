@@ -16,24 +16,18 @@ Window::Window(Configuration *conf) {
     SDL_Log("SDL could not initialize! SDL Error: %s", SDL_GetError());
     success = false;
   } else {
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-      SDL_Log("Linear texture filtering not enabled!");
-    }
-
     std::string title = conf->Get("Title").get<std::string>();
     if (conf->Get("Fullscreen") == 0) {
-      window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
-                                SDL_WINDOWPOS_UNDEFINED, conf->Get("Width"),
-                                conf->Get("Height"), SDL_WINDOW_SHOWN);
+      window = SDL_CreateWindow(title.c_str(), conf->Get("Width"),
+                                conf->Get("Height"), 0);
     } else if (conf->Get("Fullscreen") == 1) {
-      window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
-                                SDL_WINDOWPOS_UNDEFINED, conf->Get("Width"),
+      window = SDL_CreateWindow(title.c_str(), conf->Get("Width"),
                                 conf->Get("Height"), SDL_WINDOW_FULLSCREEN);
     } else if (conf->Get("Fullscreen") == 2) {
       window =
-          SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
-                           SDL_WINDOWPOS_UNDEFINED, conf->Get("Width"),
-                           conf->Get("Height"), SDL_WINDOW_FULLSCREEN_DESKTOP);
+          SDL_CreateWindow(title.c_str(), conf->Get("Width"),
+                           conf->Get("Height"), SDL_WINDOW_FULLSCREEN);
+      //TODO ALEX
     }
 
     if (window == nullptr) {
@@ -46,10 +40,10 @@ Window::Window(Configuration *conf) {
       height = conf->Get("Height");
 
       if (conf->Get("Vsync") == "0") {
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+        renderer = SDL_CreateRenderer(window, NULL, 0);
       } else {
         renderer = SDL_CreateRenderer(
-            window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+            window, NULL, 0);
       }
 
       if (renderer == nullptr) {

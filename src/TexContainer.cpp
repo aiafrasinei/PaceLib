@@ -59,7 +59,7 @@ void TexContainer::SetRect(std::string name, int x, int y, int w, int h) {
   ntr[name]->rect.h = h;
 }
 
-SDL_Rect *TexContainer::GetRect(std::string name) { return &ntr[name]->rect; }
+SDL_FRect *TexContainer::GetRect(std::string name) { return &ntr[name]->rect; }
 
 SDL_Texture *TexContainer::Get(std::string name) { return ntr[name]->tex; }
 
@@ -85,7 +85,7 @@ SDL_Texture *TexContainer::LoadTexture(SDL_Renderer *renderer,
       SDL_Log("Loaded %s", path.c_str());
     }
 
-    SDL_FreeSurface(loaded_surface);
+    SDL_DestroySurface(loaded_surface);
   }
 
   return new_tex;

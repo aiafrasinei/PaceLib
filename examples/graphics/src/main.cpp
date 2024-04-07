@@ -12,18 +12,13 @@ Timer stepTimer;
 bool init() {
   SDL_Log("Start");
 
-  int w, h;
-
-  SDL_GetRendererOutputSize(starter->GetWindow()->GetRenderer(), &w, &h);
-  SDL_RenderSetLogicalSize(starter->GetWindow()->GetRenderer(), w, h);
-
   Root *root = starter->GetRoot();
 
   root->GetScene("Default")->GetTtfContainer()->Add(
       "lazy_font", "fonts/lazy.ttf", 20, TTF_STYLE_NORMAL, 1);
 
-  root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, w / 2,
-                                    h / 2);
+  root->GetScene("Default")->AddTex("texs/test_room_x90_1.png", 400, 400, Window::width / 2,
+                                    Window::height / 2);
   root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
   root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
@@ -33,7 +28,7 @@ bool init() {
 
   Line::Begin({root, "vline"}, {350, 350, 350, 400, {50, 100, 150, 255}});
 
-  Triangle::Begin({root, "tri"}, {0, 0, 150, 0, 150, 150, {50, 150, 50, 255}});
+  Triangle::Begin({root, "tri"}, {0, 0, 150, 0, 150, 150, {0.5, 1, 0.5, 1}});
 
   Rectangle::Begin({root, "rect1"}, {{500, 300, 200, 200}, {100, 50, 50, 255}});
 
@@ -57,7 +52,7 @@ bool init() {
                  5});
 
   scroll_background = ScrollingBackground::Begin(
-      root->GetScene("Default")->GetTex("bg.png"), {0, 0, w, h});
+      root->GetScene("Default")->GetTex("bg.png"), {0, 0, Window::width, Window::height});
 
   Polygon::Begin({root, "poly"});
 

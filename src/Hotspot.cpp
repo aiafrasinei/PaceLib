@@ -34,7 +34,7 @@ void Hotspot::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int dim[4];
+    float dim[4];
     Root::ParseDim(dim, conf);
 
     HotspotProp prop = LoadHotspotProp(conf);
@@ -82,10 +82,10 @@ void Hotspot::Draw() {
       if (prop.type == Hover::FILLED) {
         SDL_RenderFillRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::RECT) {
-        SDL_RenderDrawRect(Window::GetRenderer(), &prop.rect);
+        SDL_RenderRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::TEXTURE) {
         if (tex != nullptr) {
-          SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &prop.rect);
+          SDL_RenderTexture(Window::GetRenderer(), tex, nullptr, &prop.rect);
         }
       }
     }
@@ -98,7 +98,7 @@ void Hotspot::Draw() {
 
 void Hotspot::Update(SDL_Event *e) {
   if (!hidden) {
-    int x, y;
+    float x, y;
     SDL_GetMouseState(&x, &y);
 
     UpdateMouse(e, x, y);
@@ -118,12 +118,12 @@ void Hotspot::SetHighlight(bool state) { isHighlight = state; }
 void Hotspot::SetHighlightColor(SDL_Color color) { highlightColor = color; }
 
 HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
-  int dim[4];
+  float dim[4];
   Root::ParseDim(dim, conf);
 
   Root *root = &Root::GetInstance();
 
-  SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+  SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
 

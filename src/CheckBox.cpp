@@ -88,7 +88,7 @@ void CheckBox::Draw() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                            prop.borderColor.g, prop.borderColor.b,
                            prop.borderColor.a);
-    SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+    SDL_RenderRect(Window::GetRenderer(), &rect);
 
     if (checked) {
       SDL_SetRenderDrawColor(Window::GetRenderer(), 0, 0, 0, 255);
@@ -103,7 +103,7 @@ void CheckBox::Draw() {
 
 void CheckBox::Update(SDL_Event *e) {
   if (!hidden) {
-    int x, y;
+    float x, y;
     SDL_GetMouseState(&x, &y);
 
     UpdateMouse(e, x, y);

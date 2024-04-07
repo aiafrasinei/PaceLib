@@ -15,8 +15,8 @@ public:
 
   void Free();
 
-  void Draw(int x, int y, SDL_Rect *clip = NULL, double angle = 0.0,
-            SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+  void Draw(float x, float y, SDL_FRect *clip = NULL, double angle = 0.0,
+            SDL_FPoint *center = NULL, SDL_FlipMode flip = SDL_FLIP_NONE);
 
   void SetColor(Uint8 r, Uint8 g, Uint8 b);
   void SetBlendMode(SDL_BlendMode blending);
@@ -28,7 +28,7 @@ public:
 protected:
 private:
   SDL_Texture *tex;
-  SDL_Rect rect;
+  SDL_FRect rect;
 };
 
 class Texture : public Widget {
@@ -54,7 +54,7 @@ public:
   // programatic
 
   static void Begin(ShapeId sid, SDL_Texture *tex, int x, int y);
-  static void Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim);
+  static void Begin(ShapeId sid, SDL_Texture *tex, SDL_FRect dim);
 
   // end static methods
 
@@ -72,11 +72,11 @@ public:
 protected:
 private:
   SDL_Texture *tex;
-  SDL_Rect rect;
+  SDL_FRect rect;
 
   Tex *ctex;
 
-  Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim);
+  Texture(ShapeId sid, SDL_Texture *tex, SDL_FRect dim);
 };
 
 } // namespace PaceLib

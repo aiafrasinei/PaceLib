@@ -10,10 +10,10 @@ namespace PaceLib {
 
 class ScrollingBackground : public Hidable {
 public:
-  ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
+  ScrollingBackground(SDL_Texture *tex, SDL_FRect shape);
   ~ScrollingBackground();
 
-  static ScrollingBackground *Begin(SDL_Texture *tex, SDL_Rect shape);
+  static ScrollingBackground *Begin(SDL_Texture *tex, SDL_FRect shape);
 
   void SetTex(SDL_Texture *tex);
   void SetRect(float x, float y, float w, float h);
@@ -23,7 +23,7 @@ public:
 protected:
 private:
   SDL_Texture *tex;
-  SDL_Rect rect;
+  SDL_FRect rect;
 
   float scrollingOffset;
 };

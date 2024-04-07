@@ -88,7 +88,7 @@ void Label::Draw() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                            prop.borderColor.g, prop.borderColor.b,
                            prop.borderColor.a);
-    SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+    SDL_RenderRect(Window::GetRenderer(), &rect);
 
     for (Shape *w : shapes) {
       w->Draw();
@@ -144,7 +144,7 @@ void Label::SetTextAlign(HorizontalAlign align) {
 }
 
 LabelProp Label::LoadLabelProp(Configuration *conf) {
-  int dim[4];
+  float dim[4];
   Root::ParseDim(dim, conf);
 
   HorizontalAlign align;
@@ -157,7 +157,7 @@ LabelProp Label::LoadLabelProp(Configuration *conf) {
 
   Root *root = &Root::GetInstance();
 
-  SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+  SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
   SDL_Color backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
   SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());

@@ -2,7 +2,7 @@
 
 Features:
 
-- Open source 2d c++ graphics library (based on SDL2)
+- Open source 2d c++ graphics library (based on SDL3)
 - Easy to use!
 - Flexible widget system (json configuration or code)
 - Widgets (label, button, tooltip, checkbox, combobox, textinput, textarea, tabber, tab)
@@ -14,7 +14,7 @@ Features:
 Prerequisites:
 
 - c++23 compiler
-- SDL2, SDL2_image, SDL2_ttf
+- SDL3, SDL3_image, SDL3_ttf
 - cmake
 
 Documentation:

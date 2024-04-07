@@ -61,14 +61,14 @@ public:
   Configuration *GetVars();
   bool IsVarDefined(std::string name);
 
-  SDL_Point GetCurrentAbsoluteCoords() { return currentAbsoluteCoords; }
+  SDL_FPoint GetCurrentAbsoluteCoords() { return currentAbsoluteCoords; }
 
-  void PushAbsoluteCoords(SDL_Point p) {
+  void PushAbsoluteCoords(SDL_FPoint p) {
     currentAbsoluteCoords.x = currentAbsoluteCoords.x + p.x;
     currentAbsoluteCoords.y = currentAbsoluteCoords.y + p.y;
   }
 
-  void PopAbsoluteCoords(SDL_Point p) {
+  void PopAbsoluteCoords(SDL_FPoint p) {
     currentAbsoluteCoords.x = currentAbsoluteCoords.x - p.x;
     currentAbsoluteCoords.y = currentAbsoluteCoords.y - p.y;
   }
@@ -78,7 +78,7 @@ public:
     currentAbsoluteCoords.y = 0;
   }
 
-  static void ParseDim(int dim[4], Configuration *conf);
+  static void ParseDim(float dim[4], Configuration *conf);
 
 private:
   State *state;
@@ -87,7 +87,7 @@ private:
 
   Configuration *vars;
 
-  SDL_Point currentAbsoluteCoords;
+  SDL_FPoint currentAbsoluteCoords;
 
   Root();
 };

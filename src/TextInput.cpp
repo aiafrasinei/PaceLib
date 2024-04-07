@@ -72,7 +72,7 @@ void TextInput::Draw() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                            prop.borderColor.g, prop.borderColor.b,
                            prop.borderColor.a);
-    SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+    SDL_RenderRect(Window::GetRenderer(), &rect);
 
     for (Shape *w : shapes) {
       w->Draw();
@@ -83,11 +83,11 @@ void TextInput::Draw() {
 void TextInput::Update(SDL_Event *e) {
   if (focus) {
     Text *to = (Text *)this->Get(name + "_text");
-    if (e->type == SDL_TEXTINPUT) {
+    if (e->type == SDL_EVENT_TEXT_INPUT) {
       to->SetText(to->GetText() + e->text.text);
     }
 
-    if (e->type == SDL_KEYDOWN) {
+    if (e->type == SDL_EVENT_KEY_DOWN) {
       char keyDown = e->key.keysym.scancode;
       if (keyDown == SDL_SCANCODE_BACKSPACE) {
         to->SetText(to->GetText().substr(0, to->GetText().size() - 1));
@@ -95,8 +95,8 @@ void TextInput::Update(SDL_Event *e) {
     }
   }
 
-  if (e->type == SDL_MOUSEBUTTONUP) {
-    int x, y;
+  if (e->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+    float x, y;
     SDL_GetMouseState(&x, &y);
 
     if (PointInRect({x, y}, rect)) {

@@ -35,6 +35,7 @@ IF(UNIX)
     link_directories("${LIBS_PATH}/unix/SDL2_ttf/")
 
     link_directories("/opt/homebrew/lib/")
+    link_directories("/usr/local/lib64/")
 
     add_executable (main_menu
             src/main.cpp
@@ -65,7 +66,7 @@ IF(UNIX)
             ../../src/Texture.cpp
             ../../src/Configuration.cpp)
 
-    target_link_libraries(main_menu m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(main_menu m dl SDL3 SDL3_image SDL3_ttf)
 
 ELSE (WIN32)
     include_directories("${LIBS_PATH}/windows/SDL2/include")

@@ -74,7 +74,7 @@ public:
     rect.h = h;
   }
 
-  void SetRect(SDL_Rect rect) { this->rect = rect; }
+  void SetRect(SDL_FRect rect) { this->rect = rect; }
 
   void SetRectX(float x) { rect.x = x; }
 
@@ -84,12 +84,12 @@ public:
 
   void SetRectH(float h) { rect.h = h; }
 
-  SDL_Rect GetRect() { return rect; }
+  SDL_FRect GetRect() { return rect; }
 
   float GetHalfX() { return rect.x + rect.w / 2; }
   float GetHalfY() { return rect.y + rect.h / 2; }
 
-  bool PointInRect(SDL_Point p, SDL_Rect r) {
+  bool PointInRect(SDL_FPoint p, SDL_FRect r) {
     return ((p.x >= r.x) && (p.x < (r.x + r.w)) && (p.y >= r.y) &&
             (p.y < (r.y + r.h)))
                ? true
@@ -109,10 +109,10 @@ protected:
 
   Shape *parent;
 
-  SDL_Rect rect = {0, 0, 0, 0};
+  SDL_FRect rect = {0, 0, 0, 0};
 
-  void UpdateMouse(SDL_Event *e, int x, int y) {
-    if (e->type == SDL_MOUSEBUTTONDOWN) {
+  void UpdateMouse(SDL_Event *e, float x, float y) {
+    if (e->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
       if(e->button.button == SDL_BUTTON_LEFT) {
         if (PointInRect({x, y}, rect)) {
           callMouseCallback(e, mouseLeftButtonDownCallback);
@@ -124,7 +124,7 @@ protected:
       }
     }
 
-    if (e->type == SDL_MOUSEBUTTONUP) {
+    if (e->type == SDL_EVENT_MOUSE_BUTTON_UP) {
       if(e->button.button == SDL_BUTTON_LEFT) {
         if (PointInRect({x, y}, rect)) {
           callMouseCallback(e, mouseLeftButtonUpCallback);

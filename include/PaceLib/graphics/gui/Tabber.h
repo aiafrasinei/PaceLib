@@ -74,10 +74,10 @@ private:
 
   int bcounter;
 
-  SDL_Rect top;
+  SDL_FRect top;
 
   static unsigned int current;
-  static int tabx;
+  static float tabx;
 
   TabberProp prop;
 

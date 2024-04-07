@@ -37,13 +37,13 @@ void ComboBox::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int dim[4];
+    float dim[4];
     Root::ParseDim(dim, conf);
 
     Root *root = &Root::GetInstance();
 
     std::string font = conf->Get("font").get<std::string>();
-    SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+    SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
     SDL_Color backgroundColor =
         Widget::ParseVar("background", conf, root->GetVars());
     SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
@@ -133,7 +133,7 @@ void ComboBox::InternalInit() {
                    prop.borderColor});
 
   for (int i = 0; i < items.size(); i++) {
-    SDL_Rect r = {root->GetCurrentAbsoluteCoords().x,
+    SDL_FRect r = {root->GetCurrentAbsoluteCoords().x,
                   root->GetCurrentAbsoluteCoords().y + (i * this->GetRect().h),
                   this->GetRect().w, this->GetRect().h};
     LabelProp prop = {

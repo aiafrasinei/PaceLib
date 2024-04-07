@@ -13,7 +13,7 @@ public:
 
   WidgetType GetWidgetType() { return wtype; }
 
-  static void ParsePos(int pos[2], Configuration *conf) {
+  static void ParsePos(float pos[2], Configuration *conf) {
     for (int i = 0; i < 2; i++) {
       std::string str = conf->Get("pos")[i].get<std::string>();
       std::string first_char = str.substr(0, 1);

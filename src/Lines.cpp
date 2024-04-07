@@ -3,7 +3,7 @@
 
 using namespace PaceLib;
 
-Lines::Lines(ShapeId sid, std::vector<SDL_Point> verts) {
+Lines::Lines(ShapeId sid, std::vector<SDL_FPoint> verts) {
   this->verts = verts;
 
   for (int i = 0; i < verts.size(); i++) {
@@ -27,12 +27,12 @@ void Lines::Begin(ShapeId sid) {
 
     std::vector<int> all_verts = conf->Get("verts").get<std::vector<int>>();
 
-    std::vector<SDL_Point> verts;
+    std::vector<SDL_FPoint> verts;
 
     int vsize = all_verts.size() / 2;
     int index = 0;
     for (int i = 0; i < vsize; i++) {
-      SDL_Point v;
+      SDL_FPoint v;
       v.x = all_verts[index];
       v.y = all_verts[++index];
       verts.push_back(v);
@@ -62,13 +62,13 @@ void Lines::EndBlock() {
   root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Lines::Begin(ShapeId sid, std::vector<SDL_Point> verts) {
+void Lines::Begin(ShapeId sid, std::vector<SDL_FPoint> verts) {
   sid.parent->Add(new Lines(sid, verts));
 }
 
 void Lines::Draw() {
   if (!hidden) {
     LoadDrawColor();
-    SDL_RenderDrawLines(Window::GetRenderer(), &verts[0], verts.size());
+    SDL_RenderLines(Window::GetRenderer(), &verts[0], verts.size());
   }
 }

@@ -103,17 +103,17 @@ void ButtonTex::Draw() {
         if (prop.over.tex == nullptr) {
           SDL_SetTextureColorMod(prop.normal.tex, prop.highlightColor.r,
                                  prop.highlightColor.g, prop.highlightColor.b);
-          SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr,
+          SDL_RenderTexture(Window::GetRenderer(), prop.normal.tex, nullptr,
                          &prop.normal.rect);
         } else {
-          SDL_RenderCopy(Window::GetRenderer(), prop.over.tex, nullptr,
+          SDL_RenderTexture(Window::GetRenderer(), prop.over.tex, nullptr,
                          &prop.over.rect);
         }
       }
     } else {
       if (prop.normal.tex != nullptr) {
         SDL_SetTextureColorMod(prop.normal.tex, 255, 255, 255);
-        SDL_RenderCopy(Window::GetRenderer(), prop.normal.tex, nullptr,
+        SDL_RenderTexture(Window::GetRenderer(), prop.normal.tex, nullptr,
                        &prop.normal.rect);
       } else {
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r,
@@ -127,7 +127,7 @@ void ButtonTex::Draw() {
       SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                              prop.borderColor.g, prop.borderColor.b,
                              prop.borderColor.a);
-      SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+      SDL_RenderRect(Window::GetRenderer(), &rect);
     }
 
     for (Shape *w : shapes) {
@@ -138,7 +138,7 @@ void ButtonTex::Draw() {
 
 void ButtonTex::Update(SDL_Event *e) {
   if (!hidden) {
-    int x, y;
+    float x, y;
     SDL_GetMouseState(&x, &y);
    
     UpdateMouse(e, x, y);
@@ -156,10 +156,10 @@ void ButtonTex::Update(SDL_Event *e) {
 void ButtonTex::SetHighlight(bool state) { highlight = state; }
 
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
-  int dim[4];
+  float dim[4];
   Root::ParseDim(dim, conf);
 
-  SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
+  SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
 
   Root *root = &Root::GetInstance();
 

@@ -23,7 +23,7 @@ public:
   static void EndBlock();
 
   // programmatic
-  static void Begin(ShapeId sid, std::vector<SDL_Point> verts);
+  static void Begin(ShapeId sid, std::vector<SDL_FPoint> verts);
 
   // end static methods
   void Draw();
@@ -32,9 +32,9 @@ public:
 
 protected:
 private:
-  std::vector<SDL_Point> verts;
+  std::vector<SDL_FPoint> verts;
 
-  Lines(ShapeId sid, std::vector<SDL_Point> verts);
+  Lines(ShapeId sid, std::vector<SDL_FPoint> verts);
 };
 
 } // namespace PaceLib

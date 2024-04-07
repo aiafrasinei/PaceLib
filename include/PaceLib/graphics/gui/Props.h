@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 namespace PaceLib {
 
@@ -33,38 +33,38 @@ struct HorizontalAlign {
 };
 
 struct PropDimColor {
-  SDL_Rect rect;
+  SDL_FRect rect;
   SDL_Color color;
 };
 
 struct CircleProp {
-  int x;
-  int y;
-  int radius;
+  float x;
+  float y;
+  float radius;
   SDL_Color color;
 };
 
 struct TriangleProp {
-  int x1;
-  int y1;
-  int x2;
-  int y2;
-  int x3;
-  int y3;
-  SDL_Color color;
+  float x1;
+  float y1;
+  float x2;
+  float y2;
+  float x3;
+  float y3;
+  SDL_FColor color;
 };
 
 struct LineProp {
-  int x1;
-  int y1;
-  int x2;
-  int y2;
+  float x1;
+  float y1;
+  float x2;
+  float y2;
   SDL_Color color;
 };
 
 struct SpriteProp {
   SDL_Texture *tex;
-  SDL_Rect dim;
+  SDL_FRect dim;
   int offset;
   int nr;
 };
@@ -72,7 +72,7 @@ struct SpriteProp {
 struct LabelProp {
   std::string scene;
   std::string font;
-  SDL_Rect rect;
+  SDL_FRect rect;
   std::string text;
   SDL_Color textColor;
   HorizontalAlign align;
@@ -84,7 +84,7 @@ struct LabelProp {
 struct TabberProp {
   std::string scene;
   std::string font;
-  SDL_Rect rect;
+  SDL_FRect rect;
   SDL_Color backgroundColor;
   SDL_Color borderColor;
   SDL_Color headerBackgroundColor;
@@ -98,7 +98,7 @@ struct TabberProp {
 };
 
 struct TabProp {
-  SDL_Rect rect;
+  SDL_FRect rect;
   SDL_Color backgroundColor;
   SDL_Color borderColor;
 };
@@ -106,7 +106,7 @@ struct TabProp {
 struct TextProp {
   std::string scene;
   std::string font;
-  int x, y;
+  float x, y;
   SDL_Texture *tex;
   std::string text;
   SDL_Color color;
@@ -114,13 +114,13 @@ struct TextProp {
 
 struct TexProp {
   SDL_Texture *tex;
-  SDL_Rect rect;
+  SDL_FRect rect;
 };
 
 struct MultiItemsProp {
   std::string scene;
   std::string font;
-  SDL_Rect rect;
+  SDL_FRect rect;
   std::vector<std::string> tarr;
   SDL_Color textColor;
   SDL_Color backgroundColor;
@@ -147,7 +147,7 @@ struct ButtonTexProp {
 };
 
 struct HotspotProp {
-  SDL_Rect rect;
+  SDL_FRect rect;
   SDL_Color backgroundColor;
   Hover type;
   SDL_Texture *tex;

@@ -33,7 +33,7 @@ public:
   // end static methods
 
   void SetTex(SDL_Texture *tex);
-  void SetRect(SDL_Rect dim);
+  void SetRect(SDL_FRect dim);
 
   void Draw();
 
@@ -45,8 +45,8 @@ private:
 
   SDL_Texture *tex;
 
-  SDL_Rect src_rect;
-  SDL_Rect dest_rect;
+  SDL_FRect src_rect;
+  SDL_FRect dest_rect;
 
   int offset;
   int nr;

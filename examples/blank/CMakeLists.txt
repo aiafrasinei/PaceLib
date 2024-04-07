@@ -12,7 +12,6 @@ set(PACE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../include/PaceLib")
 include_directories("${INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}/utils")
-include_directories("${PACE_INCLUDE_PATH}/utils/SDL2")
 include_directories("${PACE_INCLUDE_PATH}/config")
 include_directories("${PACE_INCLUDE_PATH}/core")
 include_directories("${PACE_INCLUDE_PATH}/graphics")
@@ -31,11 +30,12 @@ IF(UNIX)
 
     include_directories("/opt/homebrew/include")
 
-    link_directories("${LIBS_PATH}/unix/SDL2/")
-    link_directories("${LIBS_PATH}/unix/SDL2_image/")
-    link_directories("${LIBS_PATH}/unix/SDL2_ttf/")
+    link_directories("${LIBS_PATH}/unix/SDL3/")
+    link_directories("${LIBS_PATH}/unix/SDL3_image/")
+    link_directories("${LIBS_PATH}/unix/SDL3_ttf/")
 
     link_directories("/opt/homebrew/lib/")
+    link_directories("/usr/local/lib64/")
 
     add_executable (blank
         src/main.cpp
@@ -66,16 +66,16 @@ IF(UNIX)
         ../../src/Tabber.cpp
 	    ../../src/Configuration.cpp)
 
-    target_link_libraries(blank m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(blank m dl SDL3 SDL3_image SDL3_ttf pthread)
 
 ELSE (WIN32)
-    include_directories("${LIBS_PATH}/windows/SDL2/include")
-    include_directories("${LIBS_PATH}/windows/SDL2_image/include")
-    include_directories("${LIBS_PATH}/windows/SDL2_ttf/include")
+    include_directories("${LIBS_PATH}/windows/SDL3/include")
+    include_directories("${LIBS_PATH}/windows/SDL3_image/include")
+    include_directories("${LIBS_PATH}/windows/SDL3_ttf/include")
 
-    link_directories("${LIBS_PATH}/windows/SDL2/lib/x64")
-    link_directories("${LIBS_PATH}/windows/SDL2_image/lib/x64")
-    link_directories("${LIBS_PATH}/windows/SDL2_ttf/lib/x64")
+    link_directories("${LIBS_PATH}/windows/SDL3/lib/x64")
+    link_directories("${LIBS_PATH}/windows/SDL3_image/lib/x64")
+    link_directories("${LIBS_PATH}/windows/SDL3_ttf/lib/x64")
 
     add_executable (blank
         src/main.cpp
@@ -108,7 +108,7 @@ ELSE (WIN32)
         ../../src/Tabber.cpp
 	    ../../src/Configuration.cpp)
 
-    target_link_libraries(blank SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib)
+    target_link_libraries(blank SDL3.lib SDL3main.lib SDL3_image.lib SDL3_ttf.lib)
 
 ENDIF (UNIX)
 

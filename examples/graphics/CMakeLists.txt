@@ -12,7 +12,6 @@ set(PACE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../include/PaceLib")
 include_directories("${INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}")
 include_directories("${PACE_INCLUDE_PATH}/utils")
-include_directories("${PACE_INCLUDE_PATH}/utils/SDL2")
 include_directories("${PACE_INCLUDE_PATH}/config")
 include_directories("${PACE_INCLUDE_PATH}/core")
 include_directories("${PACE_INCLUDE_PATH}/graphics")
@@ -36,6 +35,7 @@ IF(UNIX)
     link_directories("${LIBS_PATH}/unix/SDL2_ttf/")
 
     link_directories("/opt/homebrew/lib/")
+    link_directories("/usr/local/lib64/")
 
     add_executable (graphics
             src/main.cpp
@@ -69,7 +69,7 @@ IF(UNIX)
             ../../src/Texture.cpp
             ../../src/Configuration.cpp)
 
-    target_link_libraries(graphics m dl SDL2 SDL2_image SDL2_ttf pthread)
+    target_link_libraries(graphics m dl SDL3 SDL3_image SDL3_ttf)
 
 ELSE (WIN32)
     include_directories("${LIBS_PATH}/windows/SDL2/include")

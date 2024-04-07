@@ -17,7 +17,7 @@ Tex::Tex(std::string path, int x, int y) {
   if (loadedSurface == nullptr) {
     SDL_Log("Unable to load image %s  Error: %s ", path.c_str(), IMG_GetError());
   } else {
-    SDL_SetColorKey(loadedSurface, SDL_TRUE,
+    SDL_SetSurfaceColorKey(loadedSurface, SDL_TRUE,
                     SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
@@ -28,7 +28,7 @@ Tex::Tex(std::string path, int x, int y) {
       rect.h = loadedSurface->h;
     }
 
-    SDL_FreeSurface(loadedSurface);
+    SDL_DestroySurface(loadedSurface);
   }
 
   tex = newtex;
@@ -48,7 +48,7 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
   if (loadedSurface == nullptr) {
     SDL_Log("Unable to load image %s Error: %s", path.c_str(), IMG_GetError());
   } else {
-    SDL_SetColorKey(loadedSurface, SDL_TRUE,
+    SDL_SetSurfaceColorKey(loadedSurface, SDL_TRUE,
                     SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
@@ -59,7 +59,7 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
       rect.h = h;
     }
 
-    SDL_FreeSurface(loadedSurface);
+    SDL_DestroySurface(loadedSurface);
   }
 
   tex = newtex;
@@ -95,17 +95,17 @@ void Tex::Free() {
   }
 }
 
-void Tex::Draw(int x, int y, SDL_Rect *clip, double angle, SDL_Point *center,
-               SDL_RendererFlip flip) {
+void Tex::Draw(float x, float y, SDL_FRect *clip, double angle, SDL_FPoint *center,
+               SDL_FlipMode flip) {
   if (!hidden) {
-    SDL_Rect renderQuad = {x, y, rect.w, rect.h};
+    SDL_FRect renderQuad = {x, y, rect.w, rect.h};
 
     if (clip != nullptr) {
       renderQuad.w = clip->w;
       renderQuad.h = clip->h;
     }
 
-    SDL_RenderCopyEx(Window::GetRenderer(), tex, clip, &renderQuad, angle,
+    SDL_RenderTextureRotated(Window::GetRenderer(), tex, clip, &renderQuad, angle,
                      center, flip);
   }
 }
@@ -120,7 +120,7 @@ void Tex::SetBlendMode(SDL_BlendMode blending) {
 
 void Tex::SetAlpha(Uint8 a) { SDL_SetTextureAlphaMod(tex, a); }
 
-Texture::Texture(ShapeId sid, SDL_Texture *tex, SDL_Rect dim) {
+Texture::Texture(ShapeId sid, SDL_Texture *tex, SDL_FRect dim) {
   if (sid.parent->name == "root") {
     rect.x = dim.x;
     rect.y = dim.y;
@@ -155,7 +155,7 @@ void Texture::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int dim[4];
+    float dim[4];
     Root::ParseDim(dim, conf);
 
     SDL_Texture *tex = Root::GetInstance()
@@ -198,7 +198,7 @@ void Texture::Begin(ShapeId sid, SDL_Texture *tex, int x, int y) {
   sid.parent->Add(new Texture(sid, tex, {x, y, wl, hl}));
 }
 
-void Texture::Begin(ShapeId sid, SDL_Texture *tex, SDL_Rect dim) {
+void Texture::Begin(ShapeId sid, SDL_Texture *tex, SDL_FRect dim) {
   sid.parent->Add(new Texture(sid, tex, dim));
 }
 

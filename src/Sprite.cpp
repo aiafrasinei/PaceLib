@@ -40,7 +40,7 @@ void Sprite::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    int dim[4];
+    float dim[4];
     Root::ParseDim(dim, conf);
 
     SDL_Texture *tex = Root::GetInstance()
@@ -79,7 +79,7 @@ void Sprite::Begin(ShapeId sid, SpriteProp prop) {
 
 void Sprite::Draw() {
   if (!hidden) {
-    SDL_RenderCopy(Window::GetRenderer(), tex, &src_rect, &dest_rect);
+    SDL_RenderTexture(Window::GetRenderer(), tex, &src_rect, &dest_rect);
     src_rect.x = src_rect.x + offset;
     if (src_rect.x == nr * offset) {
       src_rect.x = 0;
@@ -89,7 +89,7 @@ void Sprite::Draw() {
 
 void Sprite::SetTex(SDL_Texture *tex) { this->tex = tex; }
 
-void Sprite::SetRect(SDL_Rect dim) {
+void Sprite::SetRect(SDL_FRect dim) {
   dest_rect.x = dim.x;
   dest_rect.y = dim.y;
   dest_rect.w = dim.w;

@@ -8,7 +8,7 @@ Tooltip::Tooltip(ShapeId sid, TooltipProp prop) {
 
   this->parent = sid.parent;
 
-  SDL_Rect child = sid.parent->GetRect();
+  SDL_FRect child = sid.parent->GetRect();
 
   child.x = child.x + sid.parent->GetRect().w / 2;
   child.y = child.y + sid.parent->GetRect().h / 2;
@@ -75,7 +75,7 @@ void Tooltip::Begin(ShapeId sid, TooltipProp prop) {
 
 void Tooltip::Draw() {
   if (!hidden) {
-    int x, y;
+    float x, y;
     SDL_GetMouseState(&x, &y);
 
     if (PointInRect({x, y}, static_cast<Widget *>(parent)->GetRect())) {
@@ -87,7 +87,7 @@ void Tooltip::Draw() {
       SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
                              prop.borderColor.g, prop.borderColor.b,
                              prop.borderColor.a);
-      SDL_RenderDrawRect(Window::GetRenderer(), &rect);
+      SDL_RenderRect(Window::GetRenderer(), &rect);
 
       for (Shape *w : shapes) {
         w->Draw();
