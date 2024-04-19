@@ -31,7 +31,7 @@ void Circle::Begin(ShapeId sid) {
     float x = conf->Get("x");
     float y = conf->Get("y");
     float radius = conf->Get("radius");
-    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
+    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(new Circle(sid, {x, y, radius, color}));

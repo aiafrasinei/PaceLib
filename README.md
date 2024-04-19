@@ -1,5 +1,9 @@
 # PaceLib 1.1.0
 
+WARNING:
+The SDL3 implementation works but is unstable until SDL3 is fully released.
+Use the SDL2 branch (PaceLib_SDL2).
+
 Features:
 
 - Open source 2d c++ graphics library (based on SDL3)

@@ -41,7 +41,7 @@ struct CircleProp {
   float x;
   float y;
   float radius;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct TriangleProp {
@@ -59,7 +59,7 @@ struct LineProp {
   float y1;
   float x2;
   float y2;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct SpriteProp {
