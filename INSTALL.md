@@ -35,6 +35,12 @@ Open msys terminal:
 
     pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-SDL2_image
 
+To get all the needed dlls:
+
+    ldd app.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" bin
+
+All needed dlls will be bundled in the bin directory.
+
 **MacOS**:
 
 Install brew
