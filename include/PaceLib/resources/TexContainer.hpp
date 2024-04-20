@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "Props.h"
+#include "Props.hpp"
 #include "utils/Platform.hpp"
 
 namespace PaceLib {

@@ -1,25 +1,24 @@
 #pragma once
 
-#include "../core/interfaces/Updateable.hpp"
-#include "Label.h"
-#include "Text.h"
-#include "Widget.h"
+#include "../../core/interfaces/Focusable.hpp"
+#include "Label.hpp"
+#include "Text.hpp"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Button : public Label {
+class TextInput : public Label, public Focusable {
 public:
   // static methods
 
   // json configuration
-
   /* Loads wconf file
   example format:
-  {
+  }
       "scene" : "Default",
       "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
       "font" : "default",
-      "text" : "Start",
+      "text" : "",
       "text_color" : "$TEXT",
       "align" : "mid",
       "background" : "$BACKGROUND",
@@ -29,30 +28,29 @@ public:
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the button will have child elements
+  // used when the textinput will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
-  // programmatic
+  // programatic
   static void Begin(ShapeId sid, LabelProp prop);
 
   // end static methods
 
-  void SetHighlight(bool state);
-
   void Draw();
+
   void Update(SDL_Event *e);
 
   LabelProp *GetProp() { return &prop; }
 
-  ~Button();
+  ~TextInput();
 
 private:
-  bool mouseOver;
+  int textSize;
 
-  bool highlight;
+  TextInput(ShapeId sid, LabelProp prop);
 
-  Button(ShapeId sid, LabelProp inputProp);
+  void InternalInit();
 };
 
 } // namespace PaceLib

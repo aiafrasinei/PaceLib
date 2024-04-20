@@ -1,5 +1,5 @@
-#include "graphics/conics/Circle.h"
-#include "Root.h"
+#include "graphics/conics/Circle.hpp"
+#include "Root.hpp"
 #include "Window.hpp"
 
 using namespace PaceLib;

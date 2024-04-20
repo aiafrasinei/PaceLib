@@ -1,5 +1,5 @@
-#include "Hotspot.h"
-#include "Root.h"
+#include "Hotspot.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

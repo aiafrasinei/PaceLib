@@ -1,5 +1,5 @@
-#include "Tab.h"
-#include "Root.h"
+#include "Tab.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

@@ -1,11 +1,10 @@
 #pragma once
 
-#include "DrawTypes.h"
-#include "Widget.h"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Circle : public Shape {
+class Lines : public Shape {
 public:
   // static methods
 
@@ -14,37 +13,28 @@ public:
   /* Loads wconf file
   example format:
   {
-      "x" : 100,
-      "y" : 100,
-      "radius" : 100,
-      "color" : [0, 0, 0, 255]
+      "verts" : [ 0, 0, 10, 10, 100, 100 ]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the cicle will have child elements
+  // used when the polygon will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
   // programmatic
-
-  static void Begin(ShapeId sid, CircleProp prop);
+  static void Begin(ShapeId sid, std::vector<SDL_Point> verts);
 
   // end static methods
-
-  void SetDrawType(DrawTypes rtype);
-
   void Draw();
 
-  ~Circle();
+  ~Lines();
 
 protected:
 private:
-  CircleProp prop;
+  std::vector<SDL_Point> verts;
 
-  DrawTypes rtype;
-
-  Circle(ShapeId sid, CircleProp prop);
+  Lines(ShapeId sid, std::vector<SDL_Point> verts);
 };
 
 } // namespace PaceLib

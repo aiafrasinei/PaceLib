@@ -1,5 +1,6 @@
-#include "Timer.h"
+#include "Timer.hpp"
 #include "SDL2/SDL.h"
+
 using namespace PaceLib;
 
 Timer::Timer() {

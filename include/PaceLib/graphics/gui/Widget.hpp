@@ -2,7 +2,7 @@
 
 #include <functional>
 #include <map>
-#include "Props.h"
+#include "Props.hpp"
 #include "Shape.hpp"
 
 namespace PaceLib {

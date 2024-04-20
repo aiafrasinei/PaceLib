@@ -1,5 +1,5 @@
-#include "Text.h"
-#include "Root.h"
+#include "Text.hpp"
+#include "Root.hpp"
 #include "Window.hpp"
 
 using namespace PaceLib;

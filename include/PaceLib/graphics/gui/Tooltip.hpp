@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Label.h"
-#include "Text.h"
+#include "Label.hpp"
+#include "Text.hpp"
 
 namespace PaceLib {
 

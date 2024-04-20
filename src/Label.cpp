@@ -1,5 +1,5 @@
-#include "Label.h"
-#include "Root.h"
+#include "Label.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

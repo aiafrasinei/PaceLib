@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Button.h"
-#include "Tab.h"
-#include "Text.h"
-#include "Widget.h"
+#include "Button.hpp"
+#include "Tab.hpp"
+#include "Text.hpp"
+#include "Widget.hpp"
 
 namespace PaceLib {
 

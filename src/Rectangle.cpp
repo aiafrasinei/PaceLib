@@ -1,5 +1,5 @@
-#include "Rectangle.h"
-#include "Root.h"
+#include "Rectangle.hpp"
+#include "Root.hpp"
 #include "Window.hpp"
 
 using namespace PaceLib;

@@ -1,5 +1,5 @@
-#include "Tooltip.h"
-#include "Root.h"
+#include "Tooltip.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

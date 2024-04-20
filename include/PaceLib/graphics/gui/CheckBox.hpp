@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../core/interfaces/Updateable.hpp"
-#include "Label.h"
-#include "Text.h"
-#include "Widget.h"
+#include "Label.hpp"
+#include "Text.hpp"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
