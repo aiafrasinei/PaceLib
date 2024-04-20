@@ -11,5 +11,5 @@ public:
 
 private:
 protected:
-  bool hidden = false;
+  bool hidden;
 };
