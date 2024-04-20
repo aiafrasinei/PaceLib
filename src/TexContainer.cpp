@@ -80,7 +80,7 @@ SDL_Texture *TexContainer::LoadTexture(SDL_Renderer *renderer,
   } else {
     new_tex = SDL_CreateTextureFromSurface(renderer, loaded_surface);
     if (new_tex == nullptr) {
-      SDL_Log("Unable to create texture from %s ! SDL Error: %s", SDL_GetError());
+      SDL_Log("Unable to create texture from %s ! SDL Error: %s", path.c_str(), SDL_GetError());
     } else {
       SDL_Log("Loaded %s", path.c_str());
     }

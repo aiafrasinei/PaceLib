@@ -53,7 +53,7 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      SDL_Log("Unable to create texture from %s Error: ", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s Error: %s", path.c_str(), SDL_GetError());
     } else {
       rect.w = w;
       rect.h = h;
