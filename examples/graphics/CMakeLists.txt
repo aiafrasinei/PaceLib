@@ -26,7 +26,7 @@ include_directories("${PACE_INCLUDE_PATH}/scene")
 
 IF(UNIX)
     #set(CMAKE_CXX_FLAGS "-std=c++23 -fanalyzer")
-    set(CMAKE_CXX_FLAGS "-std=c++23")
+    set(CMAKE_CXX_FLAGS "-std=c++20")
 
     include_directories("/opt/homebrew/include")
 
