@@ -1,5 +1,5 @@
-#include "Sprite.h"
-#include "Root.h"
+#include "Sprite.hpp"
+#include "Root.hpp"
 #include "Window.hpp"
 
 using namespace PaceLib;

@@ -1,5 +1,5 @@
-#include "Polygon.h"
-#include "Root.h"
+#include "Polygon.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

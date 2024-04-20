@@ -1,5 +1,5 @@
-#include "ButtonTex.h"
-#include "Root.h"
+#include "ButtonTex.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

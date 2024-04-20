@@ -1,5 +1,5 @@
-#include "TextInput.h"
-#include "Root.h"
+#include "TextInput.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

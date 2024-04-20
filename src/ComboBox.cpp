@@ -1,7 +1,7 @@
 #include <algorithm>
-#include "ComboBox.h"
-#include "Root.h"
-#include "Triangle.h"
+#include "ComboBox.hpp"
+#include "Root.hpp"
+#include "Triangle.hpp"
 
 using namespace PaceLib;
 

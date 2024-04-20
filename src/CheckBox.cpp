@@ -1,5 +1,5 @@
-#include "CheckBox.h"
-#include "Root.h"
+#include "CheckBox.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

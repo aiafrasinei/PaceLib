@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Widget.h"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Polygon : public Shape {
+class Lines : public Shape {
 public:
   // static methods
 
@@ -14,7 +14,6 @@ public:
   example format:
   {
       "verts" : [ 0, 0, 10, 10, 100, 100 ]
-      "colors" : [ 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255 ]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
@@ -24,19 +23,18 @@ public:
   static void EndBlock();
 
   // programmatic
-  static void Begin(ShapeId sid, std::vector<SDL_Vertex> verts);
+  static void Begin(ShapeId sid, std::vector<SDL_FPoint> verts);
 
   // end static methods
-
   void Draw();
 
-  ~Polygon();
+  ~Lines();
 
 protected:
 private:
-  std::vector<SDL_Vertex> verts;
+  std::vector<SDL_FPoint> verts;
 
-  Polygon(ShapeId sid, std::vector<SDL_Vertex> verts);
+  Lines(ShapeId sid, std::vector<SDL_FPoint> verts);
 };
 
 } // namespace PaceLib

@@ -1,4 +1,4 @@
-#include "ScrollingBackground.h"
+#include "ScrollingBackground.hpp"
 
 using namespace PaceLib;
 

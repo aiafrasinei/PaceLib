@@ -1,12 +1,13 @@
 #pragma once
 
 #include "../core/interfaces/Updateable.hpp"
-#include "Text.h"
-#include "Widget.h"
+#include "Label.hpp"
+#include "Text.hpp"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Label : public Widget {
+class Button : public Label {
 public:
   // static methods
 
@@ -37,29 +38,21 @@ public:
 
   // end static methods
 
-  void SetText(std::string text);
-  void SetTextAlign(HorizontalAlign align);
+  void SetHighlight(bool state);
 
-  int GetTextSize();
+  void Draw();
+  void Update(SDL_Event *e);
 
   LabelProp *GetProp() { return &prop; }
 
-  void Draw();
+  ~Button();
 
-  Label();
+private:
+  bool mouseOver;
 
-  ~Label();
+  bool highlight;
 
-protected:
-  LabelProp prop;
-
-  int textSize;
-
-  void InternalInit();
-
-  static LabelProp LoadLabelProp(Configuration *conf);
-
-  Label(ShapeId sid, LabelProp inputProp);
+  Button(ShapeId sid, LabelProp inputProp);
 };
 
 } // namespace PaceLib

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PaceLib.h"
+#include "PaceLib.hpp"
 
 namespace PaceLib {
 class Init {

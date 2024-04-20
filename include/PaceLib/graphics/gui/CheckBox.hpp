@@ -1,14 +1,16 @@
 #pragma once
 
 #include "../core/interfaces/Updateable.hpp"
-#include "Label.h"
-#include "Text.h"
-#include "Widget.h"
+#include "Label.hpp"
+#include "Text.hpp"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Button : public Label {
+class CheckBox : public Label {
 public:
+  ~CheckBox();
+
   // static methods
 
   // json configuration
@@ -29,7 +31,7 @@ public:
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the button will have child elements
+  // used when the checkbox will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
@@ -38,21 +40,28 @@ public:
 
   // end static methods
 
-  void SetHighlight(bool state);
+  CheckBox(ShapeId sid, LabelProp prop);
 
   void Draw();
+
   void Update(SDL_Event *e);
 
-  LabelProp *GetProp() { return &prop; }
+  bool IsChecked();
 
-  ~Button();
+  LabelProp *GetProp() { return &prop; }
 
 private:
   bool mouseOver;
 
   bool highlight;
 
-  Button(ShapeId sid, LabelProp inputProp);
+  bool checked;
+
+  SDL_FRect midrect;
+
+  int textSize;
+
+  void InternalInit();
 };
 
 } // namespace PaceLib

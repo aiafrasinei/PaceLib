@@ -1,5 +1,5 @@
-#include "TextArea.h"
-#include "Root.h"
+#include "TextArea.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

@@ -1,5 +1,5 @@
-#include "graphics/lines/Line.h"
-#include "Root.h"
+#include "graphics/lines/Line.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

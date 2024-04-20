@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Widget.h"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Line : public Shape {
+class Rectangle : public Shape {
 public:
   // static methods
 
@@ -13,37 +13,32 @@ public:
   /* Loads wconf file
   example format:
   {
-      "x1" : 0,
-      "y1" : 0,
-      "x2" : 300,
-      "y2" : 200,
-      "color" : [0, 0, 0, 255]
+      "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+      "color" : [40, 40, 40, 255]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the line will have child elements
+  // used when the rectangle will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
   // programmatic
 
-  static void Begin(ShapeId sid, LineProp prop);
+  static void Begin(ShapeId sid, PropDimColor prop);
 
   // end static methods
-
   void Draw();
 
-  LineProp *GetProp() { return &prop; }
+  PropDimColor *GetProp() { return &prop; }
 
-  ~Line();
+  ~Rectangle();
 
 protected:
 private:
-  LineProp prop;
-  int x1, y1, x2, y2;
+  PropDimColor prop;
 
-  Line(ShapeId sid, LineProp prop);
+  Rectangle(ShapeId sid, PropDimColor prop);
 };
 
 } // namespace PaceLib

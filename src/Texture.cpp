@@ -1,5 +1,5 @@
-#include "Texture.h"
-#include "Root.h"
+#include "Texture.hpp"
+#include "Root.hpp"
 
 using namespace PaceLib;
 

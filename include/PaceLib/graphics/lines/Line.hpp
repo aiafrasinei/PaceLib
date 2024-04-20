@@ -1,11 +1,10 @@
 #pragma once
 
-#include "DrawTypes.h"
-#include "Widget.h"
+#include "Widget.hpp"
 
 namespace PaceLib {
 
-class Circle : public Shape {
+class Line : public Shape {
 public:
   // static methods
 
@@ -14,37 +13,37 @@ public:
   /* Loads wconf file
   example format:
   {
-      "x" : 100,
-      "y" : 100,
-      "radius" : 100,
+      "x1" : 0,
+      "y1" : 0,
+      "x2" : 300,
+      "y2" : 200,
       "color" : [0, 0, 0, 255]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the cicle will have child elements
+  // used when the line will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
   // programmatic
 
-  static void Begin(ShapeId sid, CircleProp prop);
+  static void Begin(ShapeId sid, LineProp prop);
 
   // end static methods
 
-  void SetDrawType(DrawTypes rtype);
-
   void Draw();
 
-  ~Circle();
+  LineProp *GetProp() { return &prop; }
+
+  ~Line();
 
 protected:
 private:
-  CircleProp prop;
+  LineProp prop;
+  int x1, y1, x2, y2;
 
-  DrawTypes rtype;
-
-  Circle(ShapeId sid, CircleProp prop);
+  Line(ShapeId sid, LineProp prop);
 };
 
 } // namespace PaceLib
