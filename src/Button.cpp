@@ -8,6 +8,7 @@ Button::Button(ShapeId sid, LabelProp inputProp) : Label(sid, inputProp) {
 
   wtype = WidgetType::BUTTON;
 
+  mouseOver = false;
 }
 
 Button::~Button() {}

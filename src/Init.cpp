@@ -15,6 +15,13 @@ Init::Init() {
 
 Init::~Init() {
   SDL_Log("End");
+
+  onInit = nullptr;
+  onDeinit = nullptr;
+  onDraw = nullptr;
+  onUpdate = nullptr;
+  onEvent = nullptr;
+
   for (auto item : root->GetScenes()) {
     delete item.second;
   }
