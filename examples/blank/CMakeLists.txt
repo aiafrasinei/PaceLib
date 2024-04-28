@@ -61,7 +61,9 @@ add_executable (blank
     ../../src/TextArea.cpp
     ../../src/TextInput.cpp
     ../../src/Tabber.cpp
-    ../../src/Configuration.cpp)
+    ../../src/Configuration.cpp
+    ../../src/Grid.cpp
+    ../../src/ButtonGrid.cpp)
 
 target_link_libraries(blank m dl SDL3 SDL3_image SDL3_ttf pthread)
 

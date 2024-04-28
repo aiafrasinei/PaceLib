@@ -61,7 +61,9 @@ add_executable (tictactoe
         ../../src/Tooltip.cpp
         ../../src/Hotspot.cpp
         ../../src/Texture.cpp
-        ../../src/Configuration.cpp)
+        ../../src/Configuration.cpp
+        ../../src/Grid.cpp
+        ../../src/ButtonGrid.cpp)
 
 target_link_libraries(tictactoe m dl SDL3 SDL3_image SDL3_ttf)
 

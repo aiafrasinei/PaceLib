@@ -1,4 +1,4 @@
-# PaceLib 1.1.0
+# PaceLib 1.1.1
 
 WARNING:
 The SDL3 implementation works but is unstable until SDL3 is fully released.
@@ -17,7 +17,7 @@ Features:
 
 Prerequisites:
 
-- c++23 compiler
+- c++20 compiler
 - SDL3, SDL3_image, SDL3_ttf
 - cmake
 

@@ -66,7 +66,9 @@ add_executable (launcher
         ../../src/Tabber.cpp
         ../../src/Configuration.cpp
         ../../src/ComboBox.cpp
-        ../../src/Hotspot.cpp)
+        ../../src/Hotspot.cpp
+        ../../src/Grid.cpp
+        ../../src/ButtonGrid.cpp)
 
 target_link_libraries(launcher m dl SDL3 SDL3_image SDL3_ttf)
 

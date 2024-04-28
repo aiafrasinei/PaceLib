@@ -46,6 +46,7 @@
 #include "graphics/gui/TextInput.hpp"
 #include "graphics/gui/Texture.hpp"
 #include "graphics/gui/Tooltip.hpp"
+#include "graphics/gui/Grid.hpp"
 
 // effects
 #include "graphics/effects/ScrollingBackground.hpp"
