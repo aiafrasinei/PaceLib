@@ -2,14 +2,18 @@ How to install
 
 ***
 
-This is the recomended way to use PaceLib.
-
-Can be used in other ways but your on your own there.
+This is the recommended way to use PaceLib.
 
 Prerequisites:
 - c++23 compiler
 - SDL2, SDL2_image, SDL2_ttf 
 - cmake
+
+Until SDL3 is released:
+
+https://github.com/libsdl-org
+
+Build from source with cmake and make install.
 
 **Linux**:
 

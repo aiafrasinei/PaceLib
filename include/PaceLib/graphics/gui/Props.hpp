@@ -25,6 +25,8 @@ enum class WidgetType {
   TEXTURE,
   TEXT,
   COMBOBOX,
+  GRID,
+  BUTTONGRID,
   CUSTOM
 };
 
@@ -152,4 +154,20 @@ struct HotspotProp {
   Hover type;
   SDL_Texture *tex;
 };
+
+struct ButtonGridProp {
+  std::string scene;
+  std::string font;
+  SDL_FRect rect;
+  float distance;
+};
+
+struct GridProp {
+  float x;
+  float y;
+  float distance;
+  int nr;
+  SDL_Color color;
+};
+
 } // namespace PaceLib

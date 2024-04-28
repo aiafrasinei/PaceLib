@@ -6,7 +6,7 @@
 
 namespace PaceLib {
 
-class Grid : public Widget {
+class ButtonGrid : public Widget {
 public:
   // static methods
 
@@ -15,11 +15,10 @@ public:
   /* Loads wconf file
   example format:
   {
-    "x" : 100.0,
-	  "y" : 100.0,
-    "nr" : 8,
-    "distance" : 50.0,
-    "color" : [100, 100, 100, 255]
+    "scene" : "Default",
+	  "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
+    "font" : "default",
+    "distance" : 10.0
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
@@ -29,25 +28,25 @@ public:
   static void EndBlock();
 
   // programmatic
-  static void Begin(ShapeId sid, GridProp prop);
+  static void Begin(ShapeId sid, ButtonGridProp prop);
 
   // end static methods
 
-  GridProp *GetProp() { return &prop; }
+  ButtonGridProp *GetProp() { return &prop; }
 
   void Draw();
 
-  Grid();
+  ButtonGrid();
 
-  ~Grid();
+  ~ButtonGrid();
 
 protected:
-  GridProp prop;
+  ButtonGridProp prop;
 
-  Grid(ShapeId sid, GridProp inputProp);
+  ButtonGrid(ShapeId sid, ButtonGridProp inputProp);
 
 private:
-  static GridProp LoadGridProp(Configuration *conf);
+  static ButtonGridProp LoadButtonGridProp(Configuration *conf);
 };
 
 } // namespace PaceLib

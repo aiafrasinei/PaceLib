@@ -64,7 +64,9 @@ add_executable (boards
         ../../src/Tabber.cpp
         ../../src/Configuration.cpp
         ../../src/ComboBox.cpp
-        ../../src/Hotspot.cpp)
+        ../../src/Hotspot.cpp
+        ../../src/Grid.cpp
+        ../../src/ButtonGrid.cpp)
 
 target_link_libraries(boards m dl SDL2 SDL2_image SDL2_ttf pthread)
 

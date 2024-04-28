@@ -60,7 +60,9 @@ add_executable (sdl2
     ../../src/TextArea.cpp
     ../../src/TextInput.cpp
     ../../src/Tabber.cpp
-    ../../src/Configuration.cpp)
+    ../../src/Configuration.cpp
+    ../../src/Grid.cpp
+    ../../src/ButtonGrid.cpp)
 
 target_link_libraries(sdl2 m dl SDL2 SDL2_image SDL2_ttf pthread)
 

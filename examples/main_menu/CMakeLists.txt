@@ -61,7 +61,9 @@ add_executable (main_menu
         ../../src/Tooltip.cpp
         ../../src/Hotspot.cpp
         ../../src/Texture.cpp
-        ../../src/Configuration.cpp)
+        ../../src/Configuration.cpp
+        ../../src/Grid.cpp
+        ../../src/ButtonGrid.cpp)
 
 target_link_libraries(main_menu m dl SDL2 SDL2_image SDL2_ttf pthread)
 
