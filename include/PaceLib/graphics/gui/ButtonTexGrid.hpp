@@ -6,7 +6,7 @@
 
 namespace PaceLib {
 
-class ButtonTex : public Widget {
+class ButtonTexGrid : public Widget {
 public:
   // static methods
 
@@ -16,7 +16,8 @@ public:
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_47%", "H_16%", "H_5%", "H_5%"],
+	    "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
+      "distance" : 10.0,
       "tex_name" : "sn_yellow.png",
       "over_tex_name" : "",
       "background" : "$BACKGROUND",
@@ -26,36 +27,30 @@ public:
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 
-  // used when the buttontex will have child elements
+  // used when the button will have child elements
   static void BeginBlock(std::string name);
   static void EndBlock();
 
   // programmatic
-
-  static void Begin(ShapeId sid, ButtonTexProp prop);
+  static void Begin(ShapeId sid, ButtonTexGridProp prop);
 
   // end static methods
 
-  void SetHighlight(bool state);
+  ButtonTexGridProp *GetProp() { return &prop; }
 
   void Draw();
 
-  void Update(SDL_Event *e);
+  ButtonTexGrid();
 
-  ButtonTexProp *GetProp() { return &prop; }
+  ~ButtonTexGrid();
 
-  ~ButtonTex();
+protected:
+  ButtonTexGridProp prop;
+
+  ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp);
 
 private:
-  bool mouseOver;
-
-  bool highlight;
-
-  ButtonTexProp prop;
-
-  static ButtonTexProp LoadButtonTexProp(Configuration *conf);
-
-  ButtonTex(ShapeId sid, ButtonTexProp prop);
+  static ButtonTexGridProp LoadButtonTexGridProp(Configuration *conf);
 };
 
 } // namespace PaceLib

@@ -68,7 +68,7 @@ add_executable (gui
     ../../src/ComboBox.cpp
     ../../src/Hotspot.cpp
     ../../src/Grid.cpp
-    ../../src/ButtonGrid.cpp)
+    ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(gui m dl SDL3 SDL3_image SDL3_ttf)
 

@@ -63,7 +63,7 @@ add_executable (blank
     ../../src/Tabber.cpp
     ../../src/Configuration.cpp
     ../../src/Grid.cpp
-    ../../src/ButtonGrid.cpp)
+    ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(blank m dl SDL3 SDL3_image SDL3_ttf pthread)
 

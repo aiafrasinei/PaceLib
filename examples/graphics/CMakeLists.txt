@@ -65,7 +65,7 @@ add_executable (graphics
         ../../src/Texture.cpp
         ../../src/Configuration.cpp
         ../../src/Grid.cpp
-        ../../src/ButtonGrid.cpp)
+        ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(graphics m dl SDL3 SDL3_image SDL3_ttf)
 

@@ -68,7 +68,7 @@ add_executable (launcher
         ../../src/ComboBox.cpp
         ../../src/Hotspot.cpp
         ../../src/Grid.cpp
-        ../../src/ButtonGrid.cpp)
+        ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(launcher m dl SDL3 SDL3_image SDL3_ttf)
 

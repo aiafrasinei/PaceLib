@@ -62,7 +62,7 @@ link_directories("/mingw64/lib/")
         ../../src/Tabber.cpp
         ../../src/Configuration.cpp
         ../../src/Grid.cpp
-        ../../src/ButtonGrid.cpp)
+        ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(sdl3 m dl SDL3 SDL3_image SDL3_ttf)
 

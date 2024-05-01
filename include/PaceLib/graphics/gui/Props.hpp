@@ -155,11 +155,16 @@ struct HotspotProp {
   SDL_Texture *tex;
 };
 
-struct ButtonGridProp {
+struct ButtonTexGridProp {
   std::string scene;
-  std::string font;
   SDL_FRect rect;
   float distance;
+  TexProp normal;
+  TexProp over;
+  SDL_Color backgroundColor;
+  SDL_Color borderColor;
+  SDL_Color highlightColor;
+  bool drawBorder;
 };
 
 struct GridProp {

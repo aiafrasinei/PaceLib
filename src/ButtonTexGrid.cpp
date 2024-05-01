@@ -1,9 +1,9 @@
-#include "ButtonGrid.hpp"
+#include "ButtonTexGrid.hpp"
 #include "Root.hpp"
 
 using namespace PaceLib;
 
-ButtonGrid::ButtonGrid(ShapeId sid, ButtonGridProp inputProp) {
+ButtonTexGrid::ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp) {
   prop = inputProp;
 
   rect = prop.rect;
@@ -23,52 +23,52 @@ ButtonGrid::ButtonGrid(ShapeId sid, ButtonGridProp inputProp) {
 
 }
 
-ButtonGrid::ButtonGrid() {}
+ButtonTexGrid::ButtonTexGrid() {}
 
-ButtonGrid::~ButtonGrid() {}
+ButtonTexGrid::~ButtonTexGrid() {}
 
-void ButtonGrid::Begin(ShapeId sid) {
+void ButtonTexGrid::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_ButtonGrid.conf";
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    ButtonGridProp prop = LoadButtonGridProp(conf);
+    ButtonTexGridProp prop = LoadButtonTexGridProp(conf);
 
-    ButtonGrid *newg = new ButtonGrid(sid, prop);
+    ButtonTexGrid *newg = new ButtonTexGrid(sid, prop);
 
     sid.parent->Add(newg);
 
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
-        ButtonTexProp p = {{nullptr,
+        ButtonTexProp p = {{prop.normal.tex,
                           {prop.rect.x + i * (prop.rect.w + prop.distance),
                            prop.rect.y + j * (prop.rect.w + prop.distance),
                            prop.rect.w, prop.rect.h}},
-                         {nullptr,
+                         {prop.over.tex,
                           {prop.rect.x + i * (prop.rect.w + prop.distance),
                            prop.rect.y + j * (prop.rect.w + prop.distance),
                            prop.rect.w, prop.rect.h}},
-                         {100, 100, 100, 255},
-                         {0, 0, 0, 255},
-                         {120, 120, 120, 255},
-                         false};
+                         prop.backgroundColor,
+                         prop.borderColor,
+                         prop.highlightColor,
+                         prop.drawBorder};
 
         Root *root = &Root::GetInstance();
         ButtonTex::Begin({root->GetCurrent(), sid.name + "_" + std::to_string(j) +
                                                 "_" + std::to_string(i)}, p);
+      }
     }
   }
-  }
 }
 
-void ButtonGrid::Begin(std::string name) {
+void ButtonTexGrid::Begin(std::string name) {
   Root *root = &Root::GetInstance();
-  ButtonGrid::Begin({root->GetCurrent(), name});
+  ButtonTexGrid::Begin({root->GetCurrent(), name});
 }
 
-void ButtonGrid::BeginBlock(std::string name) {
+void ButtonTexGrid::BeginBlock(std::string name) {
   Root *root = &Root::GetInstance();
-  ButtonGrid::Begin({root->GetCurrent(), name});
+  ButtonTexGrid::Begin({root->GetCurrent(), name});
   Shape *prevParent = root->GetCurrent();
   root->SetCurrent(root->GetCurrent()->Get(name));
   root->GetCurrent()->SetParent(prevParent);
@@ -77,7 +77,7 @@ void ButtonGrid::BeginBlock(std::string name) {
   root->PushAbsoluteCoords({c->GetRect().x, c->GetRect().y});
 }
 
-void ButtonGrid::EndBlock() {
+void ButtonTexGrid::EndBlock() {
   Root *root = &Root::GetInstance();
 
   Shape *c = root->GetCurrent();
@@ -86,14 +86,14 @@ void ButtonGrid::EndBlock() {
   root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void ButtonGrid::Begin(ShapeId sid, ButtonGridProp prop) {
-  ButtonGrid *newb = new ButtonGrid(sid, prop);
+void ButtonTexGrid::Begin(ShapeId sid, ButtonTexGridProp prop) {
+  ButtonTexGrid *newb = new ButtonTexGrid(sid, prop);
 
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(newb);
 }
 
-void ButtonGrid::Draw() {
+void ButtonTexGrid::Draw() {
   if (!hidden) {
     for (Shape *w : shapes) {
       w->Draw();
@@ -101,7 +101,7 @@ void ButtonGrid::Draw() {
   }
 }
 
-ButtonGridProp ButtonGrid::LoadButtonGridProp(Configuration *conf) {
+ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
   float dim[4];
   Root::ParseDim(dim, conf);
 
@@ -116,10 +116,44 @@ ButtonGridProp ButtonGrid::LoadButtonGridProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
   SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-  std::string font = conf->Get("font").get<std::string>();
   std::string scene = conf->Get("scene").get<std::string>();
   float distance = conf->Get("distance").get<float>();
 
-  ButtonGridProp prop = {scene, font, dimr, distance};
+  SDL_Color borderColor = {0, 0, 0, 255};
+  bool drawBorder = true;
+  if (conf->Get("border") == "")
+    drawBorder = false;
+  else
+    borderColor = Widget::ParseVar("border", conf, root->GetVars());
+
+  SDL_Color highlightColor =
+      Widget::ParseVar("highlight", conf, root->GetVars());
+  SDL_Color backgroundColor =
+      Widget::ParseVar("background", conf, root->GetVars());
+
+  TexProp tex_prop;
+  TexProp over_tex_prop;
+
+  if (conf->Get("tex_name") == "" && conf->Get("over_tex_name") == "") {
+    tex_prop = {nullptr, dimr};
+    over_tex_prop = {nullptr, dimr};
+  } else {
+    if (conf->Get("over_tex_name") == "") {
+      tex_prop = {
+          root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")),
+          dimr};
+      over_tex_prop = {};
+    } else {
+      tex_prop = {
+          root->GetScene(conf->Get("scene"))->GetTex(conf->Get("tex_name")),
+          dimr};
+      over_tex_prop = {root->GetScene(conf->Get("scene"))
+                           ->GetTex(conf->Get("over_tex_name")),
+                       dimr};
+    }
+  }
+
+  ButtonTexGridProp prop = {scene, dimr, distance, tex_prop, over_tex_prop, backgroundColor,
+          borderColor, highlightColor, drawBorder};
   return prop;
 }
