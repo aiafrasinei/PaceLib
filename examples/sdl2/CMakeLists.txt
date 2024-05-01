@@ -62,7 +62,7 @@ add_executable (sdl2
     ../../src/Tabber.cpp
     ../../src/Configuration.cpp
     ../../src/Grid.cpp
-    ../../src/ButtonGrid.cpp)
+    ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(sdl2 m dl SDL2 SDL2_image SDL2_ttf pthread)
 

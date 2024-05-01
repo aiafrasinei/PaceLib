@@ -65,7 +65,7 @@ IF(UNIX)
             ../../src/Texture.cpp
             ../../src/Configuration.cpp
             ../../src/Grid.cpp
-            ../../src/ButtonGrid.cpp)
+            ../../src/ButtonTexGrid.cpp)
 
     target_link_libraries(tictactoe m dl SDL2 SDL2_image SDL2_ttf pthread)
 

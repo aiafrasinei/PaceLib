@@ -55,6 +55,7 @@ add_executable (blank
     ../../src/Timer.cpp
     ../../src/Label.cpp
     ../../src/Button.cpp
+    ../../src/ButtonTex.cpp
     ../../src/CheckBox.cpp
     ../../src/Tab.cpp
     ../../src/Root.cpp
@@ -64,7 +65,7 @@ add_executable (blank
     ../../src/Tabber.cpp
     ../../src/Configuration.cpp
     ../../src/Grid.cpp
-    ../../src/ButtonGrid.cpp)
+    ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(blank m dl SDL2 SDL2_image SDL2_ttf pthread)
 
