@@ -77,8 +77,8 @@ void Grid::Draw() {
 
     for(int i=0; i <= prop.nr; i++) {
       for(int j=0; j <= prop.nr; j++) {
-        SDL_RenderLine(Window::GetRenderer(), prop.x, prop.y + (i * prop.distance) , prop.x + prop.distance * prop.nr, prop.y+ (i * prop.distance));
-        SDL_RenderLine(Window::GetRenderer(), prop.x + (j * prop.distance), prop.y  , prop.x + (j * prop.distance), prop.y + prop.distance * prop.nr);
+        SDL_RenderDrawLine(Window::GetRenderer(), prop.x, prop.y + (i * prop.distance) , prop.x + prop.distance * prop.nr, prop.y+ (i * prop.distance));
+        SDL_RenderDrawLine(Window::GetRenderer(), prop.x + (j * prop.distance), prop.y  , prop.x + (j * prop.distance), prop.y + prop.distance * prop.nr);
       }
     }
 

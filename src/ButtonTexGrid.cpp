@@ -102,7 +102,7 @@ void ButtonTexGrid::Draw() {
 }
 
 ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
-  float dim[4];
+  int dim[4];
   Root::ParseDim(dim, conf);
 
   HorizontalAlign align;
@@ -115,7 +115,7 @@ ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
 
   Root *root = &Root::GetInstance();
 
-  SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
+  SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
   std::string scene = conf->Get("scene").get<std::string>();
   float distance = conf->Get("distance").get<float>();
 
