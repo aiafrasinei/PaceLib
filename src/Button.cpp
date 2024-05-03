@@ -60,7 +60,7 @@ void Button::Begin(ShapeId sid, LabelProp prop) {
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(newb);
 
-  ((Button *)root->GetCurrent()->Get(sid.name))->InternalInit();
+  static_cast<Button *>(root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void Button::Draw() {

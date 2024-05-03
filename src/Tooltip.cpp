@@ -99,14 +99,14 @@ void Tooltip::Draw() {
 void Tooltip::InternalInit() {
   // child text
   Root *root = &Root::GetInstance();
-  Tooltip *dt = (Tooltip *)root->GetCurrent()->Get(name);
+  Tooltip *dt = static_cast<Tooltip *>(root->GetCurrent()->Get(name));
 
   TextProp tprop = {prop.scene, prop.font, dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y,
                     nullptr, prop.text, prop.textColor};
 
   Text::Begin({dt, dt->name + "_text"}, tprop);
 
-  Text *to = (Text *)dt->Get(name + "_text");
+  Text *to = static_cast<Text *>(dt->Get(name + "_text"));
 
   to->SetX(dt->GetRect().x);
   to->SetY(dt->GetRect().y);

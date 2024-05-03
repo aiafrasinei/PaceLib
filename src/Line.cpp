@@ -14,8 +14,6 @@ Line::Line(ShapeId sid, LineProp prop) {
   }
 
   hidden = false;
-
-  this->name = name;
 }
 
 Line::~Line() {}

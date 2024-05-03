@@ -75,7 +75,7 @@ void Label::Begin(ShapeId sid, LabelProp prop) {
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(newb);
 
-  ((Label *)root->GetCurrent()->Get(sid.name))->InternalInit();
+  static_cast<Label *>(root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void Label::Draw() {
@@ -109,7 +109,7 @@ void Label::SetText(std::string text) {
     InternalInit();
   }
 
-  Text *to = (Text *)Get(name + "_text");
+  Text *to = static_cast<Text *>(Get(name + "_text"));
 
   to->SetText(text);
   prop.text = text;
@@ -122,7 +122,7 @@ void Label::InternalInit() {
 
   Text::Begin({this, name + "_text"}, tprop);
 
-  Text *to = (Text *)Get(name + "_text");
+  Text *to = static_cast<Text *>(Get(name + "_text"));
   to->GetProp()->color = GetProp()->textColor;
   textSize = to->GetWidth();
 
@@ -130,7 +130,7 @@ void Label::InternalInit() {
 }
 
 void Label::SetTextAlign(HorizontalAlign align) {
-  Text *to = (Text *)Get(name + "_text");
+  Text *to = static_cast<Text *>(Get(name + "_text"));
 
   to->SetY(GetHalfY() - to->GetHeight() / 2);
 

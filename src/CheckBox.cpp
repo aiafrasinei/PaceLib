@@ -39,7 +39,7 @@ void CheckBox::Begin(ShapeId sid) {
     sid.parent->Add(newc);
 
     Root *root = &Root::GetInstance();
-    ((CheckBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
+    static_cast<CheckBox *>(root->GetCurrent()->Get(sid.name))->InternalInit();
   }
 }
 
@@ -75,7 +75,7 @@ void CheckBox::Begin(ShapeId sid, LabelProp prop) {
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(newc);
 
-  ((CheckBox *)root->GetCurrent()->Get(sid.name))->InternalInit();
+  static_cast<CheckBox *>(root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void CheckBox::Draw() {
@@ -123,14 +123,14 @@ bool CheckBox::IsChecked() { return checked; }
 void CheckBox::InternalInit() {
   // child text
   Root *root = &Root::GetInstance();
-  CheckBox *newc = (CheckBox *)root->GetCurrent()->Get(name);
+  CheckBox *newc = static_cast<CheckBox *>(root->GetCurrent()->Get(name));
 
   TextProp tprop = {prop.scene, prop.font, newc->GetRect().x + newc->GetRect().w / 10,
                     newc->GetRect().y, nullptr, prop.text, prop.textColor};
 
   Text::Begin({newc, newc->name + "_text"}, tprop);
 
-  Text *to = (Text *)newc->Get(name + "_text");
+  Text *to = static_cast<Text *>(newc->Get(name + "_text"));
 
   textSize = to->GetWidth();
 

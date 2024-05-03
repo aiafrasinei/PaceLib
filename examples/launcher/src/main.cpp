@@ -29,7 +29,7 @@ bool init() {
   root->GetTabber("Bag")->GetTab(0)->GetButton("new_game")->mouseLeftButtonUpCallback =
       []() { system("./launcher"); };
 
-  ((ComboBox *)root->GetTabber("Bag")->GetTab("t_1")->Get("resolution"))
+  static_cast<ComboBox *>(root->GetTabber("Bag")->GetTab("t_1")->Get("resolution"))
       ->SetSelection(0);
 
   root->GetTabber("Bag")->GetTab(0)->GetButton("exit")->mouseLeftButtonUpCallback = []() {

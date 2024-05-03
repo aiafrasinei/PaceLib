@@ -70,7 +70,7 @@ void TextArea::Begin(ShapeId sid, MultiItemsProp prop) {
   sid.parent->Add(ta);
 
   Root *root = &Root::GetInstance();
-  ((TextArea *)root->GetCurrent()->Get(sid.name))->InternalInit();
+  static_cast<TextArea *>(root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void TextArea::Draw() {
@@ -95,7 +95,7 @@ void TextArea::SetTextSpacing(int size) { this->textSpacing = size; }
 
 void TextArea::InternalInit() {
   Root *root = &Root::GetInstance();
-  TextArea *ta = (TextArea *)root->GetCurrent()->Get(name);
+  TextArea *ta = static_cast<TextArea *>(root->GetCurrent()->Get(name));
 
   int ry = rect.y;
   int i = 0;
@@ -105,7 +105,7 @@ void TextArea::InternalInit() {
 
     Text::Begin({ta, ta->name + "_text" + std::to_string(i)}, tprop);
 
-    Text *to = (Text *)ta->Get(name + "_text" + std::to_string(i));
+    Text *to = static_cast<Text *>(ta->Get(name + "_text" + std::to_string(i)));
     to->SetX(GetRect().x + rect.w / 20);
     to->SetY(ry);
 

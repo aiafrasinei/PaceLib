@@ -97,7 +97,7 @@ void ComboBox::Begin(ShapeId sid, MultiItemsProp prop) {
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(newcb);
 
-  ComboBox *combo = ((ComboBox *)root->GetCurrent()->Get(sid.name));
+  ComboBox *combo = static_cast<ComboBox *>(root->GetCurrent()->Get(sid.name));
   combo->AddItems(prop.tarr);
 }
 
@@ -165,7 +165,7 @@ void ComboBox::InternalInit() {
   Button::Begin({root->GetCurrent(), "main_item_renderer"}, prop);
 
   Button *main_renderer =
-      ((Button *)root->GetCurrent()->Get("main_item_renderer"));
+      static_cast<Button *>(root->GetCurrent()->Get("main_item_renderer"));
   main_renderer->mouseLeftButtonUpCallback = [this, main_renderer, root, current]() {
     mainRendererSelected = !mainRendererSelected;
     if (mainRendererSelected) {
@@ -182,7 +182,7 @@ void ComboBox::InternalInit() {
 
   for (int i = 0; i < items.size(); i++) {
     Button *currentb =
-        ((Button *)root->GetCurrent()->Get("item_" + std::to_string(i)));
+        static_cast<Button *>(root->GetCurrent()->Get("item_" + std::to_string(i)));
     currentb->mouseLeftButtonUpCallback = [this, i, main_renderer, current, currentb,
                                  root]() {
       for (int i = 0; i < items.size(); i++) {
@@ -204,8 +204,8 @@ int ComboBox::GetSelected() { return selected; }
 void ComboBox::SetSelection(int index) {
   selected = index;
 
-  Button *main_renderer = ((Button *)this->Get("main_item_renderer"));
-  Button *sel = ((Button *)this->Get("item_" + std::to_string(selected)));
+  Button *main_renderer = static_cast<Button *>(this->Get("main_item_renderer"));
+  Button *sel = static_cast<Button *>(this->Get("item_" + std::to_string(selected)));
 
   if (items.size() > 0) {
     main_renderer->SetText(sel->GetProp()->text);
