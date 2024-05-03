@@ -26,7 +26,7 @@ enum class WidgetType {
   TEXT,
   COMBOBOX,
   GRID,
-  BUTTONGRID,
+  BUTTONTEXGRID,
   CUSTOM
 };
 

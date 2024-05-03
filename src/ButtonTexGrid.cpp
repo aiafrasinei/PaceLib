@@ -19,7 +19,7 @@ ButtonTexGrid::ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp) {
 
   name = sid.name;
 
-  wtype = WidgetType::BUTTONGRID;
+  wtype = WidgetType::BUTTONTEXGRID;
 
 }
 
@@ -28,7 +28,7 @@ ButtonTexGrid::ButtonTexGrid() {}
 ButtonTexGrid::~ButtonTexGrid() {}
 
 void ButtonTexGrid::Begin(ShapeId sid) {
-  std::string path = "wconfs/" + sid.name + "_ButtonGrid.conf";
+  std::string path = "wconfs/" + sid.name + "_ButtonTexGrid.conf";
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 

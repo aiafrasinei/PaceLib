@@ -23,11 +23,6 @@ Window::Window(Configuration *conf) {
     } else if (conf->Get("Fullscreen") == 1) {
       window = SDL_CreateWindow(title.c_str(), conf->Get("Width"),
                                 conf->Get("Height"), SDL_WINDOW_FULLSCREEN);
-    } else if (conf->Get("Fullscreen") == 2) {
-      window =
-          SDL_CreateWindow(title.c_str(), conf->Get("Width"),
-                           conf->Get("Height"), SDL_WINDOW_FULLSCREEN);
-      //TODO ALEX
     }
 
     if (window == nullptr) {

@@ -35,11 +35,6 @@ void Tooltip::Begin(ShapeId sid) {
 
     TooltipProp prop = LoadTooltipProp(conf);
 
-    if (conf->Get("backgroundColor") == "parent") {
-      // TODO ALEX
-      // prop.backgroundColor = sid.parent->GetColor();
-    }
-
     dt = new Tooltip(sid, prop);
     sid.parent->Add(dt);
 
