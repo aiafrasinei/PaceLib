@@ -1,4 +1,4 @@
-# PaceLib 1.1.0
+# PaceLib 1.1.1
 
 Features:
 
@@ -13,7 +13,7 @@ Features:
 
 Prerequisites:
 
-- c++23 compiler
+- c++20 compiler
 - SDL2, SDL2_image, SDL2_ttf
 - cmake
 

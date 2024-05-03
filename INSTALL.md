@@ -5,7 +5,7 @@ How to install
 This is the recommended way to use PaceLib.
 
 Prerequisites:
-- c++23 compiler
+- c++20 compiler
 - SDL2, SDL2_image, SDL2_ttf 
 - cmake
 
