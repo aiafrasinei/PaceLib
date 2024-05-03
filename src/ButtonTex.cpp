@@ -35,8 +35,6 @@ void ButtonTex::Begin(ShapeId sid) {
 
     ButtonTexProp prop = LoadButtonTexProp(conf);
 
-    std::string scene_name = conf->Get("scene").get<std::string>();
-
     ButtonTex *btex = nullptr;
     TexProp nullp = {nullptr, {0, 0, 0, 255}};
 
@@ -52,8 +50,8 @@ void ButtonTex::Begin(ShapeId sid) {
       btex = new ButtonTex(sid, prop);
     }
 
-    btex->conf = conf;
     if (btex != nullptr) {
+      btex->conf = conf;
       sid.parent->Add(btex);
     }
   }

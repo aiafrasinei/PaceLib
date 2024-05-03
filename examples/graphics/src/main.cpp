@@ -34,7 +34,7 @@ bool init() {
 
   Circle::Begin({root, "cir1"}, {200, 100, 30, {20, 20, 50, 255}});
   Circle::Begin({root, "cir2"}, {400, 100, 30, {50, 50, 70, 255}});
-  ((Circle *)root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
+  static_cast<Circle *>(root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
 
   TextProp prop = {"Default",
                    "lazy_font",
@@ -73,7 +73,6 @@ int main(int argc, const char *argv[]) {
   starter->onInit = &init;
   starter->onDraw = &draw;
 
-  Timer stepTimer;
   starter->Loop();
 
   return 0;

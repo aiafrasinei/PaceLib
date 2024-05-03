@@ -56,12 +56,12 @@ void Tabber::Begin(ShapeId sid) {
 void Tabber::Begin(std::string name) {
   Root *root = &Root::GetInstance();
 
-  Tabber::Begin({(Widget *)root->GetCurrent(), name});
+  Tabber::Begin({static_cast<Widget *>(root->GetCurrent()), name});
 }
 
 void Tabber::BeginBlock(std::string name) {
   Root *root = &Root::GetInstance();
-  Tabber::Begin({(Widget *)root->GetCurrent(), name});
+  Tabber::Begin({static_cast<Widget *>(root->GetCurrent()), name});
 
   Shape *prevParent = root->GetCurrent();
   root->SetCurrent(root->GetCurrent()->Get(name));
@@ -87,7 +87,7 @@ void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 void Tabber::Draw() {
   if (!hidden) {
     if (just_once) {
-      ((Button *) Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
+      static_cast<Button *>(Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
       just_once = false;
     }
     if (once) {
@@ -97,7 +97,7 @@ void Tabber::Draw() {
           shapes[i]->Hide();
         }
       }
-      ((Tab *)Get("t_" + std::to_string(current)))->Show();
+      static_cast<Tab *>(Get("t_" + std::to_string(current)))->Show();
       once = false;
     }
 
@@ -125,7 +125,7 @@ void Tabber::Draw() {
 
 void Tabber::BeginTabBlock(std::string text) {
   Root *root = &Root::GetInstance();
-  Tabber *tabber = (Tabber *)root->GetCurrent();
+  Tabber *tabber = static_cast<Tabber *>(root->GetCurrent());
 
   LabelProp prop = {tabber->GetProp()->scene, tabber->GetProp()->font, {tabx, (float)(Window::height * 1 / 100), 0,
                      (float)(Window::height * (tabber->prop.headerHeight - 1) / 100)},
@@ -138,7 +138,7 @@ void Tabber::BeginTabBlock(std::string text) {
   Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
   Button *b =
-      (Button *)root->GetCurrent()->Get("h_" + std::to_string(nrtitles));
+      static_cast<Button *>(root->GetCurrent()->Get("h_" + std::to_string(nrtitles)));
 
   float real_width = b->GetTextSize() + b->GetTextSize() / 3;
   b->SetRectW(real_width);
@@ -248,7 +248,7 @@ void Tabber::SelectTab(int index) {
 void Tabber::SelectTab(std::string name) {
   int index = 0;
   for (int i = 0; i < shapes.size(); i++) {
-    if(((Button *) Get("h_" + std::to_string(i)))->GetProp()->text == name) {
+    if(static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->text == name) {
       index = i;
       break;
     }
@@ -260,6 +260,6 @@ void Tabber::SelectTab(std::string name) {
 
 void Tabber::ClearHeaderColor(SDL_Color col) {
   for (int i = 0; i < nrtitles; i++) {
-    ((Button *) Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
+    static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
   }
 }

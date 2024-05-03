@@ -64,7 +64,7 @@ bool init() {
                          {0, 0, 0, 255},
                          {120, 120, 120, 255},
                          false};
-      ButtonTex::Begin({root->GetCurrent(), "go_b" + i}, p);
+      ButtonTex::Begin({root->GetCurrent(), "go_b" + std::to_string(i)}, p);
     }
   }
   Tabber::EndTabBlock();

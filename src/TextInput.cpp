@@ -59,7 +59,7 @@ void TextInput::Begin(ShapeId sid, LabelProp prop) {
   Root *root = &Root::GetInstance();
   root->GetCurrent()->Add(ti);
 
-  ((TextInput *)root->GetCurrent()->Get(sid.name))->InternalInit();
+  static_cast<TextInput *>(root->GetCurrent()->Get(sid.name))->InternalInit();
 }
 
 void TextInput::Draw() {
@@ -82,7 +82,7 @@ void TextInput::Draw() {
 
 void TextInput::Update(SDL_Event *e) {
   if (focus) {
-    Text *to = (Text *)this->Get(name + "_text");
+    Text *to = static_cast<Text *>(this->Get(name + "_text"));
     if (e->type == SDL_EVENT_TEXT_INPUT) {
       to->SetText(to->GetText() + e->text.text);
     }
@@ -114,14 +114,14 @@ void TextInput::Update(SDL_Event *e) {
 void TextInput::InternalInit() {
   // child text
   Root *root = &Root::GetInstance();
-  TextInput *tin = (TextInput *)root->GetCurrent()->Get(name);
+  TextInput *tin = static_cast<TextInput *>(root->GetCurrent()->Get(name));
 
   TextProp tprop = {prop.scene, prop.font, GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
                     prop.text, prop.textColor};
 
   Text::Begin({tin, tin->name + "_text"}, tprop);
 
-  Text *to = (Text *)tin->Get(name + "_text");
+  Text *to = static_cast<Text *>(tin->Get(name + "_text"));
   to->GetProp()->color = prop.textColor;
   textSize = to->GetWidth();
 

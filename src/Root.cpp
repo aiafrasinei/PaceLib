@@ -144,7 +144,7 @@ bool Root::IsVarDefined(std::string name) {
 
 void Root::ParseDim(float dim[4], Configuration *conf) {
   Root *root = &Root::GetInstance();
-  SDL_FRect r = ((Widget *)root->GetCurrent())->GetRect();
+  SDL_Rect r = static_cast<Widget *>(root->GetCurrent())->GetRect();
 
   for (int i = 0; i < 4; i++) {
     std::string str = conf->Get("dim")[i].get<std::string>();
@@ -167,7 +167,7 @@ void Root::ParseDim(float dim[4], Configuration *conf) {
       val = r.w;
     } else if (str == "#H") {
       val = r.h;
-    } else if (first_char == "#" || first_char == "#") {
+    } else if (first_char == "#") {
       std::string second_char = str.substr(1, 1);
       if (second_char == "W" || second_char == "H") {
         std::size_t pos = str.find("%");
