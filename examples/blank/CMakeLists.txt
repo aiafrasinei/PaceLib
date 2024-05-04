@@ -48,6 +48,9 @@ add_executable (blank
     ../../src/Text.cpp
     ../../src/Circle.cpp
     ../../src/Line.cpp
+    ../../src/Lines.cpp
+    ../../src/Point.cpp
+    ../../src/Points.cpp
     ../../src/Triangle.cpp
     ../../src/Polygon.cpp
     ../../src/ScrollingBackground.cpp

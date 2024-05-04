@@ -22,6 +22,8 @@ bool init() {
   root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
   root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
+  Point::Begin({root, "point"}, {300.0, 10.0 , {255, 0, 0, 255} });
+
   Line::Begin({root, "line"}, {200, 100, 300, 200, {50, 100, 50, 255}});
 
   Line::Begin({root, "hline"}, {400, 300, 300, 300, {50, 100, 150, 255}});

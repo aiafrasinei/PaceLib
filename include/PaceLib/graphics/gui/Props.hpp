@@ -61,7 +61,18 @@ struct LineProp {
   float y1;
   float x2;
   float y2;
-  SDL_FColor color;
+  SDL_Color color;
+};
+
+struct PointProp {
+  float x;
+  float y;
+  SDL_Color color;
+};
+
+struct VertsProp {
+  std::vector<SDL_FPoint> verts;
+  SDL_Color color;
 };
 
 struct SpriteProp {

@@ -28,7 +28,7 @@ void Line::Begin(ShapeId sid) {
     float x2 = conf->Get("x2");
     float y2 = conf->Get("y2");
 
-    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
+    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
     sid.parent->Add(new Line(sid, {x1, y1, x2, y2, color}));
   }

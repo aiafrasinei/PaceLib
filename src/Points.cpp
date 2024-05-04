@@ -1,9 +1,9 @@
-#include "graphics/lines/Lines.hpp"
+#include "graphics/points/Points.hpp"
 #include "Root.hpp"
 
 using namespace PaceLib;
 
-Lines::Lines(ShapeId sid, VertsProp prop) {
+Points::Points(ShapeId sid, VertsProp prop) {
   this->prop = prop;
 
   for (int i = 0; i < prop.verts.size(); i++) {
@@ -18,10 +18,10 @@ Lines::Lines(ShapeId sid, VertsProp prop) {
   name = sid.name;
 }
 
-Lines::~Lines() {}
+Points::~Points() {}
 
-void Lines::Begin(ShapeId sid) {
-  std::string path = "wconfs/" + sid.name + "_Lines.conf";
+void Points::Begin(ShapeId sid) {
+  std::string path = "wconfs/" + sid.name + "_Points.conf";
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
@@ -42,37 +42,37 @@ void Lines::Begin(ShapeId sid) {
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
 
-    sid.parent->Add(new Lines(sid, {verts, color}));
+    sid.parent->Add(new Points(sid, {verts, color}));
   }
 }
 
-void Lines::Begin(std::string name) {
+void Points::Begin(std::string name) {
   Root *root = &Root::GetInstance();
-  Lines::Begin({root->GetCurrent(), name});
+  Points::Begin({root->GetCurrent(), name});
 }
 
-void Lines::BeginBlock(std::string name) {
+void Points::BeginBlock(std::string name) {
   Root *root = &Root::GetInstance();
-  Lines::Begin({root->GetCurrent(), name});
+  Points::Begin({root->GetCurrent(), name});
 
   Shape *prevParent = root->GetCurrent();
   root->SetCurrent(root->GetCurrent()->Get(name));
   root->GetCurrent()->SetParent(prevParent);
 }
 
-void Lines::EndBlock() {
+void Points::EndBlock() {
   Root *root = &Root::GetInstance();
   root->SetCurrent(root->GetCurrent()->GetParent());
 }
 
-void Lines::Begin(ShapeId sid, VertsProp prop) {
-  sid.parent->Add(new Lines(sid, prop));
+void Points::Begin(ShapeId sid, VertsProp prop) {
+  sid.parent->Add(new Points(sid, prop));
 }
 
-void Lines::Draw() {
+void Points::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderLines(Window::GetRenderer(), &prop.verts[0], prop.verts.size());
+    SDL_RenderPoints(Window::GetRenderer(), &prop.verts[0], prop.verts.size());
   }
 }
