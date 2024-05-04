@@ -33,36 +33,39 @@ link_directories("/opt/homebrew/lib/")
 link_directories("/usr/local/lib64/")
 link_directories("/mingw64/lib/")
 
-add_executable (sdl2
-    src/main.cpp
-    ../../src/Window.cpp
-    ../../src/Init.cpp
-    ../../src/Scene.cpp
-    ../../src/TexContainer.cpp
-    ../../src/TtfContainer.cpp
-    ../../src/Place.cpp
-    ../../src/Map.cpp
-    ../../src/Rectangle.cpp
-    ../../src/Sprite.cpp
-    ../../src/Text.cpp
-    ../../src/Circle.cpp
-    ../../src/Line.cpp
-    ../../src/Triangle.cpp
-    ../../src/Polygon.cpp
-    ../../src/ScrollingBackground.cpp
-    ../../src/Timer.cpp
-    ../../src/Label.cpp
-    ../../src/Button.cpp
-    ../../src/CheckBox.cpp
-    ../../src/Tab.cpp
-    ../../src/Root.cpp
-    ../../src/Tooltip.cpp
-    ../../src/TextArea.cpp
-    ../../src/TextInput.cpp
-    ../../src/Tabber.cpp
-    ../../src/Configuration.cpp
-    ../../src/Grid.cpp
-    ../../src/ButtonTexGrid.cpp)
+    add_executable (sdl2
+        src/main.cpp
+        ../../src/Window.cpp
+        ../../src/Init.cpp
+        ../../src/Scene.cpp
+        ../../src/TexContainer.cpp
+        ../../src/TtfContainer.cpp
+        ../../src/Place.cpp
+        ../../src/Map.cpp
+        ../../src/Rectangle.cpp
+        ../../src/Sprite.cpp
+        ../../src/Text.cpp
+        ../../src/Circle.cpp
+        ../../src/Line.cpp
+        ../../src/Lines.cpp
+        ../../src/Point.cpp
+        ../../src/Points.cpp
+        ../../src/Triangle.cpp
+        ../../src/Polygon.cpp
+        ../../src/ScrollingBackground.cpp
+        ../../src/Timer.cpp
+        ../../src/Label.cpp
+        ../../src/Button.cpp
+        ../../src/CheckBox.cpp
+        ../../src/Tab.cpp
+        ../../src/Root.cpp
+        ../../src/Tooltip.cpp
+        ../../src/TextArea.cpp
+        ../../src/TextInput.cpp
+        ../../src/Tabber.cpp
+        ../../src/Configuration.cpp
+        ../../src/Grid.cpp
+        ../../src/ButtonTexGrid.cpp)
 
 target_link_libraries(sdl2 m dl SDL2 SDL2_image SDL2_ttf pthread)
 

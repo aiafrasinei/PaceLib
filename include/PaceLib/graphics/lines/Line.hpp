@@ -41,7 +41,6 @@ public:
 protected:
 private:
   LineProp prop;
-  int x1, y1, x2, y2;
 
   Line(ShapeId sid, LineProp prop);
 };

@@ -81,6 +81,17 @@ void TextInput::Draw() {
 }
 
 void TextInput::Update(SDL_Event *e) {
+  if (e->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+    float x, y;
+    SDL_GetMouseState(&x, &y);
+
+    if (PointInRect({x, y}, rect)) {
+      focus = !focus;
+    } else {
+      focus = false;
+    }
+  }
+
   if (focus) {
     Text *to = static_cast<Text *>(this->Get(name + "_text"));
     if (e->type == SDL_TEXTINPUT) {

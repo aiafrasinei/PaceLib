@@ -16,6 +16,7 @@ include_directories("${PACE_INCLUDE_PATH}/utils/SDL2")
 include_directories("${PACE_INCLUDE_PATH}/config")
 include_directories("${PACE_INCLUDE_PATH}/core")
 include_directories("${PACE_INCLUDE_PATH}/graphics")
+include_directories("${PACE_INCLUDE_PATH}/graphics/points")
 include_directories("${PACE_INCLUDE_PATH}/graphics/lines")
 include_directories("${PACE_INCLUDE_PATH}/graphics/effects")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons")
@@ -49,6 +50,9 @@ add_executable (blank
     ../../src/Text.cpp
     ../../src/Circle.cpp
     ../../src/Line.cpp
+    ../../src/Lines.cpp
+    ../../src/Point.cpp
+    ../../src/Points.cpp
     ../../src/Triangle.cpp
     ../../src/Polygon.cpp
     ../../src/ScrollingBackground.cpp

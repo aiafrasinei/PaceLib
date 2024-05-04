@@ -20,6 +20,10 @@
 // shapes
 #include "graphics/Shape.hpp"
 
+// points
+#include "graphics/points/Point.hpp"
+#include "graphics/points/Points.hpp"
+
 // lines
 #include "graphics/lines/Line.hpp"
 #include "graphics/lines/Lines.hpp"

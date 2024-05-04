@@ -64,6 +64,17 @@ struct LineProp {
   SDL_Color color;
 };
 
+struct PointProp {
+  int x;
+  int y;
+  SDL_Color color;
+};
+
+struct VertsProp {
+  std::vector<SDL_Point> verts;
+  SDL_Color color;
+};
+
 struct SpriteProp {
   SDL_Texture *tex;
   SDL_Rect dim;

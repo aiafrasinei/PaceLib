@@ -20,6 +20,7 @@ include_directories("${PACE_INCLUDE_PATH}/graphics/effects")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons")
 include_directories("${PACE_INCLUDE_PATH}/graphics/polygons/quads")
 include_directories("${PACE_INCLUDE_PATH}/graphics/conics")
+include_directories("${PACE_INCLUDE_PATH}/graphics/points")
 include_directories("${PACE_INCLUDE_PATH}/graphics/lines")
 include_directories("${PACE_INCLUDE_PATH}/graphics/gui")
 include_directories("${PACE_INCLUDE_PATH}/resources")
@@ -48,6 +49,9 @@ add_executable (boards
         ../../src/Text.cpp
         ../../src/Circle.cpp
         ../../src/Line.cpp
+        ../../src/Lines.cpp
+        ../../src/Point.cpp
+        ../../src/Points.cpp
         ../../src/Triangle.cpp
         ../../src/Polygon.cpp
         ../../src/ScrollingBackground.cpp
