@@ -1,7 +1,9 @@
 # PaceLib 1.1.1
 
 WARNING:
+
 The SDL3 implementation works but is unstable until SDL3 is fully released.
+
 Use the SDL2 branch (PaceLib_SDL2).
 
 Features:
