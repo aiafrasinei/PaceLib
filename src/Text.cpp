@@ -101,7 +101,16 @@ void Text::SetY(int y) { rect.y = y; }
 
 std::string Text::GetText() { return prop.text; }
 
-void Text::SetText(std::string text) { prop.text = text; }
+void Text::SetText(std::string text) {
+    if(prop.text != text) {
+      Root *root = &Root::GetInstance();
+      prop.text = text;
+      root->GetScene(prop.scene)->GetFontContainer()->Remove(name);
+      root->GetScene(prop.scene)->AddFont(name, prop.font, prop.text, prop.color);
+      SDL_Texture *tex = root->GetScene(prop.scene)->GetFont(name);
+      prop.tex = tex;
+    }
+  }
 
 TextProp Text::LoadTextProp(Configuration *conf) {
   float pos[2];
