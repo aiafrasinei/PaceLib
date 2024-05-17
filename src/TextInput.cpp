@@ -82,8 +82,8 @@ void TextInput::Draw() {
 }
 
 void TextInput::Update(SDL_Event *e) {
-  if (e->type == SDL_EVENT_MOUSE_BUTTON_UP) {
-    float x, y;
+  if (e->type == SDL_MOUSEBUTTONUP) {
+    int x, y;
     SDL_GetMouseState(&x, &y);
 
     if (PointInRect({x, y}, rect)) {

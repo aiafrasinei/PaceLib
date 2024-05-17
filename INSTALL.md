@@ -9,12 +9,6 @@ Prerequisites:
 - SDL2, SDL2_image, SDL2_ttf 
 - cmake
 
-Until SDL3 is released:
-
-https://github.com/libsdl-org
-
-Build from source with cmake and make install.
-
 **Linux**:
 
 Install the prerequisites using you own distro install system.
@@ -36,12 +30,12 @@ https://www.msys2.org/
 Open msys terminal:
 
     pacman -S mingw-w64-ucrt-x86_64-gcc
-
     pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-SDL2_image
 
 To get all the needed dlls:
 
     ldd app.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" bin
+    ldd app.exe | grep '\/usr\/bin\/msys.*\.dll' -o | xargs -I{} cp "{}" bin
 
 All needed dlls will be bundled in the bin directory.
 
