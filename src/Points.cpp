@@ -1,4 +1,5 @@
 #include "graphics/points/Points.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;

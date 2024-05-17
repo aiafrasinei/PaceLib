@@ -1,4 +1,5 @@
 #include "Tab.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -89,8 +90,7 @@ void Tab::Add(Shape *s) { shapes.push_back(s); }
 
 void Tab::Update(SDL_Event *e) {
   for (Shape *s : shapes) {
-    if (!s->IsHidden())
-      s->Update(e);
+    if (!s->IsHidden()) s->Update(e);
   }
 }
 

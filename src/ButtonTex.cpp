@@ -1,4 +1,5 @@
 #include "ButtonTex.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -102,17 +103,17 @@ void ButtonTex::Draw() {
           SDL_SetTextureColorMod(prop.normal.tex, prop.highlightColor.r,
                                  prop.highlightColor.g, prop.highlightColor.b);
           SDL_RenderTexture(Window::GetRenderer(), prop.normal.tex, nullptr,
-                         &prop.normal.rect);
+                            &prop.normal.rect);
         } else {
           SDL_RenderTexture(Window::GetRenderer(), prop.over.tex, nullptr,
-                         &prop.over.rect);
+                            &prop.over.rect);
         }
       }
     } else {
       if (prop.normal.tex != nullptr) {
         SDL_SetTextureColorMod(prop.normal.tex, 255, 255, 255);
         SDL_RenderTexture(Window::GetRenderer(), prop.normal.tex, nullptr,
-                       &prop.normal.rect);
+                          &prop.normal.rect);
       } else {
         SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r,
                                prop.backgroundColor.g, prop.backgroundColor.b,
@@ -138,7 +139,7 @@ void ButtonTex::Update(SDL_Event *e) {
   if (!hidden) {
     float x, y;
     SDL_GetMouseState(&x, &y);
-   
+
     UpdateMouse(e, x, y);
 
     if (highlight) {
@@ -201,4 +202,3 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
 
   return prop;
 }
-

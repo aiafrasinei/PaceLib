@@ -1,4 +1,5 @@
 #include "Polygon.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -44,7 +45,7 @@ void Polygon::Begin(ShapeId sid) {
     index = 0;
     for (int i = 0; i < vsize; i++) {
       SDL_FColor c{all_colors[index], all_colors[++index], all_colors[++index],
-                  all_colors[++index]};
+                   all_colors[++index]};
       verts[i].color = c;
       index++;
     }

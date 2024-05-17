@@ -1,4 +1,5 @@
 #include "Hotspot.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -24,7 +25,6 @@ Hotspot::Hotspot(ShapeId sid, HotspotProp prop) {
   this->tex = prop.tex;
 
   wtype = WidgetType::HOTSPOT;
-
 }
 
 Hotspot::~Hotspot() {}

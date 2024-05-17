@@ -1,4 +1,5 @@
 #include "TextArea.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -100,8 +101,8 @@ void TextArea::InternalInit() {
   float ry = rect.y;
   int i = 0;
   for (std::string text : prop.tarr) {
-    TextProp tprop = {prop.scene, prop.font, rect.x + rect.w / 50, ry, nullptr, text,
-                      prop.textColor};
+    TextProp tprop = {prop.scene, prop.font, rect.x + rect.w / 50, ry,
+                      nullptr,    text,      prop.textColor};
 
     Text::Begin({ta, ta->name + "_text" + std::to_string(i)}, tprop);
 
@@ -129,7 +130,12 @@ MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
       conf->Get("text_arr").get<std::vector<std::string>>();
   std::string font = conf->Get("font").get<std::string>();
 
-  MultiItemsProp prop = {conf->Get("scene").get<std::string>(), font, dimr, tarr, textColor, backgroundColor,
+  MultiItemsProp prop = {conf->Get("scene").get<std::string>(),
+                         font,
+                         dimr,
+                         tarr,
+                         textColor,
+                         backgroundColor,
                          borderColor};
   return prop;
 }

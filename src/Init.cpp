@@ -36,29 +36,25 @@ Window *Init::GetWindow() { return win; }
 
 void Init::Loop() {
   SDL_Log("Init callback");
-  if (onInit != nullptr)
-    onInit();
+  if (onInit != nullptr) onInit();
 
   SDL_Event e;
   while (Window::running) {
-    if (onUpdate != nullptr)
-      onUpdate();
+    if (onUpdate != nullptr) onUpdate();
 
     while (SDL_PollEvent(&e) != 0) {
       if (e.type == SDL_EVENT_QUIT) {
         Window::running = false;
       }
 
-      if (onEvent != nullptr)
-        onEvent(&e);
+      if (onEvent != nullptr) onEvent(&e);
 
       root->Update(&e);
     }
 
     win->Clear();
 
-    if (onDraw != nullptr)
-      onDraw();
+    if (onDraw != nullptr) onDraw();
 
     root->Draw();
 
@@ -66,8 +62,7 @@ void Init::Loop() {
   }
 
   SDL_Log("Deinit callback");
-  if (onDeinit != nullptr)
-    onDeinit();
+  if (onDeinit != nullptr) onDeinit();
 
   delete this;
 }

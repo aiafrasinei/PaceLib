@@ -1,6 +1,8 @@
-#include <map>
-#include <stdlib.h>
 #include "Configuration.hpp"
+
+#include <stdlib.h>
+
+#include <map>
 
 using json = nlohmann::json;
 

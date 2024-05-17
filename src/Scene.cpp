@@ -32,15 +32,18 @@ bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w,
   return tex_atlas->Add(file_path, x, y, w, h);
 }
 
-bool Scene::AddFont(std::string name, std::string font, std::string text, SDL_Color color) {
-  SDL_Surface* surface = TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), color);
-  SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surface);
+bool Scene::AddFont(std::string name, std::string font, std::string text,
+                    SDL_Color color) {
+  SDL_Surface *surface =
+      TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), color);
+  SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
   font_atlas->Add(name, tex);
 
   return true;
 }
 
-bool Scene::AddTtf(std::string name, std::filesystem::path file_path, int size, int style, int outline) {
+bool Scene::AddTtf(std::string name, std::filesystem::path file_path, int size,
+                   int style, int outline) {
   return ttf_atlas->Add(name, file_path, size, style, outline);
 }
 
@@ -53,7 +56,8 @@ TTF_Font *Scene::GetTtf(std::string name) { return ttf_atlas->Get(name); }
 void Scene::Start() {}
 
 void Scene::Draw() {
-  // SDL_RenderTexture(renderer, tex_atlas->Get(0), NULL, tex_atlas->GetRect(0));
+  // SDL_RenderTexture(renderer, tex_atlas->Get(0), NULL,
+  // tex_atlas->GetRect(0));
 }
 
 void Scene::Stop() {}
@@ -61,17 +65,17 @@ void Scene::Stop() {}
 void Scene::Update(SDL_Event *e) {
   if ((*e).type == SDL_EVENT_KEY_DOWN) {
     switch ((*e).key.keysym.sym) {
-    case SDLK_LEFT:
-      // if(current_tex_index>0)
-      //    current_tex_index--;
-      break;
-    case SDLK_RIGHT:
-      // if(current_tex_index<tex_counter)
-      //     current_tex_index++;
-      break;
+      case SDLK_LEFT:
+        // if(current_tex_index>0)
+        //    current_tex_index--;
+        break;
+      case SDLK_RIGHT:
+        // if(current_tex_index<tex_counter)
+        //     current_tex_index++;
+        break;
 
-    default:
-      break;
+      default:
+        break;
     }
   }
 }

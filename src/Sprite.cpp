@@ -1,4 +1,5 @@
 #include "Sprite.hpp"
+
 #include "Root.hpp"
 #include "Window.hpp"
 

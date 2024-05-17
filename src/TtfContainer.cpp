@@ -1,4 +1,5 @@
 #include "TtfContainer.hpp"
+
 #include "core/Window.hpp"
 
 using namespace PaceLib;
@@ -23,18 +24,20 @@ void TtfContainer::Remove(std::string name) {
   container.erase(name);
 }
 
-bool TtfContainer::Add(std::string name, std::filesystem::path file_path, int size, int style, int outline) {
-    TTF_Font *ttf = TTF_OpenFont(file_path.c_str(), size);
+bool TtfContainer::Add(std::string name, std::filesystem::path file_path,
+                       int size, int style, int outline) {
+  TTF_Font *ttf = TTF_OpenFont(file_path.c_str(), size);
 
-    if (ttf == nullptr) {
-      SDL_Log("Failed to load font %s error: %s", file_path.filename().c_str(), TTF_GetError());
-      return false;
-    }
+  if (ttf == nullptr) {
+    SDL_Log("Failed to load font %s error: %s", file_path.filename().c_str(),
+            TTF_GetError());
+    return false;
+  }
 
-    TTF_SetFontOutline(ttf, outline);
-    TTF_SetFontStyle(ttf, style);
+  TTF_SetFontOutline(ttf, outline);
+  TTF_SetFontStyle(ttf, style);
 
-    container[name] = ttf;
-    
-    return true;
+  container[name] = ttf;
+
+  return true;
 }

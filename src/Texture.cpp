@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -15,14 +16,16 @@ Tex::Tex(std::string path, int x, int y) {
 
   SDL_Surface *loadedSurface = IMG_Load(path.c_str());
   if (loadedSurface == nullptr) {
-    SDL_Log("Unable to load image %s  Error: %s ", path.c_str(), IMG_GetError());
+    SDL_Log("Unable to load image %s  Error: %s ", path.c_str(),
+            IMG_GetError());
   } else {
     SDL_SetSurfaceColorKey(loadedSurface, SDL_TRUE,
-                    SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+                           SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      SDL_Log("Unable to create texture from %s Error %s", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s Error %s", path.c_str(),
+              SDL_GetError());
     } else {
       rect.w = loadedSurface->w;
       rect.h = loadedSurface->h;
@@ -49,11 +52,12 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
     SDL_Log("Unable to load image %s Error: %s", path.c_str(), IMG_GetError());
   } else {
     SDL_SetSurfaceColorKey(loadedSurface, SDL_TRUE,
-                    SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+                           SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      SDL_Log("Unable to create texture from %s Error: %s", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s Error: %s", path.c_str(),
+              SDL_GetError());
     } else {
       rect.w = w;
       rect.h = h;
@@ -95,8 +99,8 @@ void Tex::Free() {
   }
 }
 
-void Tex::Draw(float x, float y, SDL_FRect *clip, double angle, SDL_FPoint *center,
-               SDL_FlipMode flip) {
+void Tex::Draw(float x, float y, SDL_FRect *clip, double angle,
+               SDL_FPoint *center, SDL_FlipMode flip) {
   if (!hidden) {
     SDL_FRect renderQuad = {x, y, rect.w, rect.h};
 
@@ -105,8 +109,8 @@ void Tex::Draw(float x, float y, SDL_FRect *clip, double angle, SDL_FPoint *cent
       renderQuad.h = clip->h;
     }
 
-    SDL_RenderTextureRotated(Window::GetRenderer(), tex, clip, &renderQuad, angle,
-                     center, flip);
+    SDL_RenderTextureRotated(Window::GetRenderer(), tex, clip, &renderQuad,
+                             angle, center, flip);
   }
 }
 

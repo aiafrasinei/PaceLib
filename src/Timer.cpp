@@ -1,4 +1,5 @@
 #include "Timer.hpp"
+
 #include "SDL3/SDL.h"
 using namespace PaceLib;
 

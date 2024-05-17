@@ -1,4 +1,5 @@
 #include "Triangle.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -53,7 +54,7 @@ void Triangle::Begin(ShapeId sid) {
     float x3 = conf->Get("x3");
     float y3 = conf->Get("y3");
     SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
-                       conf->Get("color")[2], conf->Get("color")[3]};
+                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(new Triangle(sid, {x1, y1, x2, y2, x3, y3, color}));
   }

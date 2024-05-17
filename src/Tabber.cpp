@@ -1,4 +1,5 @@
 #include "Tabber.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -31,7 +32,8 @@ Tabber::Tabber(ShapeId sid, TabberProp inputProp) {
 
   bcounter = 0;
 
-  top = {rect.x, rect.y, rect.w, (float)(Window::height * prop.headerHeight / 100)};
+  top = {rect.x, rect.y, rect.w,
+         (float)(Window::height * prop.headerHeight / 100)};
 
   wtype = WidgetType::TABBER;
 
@@ -87,7 +89,9 @@ void Tabber::SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 void Tabber::Draw() {
   if (!hidden) {
     if (just_once) {
-      static_cast<Button *>(Get("h_" + std::to_string(current)))->GetProp()->backgroundColor = prop.buttonsSelectionColor;
+      static_cast<Button *>(Get("h_" + std::to_string(current)))
+          ->GetProp()
+          ->backgroundColor = prop.buttonsSelectionColor;
       just_once = false;
     }
     if (once) {
@@ -127,18 +131,21 @@ void Tabber::BeginTabBlock(std::string text) {
   Root *root = &Root::GetInstance();
   Tabber *tabber = static_cast<Tabber *>(root->GetCurrent());
 
-  LabelProp prop = {tabber->GetProp()->scene, tabber->GetProp()->font, {tabx, (float)(Window::height * 1 / 100), 0,
-                     (float)(Window::height * (tabber->prop.headerHeight - 1) / 100)},
-                    text,
-                    tabber->GetProp()->buttonsTextColor,
-                    tabber->GetProp()->buttonsTextAlign,
-                    tabber->GetProp()->buttonsBackgroundColor,
-                    tabber->GetProp()->buttonsBorderColor,
-                    tabber->GetProp()->buttonsHighlightColor};
+  LabelProp prop = {
+      tabber->GetProp()->scene,
+      tabber->GetProp()->font,
+      {tabx, (float)(Window::height * 1 / 100), 0,
+       (float)(Window::height * (tabber->prop.headerHeight - 1) / 100)},
+      text,
+      tabber->GetProp()->buttonsTextColor,
+      tabber->GetProp()->buttonsTextAlign,
+      tabber->GetProp()->buttonsBackgroundColor,
+      tabber->GetProp()->buttonsBorderColor,
+      tabber->GetProp()->buttonsHighlightColor};
   Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
-  Button *b =
-      static_cast<Button *>(root->GetCurrent()->Get("h_" + std::to_string(nrtitles)));
+  Button *b = static_cast<Button *>(
+      root->GetCurrent()->Get("h_" + std::to_string(nrtitles)));
 
   float real_width = b->GetTextSize() + b->GetTextSize() / 3;
   b->SetRectW(real_width);
@@ -175,8 +182,7 @@ void Tabber::EndTabBlock() {
 
 void Tabber::Update(SDL_Event *e) {
   for (Shape *s : shapes) {
-    if (!s->IsHidden())
-      s->Update(e);
+    if (!s->IsHidden()) s->Update(e);
   }
 }
 
@@ -213,7 +219,8 @@ TabberProp Tabber::LoadTabberProp(Configuration *conf) {
   SDL_Color buttonsSelectionColor =
       Widget::ParseVar("buttons_selection_color", conf, root->GetVars());
 
-  TabberProp prop = {conf->Get("scene").get<std::string>(), font,
+  TabberProp prop = {conf->Get("scene").get<std::string>(),
+                     font,
                      dimr,
                      backgroundColor,
                      borderColor,
@@ -236,9 +243,7 @@ Tab *Tabber::GetTab(int index) {
   return static_cast<Tab *>(Get("t_" + std::to_string(index)));
 }
 
-int Tabber::GetNrTabs() {
-  return shapes.size();
-}
+int Tabber::GetNrTabs() { return shapes.size(); }
 
 void Tabber::SelectTab(int index) {
   current = index;
@@ -248,7 +253,8 @@ void Tabber::SelectTab(int index) {
 void Tabber::SelectTab(std::string name) {
   int index = 0;
   for (int i = 0; i < shapes.size(); i++) {
-    if(static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->text == name) {
+    if (static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->text ==
+        name) {
       index = i;
       break;
     }
@@ -260,6 +266,8 @@ void Tabber::SelectTab(std::string name) {
 
 void Tabber::ClearHeaderColor(SDL_Color col) {
   for (int i = 0; i < nrtitles; i++) {
-    static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->backgroundColor = col;
+    static_cast<Button *>(Get("h_" + std::to_string(i)))
+        ->GetProp()
+        ->backgroundColor = col;
   }
 }

@@ -1,4 +1,5 @@
 #include "Tooltip.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -96,8 +97,10 @@ void Tooltip::InternalInit() {
   Root *root = &Root::GetInstance();
   Tooltip *dt = static_cast<Tooltip *>(root->GetCurrent()->Get(name));
 
-  TextProp tprop = {prop.scene, prop.font, dt->GetRect().x + dt->GetRect().w / 20, dt->GetRect().y,
-                    nullptr, prop.text, prop.textColor};
+  TextProp tprop = {
+      prop.scene,      prop.font, dt->GetRect().x + dt->GetRect().w / 20,
+      dt->GetRect().y, nullptr,   prop.text,
+      prop.textColor};
 
   Text::Begin({dt, dt->name + "_text"}, tprop);
 
@@ -120,6 +123,11 @@ TooltipProp Tooltip::LoadTooltipProp(Configuration *conf) {
   SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
   std::string font = conf->Get("font").get<std::string>();
 
-  TooltipProp prop = {conf->Get("scene").get<std::string>(), font, text, textColor, backgroundColor, borderColor};
+  TooltipProp prop = {conf->Get("scene").get<std::string>(),
+                      font,
+                      text,
+                      textColor,
+                      backgroundColor,
+                      borderColor};
   return prop;
 }
