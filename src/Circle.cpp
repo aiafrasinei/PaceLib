@@ -1,4 +1,5 @@
 #include "graphics/conics/Circle.hpp"
+
 #include "Root.hpp"
 #include "Window.hpp"
 
@@ -119,7 +120,6 @@ void Circle::Draw() {
       status = 0;
 
       while (offsety >= offsetx) {
-
         status += SDL_RenderDrawLine(Window::GetRenderer(), prop.x - offsety,
                                      prop.y + offsetx, prop.x + offsety,
                                      prop.y + offsetx);

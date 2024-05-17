@@ -1,4 +1,5 @@
 #include "Rectangle.hpp"
+
 #include "Root.hpp"
 #include "Window.hpp"
 

@@ -1,4 +1,5 @@
 #include "Polygon.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;

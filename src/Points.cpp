@@ -1,4 +1,5 @@
 #include "graphics/points/Points.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -73,6 +74,7 @@ void Points::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderDrawPoints(Window::GetRenderer(), &prop.verts[0], prop.verts.size());
+    SDL_RenderDrawPoints(Window::GetRenderer(), &prop.verts[0],
+                         prop.verts.size());
   }
 }

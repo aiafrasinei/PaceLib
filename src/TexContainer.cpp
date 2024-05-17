@@ -1,4 +1,5 @@
 #include "TexContainer.hpp"
+
 #include "Window.hpp"
 
 using namespace PaceLib;
@@ -76,11 +77,13 @@ SDL_Texture *TexContainer::LoadTexture(SDL_Renderer *renderer,
 
   SDL_Surface *loaded_surface = IMG_Load(path.c_str());
   if (loaded_surface == nullptr) {
-    SDL_Log("Unable to load image %s ! SDL_image Error: %s", path.c_str(), IMG_GetError());
+    SDL_Log("Unable to load image %s ! SDL_image Error: %s", path.c_str(),
+            IMG_GetError());
   } else {
     new_tex = SDL_CreateTextureFromSurface(renderer, loaded_surface);
     if (new_tex == nullptr) {
-      SDL_Log("Unable to create texture from %s ! SDL Error: %s", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s ! SDL Error: %s", path.c_str(),
+              SDL_GetError());
     } else {
       SDL_Log("Loaded %s", path.c_str());
     }

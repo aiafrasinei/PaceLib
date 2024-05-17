@@ -1,4 +1,5 @@
 #include "ButtonTexGrid.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -20,7 +21,6 @@ ButtonTexGrid::ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp) {
   name = sid.name;
 
   wtype = WidgetType::BUTTONGRID;
-
 }
 
 ButtonTexGrid::ButtonTexGrid() {}
@@ -41,21 +41,23 @@ void ButtonTexGrid::Begin(ShapeId sid) {
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         ButtonTexProp p = {{prop.normal.tex,
-                          {prop.rect.x + i * (prop.rect.w + prop.distance),
-                           prop.rect.y + j * (prop.rect.w + prop.distance),
-                           prop.rect.w, prop.rect.h}},
-                         {prop.over.tex,
-                          {prop.rect.x + i * (prop.rect.w + prop.distance),
-                           prop.rect.y + j * (prop.rect.w + prop.distance),
-                           prop.rect.w, prop.rect.h}},
-                         prop.backgroundColor,
-                         prop.borderColor,
-                         prop.highlightColor,
-                         prop.drawBorder};
+                            {prop.rect.x + i * (prop.rect.w + prop.distance),
+                             prop.rect.y + j * (prop.rect.w + prop.distance),
+                             prop.rect.w, prop.rect.h}},
+                           {prop.over.tex,
+                            {prop.rect.x + i * (prop.rect.w + prop.distance),
+                             prop.rect.y + j * (prop.rect.w + prop.distance),
+                             prop.rect.w, prop.rect.h}},
+                           prop.backgroundColor,
+                           prop.borderColor,
+                           prop.highlightColor,
+                           prop.drawBorder};
 
         Root *root = &Root::GetInstance();
-        ButtonTex::Begin({root->GetCurrent(), sid.name + "_" + std::to_string(j) +
-                                                "_" + std::to_string(i)}, p);
+        ButtonTex::Begin(
+            {root->GetCurrent(),
+             sid.name + "_" + std::to_string(j) + "_" + std::to_string(i)},
+            p);
       }
     }
   }
@@ -153,7 +155,8 @@ ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
     }
   }
 
-  ButtonTexGridProp prop = {scene, dimr, distance, tex_prop, over_tex_prop, backgroundColor,
-          borderColor, highlightColor, drawBorder};
+  ButtonTexGridProp prop = {scene,       dimr,           distance,
+                            tex_prop,    over_tex_prop,  backgroundColor,
+                            borderColor, highlightColor, drawBorder};
   return prop;
 }

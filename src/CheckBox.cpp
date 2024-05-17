@@ -1,4 +1,5 @@
 #include "CheckBox.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -125,8 +126,10 @@ void CheckBox::InternalInit() {
   Root *root = &Root::GetInstance();
   CheckBox *newc = static_cast<CheckBox *>(root->GetCurrent()->Get(name));
 
-  TextProp tprop = {prop.scene, prop.font, newc->GetRect().x + newc->GetRect().w / 10,
-                    newc->GetRect().y, nullptr, prop.text, prop.textColor};
+  TextProp tprop = {
+      prop.scene,        prop.font, newc->GetRect().x + newc->GetRect().w / 10,
+      newc->GetRect().y, nullptr,   prop.text,
+      prop.textColor};
 
   Text::Begin({newc, newc->name + "_text"}, tprop);
 

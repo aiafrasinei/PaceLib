@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -15,14 +16,16 @@ Tex::Tex(std::string path, int x, int y) {
 
   SDL_Surface *loadedSurface = IMG_Load(path.c_str());
   if (loadedSurface == nullptr) {
-    SDL_Log("Unable to load image %s  Error: %s ", path.c_str(), IMG_GetError());
+    SDL_Log("Unable to load image %s  Error: %s ", path.c_str(),
+            IMG_GetError());
   } else {
     SDL_SetColorKey(loadedSurface, SDL_TRUE,
                     SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      SDL_Log("Unable to create texture from %s Error %s", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s Error %s", path.c_str(),
+              SDL_GetError());
     } else {
       rect.w = loadedSurface->w;
       rect.h = loadedSurface->h;
@@ -53,7 +56,8 @@ Tex::Tex(std::string path, int x, int y, int w, int h) {
 
     newtex = SDL_CreateTextureFromSurface(Window::GetRenderer(), loadedSurface);
     if (newtex == nullptr) {
-      SDL_Log("Unable to create texture from %s Error: %s", path.c_str(), SDL_GetError());
+      SDL_Log("Unable to create texture from %s Error: %s", path.c_str(),
+              SDL_GetError());
     } else {
       rect.w = w;
       rect.h = h;

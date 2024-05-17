@@ -1,4 +1,5 @@
 #include "graphics/lines/Lines.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -73,6 +74,7 @@ void Lines::Draw() {
   if (!hidden) {
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
-    SDL_RenderDrawLines(Window::GetRenderer(), &prop.verts[0], prop.verts.size());
+    SDL_RenderDrawLines(Window::GetRenderer(), &prop.verts[0],
+                        prop.verts.size());
   }
 }

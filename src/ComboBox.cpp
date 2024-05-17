@@ -1,5 +1,7 @@
-#include <algorithm>
 #include "ComboBox.hpp"
+
+#include <algorithm>
+
 #include "Root.hpp"
 #include "Triangle.hpp"
 
@@ -54,9 +56,14 @@ void ComboBox::Begin(ShapeId sid) {
     std::vector<std::string> tarr =
         conf->Get("text_arr").get<std::vector<std::string>>();
 
-    MultiItemsProp prop = { conf->Get("scene").get<std::string>(), font,
-        dimr, tarr, textColor, backgroundColor,
-        borderColor, highlightColor};
+    MultiItemsProp prop = {conf->Get("scene").get<std::string>(),
+                           font,
+                           dimr,
+                           tarr,
+                           textColor,
+                           backgroundColor,
+                           borderColor,
+                           highlightColor};
 
     ComboBox *newcb = new ComboBox(sid, prop);
 
@@ -136,37 +143,38 @@ void ComboBox::InternalInit() {
     SDL_Rect r = {root->GetCurrentAbsoluteCoords().x,
                   root->GetCurrentAbsoluteCoords().y + (i * this->GetRect().h),
                   this->GetRect().w, this->GetRect().h};
-    LabelProp prop = {
-        this->prop.scene,
-        this->prop.font,
-        r,
-        items[i],
-        this->prop.textColor,
-        {H::MID},
-        this->prop.backgroundColor,
-        this->prop.borderColor,
-        this->prop.highlightColor};
+    LabelProp prop = {this->prop.scene,
+                      this->prop.font,
+                      r,
+                      items[i],
+                      this->prop.textColor,
+                      {H::MID},
+                      this->prop.backgroundColor,
+                      this->prop.borderColor,
+                      this->prop.highlightColor};
 
     Button::Begin({root->GetCurrent(), "item_" + std::to_string(i)}, prop);
     root->GetCurrent()->Get("item_" + std::to_string(i))->Hide();
   }
 
-  LabelProp prop = {this->prop.scene, this->prop.font,
-                    {root->GetCurrentAbsoluteCoords().x,
-                     root->GetCurrentAbsoluteCoords().y, this->GetRect().w,
-                     this->GetRect().h},
-                    "",
-                    this->prop.textColor,
-                    {H::MID},
-                    this->prop.backgroundColor,
-                    this->prop.borderColor,
-                    this->prop.highlightColor};
+  LabelProp prop = {
+      this->prop.scene,
+      this->prop.font,
+      {root->GetCurrentAbsoluteCoords().x, root->GetCurrentAbsoluteCoords().y,
+       this->GetRect().w, this->GetRect().h},
+      "",
+      this->prop.textColor,
+      {H::MID},
+      this->prop.backgroundColor,
+      this->prop.borderColor,
+      this->prop.highlightColor};
 
   Button::Begin({root->GetCurrent(), "main_item_renderer"}, prop);
 
   Button *main_renderer =
       static_cast<Button *>(root->GetCurrent()->Get("main_item_renderer"));
-  main_renderer->mouseLeftButtonUpCallback = [this, main_renderer, root, current]() {
+  main_renderer->mouseLeftButtonUpCallback = [this, main_renderer, root,
+                                              current]() {
     mainRendererSelected = !mainRendererSelected;
     if (mainRendererSelected) {
       if (items.size() > 0) {
@@ -181,10 +189,10 @@ void ComboBox::InternalInit() {
   };
 
   for (int i = 0; i < items.size(); i++) {
-    Button *currentb =
-        static_cast<Button *>(root->GetCurrent()->Get("item_" + std::to_string(i)));
-    currentb->mouseLeftButtonUpCallback = [this, i, main_renderer, current, currentb,
-                                 root]() {
+    Button *currentb = static_cast<Button *>(
+        root->GetCurrent()->Get("item_" + std::to_string(i)));
+    currentb->mouseLeftButtonUpCallback = [this, i, main_renderer, current,
+                                           currentb, root]() {
       for (int i = 0; i < items.size(); i++) {
         current->Get("item_" + std::to_string(i))->Hide();
       }
@@ -204,8 +212,10 @@ int ComboBox::GetSelected() { return selected; }
 void ComboBox::SetSelection(int index) {
   selected = index;
 
-  Button *main_renderer = static_cast<Button *>(this->Get("main_item_renderer"));
-  Button *sel = static_cast<Button *>(this->Get("item_" + std::to_string(selected)));
+  Button *main_renderer =
+      static_cast<Button *>(this->Get("main_item_renderer"));
+  Button *sel =
+      static_cast<Button *>(this->Get("item_" + std::to_string(selected)));
 
   if (items.size() > 0) {
     main_renderer->SetText(sel->GetProp()->text);

@@ -1,4 +1,5 @@
 #include "Grid.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -16,7 +17,6 @@ Grid::Grid(ShapeId sid, GridProp inputProp) {
   name = sid.name;
 
   wtype = WidgetType::GRID;
-
 }
 
 Grid::Grid() {}
@@ -33,7 +33,6 @@ void Grid::Begin(ShapeId sid) {
     Grid *newg = new Grid(sid, prop);
 
     sid.parent->Add(newg);
-
   }
 }
 
@@ -71,14 +70,17 @@ void Grid::Begin(ShapeId sid, GridProp prop) {
 
 void Grid::Draw() {
   if (!hidden) {
-
     SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                            prop.color.b, prop.color.a);
 
-    for(int i=0; i <= prop.nr; i++) {
-      for(int j=0; j <= prop.nr; j++) {
-        SDL_RenderDrawLine(Window::GetRenderer(), prop.x, prop.y + (i * prop.distance) , prop.x + prop.distance * prop.nr, prop.y+ (i * prop.distance));
-        SDL_RenderDrawLine(Window::GetRenderer(), prop.x + (j * prop.distance), prop.y  , prop.x + (j * prop.distance), prop.y + prop.distance * prop.nr);
+    for (int i = 0; i <= prop.nr; i++) {
+      for (int j = 0; j <= prop.nr; j++) {
+        SDL_RenderDrawLine(
+            Window::GetRenderer(), prop.x, prop.y + (i * prop.distance),
+            prop.x + prop.distance * prop.nr, prop.y + (i * prop.distance));
+        SDL_RenderDrawLine(Window::GetRenderer(), prop.x + (j * prop.distance),
+                           prop.y, prop.x + (j * prop.distance),
+                           prop.y + prop.distance * prop.nr);
       }
     }
 

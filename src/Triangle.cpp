@@ -1,4 +1,5 @@
 #include "Triangle.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;

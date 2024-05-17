@@ -1,4 +1,5 @@
 #include "Text.hpp"
+
 #include "Root.hpp"
 #include "Window.hpp"
 
@@ -9,7 +10,7 @@ Text::Text(ShapeId sid, TextProp inputProp) {
 
   rect.x = prop.x;
   rect.y = prop.y;
-  
+
   if (sid.parent->name != "root") {
     rect.x = sid.parent->GetRect().x;
     rect.y = sid.parent->GetRect().y;
@@ -32,7 +33,7 @@ Text::Text(ShapeId sid, TextProp inputProp) {
   rect = {rect.x, rect.y, w, h};
 
   SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+                         prop.color.b, prop.color.a);
   SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
 }
 
@@ -102,15 +103,15 @@ void Text::SetY(int y) { rect.y = y; }
 std::string Text::GetText() { return prop.text; }
 
 void Text::SetText(std::string text) {
-    if(prop.text != text) {
-      Root *root = &Root::GetInstance();
-      prop.text = text;
-      root->GetScene(prop.scene)->GetFontContainer()->Remove(name);
-      root->GetScene(prop.scene)->AddFont(name, prop.font, prop.text, prop.color);
-      SDL_Texture *tex = root->GetScene(prop.scene)->GetFont(name);
-      prop.tex = tex;
-    }
+  if (prop.text != text) {
+    Root *root = &Root::GetInstance();
+    prop.text = text;
+    root->GetScene(prop.scene)->GetFontContainer()->Remove(name);
+    root->GetScene(prop.scene)->AddFont(name, prop.font, prop.text, prop.color);
+    SDL_Texture *tex = root->GetScene(prop.scene)->GetFont(name);
+    prop.tex = tex;
   }
+}
 
 TextProp Text::LoadTextProp(Configuration *conf) {
   int pos[2];
@@ -122,12 +123,19 @@ TextProp Text::LoadTextProp(Configuration *conf) {
   std::string text = conf->Get("text").get<std::string>();
   SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
 
-  root->GetScene(conf->Get("scene").get<std::string>())->AddFont(root->GetCurrent()->name, font, text, color);
+  root->GetScene(conf->Get("scene").get<std::string>())
+      ->AddFont(root->GetCurrent()->name, font, text, color);
 
   SDL_Texture *tex = root->GetScene(conf->Get("scene").get<std::string>())
-                      ->GetFont(root->GetCurrent()->name);
+                         ->GetFont(root->GetCurrent()->name);
 
-  TextProp prop = {conf->Get("scene").get<std::string>(), font, pos[0], pos[1], tex, text, color};
+  TextProp prop = {conf->Get("scene").get<std::string>(),
+                   font,
+                   pos[0],
+                   pos[1],
+                   tex,
+                   text,
+                   color};
 
   return prop;
 }

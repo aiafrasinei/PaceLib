@@ -64,12 +64,14 @@ Window::Window(Configuration *conf) {
 
         int img_flags = IMG_INIT_PNG;
         if (!(IMG_Init(img_flags) & img_flags)) {
-          SDL_Log("SDL_image could not initialize! SDL_image Error: %s", IMG_GetError());
+          SDL_Log("SDL_image could not initialize! SDL_image Error: %s",
+                  IMG_GetError());
           success = false;
         }
 
         if (TTF_Init() == -1) {
-          SDL_Log("SDL_ttf could not initialize! SDL_ttf Error: %s", TTF_GetError());
+          SDL_Log("SDL_ttf could not initialize! SDL_ttf Error: %s",
+                  TTF_GetError());
           success = false;
         }
       }

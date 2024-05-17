@@ -1,4 +1,5 @@
 #include "TextInput.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -127,8 +128,9 @@ void TextInput::InternalInit() {
   Root *root = &Root::GetInstance();
   TextInput *tin = static_cast<TextInput *>(root->GetCurrent()->Get(name));
 
-  TextProp tprop = {prop.scene, prop.font, GetRect().x + GetRect().w / 20, GetRect().y, nullptr,
-                    prop.text, prop.textColor};
+  TextProp tprop = {prop.scene,    prop.font, GetRect().x + GetRect().w / 20,
+                    GetRect().y,   nullptr,   prop.text,
+                    prop.textColor};
 
   Text::Begin({tin, tin->name + "_text"}, tprop);
 

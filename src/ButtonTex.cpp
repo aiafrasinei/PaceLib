@@ -1,4 +1,5 @@
 #include "ButtonTex.hpp"
+
 #include "Root.hpp"
 
 using namespace PaceLib;
@@ -138,7 +139,7 @@ void ButtonTex::Update(SDL_Event *e) {
   if (!hidden) {
     int x, y;
     SDL_GetMouseState(&x, &y);
-   
+
     UpdateMouse(e, x, y);
 
     if (highlight) {
@@ -201,4 +202,3 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
 
   return prop;
 }
-
