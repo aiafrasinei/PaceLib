@@ -3,8 +3,7 @@
 #include <functional>
 
 class Mouseable {
-
-public:
+ public:
   std::function<void(void)> mouseLeftButtonDownCallback;
 
   std::function<void(void)> mouseLeftButtonUpCallback;
@@ -12,7 +11,7 @@ public:
   std::function<void(void)> mouseRightButtonDownCallback;
 
   std::function<void(void)> mouseRightButtonUpCallback;
-  
-private:
-protected:
+
+ private:
+ protected:
 };

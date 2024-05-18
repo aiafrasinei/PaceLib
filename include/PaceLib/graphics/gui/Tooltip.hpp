@@ -6,7 +6,7 @@
 namespace PaceLib {
 
 class Tooltip : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -38,7 +38,7 @@ public:
 
   TooltipProp *GetProp() { return &prop; }
 
-private:
+ private:
   TooltipProp prop;
 
   int textSize;
@@ -50,4 +50,4 @@ private:
   static TooltipProp LoadTooltipProp(Configuration *conf);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

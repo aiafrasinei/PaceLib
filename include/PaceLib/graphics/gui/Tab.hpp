@@ -9,7 +9,7 @@
 namespace PaceLib {
 
 class Tab : public Widget {
-public:
+ public:
   ~Tab();
 
   // static methods
@@ -45,16 +45,16 @@ public:
   void Update(SDL_Event *e);
 
   TabProp *GetProp() { return &prop; }
-  
+
   Button *GetButton(std::string child);
   ButtonTex *GetButtonTex(std::string child);
   Label *GetLabel(std::string child);
   Widget *GetWidget(std::string child);
 
-private:
+ private:
   TabProp prop;
 
   static TabProp LoadTabProp(Configuration *conf);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

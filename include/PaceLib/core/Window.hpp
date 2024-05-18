@@ -4,8 +4,7 @@
 #include "../utils/Platform.hpp"
 
 class Window {
-
-public:
+ public:
   Window(Configuration *conf);
   ~Window();
 
@@ -26,7 +25,7 @@ public:
 
   static int width, height;
 
-private:
+ private:
   static SDL_Renderer *renderer;
   static SDL_Window *window;
 
@@ -34,5 +33,5 @@ private:
 
   bool success;
 
-protected:
+ protected:
 };

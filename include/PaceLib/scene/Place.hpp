@@ -2,13 +2,14 @@
 
 #include <string>
 #include <vector>
+
 #include "Scene.hpp"
 #include "utils/Platform.hpp"
 
 namespace PaceLib {
 
 class Place {
-public:
+ public:
   Place(std::string name, SDL_Window *window, SDL_Renderer *renderer);
   ~Place();
 
@@ -16,8 +17,8 @@ public:
 
   void Loop(SDL_Event *event);
 
-protected:
-private:
+ protected:
+ private:
   std::vector<PaceLib::Scene> *scenes;
 
   SDL_Window *window;
@@ -26,4 +27,4 @@ private:
   std::string name;
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
 #include <string>
 #include <vector>
-#include <SDL2/SDL.h>
 
 namespace PaceLib {
 
@@ -186,4 +187,4 @@ struct GridProp {
   SDL_Color color;
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

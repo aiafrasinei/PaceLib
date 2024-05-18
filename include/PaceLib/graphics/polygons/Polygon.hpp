@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Polygon : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -32,11 +32,11 @@ public:
 
   ~Polygon();
 
-protected:
-private:
+ protected:
+ private:
   std::vector<SDL_Vertex> verts;
 
   Polygon(ShapeId sid, std::vector<SDL_Vertex> verts);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

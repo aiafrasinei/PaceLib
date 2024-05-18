@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+
 #include "TexContainer.hpp"
 #include "TtfContainer.hpp"
 #include "core/interfaces/Drawable.hpp"
@@ -10,7 +11,7 @@
 namespace PaceLib {
 
 class Scene : public Drawable {
-public:
+ public:
   Scene(std::string name, SDL_Window *window, SDL_Renderer *renderer);
   ~Scene();
 
@@ -26,8 +27,10 @@ public:
   PaceLib::TtfContainer *GetTtfContainer();
 
   bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
-  bool AddFont(std::string name, std::string font, std::string text, SDL_Color color);
-  bool AddTtf(std::string name, std::filesystem::path file_path, int size, int style, int outline);
+  bool AddFont(std::string name, std::string font, std::string text,
+               SDL_Color color);
+  bool AddTtf(std::string name, std::filesystem::path file_path, int size,
+              int style, int outline);
 
   SDL_Texture *GetTex(std::string name);
 
@@ -37,8 +40,8 @@ public:
 
   void Update(SDL_Event *event);
 
-protected:
-private:
+ protected:
+ private:
   PaceLib::TexContainer *tex_atlas;
   PaceLib::TexContainer *font_atlas;
   PaceLib::TtfContainer *ttf_atlas;
@@ -49,4 +52,4 @@ private:
   std::string name;
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

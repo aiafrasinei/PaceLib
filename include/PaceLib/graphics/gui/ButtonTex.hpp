@@ -7,7 +7,7 @@
 namespace PaceLib {
 
 class ButtonTex : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -46,7 +46,7 @@ public:
 
   ~ButtonTex();
 
-private:
+ private:
   bool mouseOver;
 
   bool highlight;
@@ -58,4 +58,4 @@ private:
   ButtonTex(ShapeId sid, ButtonTexProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

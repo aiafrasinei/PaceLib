@@ -7,7 +7,7 @@
 namespace PaceLib {
 
 class Label : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -50,7 +50,7 @@ public:
 
   ~Label();
 
-protected:
+ protected:
   LabelProp prop;
 
   int textSize;
@@ -62,4 +62,4 @@ protected:
   Label(ShapeId sid, LabelProp inputProp);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

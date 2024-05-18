@@ -3,7 +3,7 @@
 namespace PaceLib {
 
 class Timer {
-public:
+ public:
   Timer();
   ~Timer();
 
@@ -17,7 +17,7 @@ public:
   bool IsStarted();
   bool IsPaused();
 
-private:
+ private:
   unsigned int start_ticks;
 
   unsigned int paused_ticks;
@@ -26,4 +26,4 @@ private:
   bool started;
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

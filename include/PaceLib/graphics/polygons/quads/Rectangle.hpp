@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Rectangle : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -34,11 +34,11 @@ public:
 
   ~Rectangle();
 
-protected:
-private:
+ protected:
+ private:
   PropDimColor prop;
 
   Rectangle(ShapeId sid, PropDimColor prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

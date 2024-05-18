@@ -1,15 +1,14 @@
 #pragma once
 
 class Focusable {
-
-public:
+ public:
   bool IsFocused() { return focus; }
 
   void Focus() { focus = true; }
 
   void Unfocus() { focus = false; }
 
-private:
-protected:
+ private:
+ protected:
   bool focus;
 };

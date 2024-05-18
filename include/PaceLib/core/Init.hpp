@@ -4,12 +4,12 @@
 
 namespace PaceLib {
 class Init {
-private:
+ private:
   Configuration *conf;
   Window *win;
   Root *root;
 
-public:
+ public:
   Init();
   ~Init();
 
@@ -25,4 +25,4 @@ public:
   std::function<void(void)> onUpdate = nullptr;
   std::function<void(SDL_Event *)> onEvent = nullptr;
 };
-} // namespace PaceLib
+}  // namespace PaceLib

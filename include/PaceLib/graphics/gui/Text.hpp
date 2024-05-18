@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Text : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -47,8 +47,8 @@ public:
 
   ~Text();
 
-protected:
-private:
+ protected:
+ private:
   TextProp prop;
 
   static TextProp LoadTextProp(Configuration *conf);
@@ -56,4 +56,4 @@ private:
   Text(ShapeId sid, TextProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

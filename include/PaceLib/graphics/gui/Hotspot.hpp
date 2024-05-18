@@ -6,7 +6,7 @@
 
 namespace PaceLib {
 class Hotspot : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -49,7 +49,7 @@ public:
 
   ~Hotspot();
 
-private:
+ private:
   Hotspot(ShapeId sid, HotspotProp prop);
 
   HotspotProp prop;
@@ -65,4 +65,4 @@ private:
   static HotspotProp LoadHotspotProp(Configuration *conf);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

@@ -3,10 +3,9 @@
 #include "SDL2/SDL.h"
 
 class Drawable {
-
-public:
+ public:
   virtual void Draw() = 0;
 
-private:
-protected:
+ private:
+ protected:
 };
