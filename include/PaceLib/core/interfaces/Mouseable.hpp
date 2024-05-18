@@ -2,6 +2,8 @@
 
 #include <functional>
 
+namespace PaceLib {
+
 class Mouseable {
  public:
   std::function<void(void)> mouseLeftButtonDownCallback;
@@ -15,3 +17,5 @@ class Mouseable {
  private:
  protected:
 };
+
+}  // namespace PaceLib

@@ -3,6 +3,8 @@
 #include "../config/Configuration.hpp"
 #include "../utils/Platform.hpp"
 
+namespace PaceLib {
+
 class Window {
  public:
   Window(Configuration *conf);
@@ -35,3 +37,5 @@ class Window {
 
  protected:
 };
+
+}  // namespace PaceLib
