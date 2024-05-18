@@ -8,7 +8,7 @@
 namespace PaceLib {
 
 class TextInput : public Label, public Focusable {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -45,7 +45,7 @@ public:
 
   ~TextInput();
 
-private:
+ private:
   int textSize;
 
   TextInput(ShapeId sid, LabelProp prop);
@@ -53,4 +53,4 @@ private:
   void InternalInit();
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

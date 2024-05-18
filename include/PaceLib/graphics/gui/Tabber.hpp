@@ -8,7 +8,7 @@
 namespace PaceLib {
 
 class Tabber : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -58,7 +58,7 @@ public:
   Tab *GetTab(int index);
 
   int GetNrTabs();
-  
+
   void SelectTab(int index);
 
   void SelectTab(std::string name);
@@ -67,7 +67,7 @@ public:
 
   ~Tabber();
 
-private:
+ private:
   std::vector<std::string> titles;
 
   SDL_Color textColor;
@@ -88,4 +88,4 @@ private:
   void ClearHeaderColor(SDL_Color col);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

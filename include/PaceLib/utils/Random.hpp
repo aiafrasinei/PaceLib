@@ -3,8 +3,7 @@
 #include <random>
 
 class Random {
-
-public:
+ public:
   Random() {}
 
   ~Random() {}
@@ -21,6 +20,6 @@ public:
     return distr(gen);
   }
 
-private:
+ private:
   std::random_device rd;
 };

@@ -8,7 +8,7 @@
 namespace PaceLib {
 
 class Button : public Label {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -47,7 +47,7 @@ public:
 
   ~Button();
 
-private:
+ private:
   bool mouseOver;
 
   bool highlight;
@@ -55,4 +55,4 @@ private:
   Button(ShapeId sid, LabelProp inputProp);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

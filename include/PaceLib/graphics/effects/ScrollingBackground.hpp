@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+
 #include "../../core/Window.hpp"
 #include "../../core/interfaces/Hidable.hpp"
 #include "../../utils/Platform.hpp"
@@ -9,7 +10,7 @@
 namespace PaceLib {
 
 class ScrollingBackground : public Hidable {
-public:
+ public:
   ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
   ~ScrollingBackground();
 
@@ -20,12 +21,12 @@ public:
 
   void Draw(float timeStep);
 
-protected:
-private:
+ protected:
+ private:
   SDL_Texture *tex;
   SDL_FRect rect;
 
   float scrollingOffset;
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

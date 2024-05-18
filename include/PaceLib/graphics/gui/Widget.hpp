@@ -2,13 +2,14 @@
 
 #include <functional>
 #include <map>
+
 #include "Props.hpp"
 #include "Shape.hpp"
 
 namespace PaceLib {
 
 class Widget : public Shape {
-public:
+ public:
   virtual void Draw() = 0;
 
   WidgetType GetWidgetType() { return wtype; }
@@ -57,7 +58,7 @@ public:
     return color;
   }
 
-protected:
+ protected:
   WidgetType wtype;
 };
 
@@ -65,4 +66,4 @@ struct ShapeId {
   Shape *parent;
   std::string name;
 };
-} // namespace PaceLib
+}  // namespace PaceLib

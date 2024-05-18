@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Sprite : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -39,8 +39,8 @@ public:
 
   ~Sprite();
 
-protected:
-private:
+ protected:
+ private:
   SpriteProp prop;
 
   SDL_Texture *tex;
@@ -54,4 +54,4 @@ private:
   Sprite(ShapeId sid, SpriteProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

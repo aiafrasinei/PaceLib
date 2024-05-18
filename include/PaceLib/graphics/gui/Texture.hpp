@@ -4,7 +4,7 @@
 
 namespace PaceLib {
 class Tex : public Hidable {
-public:
+ public:
   Tex(std::string path, int x, int y);
   Tex(std::string path, int x, int y, int w, int h);
 
@@ -25,14 +25,14 @@ public:
   int GetWidth();
   int GetHeight();
 
-protected:
-private:
+ protected:
+ private:
   SDL_Texture *tex;
   SDL_FRect rect;
 };
 
 class Texture : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -69,8 +69,8 @@ public:
 
   ~Texture();
 
-protected:
-private:
+ protected:
+ private:
   SDL_Texture *tex;
   SDL_FRect rect;
 
@@ -79,4 +79,4 @@ private:
   Texture(ShapeId sid, SDL_Texture *tex, SDL_FRect dim);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

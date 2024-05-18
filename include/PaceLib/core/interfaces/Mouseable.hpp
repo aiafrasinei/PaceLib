@@ -12,7 +12,5 @@ public:
   std::function<void(void)> mouseRightButtonDownCallback;
 
   std::function<void(void)> mouseRightButtonUpCallback;
-  
-private:
-protected:
+
 };

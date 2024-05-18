@@ -8,7 +8,7 @@
 namespace PaceLib {
 
 class CheckBox : public Label {
-public:
+ public:
   ~CheckBox();
 
   // static methods
@@ -50,7 +50,7 @@ public:
 
   LabelProp *GetProp() { return &prop; }
 
-private:
+ private:
   bool mouseOver;
 
   bool highlight;
@@ -64,4 +64,4 @@ private:
   void InternalInit();
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

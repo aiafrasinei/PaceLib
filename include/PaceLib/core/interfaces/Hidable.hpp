@@ -9,7 +9,6 @@ public:
 
   void Show() { hidden = false; }
 
-private:
 protected:
   bool hidden;
 };

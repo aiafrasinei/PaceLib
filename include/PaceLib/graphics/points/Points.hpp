@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Points : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -30,11 +30,11 @@ public:
 
   ~Points();
 
-protected:
-private:
+ protected:
+ private:
   VertsProp prop;
 
   Points(ShapeId sid, VertsProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

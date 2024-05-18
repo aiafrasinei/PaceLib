@@ -5,13 +5,14 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+
 #include "Props.hpp"
 #include "utils/Platform.hpp"
 
 namespace PaceLib {
 
 class TexContainer {
-public:
+ public:
   TexContainer(std::string name, SDL_Renderer *renderer);
   ~TexContainer();
 
@@ -32,8 +33,8 @@ public:
   std::string GetName();
   void ChangeName(std::string name);
 
-protected:
-private:
+ protected:
+ private:
   SDL_Renderer *renderer;
 
   std::map<std::string, TexProp *> ntr;
@@ -42,4 +43,4 @@ private:
   SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

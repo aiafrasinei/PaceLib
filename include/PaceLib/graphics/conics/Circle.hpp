@@ -6,7 +6,7 @@
 namespace PaceLib {
 
 class Circle : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -38,8 +38,8 @@ public:
 
   ~Circle();
 
-protected:
-private:
+ protected:
+ private:
   CircleProp prop;
 
   DrawTypes rtype;
@@ -47,4 +47,4 @@ private:
   Circle(ShapeId sid, CircleProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

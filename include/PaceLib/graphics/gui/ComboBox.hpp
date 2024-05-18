@@ -7,7 +7,7 @@
 namespace PaceLib {
 
 class ComboBox : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -49,7 +49,7 @@ public:
 
   MultiItemsProp *GetProp() { return &prop; }
 
-private:
+ private:
   ComboBox(ShapeId sid, MultiItemsProp prop);
 
   MultiItemsProp prop;
@@ -66,4 +66,4 @@ private:
 
   bool mainRendererSelected;
 };
-} // namespace PaceLib
+}  // namespace PaceLib

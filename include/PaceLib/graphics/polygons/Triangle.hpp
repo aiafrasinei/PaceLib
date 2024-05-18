@@ -5,7 +5,7 @@
 namespace PaceLib {
 
 class Triangle : public Shape {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -42,8 +42,8 @@ public:
 
   ~Triangle();
 
-protected:
-private:
+ protected:
+ private:
   TriangleProp prop;
 
   SDL_Point points[4];
@@ -53,4 +53,4 @@ private:
   Triangle(ShapeId sid, TriangleProp prop);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

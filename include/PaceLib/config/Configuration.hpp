@@ -1,14 +1,15 @@
 #pragma once
 
-#include "../externals/nlohmann/json.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
 
+#include "../externals/nlohmann/json.hpp"
+
 using json = nlohmann::json;
 
 class Configuration {
-public:
+ public:
   Configuration(std::string fname);
   ~Configuration();
 
@@ -26,7 +27,7 @@ public:
 
   void Dump();
 
-private:
+ private:
   std::ifstream ifs;
   std::string jsons;
   json j;

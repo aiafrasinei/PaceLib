@@ -9,7 +9,6 @@ public:
 
   void Unfocus() { focus = false; }
 
-private:
 protected:
   bool focus;
 };

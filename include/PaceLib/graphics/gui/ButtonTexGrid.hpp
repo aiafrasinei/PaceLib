@@ -7,7 +7,7 @@
 namespace PaceLib {
 
 class ButtonTexGrid : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -16,7 +16,7 @@ public:
   example format:
   {
       "scene" : "Default",
-	    "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
+            "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
       "distance" : 10.0,
       "tex_name" : "sn_yellow.png",
       "over_tex_name" : "",
@@ -44,13 +44,13 @@ public:
 
   ~ButtonTexGrid();
 
-protected:
+ protected:
   ButtonTexGridProp prop;
 
   ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp);
 
-private:
+ private:
   static ButtonTexGridProp LoadButtonTexGridProp(Configuration *conf);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

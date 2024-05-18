@@ -39,8 +39,10 @@
 // gui
 #include "graphics/gui/Button.hpp"
 #include "graphics/gui/ButtonTex.hpp"
+#include "graphics/gui/ButtonTexGrid.hpp"
 #include "graphics/gui/CheckBox.hpp"
 #include "graphics/gui/ComboBox.hpp"
+#include "graphics/gui/Grid.hpp"
 #include "graphics/gui/Label.hpp"
 #include "graphics/gui/Root.hpp"
 #include "graphics/gui/Tab.hpp"
@@ -50,8 +52,6 @@
 #include "graphics/gui/TextInput.hpp"
 #include "graphics/gui/Texture.hpp"
 #include "graphics/gui/Tooltip.hpp"
-#include "graphics/gui/Grid.hpp"
-#include "graphics/gui/ButtonTexGrid.hpp"
 
 // effects
 #include "graphics/effects/ScrollingBackground.hpp"

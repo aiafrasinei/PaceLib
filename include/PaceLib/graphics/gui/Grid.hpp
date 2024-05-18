@@ -7,7 +7,7 @@
 namespace PaceLib {
 
 class Grid : public Widget {
-public:
+ public:
   // static methods
 
   // json configuration
@@ -16,7 +16,7 @@ public:
   example format:
   {
     "x" : 100.0,
-	  "y" : 100.0,
+          "y" : 100.0,
     "nr" : 8,
     "distance" : 50.0,
     "color" : [100, 100, 100, 255]
@@ -41,13 +41,13 @@ public:
 
   ~Grid();
 
-protected:
+ protected:
   GridProp prop;
 
   Grid(ShapeId sid, GridProp inputProp);
 
-private:
+ private:
   static GridProp LoadGridProp(Configuration *conf);
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

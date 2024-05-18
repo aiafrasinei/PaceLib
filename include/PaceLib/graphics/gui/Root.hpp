@@ -18,7 +18,7 @@
 namespace PaceLib {
 
 class Root : public Widget {
-public:
+ public:
   ~Root();
 
   static Root &GetInstance() {
@@ -80,7 +80,7 @@ public:
 
   static void ParseDim(float dim[4], Configuration *conf);
 
-private:
+ private:
   State *state;
 
   std::map<std::string, Scene *> scenes;
@@ -92,4 +92,4 @@ private:
   Root();
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

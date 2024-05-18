@@ -6,7 +6,7 @@
 namespace PaceLib {
 
 class TextArea : public Widget {
-public:
+ public:
   ~TextArea();
 
   // static methods
@@ -41,7 +41,7 @@ public:
 
   MultiItemsProp *GetProp() { return &prop; }
 
-private:
+ private:
   MultiItemsProp prop;
 
   int textSpacing;
@@ -53,4 +53,4 @@ private:
   void InternalInit();
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib

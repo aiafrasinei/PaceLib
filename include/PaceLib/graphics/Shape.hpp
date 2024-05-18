@@ -2,17 +2,21 @@
 
 #include <string>
 #include <vector>
+
 #include "../core/Window.hpp"
 #include "../core/interfaces/Drawable.hpp"
 #include "../core/interfaces/Hidable.hpp"
-#include "../core/interfaces/Updateable.hpp"
 #include "../core/interfaces/Mouseable.hpp"
+#include "../core/interfaces/Updateable.hpp"
 #include "../utils/Platform.hpp"
 
 namespace PaceLib {
 
-class Shape : public Drawable, public Hidable, public Updateable, public Mouseable {
-public:
+class Shape : public Drawable,
+              public Hidable,
+              public Updateable,
+              public Mouseable {
+ public:
   Shape() {
     hidden = false;
     conf = nullptr;
@@ -98,7 +102,7 @@ public:
 
   Configuration *conf;
 
-protected:
+ protected:
   void LoadDrawColor() {
     Uint8 dr, dg, db, da;
 
@@ -113,7 +117,7 @@ protected:
 
   void UpdateMouse(SDL_Event *e, float x, float y) {
     if (e->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-      if(e->button.button == SDL_BUTTON_LEFT) {
+      if (e->button.button == SDL_BUTTON_LEFT) {
         if (PointInRect({x, y}, rect)) {
           callMouseCallback(e, mouseLeftButtonDownCallback);
         }
@@ -125,7 +129,7 @@ protected:
     }
 
     if (e->type == SDL_EVENT_MOUSE_BUTTON_UP) {
-      if(e->button.button == SDL_BUTTON_LEFT) {
+      if (e->button.button == SDL_BUTTON_LEFT) {
         if (PointInRect({x, y}, rect)) {
           callMouseCallback(e, mouseLeftButtonUpCallback);
         }
@@ -137,7 +141,7 @@ protected:
     }
   }
 
-private:
+ private:
   void callMouseCallback(SDL_Event *e, std::function<void(void)> fun) {
     if (fun != nullptr) {
       fun();
@@ -146,4 +150,4 @@ private:
   }
 };
 
-} // namespace PaceLib
+}  // namespace PaceLib
