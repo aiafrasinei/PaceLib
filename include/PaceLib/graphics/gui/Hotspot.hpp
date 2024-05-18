@@ -5,6 +5,7 @@
 #include "Widget.hpp"
 
 namespace PaceLib {
+  
 class Hotspot : public Widget {
  public:
   // static methods

@@ -1,5 +1,7 @@
 #pragma once
 
+namespace PaceLib {
+
 class Hidable {
 
 public:
@@ -12,3 +14,5 @@ public:
 protected:
   bool hidden;
 };
+
+}  // namespace PaceLib

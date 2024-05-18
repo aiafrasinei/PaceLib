@@ -1,5 +1,7 @@
 #pragma once
 
+namespace PaceLib {
+
 class Focusable {
 
 public:
@@ -12,3 +14,5 @@ public:
 protected:
   bool focus;
 };
+
+}  // namespace PaceLib

@@ -2,6 +2,8 @@
 
 #include <random>
 
+namespace PaceLib {
+
 class Random {
  public:
   Random() {}
@@ -23,3 +25,5 @@ class Random {
  private:
   std::random_device rd;
 };
+
+}  // namespace PaceLib

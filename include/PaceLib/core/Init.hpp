@@ -3,6 +3,7 @@
 #include "PaceLib.hpp"
 
 namespace PaceLib {
+
 class Init {
  private:
   Configuration *conf;
@@ -25,4 +26,5 @@ class Init {
   std::function<void(void)> onUpdate = nullptr;
   std::function<void(SDL_Event *)> onEvent = nullptr;
 };
+
 }  // namespace PaceLib
