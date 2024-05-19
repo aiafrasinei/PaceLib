@@ -66,4 +66,5 @@ struct ShapeId {
   Shape *parent;
   std::string name;
 };
+
 }  // namespace PaceLib

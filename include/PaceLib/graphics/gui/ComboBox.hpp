@@ -66,4 +66,5 @@ class ComboBox : public Widget {
 
   bool mainRendererSelected;
 };
+
 }  // namespace PaceLib

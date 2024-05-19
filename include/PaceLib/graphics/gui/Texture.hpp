@@ -3,6 +3,7 @@
 #include "Widget.hpp"
 
 namespace PaceLib {
+  
 class Tex : public Hidable {
  public:
   Tex(std::string path, int x, int y);
