@@ -19,8 +19,8 @@ Prerequisites:
 
 Documentation:
 
-- [Install](https://github.com/aiafrasinei/PaceLib/blob/main/INSTALL.md)
-- [Examples](https://github.com/aiafrasinei/PaceLib/tree/main/examples)
+- [Install](https://github.com/aiafrasinei/PaceLib/blob/PaceLib_SDL2/INSTALL.md)
+- [Examples](https://github.com/aiafrasinei/PaceLib/tree/PaceLib_SDL2/examples)
 - [Code documentation](https://binary-station.github.io/PaceLib/html/index.html)
 
 Helper projects:
@@ -30,7 +30,7 @@ Helper projects:
 
 Screenshots:
 
-- [Screenshots](https://github.com/aiafrasinei/PaceLib/blob/main/SCREENSHOTS.md)
+- [Screenshots](https://github.com/aiafrasinei/PaceLib/blob/PaceLib_SDL2/SCREENSHOTS.md)
 
 Code:
 
