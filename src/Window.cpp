@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-using namespace std;
+using namespace PaceLib;
 
 SDL_Renderer *Window::renderer = nullptr;
 SDL_Window *Window::window = nullptr;
