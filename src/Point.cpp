@@ -22,8 +22,8 @@ void Point::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    float x = conf->Get("x");
-    float y = conf->Get("y");
+    int x = conf->Get("x");
+    int y = conf->Get("y");
 
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};

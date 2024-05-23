@@ -8,6 +8,8 @@
 
 using json = nlohmann::json;
 
+namespace PaceLib {
+
 class Configuration {
  public:
   Configuration(std::string fname);
@@ -33,3 +35,5 @@ class Configuration {
   json j;
   std::string fname;
 };
+
+}  // namespace PaceLib

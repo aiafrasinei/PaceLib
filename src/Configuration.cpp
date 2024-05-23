@@ -6,6 +6,8 @@
 
 using json = nlohmann::json;
 
+using namespace PaceLib;
+
 Configuration::Configuration(std::string fname) {
   this->fname = fname;
 

@@ -52,6 +52,7 @@ bool init() {
   ButtonTex::Begin("gfx0");
   ButtonTex::Begin("gfx1");
   ButtonTex::Begin("gfx2");
+  Texture::Begin("tt");
 
   ComboBox::Begin("testcomb");
   root->GetComboBox("testcomb")->SetSelection(2);

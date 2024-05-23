@@ -64,6 +64,7 @@ add_executable (gui
     ../../src/Tooltip.cpp
     ../../src/TextArea.cpp
     ../../src/TextInput.cpp
+    ../../src/Texture.cpp
     ../../src/Tabber.cpp
     ../../src/Configuration.cpp
     ../../src/ComboBox.cpp

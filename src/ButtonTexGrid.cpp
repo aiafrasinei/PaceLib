@@ -119,7 +119,7 @@ ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
 
   SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
   std::string scene = conf->Get("scene").get<std::string>();
-  float distance = conf->Get("distance").get<float>();
+  int distance = conf->Get("distance").get<int>();
 
   SDL_Color borderColor = {0, 0, 0, 255};
   bool drawBorder = true;

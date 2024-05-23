@@ -15,11 +15,11 @@ class Grid : public Widget {
   /* Loads wconf file
   example format:
   {
-    "x" : 100.0,
-          "y" : 100.0,
-    "nr" : 8,
-    "distance" : 50.0,
-    "color" : [100, 100, 100, 255]
+      "x" : 100.0,
+      "y" : 100.0,
+      "nr" : 8,
+      "distance" : 50.0,
+      "color" : [100, 100, 100, 255]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);

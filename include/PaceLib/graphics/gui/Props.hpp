@@ -170,7 +170,7 @@ struct HotspotProp {
 struct ButtonTexGridProp {
   std::string scene;
   SDL_Rect rect;
-  float distance;
+  int distance;
   TexProp normal;
   TexProp over;
   SDL_Color backgroundColor;
