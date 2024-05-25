@@ -78,7 +78,7 @@ class Root : public Widget {
     currentAbsoluteCoords.y = 0;
   }
 
-  static void ParseDim(int dim[4], Configuration *conf);
+  static void ParseRect(std::string name, int dim[4], Configuration *conf);
 
  private:
   State *state;

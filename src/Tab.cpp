@@ -112,7 +112,7 @@ Widget *Tab::GetWidget(std::string child) {
 
 TabProp Tab::LoadTabProp(Configuration *conf) {
   int dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   Root *root = &Root::GetInstance();
 

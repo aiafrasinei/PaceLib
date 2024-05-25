@@ -105,7 +105,7 @@ void ButtonTexGrid::Draw() {
 
 ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
   int dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   HorizontalAlign align;
   if (conf->Get("align") == "left")

@@ -156,7 +156,7 @@ void ButtonTex::SetHighlight(bool state) { highlight = state; }
 
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
   int dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   SDL_Rect dimr = {dim[0], dim[1], dim[2], dim[3]};
 

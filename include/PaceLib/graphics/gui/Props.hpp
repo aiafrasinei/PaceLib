@@ -131,6 +131,15 @@ struct TexProp {
   SDL_Rect rect;
 };
 
+struct TextureProp {
+  SDL_Texture *tex;
+  SDL_Rect *srcrect;
+  SDL_Rect *dstrect;
+  double angle;
+  SDL_Point *center;
+  SDL_RendererFlip flip;
+};
+
 struct MultiItemsProp {
   std::string scene;
   std::string font;
