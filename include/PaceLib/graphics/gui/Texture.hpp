@@ -14,8 +14,12 @@ class Texture : public Widget {
   example format:
   {
       "scene" : "Default",
-      "tex_name": "tex.png",
-      "dim" : "[10, 10, 100 , 100]"
+      "tex_name": "sn_yellow.png",
+      "srcrect" : [],
+      "dstrect" : ["700", "300", "300", "300"],
+      "angle" : 0.0,
+      "center" : [],
+      "flip" : "none"
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
@@ -26,7 +30,7 @@ class Texture : public Widget {
 
   // programmatic
 
-  static void Begin(ShapeId sid, TexProp inputProp);
+  static void Begin(ShapeId sid, TextureProp inputProp);
 
   // end static methods
 
@@ -35,13 +39,13 @@ class Texture : public Widget {
   int GetWidth();
   int GetHeight();
 
-  TexProp *GetProp() { return &prop; }
+  TextureProp *GetProp() { return &prop; }
 
  protected:
  private:
-  TexProp prop;
+  TextureProp prop;
 
-  Texture(ShapeId sid, TexProp inputProp);
+  Texture(ShapeId sid, TextureProp inputProp);
 };
 
 }  // namespace PaceLib

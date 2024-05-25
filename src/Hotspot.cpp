@@ -35,7 +35,7 @@ void Hotspot::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     float dim[4];
-    Root::ParseDim(dim, conf);
+    Root::ParseRect("dim", dim, conf);
 
     HotspotProp prop = LoadHotspotProp(conf);
 
@@ -119,7 +119,7 @@ void Hotspot::SetHighlightColor(SDL_Color color) { highlightColor = color; }
 
 HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
   float dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("rect", dim, conf);
 
   Root *root = &Root::GetInstance();
 

@@ -27,7 +27,7 @@ void Rectangle::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     float dim[4];
-    Root::ParseDim(dim, conf);
+    Root::ParseRect("dim", dim, conf);
 
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};

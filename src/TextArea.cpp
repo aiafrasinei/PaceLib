@@ -117,7 +117,7 @@ void TextArea::InternalInit() {
 
 MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
   float dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   Root *root = &Root::GetInstance();
 

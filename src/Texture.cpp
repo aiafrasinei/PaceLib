@@ -4,17 +4,22 @@
 
 using namespace PaceLib;
 
-Texture::Texture(ShapeId sid, TexProp inputProp) {
+Texture::Texture(ShapeId sid, TextureProp inputProp) {
   prop = inputProp;
 
-  rect = prop.rect;
-
- if (sid.parent->name != "root") {
-    rect.x = sid.parent->GetRect().x + prop.rect.x;
-    rect.y = sid.parent->GetRect().y + prop.rect.y;
+  if(prop.dstrect != nullptr) {
+    rect.x = (*prop.dstrect).x;
+    rect.y = (*prop.dstrect).y;
+    rect.w = (*prop.dstrect).w;
+    rect.h = (*prop.dstrect).h;
   }
 
-  prop.rect = rect;
+ if (sid.parent->name != "root") {
+    rect.x = sid.parent->GetRect().x + (*prop.dstrect).x;
+    rect.y = sid.parent->GetRect().y + (*prop.dstrect).y;
+  }
+
+  prop.dstrect = &rect;
 
   hidden = false;
 
@@ -29,12 +34,60 @@ void Texture::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     float dim[4];
-    Root::ParseDim(dim, conf);
+    Root::ParseRect("rect", dim, conf);
 
     SDL_Texture *tex = Root::GetInstance()
                            .GetScene(conf->Get("scene").get<std::string>())
                            ->GetTex(conf->Get("tex_name").get<std::string>());
-    sid.parent->Add(new Texture(sid, { tex, {dim[0], dim[1], dim[2], dim[3]} }));
+
+    SDL_FRect *srcrectInstance = nullptr;
+
+    nlohmann::json data = conf->Get("srcrect");
+    if(data.size() > 0) {
+      float srcrect[4];
+      Root::ParseRect("srcrect", srcrect, conf);
+      SDL_FRect temp = {srcrect[0], srcrect[1], srcrect[2], srcrect[3]};
+      srcrectInstance = &temp;
+    }
+
+    SDL_FRect *dstrectInstance = nullptr;
+  
+    data = conf->Get("dstrect");
+    if(data.size() > 0) {
+      float destrect[4];
+      Root::ParseRect("dstrect", destrect, conf);
+      SDL_FRect temp = {destrect[0], destrect[1], destrect[2], destrect[3]};
+      dstrectInstance = &temp;
+    }
+
+    double angle = conf->Get("angle").get<double>();
+    
+    std::string flipstr = conf->Get("flip").get<std::string>();
+    SDL_FlipMode flip;
+    if(flipstr == "none") {
+      flip = SDL_FlipMode::SDL_FLIP_NONE;
+    } else if (flipstr == "vertical") {
+      flip = SDL_FlipMode::SDL_FLIP_VERTICAL;
+    } else if (flipstr == "horizontal") {
+      flip = SDL_FlipMode::SDL_FLIP_HORIZONTAL;
+    }
+
+    SDL_FPoint *center = nullptr;
+    data = conf->Get("center");
+    if(data.size() > 0) {
+      float cen[2];
+      cen[0] = std::stoi(data[0].get<std::string>());
+      cen[1] = std::stoi(data[1].get<std::string>());
+      SDL_FPoint temp = {cen[0], cen[1]};
+      center = &temp;
+    }
+
+    TextureProp nt = { tex,
+    srcrectInstance, 
+    dstrectInstance,
+    angle, center, flip};
+
+    sid.parent->Add(new Texture(sid, nt));
   }
 }
 
@@ -66,7 +119,7 @@ void Texture::EndBlock() {
 
 void Texture::Draw() {
   if (!hidden) {
-    SDL_RenderTexture(Window::GetRenderer(), prop.tex, nullptr, &prop.rect);
+    SDL_RenderTextureRotated(Window::GetRenderer(), prop.tex, prop.srcrect, prop.dstrect, prop.angle, prop.center, prop.flip);
 
     for (Shape *w : shapes) {
       w->Draw();
@@ -74,6 +127,6 @@ void Texture::Draw() {
   }
 }
 
-void Texture::Begin(ShapeId sid, TexProp inputProp) {
+void Texture::Begin(ShapeId sid, TextureProp inputProp) {
   sid.parent->Add(new Texture(sid, inputProp));
 }

@@ -40,7 +40,7 @@ void ComboBox::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     float dim[4];
-    Root::ParseDim(dim, conf);
+    Root::ParseRect("dim", dim, conf);
 
     Root *root = &Root::GetInstance();
 

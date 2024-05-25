@@ -147,7 +147,7 @@ void Label::SetTextAlign(HorizontalAlign align) {
 
 LabelProp Label::LoadLabelProp(Configuration *conf) {
   float dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   HorizontalAlign align;
   if (conf->Get("align") == "left")

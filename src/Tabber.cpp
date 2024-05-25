@@ -188,7 +188,7 @@ void Tabber::Update(SDL_Event *e) {
 
 TabberProp Tabber::LoadTabberProp(Configuration *conf) {
   float dim[4];
-  Root::ParseDim(dim, conf);
+  Root::ParseRect("dim", dim, conf);
 
   HorizontalAlign align;
   if (conf->Get("buttons_text_align") == "left")
