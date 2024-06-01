@@ -83,3 +83,6 @@ void Polygon::Draw() {
                        nullptr, 0);
   }
 }
+
+void Polygon::SetVerts(std::vector<SDL_Vertex> verts) { verts = verts; }
+std::vector<SDL_Vertex> Polygon::GetVerts() { return verts; }

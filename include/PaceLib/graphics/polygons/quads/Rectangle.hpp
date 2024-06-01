@@ -6,6 +6,8 @@ namespace PaceLib {
 
 class Rectangle : public Shape {
  public:
+  ~Rectangle();
+  
   // static methods
 
   // json configuration
@@ -28,11 +30,8 @@ class Rectangle : public Shape {
   static void Begin(ShapeId sid, PropDimColor prop);
 
   // end static methods
+
   void Draw();
-
-  PropDimColor *GetProp() { return &prop; }
-
-  ~Rectangle();
 
  protected:
  private:

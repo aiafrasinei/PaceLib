@@ -32,8 +32,15 @@ class Sprite : public Shape {
 
   // end static methods
 
+  // setters, getters
   void SetTex(SDL_Texture *tex);
-  void SetRect(SDL_Rect dim);
+  SDL_Texture *GetTex();
+
+  void SetOffset(int offset);
+  int GetOffset();
+
+  void SetNr(int nr);
+  int GetNr();
 
   void Draw();
 
@@ -43,15 +50,10 @@ class Sprite : public Shape {
  private:
   SpriteProp prop;
 
-  SDL_Texture *tex;
-
   SDL_Rect src_rect;
   SDL_Rect dest_rect;
 
-  int offset;
-  int nr;
-
-  Sprite(ShapeId sid, SpriteProp prop);
+  Sprite(ShapeId sid, SpriteProp inputProp);
 };
 
 }  // namespace PaceLib

@@ -139,3 +139,23 @@ MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
                          borderColor};
   return prop;
 }
+
+void TextArea::SetScene(std::string scene) { prop.scene = scene; }
+std::string TextArea::GetScene() { return prop.scene; }
+
+void TextArea::SetFont(std::string font) { prop.font = font; }
+std::string TextArea::GetFont() { return prop.font; }
+
+void TextArea::SetText(std::vector<std::string> tarr) { prop.tarr = tarr; }
+std::vector<std::string> TextArea::GetText() { return prop.tarr; }
+
+void TextArea::SetTextColor(SDL_Color color) { prop.textColor = color; }
+SDL_Color TextArea::GetTextColor() { return prop.textColor; }
+
+void TextArea::SetBackgroundColor(SDL_Color color) {
+  prop.backgroundColor = color;
+}
+SDL_Color TextArea::GetBackgroundColor() { return prop.backgroundColor; }
+
+void TextArea::SetBorderColor(SDL_Color color) { prop.borderColor = color; }
+SDL_Color TextArea::GetBorderColor() { return prop.borderColor; }

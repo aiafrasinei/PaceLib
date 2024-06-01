@@ -41,8 +41,6 @@ Tabber::Tabber(ShapeId sid, TabberProp inputProp) {
   tabx = Window::height * 1 / 100;
 }
 
-Tabber::~Tabber() {}
-
 void Tabber::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Tabber.conf";
   if (std::filesystem::exists(path)) {
@@ -89,8 +87,7 @@ void Tabber::Draw() {
   if (!hidden) {
     if (just_once) {
       static_cast<Button *>(Get("h_" + std::to_string(current)))
-          ->GetProp()
-          ->backgroundColor = prop.buttonsSelectionColor;
+          ->SetBackgroundColor(prop.buttonsSelectionColor);
       just_once = false;
     }
     if (once) {
@@ -130,16 +127,16 @@ void Tabber::BeginTabBlock(std::string text) {
   Root *root = &Root::GetInstance();
   Tabber *tabber = static_cast<Tabber *>(root->GetCurrent());
 
-  LabelProp prop = {tabber->GetProp()->scene,
-                    tabber->GetProp()->font,
+  LabelProp prop = {tabber->GetScene(),
+                    tabber->GetFont(),
                     {tabx, Window::height * 1 / 100, 0,
                      Window::height * (tabber->prop.headerHeight - 1) / 100},
                     text,
-                    tabber->GetProp()->buttonsTextColor,
-                    tabber->GetProp()->buttonsTextAlign,
-                    tabber->GetProp()->buttonsBackgroundColor,
-                    tabber->GetProp()->buttonsBorderColor,
-                    tabber->GetProp()->buttonsHighlightColor};
+                    tabber->GetButtonsTextColor(),
+                    tabber->GetButtonsTextAlign(),
+                    tabber->GetButtonsBackgroundColor(),
+                    tabber->GetButtonsBorderColor(),
+                    tabber->GetButtonsHighlightColor()};
   Button::Begin({root->GetCurrent(), "h_" + std::to_string(nrtitles)}, prop);
 
   Button *b = static_cast<Button *>(
@@ -157,7 +154,7 @@ void Tabber::BeginTabBlock(std::string text) {
     current = index;
 
     tabber->ClearHeaderColor(tabber->prop.buttonsBackgroundColor);
-    b->GetProp()->backgroundColor = tabber->prop.buttonsSelectionColor;
+    b->SetBackgroundColor(tabber->prop.buttonsSelectionColor);
     once = true;
   };
 
@@ -166,7 +163,7 @@ void Tabber::BeginTabBlock(std::string text) {
   Tab::Begin({tabber, "t_" + std::to_string(nrtabs)},
              {{0, Window::height * tabber->prop.headerHeight / 100,
                tabber->GetRect().w, tabber->GetRect().h},
-              tabber->GetProp()->backgroundColor});
+              tabber->GetBackgroundColor()});
   tabber->GetTab("t_" + std::to_string(nrtabs))->Hide();
   root->SetCurrent(tabber->GetTab("t_" + std::to_string(nrtabs)));
   root->GetCurrent()->SetParent(tabber);
@@ -251,7 +248,7 @@ void Tabber::SelectTab(int index) {
 void Tabber::SelectTab(std::string name) {
   int index = 0;
   for (int i = 0; i < shapes.size(); i++) {
-    if (static_cast<Button *>(Get("h_" + std::to_string(i)))->GetProp()->text ==
+    if (static_cast<Button *>(Get("h_" + std::to_string(i)))->GetText() ==
         name) {
       index = i;
       break;
@@ -265,7 +262,68 @@ void Tabber::SelectTab(std::string name) {
 void Tabber::ClearHeaderColor(SDL_Color col) {
   for (int i = 0; i < nrtitles; i++) {
     static_cast<Button *>(Get("h_" + std::to_string(i)))
-        ->GetProp()
-        ->backgroundColor = col;
+        ->SetBackgroundColor(col);
   }
+}
+
+void Tabber::SetScene(std::string scene) { prop.scene = scene; }
+std::string Tabber::GetScene() { return prop.scene; }
+
+void Tabber::SetFont(std::string font) { prop.font = font; }
+std::string Tabber::GetFont() { return prop.font; }
+
+void Tabber::SetBackgroundColor(SDL_Color color) {
+  prop.backgroundColor = color;
+}
+SDL_Color Tabber::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Tabber::SetBorderColor(SDL_Color color) { prop.borderColor = color; }
+SDL_Color Tabber::GetBorderColor() { return prop.borderColor; }
+
+void Tabber::SetHeaderBackgrounColor(SDL_Color color) {
+  prop.headerBackgroundColor = color;
+}
+SDL_Color Tabber::GetHeaderBackgroundColor() {
+  return prop.headerBackgroundColor;
+}
+
+void Tabber::SetHeaderHeight(int headerHeight) {
+  prop.headerHeight = headerHeight;
+}
+int Tabber::GetHeaderHeight() { return prop.headerHeight; }
+
+void Tabber::SetButtonsTextColor(SDL_Color color) {
+  prop.buttonsTextColor = color;
+}
+SDL_Color Tabber::GetButtonsTextColor() { return prop.buttonsTextColor; }
+
+void Tabber::SetButtonsTextAlign(HorizontalAlign align) {
+  prop.buttonsTextAlign = align;
+}
+HorizontalAlign Tabber::GetButtonsTextAlign() { return prop.buttonsTextAlign; }
+
+void Tabber::SetButtonsBackgroundColor(SDL_Color color) {
+  prop.buttonsBackgroundColor = color;
+}
+SDL_Color Tabber::GetButtonsBackgroundColor() {
+  return prop.buttonsBackgroundColor;
+}
+
+void Tabber::SetButtonsBorderColor(SDL_Color color) {
+  prop.buttonsBorderColor = color;
+}
+SDL_Color Tabber::GetButtonsBorderColor() { return prop.buttonsBorderColor; }
+
+void Tabber::SetButtonsHighlightColor(SDL_Color color) {
+  prop.buttonsHighlightColor = color;
+}
+SDL_Color Tabber::GetButtonsHighlightColor() {
+  return prop.buttonsHighlightColor;
+}
+
+void Tabber::SetButtonsSelectionColor(SDL_Color color) {
+  prop.buttonsSelectionColor = color;
+}
+SDL_Color Tabber::GetButtonsSelectionColor() {
+  return prop.buttonsSelectionColor;
 }

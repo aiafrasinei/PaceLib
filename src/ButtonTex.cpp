@@ -154,6 +154,8 @@ void ButtonTex::Update(SDL_Event *e) {
 
 void ButtonTex::SetHighlight(bool state) { highlight = state; }
 
+void ButtonTex::SetBorder(bool state) { drawBorder = state; }
+
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
   int dim[4];
   Root::ParseRect("dim", dim, conf);
@@ -202,3 +204,24 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
 
   return prop;
 }
+
+void ButtonTex::SetNormal(TexProp normal) { prop.normal = normal; }
+TexProp ButtonTex::GetNormal() { return prop.normal; }
+
+void ButtonTex::SetOver(TexProp over) { prop.over = over; }
+TexProp ButtonTex::GetOver() { return prop.over; }
+
+void ButtonTex::SetBackgroundColor(SDL_Color backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_Color ButtonTex::GetBackgroundColor() { return prop.backgroundColor; }
+
+void ButtonTex::SetBorderColor(SDL_Color borderColor) {
+  prop.borderColor = borderColor;
+}
+SDL_Color ButtonTex::GetBorderColor() { return prop.borderColor; }
+
+void ButtonTex::SetHighlightColor(SDL_Color highlightColor) {
+  prop.highlightColor = highlightColor;
+}
+SDL_Color ButtonTex::GetHighlightColor() { return prop.highlightColor; }

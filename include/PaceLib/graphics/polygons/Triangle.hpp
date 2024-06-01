@@ -34,11 +34,26 @@ class Triangle : public Shape {
 
   // end static methods
 
-  void SetColor(SDL_Color color);
+  // setters, getters
+  void SetX1(int x1);
+  int GetX1();
+
+  void SetY1(int y1);
+  int GetY1();
+
+  void SetX2(int x2);
+  int GetX2();
+
+  void SetY2(int y2);
+  int GetY2();
+
+  void SetX3(int x3);
+  int GetX3();
+
+  void SetY3(int y3);
+  int GetY3();
 
   void Draw();
-
-  TriangleProp *GetProp() { return &prop; }
 
   ~Triangle();
 
@@ -50,7 +65,7 @@ class Triangle : public Shape {
 
   SDL_Vertex verts[3];
 
-  Triangle(ShapeId sid, TriangleProp prop);
+  Triangle(ShapeId sid, TriangleProp inputProp);
 };
 
 }  // namespace PaceLib

@@ -41,10 +41,6 @@ class TextInput : public Label, public Focusable {
 
   void Update(SDL_Event *e);
 
-  LabelProp *GetProp() { return &prop; }
-
-  ~TextInput();
-
  private:
   int textSize;
 

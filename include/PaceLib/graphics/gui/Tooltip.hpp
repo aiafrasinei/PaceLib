@@ -18,7 +18,7 @@ class Tooltip : public Widget {
       "text" : "this is a color label",
       "text_color" : "$TEXT",
       "align" : "mid",
-      "background" : [70, 80, 90, 255],
+      "color" : [70, 80, 90, 255],
       "border" : [70, 80, 90, 255]
   }*/
   static void Begin(ShapeId sid);
@@ -34,9 +34,16 @@ class Tooltip : public Widget {
 
   // end static methods
 
-  void Draw();
+  void SetText(std::string text);
+  std::string GeText();
 
-  TooltipProp *GetProp() { return &prop; }
+  void SetTextColor(SDL_Color color);
+  SDL_Color GetTextColor();
+
+  void SetBorderColor(SDL_Color color);
+  SDL_Color GetBorderColor();
+
+  void Draw();
 
  private:
   TooltipProp prop;

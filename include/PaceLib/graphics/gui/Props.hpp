@@ -78,7 +78,7 @@ struct VertsProp {
 
 struct SpriteProp {
   SDL_Texture *tex;
-  SDL_Rect dim;
+  SDL_Rect rect;
   int offset;
   int nr;
 };
@@ -156,7 +156,7 @@ struct TooltipProp {
   std::string font;
   std::string text;
   SDL_Color textColor;
-  SDL_Color backgroundColor;
+  SDL_Color color;
   SDL_Color borderColor;
 };
 
@@ -189,9 +189,9 @@ struct ButtonTexGridProp {
 };
 
 struct GridProp {
-  float x;
-  float y;
-  float distance;
+  int x;
+  int y;
+  int distance;
   int nr;
   SDL_Color color;
 };

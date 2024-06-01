@@ -103,6 +103,10 @@ ComboBox *Root::GetComboBox(std::string child) {
   return static_cast<ComboBox *>(this->Get(child));
 }
 
+Texture *Root::GetTexture(std::string child) {
+  return static_cast<Texture *>(this->Get(child));
+}
+
 void Root::Update(SDL_Event *e) {
   for (Shape *s : shapes) {
     s->Update(e);

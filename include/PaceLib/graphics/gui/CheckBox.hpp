@@ -48,8 +48,6 @@ class CheckBox : public Label {
 
   bool IsChecked();
 
-  LabelProp *GetProp() { return &prop; }
-
  private:
   bool mouseOver;
 

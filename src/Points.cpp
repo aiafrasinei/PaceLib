@@ -4,8 +4,9 @@
 
 using namespace PaceLib;
 
-Points::Points(ShapeId sid, VertsProp prop) {
-  this->prop = prop;
+Points::Points(ShapeId sid, VertsProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   for (int i = 0; i < prop.verts.size(); i++) {
     if (sid.parent->name != "root") {
@@ -72,9 +73,12 @@ void Points::Begin(ShapeId sid, VertsProp prop) {
 
 void Points::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderDrawPoints(Window::GetRenderer(), &prop.verts[0],
                          prop.verts.size());
   }
 }
+
+void Points::SetVerts(std::vector<SDL_Point> verts) { prop.verts = verts; }
+std::vector<SDL_Point> Points::GetVerts() { return prop.verts; }

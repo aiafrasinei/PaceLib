@@ -93,6 +93,9 @@ class Shape : public Drawable,
   float GetHalfX() { return rect.x + rect.w / 2; }
   float GetHalfY() { return rect.y + rect.h / 2; }
 
+  void SetColor(SDL_Color color) { this->color = color; }
+  SDL_Color GetColor() { return color; }
+
   bool PointInRect(SDL_Point p, SDL_Rect r) {
     return ((p.x >= r.x) && (p.x < (r.x + r.w)) && (p.y >= r.y) &&
             (p.y < (r.y + r.h)))
@@ -114,6 +117,8 @@ class Shape : public Drawable,
   Shape *parent;
 
   SDL_Rect rect = {0, 0, 0, 0};
+
+  SDL_Color color = { 0, 0, 0, 255};
 
   void UpdateMouse(SDL_Event *e, int x, int y) {
     if (e->type == SDL_MOUSEBUTTONDOWN) {

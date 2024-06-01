@@ -7,6 +7,7 @@ using namespace PaceLib;
 
 Text::Text(ShapeId sid, TextProp inputProp) {
   prop = inputProp;
+  color = prop.color;
 
   rect.x = prop.x;
   rect.y = prop.y;
@@ -32,8 +33,8 @@ Text::Text(ShapeId sid, TextProp inputProp) {
   SDL_QueryTexture(prop.tex, nullptr, nullptr, &w, &h);
   rect = {rect.x, rect.y, w, h};
 
-  SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                         prop.color.b, prop.color.a);
+  SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                         color.a);
   SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
 }
 
@@ -86,8 +87,8 @@ void Text::Begin(ShapeId sid, TextProp prop) {
 
 void Text::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderCopy(Window::GetRenderer(), prop.tex, NULL, &rect);
   }
 }
@@ -100,7 +101,8 @@ void Text::SetX(int x) { rect.x = x; }
 
 void Text::SetY(int y) { rect.y = y; }
 
-std::string Text::GetText() { return prop.text; }
+void Text::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Text::GetTex() { return prop.tex; };
 
 void Text::SetText(std::string text) {
   if (prop.text != text) {
@@ -112,6 +114,8 @@ void Text::SetText(std::string text) {
     prop.tex = tex;
   }
 }
+
+std::string Text::GetText() { return prop.text; }
 
 TextProp Text::LoadTextProp(Configuration *conf) {
   int pos[2];

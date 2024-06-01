@@ -26,6 +26,11 @@ class Lines : public Shape {
   static void Begin(ShapeId sid, VertsProp prop);
 
   // end static methods
+
+  // setters, getters
+  void SetVerts(std::vector<SDL_Point> verts);
+  std::vector<SDL_Point> GetVerts();
+
   void Draw();
 
   ~Lines();
@@ -34,7 +39,7 @@ class Lines : public Shape {
  private:
   VertsProp prop;
 
-  Lines(ShapeId sid, VertsProp prop);
+  Lines(ShapeId sid, VertsProp inputProp);
 };
 
 }  // namespace PaceLib

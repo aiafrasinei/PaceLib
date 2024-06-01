@@ -4,8 +4,10 @@
 
 using namespace PaceLib;
 
-Tab::Tab(ShapeId sid, TabProp prop) {
-  this->prop = prop;
+Tab::Tab(ShapeId sid, TabProp inputProp) {
+  prop = inputProp;
+
+  color = prop.backgroundColor;
 
   rect = prop.rect;
 
@@ -14,11 +16,9 @@ Tab::Tab(ShapeId sid, TabProp prop) {
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
-  this->prop.rect = rect;
-
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   wtype = WidgetType::TAB;
 }
@@ -124,3 +124,13 @@ TabProp Tab::LoadTabProp(Configuration *conf) {
   TabProp prop = {dimr, backgroundColor, borderColor};
   return prop;
 }
+
+void Tab::SetRect(SDL_Rect rect) { prop.rect = rect; }
+
+SDL_Rect Tab::GetRect() { return prop.rect; }
+
+void Tab::SetBackgroundColor(SDL_Color color) { prop.backgroundColor = color; }
+SDL_Color Tab::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Tab::SetBorderColor(SDL_Color color) { prop.borderColor = color; }
+SDL_Color Tab::GetBorderColor() { return prop.borderColor; }

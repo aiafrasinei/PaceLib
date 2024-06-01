@@ -32,9 +32,20 @@ class Line : public Shape {
 
   // end static methods
 
-  void Draw();
+  // setters, getters
+  void SetX1(int x1);
+  int GetX1();
 
-  LineProp *GetProp() { return &prop; }
+  void SetY1(int y1);
+  int GetY1();
+
+  void SetX2(int x2);
+  int GetX2();
+
+  void SetY2(int y2);
+  int GetY2();
+
+  void Draw();
 
   ~Line();
 
@@ -42,7 +53,7 @@ class Line : public Shape {
  private:
   LineProp prop;
 
-  Line(ShapeId sid, LineProp prop);
+  Line(ShapeId sid, LineProp inputProp);
 };
 
 }  // namespace PaceLib

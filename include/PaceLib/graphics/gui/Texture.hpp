@@ -6,6 +6,8 @@ namespace PaceLib {
 
 class Texture : public Widget {
  public:
+  ~Texture();
+  
   // static methods
 
   // json configuration
@@ -36,10 +38,24 @@ class Texture : public Widget {
 
   void Draw();
 
-  int GetWidth();
-  int GetHeight();
+ // getters, setters
+  void SetTex(SDL_Texture *tex);
+  SDL_Texture *GetTex();
 
-  TextureProp *GetProp() { return &prop; }
+  void SetSrcRect(SDL_Rect *srcrect);
+  SDL_Rect *GetSrcRect();
+
+  void SetDstRect(SDL_Rect *dstrect);
+  SDL_Rect *GetDstRect();
+
+  void SetAngle(double angle);
+  double GetAngle();
+
+  void SetCenter(SDL_Point *center);
+  SDL_Point *GetCenter();
+
+  void SetFlip(SDL_RendererFlip flip);
+  SDL_RendererFlip GetFlip();
 
  protected:
  private:

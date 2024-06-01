@@ -8,8 +8,9 @@ using namespace PaceLib;
 Rectangle::Rectangle(ShapeId sid, PropDimColor prop) {
   this->prop = prop;
   rect = prop.rect;
+  color = prop.color;
 
-  if (sid.parent->name != "root") {
+  if (sid.parent->GetName() != "root") {
     rect.x = sid.parent->GetRect().x + prop.rect.x;
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
@@ -62,8 +63,8 @@ void Rectangle::EndBlock() {
 
 void Rectangle::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
 
     SDL_RenderFillRect(Window::GetRenderer(), &rect);
   }

@@ -4,25 +4,23 @@
 
 using namespace PaceLib;
 
-Hotspot::Hotspot(ShapeId sid, HotspotProp prop) {
-  this->prop = prop;
+Hotspot::Hotspot(ShapeId sid, HotspotProp inputProp) {
+  prop = inputProp;
 
   if (sid.parent->name != "root") {
-    this->prop.rect.x = sid.parent->GetRect().x + prop.rect.x;
-    this->prop.rect.y = sid.parent->GetRect().y + prop.rect.y;
+    prop.rect.x = sid.parent->GetRect().x + prop.rect.x;
+    prop.rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   mouseOver = false;
 
   isHighlight = true;
 
-  this->highlightColor = prop.backgroundColor;
-
-  this->tex = prop.tex;
+  highlightColor = prop.backgroundColor;
 
   wtype = WidgetType::HOTSPOT;
 }
@@ -85,7 +83,7 @@ void Hotspot::Draw() {
         SDL_RenderDrawRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::TEXTURE) {
         if (tex != nullptr) {
-          SDL_RenderCopy(Window::GetRenderer(), tex, nullptr, &prop.rect);
+          SDL_RenderCopy(Window::GetRenderer(), prop.tex, nullptr, &prop.rect);
         }
       }
     }
@@ -148,3 +146,14 @@ HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
   HotspotProp prop = {dimr, backgroundColor, type, tex};
   return prop;
 }
+
+void Hotspot::SetBackgroundColor(SDL_Color backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_Color Hotspot::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Hotspot::SetHover(Hover type) { prop.type = type; }
+Hover Hotspot::GetHover() { return prop.type; }
+
+void Hotspot::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Hotspot::GetTex() { return prop.tex; }

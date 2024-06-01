@@ -28,6 +28,10 @@ class Polygon : public Shape {
 
   // end static methods
 
+   // setters, getters
+  void SetVerts(std::vector<SDL_Vertex> verts);
+  std::vector<SDL_Vertex> GetVerts();
+
   void Draw();
 
   ~Polygon();

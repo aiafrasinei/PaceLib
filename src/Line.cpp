@@ -4,8 +4,9 @@
 
 using namespace PaceLib;
 
-Line::Line(ShapeId sid, LineProp prop) {
-  this->prop = prop;
+Line::Line(ShapeId sid, LineProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   if (sid.name != "root") {
     this->prop.x1 = sid.parent->GetRect().x + prop.x1;
@@ -60,9 +61,21 @@ void Line::EndBlock() {
 
 void Line::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderDrawLine(Window::GetRenderer(), prop.x1, prop.y1, prop.x2,
                        prop.y2);
   }
 }
+
+void Line::SetX1(int x1) { prop.x1 = x1; }
+int Line::GetX1() { return prop.x1; }
+
+void Line::SetX2(int x2) { prop.x2 = x2; }
+int Line::GetX2() { return prop.x2; }
+
+void Line::SetY1(int y1) { prop.y1 = y1; }
+int Line::GetY1() { return prop.y1; }
+
+void Line::SetY2(int y2) { prop.y2 = y2; }
+int Line::GetY2() { return prop.y2; }

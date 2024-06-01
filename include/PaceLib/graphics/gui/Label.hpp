@@ -8,6 +8,10 @@ namespace PaceLib {
 
 class Label : public Widget {
  public:
+  Label();
+  
+  ~Label();
+
   // static methods
 
   // json configuration
@@ -37,18 +41,28 @@ class Label : public Widget {
 
   // end static methods
 
-  void SetText(std::string text);
-  void SetTextAlign(HorizontalAlign align);
-
-  int GetTextSize();
-
-  LabelProp *GetProp() { return &prop; }
-
   void Draw();
 
-  Label();
+  // getters, setters
+  void SetText(std::string text);
+  std::string GetText();
 
-  ~Label();
+  void SetTextColor(SDL_Color textColor);
+  SDL_Color GetTextColor();
+
+  void SetTextAlign(HorizontalAlign align);
+  HorizontalAlign GetTextAlign();
+
+  void SetBackgroundColor(SDL_Color backgroundColor);
+  SDL_Color GetBackgroundColor();
+
+  void SetBorderColor(SDL_Color borderColor);
+  SDL_Color GetBorderColor();
+
+  void SetHighlightColor(SDL_Color highlightColor);
+  SDL_Color GetHighlightColor();
+  
+  int GetTextSize();
 
  protected:
   LabelProp prop;

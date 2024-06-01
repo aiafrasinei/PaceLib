@@ -8,6 +8,8 @@ namespace PaceLib {
 
 class ButtonTex : public Widget {
  public:
+  ~ButtonTex();
+
   // static methods
 
   // json configuration
@@ -36,15 +38,31 @@ class ButtonTex : public Widget {
 
   // end static methods
 
+  // getters, setters
+  void SetNormal(TexProp normal);
+  TexProp GetNormal();
+
+  void SetOver(TexProp over);
+  TexProp GetOver();
+
+  void SetBackgroundColor(SDL_Color backgroundColor);
+  SDL_Color GetBackgroundColor();
+
+  void SetBorderColor(SDL_Color borderColor);
+  SDL_Color GetBorderColor();
+
+  void SetHighlightColor(SDL_Color highlightColor);
+  SDL_Color GetHighlightColor();
+
+  bool drawBorder;
+
+  void SetBorder(bool state);
+  
   void SetHighlight(bool state);
 
   void Draw();
 
   void Update(SDL_Event *e);
-
-  ButtonTexProp *GetProp() { return &prop; }
-
-  ~ButtonTex();
 
  private:
   bool mouseOver;

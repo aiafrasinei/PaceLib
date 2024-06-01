@@ -30,9 +30,14 @@ class Point : public Shape {
 
   // end static methods
 
-  void Draw();
+  // setters, getters
+  void SetX(int x);
+  int GetX();
 
-  PointProp *GetProp() { return &prop; }
+  void SetY(int y);
+  int GetY();
+
+  void Draw();
 
   ~Point();
 

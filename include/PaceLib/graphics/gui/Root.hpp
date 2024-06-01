@@ -11,6 +11,7 @@
 #include "TextArea.hpp"
 #include "TextInput.hpp"
 #include "Tooltip.hpp"
+#include "Texture.hpp"
 #include "Widget.hpp"
 #include "core/interfaces/State.hpp"
 #include "scene/Scene.hpp"
@@ -54,6 +55,7 @@ class Root : public Widget {
   TextInput *GetTextInput(std::string child);
   TextArea *GetTextArea(std::string child);
   ComboBox *GetComboBox(std::string child);
+  Texture *GetTexture(std::string child);
 
   void SetState(State *state);
   void HideAll();

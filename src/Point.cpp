@@ -4,12 +4,13 @@
 
 using namespace PaceLib;
 
-Point::Point(ShapeId sid, PointProp prop) {
-  this->prop = prop;
+Point::Point(ShapeId sid, PointProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   if (sid.name != "root") {
-    this->prop.x = sid.parent->GetRect().x + prop.x;
-    this->prop.y = sid.parent->GetRect().y + prop.y;
+    prop.x = sid.parent->GetRect().x + prop.x;
+    prop.y = sid.parent->GetRect().y + prop.y;
   }
 
   hidden = false;
@@ -56,8 +57,14 @@ void Point::EndBlock() {
 
 void Point::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderDrawPoint(Window::GetRenderer(), prop.x, prop.y);
   }
 }
+
+void Point::SetX(int x) { prop.x = x; }
+int Point::GetX() { return prop.x; }
+
+void Point::SetY(int y) { prop.y = y; }
+int Point::GetY() { return prop.y; }

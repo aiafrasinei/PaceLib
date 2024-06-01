@@ -7,6 +7,8 @@ using namespace PaceLib;
 Label::Label(ShapeId sid, LabelProp inputProp) {
   prop = inputProp;
 
+  color = prop.backgroundColor;
+
   rect = prop.rect;
 
   if (sid.parent->name != "root") {
@@ -24,8 +26,6 @@ Label::Label(ShapeId sid, LabelProp inputProp) {
 
   textSize = 0;
 }
-
-Label::Label() {}
 
 Label::~Label() {}
 
@@ -116,20 +116,11 @@ void Label::SetText(std::string text) {
   prop.text = text;
 }
 
-void Label::InternalInit() {
-  // child text
-  TextProp tprop = {prop.scene,    prop.font, GetRect().x + GetRect().w / 20,
-                    GetRect().y,   nullptr,   prop.text,
-                    prop.textColor};
+std::string Label::GetText() { return prop.text; }
 
-  Text::Begin({this, name + "_text"}, tprop);
+void Label::SetTextColor(SDL_Color textColor) { prop.textColor = textColor; }
 
-  Text *to = static_cast<Text *>(Get(name + "_text"));
-  to->GetProp()->color = GetProp()->textColor;
-  textSize = to->GetWidth();
-
-  SetTextAlign(prop.align);
-}
+SDL_Color Label::GetTextColor() { return prop.textColor; }
 
 void Label::SetTextAlign(HorizontalAlign align) {
   Text *to = static_cast<Text *>(Get(name + "_text"));
@@ -143,6 +134,37 @@ void Label::SetTextAlign(HorizontalAlign align) {
   } else if (align.halign == H::LEFT) {
     to->SetX(GetRect().x + rect.w / 20);
   }
+}
+HorizontalAlign Label::GetTextAlign() { return prop.align; }
+
+void Label::SetBackgroundColor(SDL_Color backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_Color Label::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Label::SetBorderColor(SDL_Color borderColor) {
+  prop.borderColor = borderColor;
+}
+SDL_Color Label::GetBorderColor() { return prop.borderColor; }
+
+void Label::SetHighlightColor(SDL_Color highlightColor) {
+  prop.highlightColor = highlightColor;
+}
+SDL_Color Label::GetHighlightColor() { return prop.highlightColor; }
+
+void Label::InternalInit() {
+  // child text
+  TextProp tprop = {prop.scene,    prop.font, GetRect().x + GetRect().w / 20,
+                    GetRect().y,   nullptr,   prop.text,
+                    prop.textColor};
+
+  Text::Begin({this, name + "_text"}, tprop);
+
+  Text *to = static_cast<Text *>(Get(name + "_text"));
+  to->SetColor(GetTextColor());
+  textSize = to->GetWidth();
+
+  SetTextAlign(prop.align);
 }
 
 LabelProp Label::LoadLabelProp(Configuration *conf) {

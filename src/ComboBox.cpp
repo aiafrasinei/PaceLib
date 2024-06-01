@@ -199,7 +199,7 @@ void ComboBox::InternalInit() {
       mainRendererSelected = false;
 
       selected = i;
-      main_renderer->SetText(currentb->GetProp()->text);
+      main_renderer->SetText(currentb->GetText());
       main_renderer->Show();
     };
   }
@@ -218,7 +218,7 @@ void ComboBox::SetSelection(int index) {
       static_cast<Button *>(this->Get("item_" + std::to_string(selected)));
 
   if (items.size() > 0) {
-    main_renderer->SetText(sel->GetProp()->text);
+    main_renderer->SetText(sel->GetText());
   }
 }
 
