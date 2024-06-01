@@ -32,21 +32,26 @@ class Line : public Shape {
 
   // end static methods
 
+  // setters, getters
+  void SetX1(int x1);
+  int GetX1();
+
+  void SetY1(int y1);
+  int GetY1();
+
+  void SetX2(int x2);
+  int GetX2();
+
+  void SetY2(int y2);
+  int GetY2();
+
   void Draw();
-<<<<<<< HEAD
 
-  LineProp *GetProp() { return &prop; }
-
-  ~Line();
-
-=======
-  
->>>>>>> 0d59a85 (Fix TextInput not printing key input, default constructors/destructors)
  protected:
  private:
   LineProp prop;
 
-  Line(ShapeId sid, LineProp prop);
+  Line(ShapeId sid, LineProp inputProp);
 };
 
 }

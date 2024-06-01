@@ -28,7 +28,7 @@ class Scene : public Drawable {
 
   bool AddTex(std::filesystem::path file_path, int x, int y, int w, int h);
   bool AddFont(std::string name, std::string font, std::string text,
-               SDL_Color color);
+               SDL_FColor color);
   bool AddTtf(std::string name, std::filesystem::path file_path, int size,
               int style, int outline);
 

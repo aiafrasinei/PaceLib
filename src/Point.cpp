@@ -4,12 +4,13 @@
 
 using namespace PaceLib;
 
-Point::Point(ShapeId sid, PointProp prop) {
-  this->prop = prop;
+Point::Point(ShapeId sid, PointProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   if (sid.name != "root") {
-    this->prop.x = sid.parent->GetRect().x + prop.x;
-    this->prop.y = sid.parent->GetRect().y + prop.y;
+    prop.x = sid.parent->GetRect().x + prop.x;
+    prop.y = sid.parent->GetRect().y + prop.y;
   }
 
   hidden = false;
@@ -23,7 +24,7 @@ void Point::Begin(ShapeId sid) {
     float x = conf->Get("x");
     float y = conf->Get("y");
 
-    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
+    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
     sid.parent->Add(new Point(sid, {x, y, color}));
   }
@@ -54,8 +55,14 @@ void Point::EndBlock() {
 
 void Point::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderPoint(Window::GetRenderer(), prop.x, prop.y);
   }
 }
+
+void Point::SetX(int x) { prop.x = x; }
+int Point::GetX() { return prop.x; }
+
+void Point::SetY(int y) { prop.y = y; }
+int Point::GetY() { return prop.y; }

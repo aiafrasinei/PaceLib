@@ -44,14 +44,10 @@ class Tabber : public Widget {
 
   // end static methods
 
-  void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-
   void Draw();
 
   void AddTab(std::string text);
   void AddTab(std::string name, std::string text);
-
-  TabberProp *GetProp() { return &prop; }
 
   Tab *GetTab(std::string child);
 
@@ -65,12 +61,53 @@ class Tabber : public Widget {
 
   void Update(SDL_Event *e);
 
-  ~Tabber();
+  // setters, getters
+  void SetScene(std::string scene);
+  std::string GetScene();
+
+  void SetFont(std::string font);
+  std::string GetFont();
+
+  void SetBackgroundColor(SDL_FColor color);
+  SDL_FColor GetBackgroundColor();
+
+  void SetBorderColor(SDL_FColor color);
+  SDL_FColor GetBorderColor();
+
+  void SetHeaderBackgrounColor(SDL_FColor color);
+  SDL_FColor GetHeaderBackgroundColor();
+
+  void SetHeaderHeight(int headerHeight);
+  int GetHeaderHeight();
+
+  void SetButtonsTextColor(SDL_FColor color);
+  SDL_FColor GetButtonsTextColor();
+
+  void SetButtonsTextAlign (HorizontalAlign align);
+  HorizontalAlign GetButtonsTextAlign();
+
+  void SetButtonsBackgroundColor(SDL_FColor color);
+  SDL_FColor GetButtonsBackgroundColor();
+
+  void SetButtonsBorderColor(SDL_FColor color);
+  SDL_FColor GetButtonsBorderColor();
+
+  void SetButtonsHighlightColor(SDL_FColor color);
+  SDL_FColor GetButtonsHighlightColor();
+
+  void SetButtonsSelectionColor(SDL_FColor color);
+  SDL_FColor GetButtonsSelectionColor();
+
+  void SetTextColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
  private:
+  std::string scene;
+
+  std::string font;
+
   std::vector<std::string> titles;
 
-  SDL_Color textColor;
+  SDL_FColor textColor;
 
   int bcounter;
 
@@ -85,7 +122,7 @@ class Tabber : public Widget {
 
   Tabber(ShapeId sid, TabberProp inputProp);
 
-  void ClearHeaderColor(SDL_Color col);
+  void ClearHeaderColor(SDL_FColor col);
 };
 
 }

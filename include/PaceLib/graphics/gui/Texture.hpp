@@ -36,10 +36,24 @@ class Texture : public Widget {
 
   void Draw();
 
-  int GetWidth();
-  int GetHeight();
+ // getters, setters
+  void SetTex(SDL_Texture *tex);
+  SDL_Texture *GetTex();
 
-  TextureProp *GetProp() { return &prop; }
+  void SetSrcRect(SDL_FRect *srcrect);
+  SDL_FRect *GetSrcRect();
+
+  void SetDstRect(SDL_FRect *dstrect);
+  SDL_FRect *GetDstRect();
+
+  void SetAngle(double angle);
+  double GetAngle();
+
+  void SetCenter(SDL_FPoint *center);
+  SDL_FPoint *GetCenter();
+
+  void SetFlip(SDL_FlipMode flip);
+  SDL_FlipMode GetFlip();
 
  protected:
  private:
@@ -48,8 +62,4 @@ class Texture : public Widget {
   Texture(ShapeId sid, TextureProp inputProp);
 };
 
-<<<<<<< HEAD
 }  // namespace PaceLib
-=======
-}
->>>>>>> 68be932 (Rename dim to rect in the json configurations)

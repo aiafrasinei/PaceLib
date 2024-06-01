@@ -4,8 +4,9 @@
 
 using namespace PaceLib;
 
-Triangle::Triangle(ShapeId sid, TriangleProp prop) {
-  this->prop = prop;
+Triangle::Triangle(ShapeId sid, TriangleProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   if (sid.parent->name == "root") {
     points[0] = {static_cast<int>(prop.x1), static_cast<int>(prop.y1)};
@@ -25,15 +26,15 @@ Triangle::Triangle(ShapeId sid, TriangleProp prop) {
 
   verts[0].position.x = points[0].x;
   verts[0].position.y = points[0].y;
-  verts[0].color = {prop.color.r, prop.color.g, prop.color.b, prop.color.a};
+  verts[0].color = {color.r, color.g, color.b, color.a};
 
   verts[1].position.x = points[1].x;
   verts[1].position.y = points[1].y;
-  verts[1].color = {prop.color.r, prop.color.g, prop.color.b, prop.color.a};
+  verts[1].color = {color.r, color.g, color.b, color.a};
 
   verts[2].position.x = points[2].x;
   verts[2].position.y = points[2].y;
-  verts[2].color = {prop.color.r, prop.color.g, prop.color.b, prop.color.a};
+  verts[2].color = {color.r, color.g, color.b, color.a};
 
   hidden = false;
 
@@ -88,14 +89,26 @@ void Triangle::Begin(ShapeId sid, TriangleProp prop) {
   sid.parent->Add(new Triangle(sid, prop));
 }
 
-void Triangle::SetColor(SDL_FColor color) {
-  verts[0].color = {color.r, color.g, color.b, color.a};
-  verts[1].color = {color.r, color.g, color.b, color.a};
-  verts[2].color = {color.r, color.g, color.b, color.a};
-}
-
 void Triangle::Draw() {
   if (!hidden) {
     SDL_RenderGeometry(Window::GetRenderer(), nullptr, verts, 3, nullptr, 0);
   }
 }
+
+void Triangle::SetX1(int x1) { prop.x1 = x1; }
+int Triangle::GetX1() { return prop.x1; }
+
+void Triangle::SetY1(int y1) { prop.y1 = y1; }
+int Triangle::GetY1() { return prop.y1; }
+
+void Triangle::SetX2(int x2) { prop.x2 = x2; }
+int Triangle::GetX2() { return prop.x2; }
+
+void Triangle::SetY2(int y2) { prop.y2 = y2; }
+int Triangle::GetY2() { return prop.y2; }
+
+void Triangle::SetX3(int x3) { prop.x3 = x3; }
+int Triangle::GetX3() { return prop.x3; }
+
+void Triangle::SetY3(int y3) { prop.y3 = y3; }
+int Triangle::GetY3() { return prop.y3; }

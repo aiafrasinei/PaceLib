@@ -4,25 +4,23 @@
 
 using namespace PaceLib;
 
-Hotspot::Hotspot(ShapeId sid, HotspotProp prop) {
-  this->prop = prop;
+Hotspot::Hotspot(ShapeId sid, HotspotProp inputProp) {
+  prop = inputProp;
 
   if (sid.parent->name != "root") {
-    this->prop.rect.x = sid.parent->GetRect().x + prop.rect.x;
-    this->prop.rect.y = sid.parent->GetRect().y + prop.rect.y;
+    prop.rect.x = sid.parent->GetRect().x + prop.rect.x;
+    prop.rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   mouseOver = false;
 
   isHighlight = true;
 
-  this->highlightColor = prop.backgroundColor;
-
-  this->tex = prop.tex;
+  highlightColor = prop.backgroundColor;
 
   wtype = WidgetType::HOTSPOT;
 }
@@ -83,7 +81,7 @@ void Hotspot::Draw() {
         SDL_RenderRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::TEXTURE) {
         if (tex != nullptr) {
-          SDL_RenderTexture(Window::GetRenderer(), tex, nullptr, &prop.rect);
+          SDL_RenderTexture(Window::GetRenderer(), prop.tex, nullptr, &prop.rect);
         }
       }
     }
@@ -113,7 +111,7 @@ void Hotspot::Update(SDL_Event *e) {
 
 void Hotspot::SetHighlight(bool state) { isHighlight = state; }
 
-void Hotspot::SetHighlightColor(SDL_Color color) { highlightColor = color; }
+void Hotspot::SetHighlightColor(SDL_FColor color) { highlightColor = color; }
 
 HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
   float dim[4];
@@ -122,7 +120,7 @@ HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
   SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
 
   Hover type;
@@ -146,3 +144,14 @@ HotspotProp Hotspot::LoadHotspotProp(Configuration *conf) {
   HotspotProp prop = {dimr, backgroundColor, type, tex};
   return prop;
 }
+
+void Hotspot::SetBackgroundColor(SDL_FColor backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_FColor Hotspot::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Hotspot::SetHover(Hover type) { prop.type = type; }
+Hover Hotspot::GetHover() { return prop.type; }
+
+void Hotspot::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Hotspot::GetTex() { return prop.tex; }

@@ -4,10 +4,12 @@
 
 using namespace PaceLib;
 
-Tooltip::Tooltip(ShapeId sid, TooltipProp prop) {
-  this->prop = prop;
+Tooltip::Tooltip(ShapeId sid, TooltipProp inputProp) {
+  prop = inputProp;
 
-  this->parent = sid.parent;
+  color = prop.color;
+
+  parent = sid.parent;
 
   SDL_FRect child = sid.parent->GetRect();
 
@@ -18,13 +20,11 @@ Tooltip::Tooltip(ShapeId sid, TooltipProp prop) {
 
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   wtype = WidgetType::TOOLTIP;
 
   textSize = 0;
-
-  this->name = sid.name;
 }
 
 void Tooltip::Begin(ShapeId sid) {
@@ -75,9 +75,8 @@ void Tooltip::Draw() {
     SDL_GetMouseState(&x, &y);
 
     if (PointInRect({x, y}, static_cast<Widget *>(parent)->GetRect())) {
-      SDL_SetRenderDrawColor(Window::GetRenderer(), prop.backgroundColor.r,
-                             prop.backgroundColor.g, prop.backgroundColor.b,
-                             prop.backgroundColor.a);
+      SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                             color.a);
       SDL_RenderFillRect(Window::GetRenderer(), &rect);
 
       SDL_SetRenderDrawColor(Window::GetRenderer(), prop.borderColor.r,
@@ -116,11 +115,10 @@ void Tooltip::InternalInit() {
 TooltipProp Tooltip::LoadTooltipProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
-  SDL_Color backgroundColor =
-      Widget::ParseVar("background", conf, root->GetVars());
-  SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
+  SDL_FColor backgroundColor = Widget::ParseVar("color", conf, root->GetVars());
+  SDL_FColor borderColor = Widget::ParseVar("border", conf, root->GetVars());
   std::string text = conf->Get("text").get<std::string>();
-  SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+  SDL_FColor textColor = Widget::ParseVar("text_color", conf, root->GetVars());
   std::string font = conf->Get("font").get<std::string>();
 
   TooltipProp prop = {conf->Get("scene").get<std::string>(),
@@ -131,3 +129,12 @@ TooltipProp Tooltip::LoadTooltipProp(Configuration *conf) {
                       borderColor};
   return prop;
 }
+
+void Tooltip::SetText(std::string text) { prop.text = text; }
+std::string Tooltip::GeText() { return prop.text; }
+
+void Tooltip::SetTextColor(SDL_FColor color) { prop.textColor = color; }
+SDL_FColor Tooltip::GetTextColor() { return prop.textColor; }
+
+void Tooltip::SetBorderColor(SDL_FColor color) { prop.borderColor = color; }
+SDL_FColor Tooltip::GetBorderColor() { return prop.borderColor; }

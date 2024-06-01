@@ -7,6 +7,8 @@ using namespace PaceLib;
 Label::Label(ShapeId sid, LabelProp inputProp) {
   prop = inputProp;
 
+  color = prop.backgroundColor;
+
   rect = prop.rect;
 
   if (sid.parent->name != "root") {
@@ -112,20 +114,11 @@ void Label::SetText(std::string text) {
   prop.text = text;
 }
 
-void Label::InternalInit() {
-  // child text
-  TextProp tprop = {prop.scene,    prop.font, GetRect().x + GetRect().w / 20,
-                    GetRect().y,   nullptr,   prop.text,
-                    prop.textColor};
+std::string Label::GetText() { return prop.text; }
 
-  Text::Begin({this, name + "_text"}, tprop);
+void Label::SetTextColor(SDL_FColor textColor) { prop.textColor = textColor; }
 
-  Text *to = static_cast<Text *>(Get(name + "_text"));
-  to->GetProp()->color = GetProp()->textColor;
-  textSize = to->GetWidth();
-
-  SetTextAlign(prop.align);
-}
+SDL_FColor Label::GetTextColor() { return prop.textColor; }
 
 void Label::SetTextAlign(HorizontalAlign align) {
   Text *to = static_cast<Text *>(Get(name + "_text"));
@@ -139,6 +132,37 @@ void Label::SetTextAlign(HorizontalAlign align) {
   } else if (align.halign == H::LEFT) {
     to->SetX(GetRect().x + rect.w / 20);
   }
+}
+HorizontalAlign Label::GetTextAlign() { return prop.align; }
+
+void Label::SetBackgroundColor(SDL_FColor backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_FColor Label::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Label::SetBorderColor(SDL_FColor borderColor) {
+  prop.borderColor = borderColor;
+}
+SDL_FColor Label::GetBorderColor() { return prop.borderColor; }
+
+void Label::SetHighlightColor(SDL_FColor highlightColor) {
+  prop.highlightColor = highlightColor;
+}
+SDL_FColor Label::GetHighlightColor() { return prop.highlightColor; }
+
+void Label::InternalInit() {
+  // child text
+  TextProp tprop = {prop.scene,    prop.font, GetRect().x + GetRect().w / 20,
+                    GetRect().y,   nullptr,   prop.text,
+                    prop.textColor};
+
+  Text::Begin({this, name + "_text"}, tprop);
+
+  Text *to = static_cast<Text *>(Get(name + "_text"));
+  to->SetColor(GetTextColor());
+  textSize = to->GetWidth();
+
+  SetTextAlign(prop.align);
 }
 
 LabelProp Label::LoadLabelProp(Configuration *conf) {
@@ -156,13 +180,13 @@ LabelProp Label::LoadLabelProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
   SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
-  SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
-  SDL_Color highlightColor =
+  SDL_FColor borderColor = Widget::ParseVar("border", conf, root->GetVars());
+  SDL_FColor highlightColor =
       Widget::ParseVar("highlight", conf, root->GetVars());
   std::string text = conf->Get("text").get<std::string>();
-  SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+  SDL_FColor textColor = Widget::ParseVar("text_color", conf, root->GetVars());
   std::string font = conf->Get("font").get<std::string>();
   std::string scene = conf->Get("scene").get<std::string>();
 

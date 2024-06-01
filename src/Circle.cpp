@@ -11,15 +11,17 @@ Circle::Circle(ShapeId sid, CircleProp inputProp) {
   color = prop.color;
 
   if (sid.parent->name != "root") {
-    this->prop.x = sid.parent->GetRect().x + prop.x;
-    this->prop.y = sid.parent->GetRect().y + prop.y;
+    prop.x = sid.parent->GetRect().x + prop.x;
+    prop.y = sid.parent->GetRect().y + prop.y;
   }
+
+  rect = {prop.x, prop.y, prop.radius, prop.radius};
 
   hidden = false;
 
   rtype = DrawTypes::OUTLINE;
 
-  this->name = sid.name;
+  name = sid.name;
 }
 
 void Circle::SetDrawType(DrawTypes rtype) { this->rtype = rtype; }
@@ -64,8 +66,8 @@ void Circle::Begin(ShapeId sid, CircleProp prop) {
 
 void Circle::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
 
     if (rtype == DrawTypes::OUTLINE) {
       int offsetx, offsety, d;
@@ -152,3 +154,11 @@ void Circle::Draw() {
     }
   }
 }
+
+void Circle::SetRadius(int radius) {
+  prop.radius = radius;
+  rect.w = radius;
+  rect.h = radius;
+}
+
+int Circle::GetRadius() { return prop.radius; };

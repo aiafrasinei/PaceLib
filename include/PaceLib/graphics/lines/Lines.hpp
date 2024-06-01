@@ -26,13 +26,18 @@ class Lines : public Shape {
   static void Begin(ShapeId sid, VertsProp prop);
 
   // end static methods
+
+  // setters, getters
+  void SetVerts(std::vector<SDL_FPoint> verts);
+  std::vector<SDL_FPoint> GetVerts();
+
   void Draw();
 
  protected:
  private:
   VertsProp prop;
 
-  Lines(ShapeId sid, VertsProp prop);
+  Lines(ShapeId sid, VertsProp inputProp);
 };
 
 }

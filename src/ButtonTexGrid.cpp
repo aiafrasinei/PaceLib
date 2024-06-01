@@ -117,16 +117,16 @@ ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
   std::string scene = conf->Get("scene").get<std::string>();
   float distance = conf->Get("distance").get<float>();
 
-  SDL_Color borderColor = {0, 0, 0, 255};
+  SDL_FColor borderColor = {0, 0, 0, 255};
   bool drawBorder = true;
   if (conf->Get("border") == "")
     drawBorder = false;
   else
     borderColor = Widget::ParseVar("border", conf, root->GetVars());
 
-  SDL_Color highlightColor =
+  SDL_FColor highlightColor =
       Widget::ParseVar("highlight", conf, root->GetVars());
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
 
   TexProp tex_prop;
@@ -169,14 +169,14 @@ TexProp ButtonTexGrid::GetNormal() { return prop.normal; }
 void ButtonTexGrid::SetOver(TexProp over) { prop.over = over; }
 TexProp ButtonTexGrid::GetOver() { return prop.over; }
 
-void ButtonTexGrid::SetBackgroundColor(SDL_Color color) { prop.backgroundColor = color; }
-SDL_Color ButtonTexGrid::GetBackgroundColor() { return prop.backgroundColor; }
+void ButtonTexGrid::SetBackgroundColor(SDL_FColor color) { prop.backgroundColor = color; }
+SDL_FColor ButtonTexGrid::GetBackgroundColor() { return prop.backgroundColor; }
 
-void ButtonTexGrid::SetBorderColor(SDL_Color color) { prop.borderColor = color; }
-SDL_Color ButtonTexGrid::GetBorderColor() { return prop.borderColor; }
+void ButtonTexGrid::SetBorderColor(SDL_FColor color) { prop.borderColor = color; }
+SDL_FColor ButtonTexGrid::GetBorderColor() { return prop.borderColor; }
 
-void ButtonTexGrid::SetHighlightColor(SDL_Color color) { prop.highlightColor = color; }
-SDL_Color ButtonTexGrid::GetHighlightColor() { return prop.highlightColor; }
+void ButtonTexGrid::SetHighlightColor(SDL_FColor color) { prop.highlightColor = color; }
+SDL_FColor ButtonTexGrid::GetHighlightColor() { return prop.highlightColor; }
 
 void ButtonTexGrid::SetDrawBorder(bool drawBorder) { prop.drawBorder = drawBorder; }
 bool ButtonTexGrid::GetDrawBorder() { return prop.drawBorder; }

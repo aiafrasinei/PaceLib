@@ -37,7 +37,27 @@ class TextArea : public Widget {
 
   void Draw();
 
-  MultiItemsProp *GetProp() { return &prop; }
+  // getters, setters
+  void SetScene(std::string scene);
+  std::string GetScene();
+
+  void SetFont(std::string font);
+  std::string GetFont();
+
+  void SetText(std::vector<std::string> tarr);
+  std::vector<std::string> GetText();
+
+  void SetTextColor(SDL_FColor color);
+  SDL_FColor GetTextColor();
+
+  void SetBackgroundColor(SDL_FColor color);
+  SDL_FColor GetBackgroundColor();
+
+  void SetBorderColor(SDL_FColor color);
+  SDL_FColor GetBorderColor();
+
+  void SetHighlightColor(SDL_FColor highlightColor);
+  SDL_FColor GetHighlightColor();
 
  private:
   MultiItemsProp prop;

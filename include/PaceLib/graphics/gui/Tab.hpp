@@ -34,7 +34,7 @@ class Tab : public Widget {
 
   // end static methods
 
-  Tab(ShapeId sid, TabProp prop);
+  Tab(ShapeId sid, TabProp inputProp);
 
   void Draw();
 
@@ -42,12 +42,20 @@ class Tab : public Widget {
 
   void Update(SDL_Event *e);
 
-  TabProp *GetProp() { return &prop; }
-
   Button *GetButton(std::string child);
   ButtonTex *GetButtonTex(std::string child);
   Label *GetLabel(std::string child);
   Widget *GetWidget(std::string child);
+
+  // setters, getters
+  void SetRect(SDL_FRect rect);
+  SDL_FRect GetRect();
+
+  void SetBackgroundColor(SDL_FColor color);
+  SDL_FColor GetBackgroundColor();
+
+  void SetBorderColor(SDL_FColor color);
+  SDL_FColor GetBorderColor();
 
  private:
   TabProp prop;

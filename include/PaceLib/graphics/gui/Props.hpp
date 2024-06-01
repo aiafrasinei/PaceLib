@@ -37,7 +37,7 @@ struct HorizontalAlign {
 
 struct PropDimColor {
   SDL_FRect rect;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct CircleProp {
@@ -62,23 +62,23 @@ struct LineProp {
   float y1;
   float x2;
   float y2;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct PointProp {
   float x;
   float y;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct VertsProp {
   std::vector<SDL_FPoint> verts;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct SpriteProp {
   SDL_Texture *tex;
-  SDL_FRect dim;
+  SDL_FRect rect;
   int offset;
   int nr;
 };
@@ -88,33 +88,33 @@ struct LabelProp {
   std::string font;
   SDL_FRect rect;
   std::string text;
-  SDL_Color textColor;
+  SDL_FColor textColor;
   HorizontalAlign align;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
-  SDL_Color highlightColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
+  SDL_FColor highlightColor;
 };
 
 struct TabberProp {
   std::string scene;
   std::string font;
   SDL_FRect rect;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
-  SDL_Color headerBackgroundColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
+  SDL_FColor headerBackgroundColor;
   int headerHeight;
-  SDL_Color buttonsTextColor;
+  SDL_FColor buttonsTextColor;
   HorizontalAlign buttonsTextAlign;
-  SDL_Color buttonsBackgroundColor;
-  SDL_Color buttonsBorderColor;
-  SDL_Color buttonsHighlightColor;
-  SDL_Color buttonsSelectionColor;
+  SDL_FColor buttonsBackgroundColor;
+  SDL_FColor buttonsBorderColor;
+  SDL_FColor buttonsHighlightColor;
+  SDL_FColor buttonsSelectionColor;
 };
 
 struct TabProp {
   SDL_FRect rect;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
 };
 
 struct TextProp {
@@ -123,7 +123,7 @@ struct TextProp {
   float x, y;
   SDL_Texture *tex;
   std::string text;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 struct TexProp {
@@ -145,33 +145,33 @@ struct MultiItemsProp {
   std::string font;
   SDL_FRect rect;
   std::vector<std::string> tarr;
-  SDL_Color textColor;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
-  SDL_Color highlightColor;
+  SDL_FColor textColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
+  SDL_FColor highlightColor;
 };
 
 struct TooltipProp {
   std::string scene;
   std::string font;
   std::string text;
-  SDL_Color textColor;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
+  SDL_FColor textColor;
+  SDL_FColor color;
+  SDL_FColor borderColor;
 };
 
 struct ButtonTexProp {
   TexProp normal;
   TexProp over;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
-  SDL_Color highlightColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
+  SDL_FColor highlightColor;
   bool drawBorder;
 };
 
 struct HotspotProp {
   SDL_FRect rect;
-  SDL_Color backgroundColor;
+  SDL_FColor backgroundColor;
   Hover type;
   SDL_Texture *tex;
 };
@@ -182,18 +182,18 @@ struct ButtonTexGridProp {
   float distance;
   TexProp normal;
   TexProp over;
-  SDL_Color backgroundColor;
-  SDL_Color borderColor;
-  SDL_Color highlightColor;
+  SDL_FColor backgroundColor;
+  SDL_FColor borderColor;
+  SDL_FColor highlightColor;
   bool drawBorder;
 };
 
 struct GridProp {
-  float x;
-  float y;
-  float distance;
+  int x;
+  int y;
+  int distance;
   int nr;
-  SDL_Color color;
+  SDL_FColor color;
 };
 
 }

@@ -13,7 +13,8 @@ class Points : public Shape {
   /* Loads wconf file
   example format:
   {
-      "verts" : [ 0, 0, 10, 10, 100, 100 ]
+      "verts" : [ 0, 0, 10, 10, 100, 100 ],
+      "color" : [0, 0, 0, 255]
   }*/
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
@@ -26,13 +27,18 @@ class Points : public Shape {
   static void Begin(ShapeId sid, VertsProp prop);
 
   // end static methods
+
+  // setters, getters
+  void SetVerts(std::vector<SDL_FPoint> verts);
+  std::vector<SDL_FPoint> GetVerts();
+
   void Draw();
   
  protected:
  private:
   VertsProp prop;
 
-  Points(ShapeId sid, VertsProp prop);
+  Points(ShapeId sid, VertsProp inputProp);
 };
 
 }

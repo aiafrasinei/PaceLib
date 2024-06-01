@@ -17,11 +17,11 @@ class Window {
   void Present();
   void Close();
 
-  static void SetDrawColor(SDL_Color col);
+  static void SetDrawColor(SDL_FColor col);
 
-  static void SetBackgroundColor(SDL_Color col);
+  static void SetBackgroundColor(SDL_FColor col);
 
-  static SDL_Color GetBackgroundColor();
+  static SDL_FColor GetBackgroundColor();
 
   static bool running;
 
@@ -31,7 +31,7 @@ class Window {
   static SDL_Renderer *renderer;
   static SDL_Window *window;
 
-  static SDL_Color backgroundColor;
+  static SDL_FColor backgroundColor;
 
   bool success;
 

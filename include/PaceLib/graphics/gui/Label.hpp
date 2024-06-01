@@ -37,18 +37,28 @@ class Label : public Widget {
 
   // end static methods
 
-  void SetText(std::string text);
-  void SetTextAlign(HorizontalAlign align);
-
-  int GetTextSize();
-
-  LabelProp *GetProp() { return &prop; }
-
   void Draw();
 
-  Label();
+  // getters, setters
+  void SetText(std::string text);
+  std::string GetText();
 
-  ~Label();
+  void SetTextColor(SDL_FColor textColor);
+  SDL_FColor GetTextColor();
+
+  void SetTextAlign(HorizontalAlign align);
+  HorizontalAlign GetTextAlign();
+
+  void SetBackgroundColor(SDL_FColor backgroundColor);
+  SDL_FColor GetBackgroundColor();
+
+  void SetBorderColor(SDL_FColor borderColor);
+  SDL_FColor GetBorderColor();
+
+  void SetHighlightColor(SDL_FColor highlightColor);
+  SDL_FColor GetHighlightColor();
+  
+  int GetTextSize();
 
  protected:
   LabelProp prop;

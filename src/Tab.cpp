@@ -4,8 +4,10 @@
 
 using namespace PaceLib;
 
-Tab::Tab(ShapeId sid, TabProp prop) {
-  this->prop = prop;
+Tab::Tab(ShapeId sid, TabProp inputProp) {
+  prop = inputProp;
+
+  color = prop.backgroundColor;
 
   rect = prop.rect;
 
@@ -14,11 +16,9 @@ Tab::Tab(ShapeId sid, TabProp prop) {
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
-  this->prop.rect = rect;
-
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   wtype = WidgetType::TAB;
 }
@@ -115,10 +115,20 @@ TabProp Tab::LoadTabProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
   SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
-  SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
+  SDL_FColor borderColor = Widget::ParseVar("border", conf, root->GetVars());
 
   TabProp prop = {dimr, backgroundColor, borderColor};
   return prop;
 }
+
+void Tab::SetRect(SDL_FRect rect) { prop.rect = rect; }
+
+SDL_FRect Tab::GetRect() { return prop.rect; }
+
+void Tab::SetBackgroundColor(SDL_FColor color) { prop.backgroundColor = color; }
+SDL_FColor Tab::GetBackgroundColor() { return prop.backgroundColor; }
+
+void Tab::SetBorderColor(SDL_FColor color) { prop.borderColor = color; }
+SDL_FColor Tab::GetBorderColor() { return prop.borderColor; }

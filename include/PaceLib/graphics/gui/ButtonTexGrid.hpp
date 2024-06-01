@@ -16,11 +16,7 @@ class ButtonTexGrid : public Widget {
   example format:
   {
       "scene" : "Default",
-<<<<<<< HEAD
-            "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
-=======
-      "rect" : ["H_1%", "W_1%", "W_5%", "W_5%"],
->>>>>>> 68be932 (Rename dim to rect in the json configurations)
+            "rect" : ["H_1%", "W_1%", "W_5%", "W_5%"],
       "distance" : 10.0,
       "tex_name" : "sn_yellow.png",
       "over_tex_name" : "",
@@ -53,14 +49,14 @@ class ButtonTexGrid : public Widget {
   void SetOver(TexProp over);
   TexProp GetOver();
 
-  void SetBackgroundColor(SDL_Color color);
-  SDL_Color GetBackgroundColor();
+  void SetBackgroundColor(SDL_FColor color);
+  SDL_FColor GetBackgroundColor();
 
-  void SetBorderColor(SDL_Color color);
-  SDL_Color GetBorderColor();
+  void SetBorderColor(SDL_FColor color);
+  SDL_FColor GetBorderColor();
 
-  void SetHighlightColor(SDL_Color color);
-  SDL_Color GetHighlightColor();
+  void SetHighlightColor(SDL_FColor color);
+  SDL_FColor GetHighlightColor();
 
   void SetDrawBorder(bool drawBorder);
   bool GetDrawBorder();

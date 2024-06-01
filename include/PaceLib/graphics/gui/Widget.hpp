@@ -40,9 +40,9 @@ class Widget : public Shape {
     }
   }
 
-  static SDL_Color ParseVar(std::string key, Configuration *conf,
+  static SDL_FColor ParseVar(std::string key, Configuration *conf,
                             Configuration *vars) {
-    SDL_Color color;
+    SDL_FColor color;
 
     if (conf->Get(key).is_string()) {
       std::string name = conf->Get(key).get<std::string>().substr(1);
@@ -66,9 +66,4 @@ struct ShapeId {
   Shape *parent;
   std::string name;
 };
-<<<<<<< HEAD
 }  // namespace PaceLib
-=======
-
-}
->>>>>>> 68be932 (Rename dim to rect in the json configurations)

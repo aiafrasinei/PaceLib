@@ -33,8 +33,3 @@ class Configuration {
   json j;
   std::string fname;
 };
-<<<<<<< HEAD
-=======
-
-}
->>>>>>> 68be932 (Rename dim to rect in the json configurations)

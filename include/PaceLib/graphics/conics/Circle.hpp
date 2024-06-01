@@ -32,7 +32,11 @@ class Circle : public Shape {
 
   // end static methods
 
+  // setters, getters
   void SetDrawType(DrawTypes rtype);
+
+  void SetRadius(int radius);
+  int GetRadius();
 
   void Draw();
 
@@ -42,7 +46,7 @@ class Circle : public Shape {
 
   DrawTypes rtype;
 
-  Circle(ShapeId sid, CircleProp prop);
+  Circle(ShapeId sid, CircleProp inputProp);
 };
 
 }

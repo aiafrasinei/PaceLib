@@ -59,7 +59,7 @@ class Triangle : public Shape {
  private:
   TriangleProp prop;
 
-  SDL_Point points[4];
+  SDL_FPoint points[4];
 
   SDL_Vertex verts[3];
 

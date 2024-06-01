@@ -7,6 +7,11 @@ using namespace PaceLib;
 Grid::Grid(ShapeId sid, GridProp inputProp) {
   prop = inputProp;
 
+  rect.x = prop.x;
+  rect.y = prop.y;
+
+  color = prop.color;
+
   if (sid.parent->name != "root") {
     rect.x = sid.parent->GetRect().x + prop.x;
     rect.y = sid.parent->GetRect().y + prop.y;
@@ -18,10 +23,6 @@ Grid::Grid(ShapeId sid, GridProp inputProp) {
 
   wtype = WidgetType::GRID;
 }
-
-Grid::Grid() {}
-
-Grid::~Grid() {}
 
 void Grid::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Grid.conf";
@@ -70,8 +71,8 @@ void Grid::Begin(ShapeId sid, GridProp prop) {
 
 void Grid::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
 
     for (int i = 0; i <= prop.nr; i++) {
       for (int j = 0; j <= prop.nr; j++) {
@@ -93,12 +94,27 @@ void Grid::Draw() {
 GridProp Grid::LoadGridProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
-  float x = conf->Get("x").get<float>();
-  float y = conf->Get("y").get<float>();
-  float distance = conf->Get("distance").get<float>();
+  int x = conf->Get("x").get<int>();
+  int y = conf->Get("y").get<int>();
+  int distance = conf->Get("distance").get<int>();
   int nr = conf->Get("nr").get<int>();
-  SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
+  SDL_FColor color = Widget::ParseVar("color", conf, root->GetVars());
 
   GridProp prop = {x, y, distance, nr, color};
   return prop;
 }
+
+void Grid::SetX(int x) { prop.x = x; }
+int Grid::GetX() { return prop.x; }
+
+void Grid::SetY(int y) { prop.y = y; }
+int Grid::GetY() { return prop.y; }
+
+void Grid::SetDistance(int distance) { prop.distance = distance; }
+int Grid::GetDistance() { return prop.distance; }
+
+void Grid::SetNr(int nr) { prop.nr = nr; }
+int Grid::GetNr() { return prop.nr; }
+
+void Grid::SetColor(SDL_FColor color) { prop.color = color; }
+SDL_FColor Grid::GetColor() { return prop.color; }

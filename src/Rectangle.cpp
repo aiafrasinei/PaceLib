@@ -8,8 +8,9 @@ using namespace PaceLib;
 Rectangle::Rectangle(ShapeId sid, PropDimColor prop) {
   this->prop = prop;
   rect = prop.rect;
+  color = prop.color;
 
-  if (sid.parent->name != "root") {
+  if (sid.parent->GetName() != "root") {
     rect.x = sid.parent->GetRect().x + prop.rect.x;
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
@@ -24,15 +25,10 @@ void Rectangle::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-<<<<<<< HEAD
     float dim[4];
-    Root::ParseRect("dim", dim, conf);
-=======
-    int dim[4];
     Root::ParseRect("rect", dim, conf);
->>>>>>> 68be932 (Rename dim to rect in the json configurations)
 
-    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
+    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(
@@ -65,8 +61,8 @@ void Rectangle::EndBlock() {
 
 void Rectangle::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
 
     SDL_RenderFillRect(Window::GetRenderer(), &rect);
   }

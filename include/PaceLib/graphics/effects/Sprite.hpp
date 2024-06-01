@@ -32,26 +32,26 @@ class Sprite : public Shape {
 
   // end static methods
 
+  // setters, getters
   void SetTex(SDL_Texture *tex);
-  void SetRect(SDL_FRect dim);
+  SDL_Texture *GetTex();
+
+  void SetOffset(int offset);
+  int GetOffset();
+
+  void SetNr(int nr);
+  int GetNr();
 
   void Draw();
-
-  ~Sprite();
-
+  
  protected:
  private:
   SpriteProp prop;
 
-  SDL_Texture *tex;
-
   SDL_FRect src_rect;
   SDL_FRect dest_rect;
 
-  int offset;
-  int nr;
-
-  Sprite(ShapeId sid, SpriteProp prop);
+  Sprite(ShapeId sid, SpriteProp inputProp);
 };
 
 }

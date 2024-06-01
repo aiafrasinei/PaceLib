@@ -7,6 +7,7 @@ using namespace PaceLib;
 
 Text::Text(ShapeId sid, TextProp inputProp) {
   prop = inputProp;
+  //color = prop.color;
 
   rect.x = prop.x;
   rect.y = prop.y;
@@ -84,8 +85,8 @@ void Text::Begin(ShapeId sid, TextProp prop) {
 
 void Text::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderTexture(Window::GetRenderer(), prop.tex, NULL, &rect);
   }
 }
@@ -98,7 +99,8 @@ void Text::SetX(int x) { rect.x = x; }
 
 void Text::SetY(int y) { rect.y = y; }
 
-std::string Text::GetText() { return prop.text; }
+void Text::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Text::GetTex() { return prop.tex; };
 
 void Text::SetText(std::string text) {
   if (prop.text != text) {
@@ -111,6 +113,8 @@ void Text::SetText(std::string text) {
   }
 }
 
+std::string Text::GetText() { return prop.text; }
+
 TextProp Text::LoadTextProp(Configuration *conf) {
   float pos[2];
   Widget::ParsePos(pos, conf);
@@ -119,7 +123,7 @@ TextProp Text::LoadTextProp(Configuration *conf) {
 
   std::string font = conf->Get("font").get<std::string>();
   std::string text = conf->Get("text").get<std::string>();
-  SDL_Color color = Widget::ParseVar("color", conf, root->GetVars());
+  SDL_FColor color = Widget::ParseVar("color", conf, root->GetVars());
 
   root->GetScene(conf->Get("scene").get<std::string>())
       ->AddFont(root->GetCurrent()->name, font, text, color);

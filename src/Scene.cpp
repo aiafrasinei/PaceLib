@@ -33,9 +33,9 @@ bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w,
 }
 
 bool Scene::AddFont(std::string name, std::string font, std::string text,
-                    SDL_Color color) {
+                    SDL_FColor color) {
   SDL_Surface *surface =
-      TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), color);
+      TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), {(int)color.r, (int)color.g, (int)color.b, (int)color.a} );
   SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
   
   font_atlas->Add(name, tex);

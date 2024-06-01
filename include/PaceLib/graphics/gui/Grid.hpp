@@ -33,13 +33,23 @@ class Grid : public Widget {
 
   // end static methods
 
-  GridProp *GetProp() { return &prop; }
+  // setters, getters
+  void SetX(int x);
+  int GetX();
+
+  void SetY(int y);
+  int GetY();
+
+  void SetDistance(int distance);
+  int GetDistance();
+
+  void SetNr(int nr);
+  int GetNr();
+
+  void SetColor(SDL_FColor color);
+  SDL_FColor GetColor();
 
   void Draw();
-
-  Grid();
-
-  ~Grid();
 
  protected:
 

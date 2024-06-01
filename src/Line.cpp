@@ -4,8 +4,9 @@
 
 using namespace PaceLib;
 
-Line::Line(ShapeId sid, LineProp prop) {
-  this->prop = prop;
+Line::Line(ShapeId sid, LineProp inputProp) {
+  prop = inputProp;
+  color = prop.color;
 
   if (sid.name != "root") {
     this->prop.x1 = sid.parent->GetRect().x + prop.x1;
@@ -27,7 +28,7 @@ void Line::Begin(ShapeId sid) {
     float x2 = conf->Get("x2");
     float y2 = conf->Get("y2");
 
-    SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
+    SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};
     sid.parent->Add(new Line(sid, {x1, y1, x2, y2, color}));
   }
@@ -58,8 +59,20 @@ void Line::EndBlock() {
 
 void Line::Draw() {
   if (!hidden) {
-    SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
-                           prop.color.b, prop.color.a);
+    SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b,
+                           color.a);
     SDL_RenderLine(Window::GetRenderer(), prop.x1, prop.y1, prop.x2, prop.y2);
   }
 }
+
+void Line::SetX1(int x1) { prop.x1 = x1; }
+int Line::GetX1() { return prop.x1; }
+
+void Line::SetX2(int x2) { prop.x2 = x2; }
+int Line::GetX2() { return prop.x2; }
+
+void Line::SetY1(int y1) { prop.y1 = y1; }
+int Line::GetY1() { return prop.y1; }
+
+void Line::SetY2(int y2) { prop.y2 = y2; }
+int Line::GetY2() { return prop.y2; }

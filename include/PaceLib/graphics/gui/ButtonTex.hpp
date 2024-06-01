@@ -36,15 +36,31 @@ class ButtonTex : public Widget {
 
   // end static methods
 
+  // getters, setters
+  void SetNormal(TexProp normal);
+  TexProp GetNormal();
+
+  void SetOver(TexProp over);
+  TexProp GetOver();
+
+  void SetBackgroundColor(SDL_FColor backgroundColor);
+  SDL_FColor GetBackgroundColor();
+
+  void SetBorderColor(SDL_FColor borderColor);
+  SDL_FColor GetBorderColor();
+
+  void SetHighlightColor(SDL_FColor highlightColor);
+  SDL_FColor GetHighlightColor();
+
+  bool drawBorder;
+
+  void SetBorder(bool state);
+  
   void SetHighlight(bool state);
 
   void Draw();
 
   void Update(SDL_Event *e);
-
-  ButtonTexProp *GetProp() { return &prop; }
-
-  ~ButtonTex();
 
  private:
   bool mouseOver;

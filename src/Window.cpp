@@ -4,7 +4,7 @@ using namespace PaceLib;
 
 SDL_Renderer *Window::renderer = nullptr;
 SDL_Window *Window::window = nullptr;
-SDL_Color Window::backgroundColor = {50, 50, 50, 255};
+SDL_FColor Window::backgroundColor = {50, 50, 50, 255};
 bool Window::running = true;
 int Window::width = -1;
 int Window::height = -1;
@@ -93,11 +93,11 @@ void Window::Clear() { SDL_RenderClear(renderer); }
 
 void Window::Present() { SDL_RenderPresent(renderer); }
 
-void Window::SetDrawColor(SDL_Color col) {
+void Window::SetDrawColor(SDL_FColor col) {
   SDL_SetRenderDrawColor(Window::GetRenderer(), col.r, col.g, col.b, col.a);
 }
 
-void Window::SetBackgroundColor(SDL_Color col) {
+void Window::SetBackgroundColor(SDL_FColor col) {
   backgroundColor.r = col.r;
   backgroundColor.g = col.g;
   backgroundColor.b = col.b;
@@ -106,4 +106,4 @@ void Window::SetBackgroundColor(SDL_Color col) {
   SetDrawColor(backgroundColor);
 }
 
-SDL_Color Window::GetBackgroundColor() { return backgroundColor; }
+SDL_FColor Window::GetBackgroundColor() { return backgroundColor; }

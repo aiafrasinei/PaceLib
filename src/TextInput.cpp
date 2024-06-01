@@ -12,8 +12,6 @@ TextInput::TextInput(ShapeId sid, LabelProp prop) : Label(sid, prop) {
   textSize = 0;
 }
 
-TextInput::~TextInput() {}
-
 void TextInput::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_TextInput.conf";
   if (std::filesystem::exists(path)) {
@@ -131,7 +129,7 @@ void TextInput::InternalInit() {
   Text::Begin({tin, tin->name + "_text"}, tprop);
 
   Text *to = static_cast<Text *>(tin->Get(name + "_text"));
-  to->GetProp()->color = prop.textColor;
+  to->SetColor(prop.textColor);
   textSize = to->GetWidth();
 
   to->SetX(GetRect().x + rect.w / 20);

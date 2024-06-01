@@ -30,6 +30,13 @@ class Point : public Shape {
 
   // end static methods
 
+  // setters, getters
+  void SetX(int x);
+  int GetX();
+
+  void SetY(int y);
+  int GetY();
+
   void Draw();
 
  protected:

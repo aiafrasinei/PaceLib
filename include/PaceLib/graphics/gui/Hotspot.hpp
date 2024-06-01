@@ -38,16 +38,26 @@ class Hotspot : public Widget {
 
   // end static methods
 
+  // setters, getters
+  void SetBackgroundColor(SDL_FColor backgroundColor);
+  SDL_FColor GetBackgroundColor();
+
+  void SetHover(Hover type);
+  Hover GetHover();
+
+  void SetTex(SDL_Texture *tex);
+  SDL_Texture *GetTex();
+
   void SetHighlight(bool state);
 
-  void SetHighlightColor(SDL_Color color);
+  void SetHighlightColor(SDL_FColor color);
 
   void Draw();
 
   void Update(SDL_Event *e);
 
  private:
-  Hotspot(ShapeId sid, HotspotProp prop);
+  Hotspot(ShapeId sid, HotspotProp inputProp);
 
   HotspotProp prop;
 
@@ -55,7 +65,7 @@ class Hotspot : public Widget {
 
   bool isHighlight;
 
-  SDL_Color highlightColor;
+  SDL_FColor highlightColor;
 
   SDL_Texture *tex;
 

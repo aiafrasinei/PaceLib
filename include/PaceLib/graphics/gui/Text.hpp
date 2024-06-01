@@ -34,6 +34,7 @@ class Text : public Widget {
 
   void Draw();
 
+  // setters, getters
   int GetWidth();
   int GetHeight();
 
@@ -43,7 +44,8 @@ class Text : public Widget {
   std::string GetText();
   void SetText(std::string text);
 
-  TextProp *GetProp() { return &prop; }
+  void SetTex(SDL_Texture *tex);
+  SDL_Texture * GetTex();
 
  protected:
  private:

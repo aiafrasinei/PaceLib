@@ -42,13 +42,13 @@ void ComboBox::Begin(ShapeId sid) {
 
     std::string font = conf->Get("font").get<std::string>();
     SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-    SDL_Color backgroundColor =
+    SDL_FColor backgroundColor =
         Widget::ParseVar("background", conf, root->GetVars());
-    SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
-    SDL_Color highlightColor =
+    SDL_FColor borderColor = Widget::ParseVar("border", conf, root->GetVars());
+    SDL_FColor highlightColor =
         Widget::ParseVar("highlight", conf, root->GetVars());
 
-    SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+    SDL_FColor textColor = Widget::ParseVar("text_color", conf, root->GetVars());
     std::vector<std::string> tarr =
         conf->Get("text_arr").get<std::vector<std::string>>();
 
@@ -195,7 +195,7 @@ void ComboBox::InternalInit() {
       mainRendererSelected = false;
 
       selected = i;
-      main_renderer->SetText(currentb->GetProp()->text);
+      main_renderer->SetText(currentb->GetText());
       main_renderer->Show();
     };
   }
@@ -214,7 +214,7 @@ void ComboBox::SetSelection(int index) {
       static_cast<Button *>(this->Get("item_" + std::to_string(selected)));
 
   if (items.size() > 0) {
-    main_renderer->SetText(sel->GetProp()->text);
+    main_renderer->SetText(sel->GetText());
   }
 }
 

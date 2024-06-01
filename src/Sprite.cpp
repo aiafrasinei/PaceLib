@@ -5,36 +5,29 @@
 
 using namespace PaceLib;
 
-Sprite::Sprite(ShapeId sid, SpriteProp prop) {
-  this->prop = prop;
+Sprite::Sprite(ShapeId sid, SpriteProp inputProp) {
+  prop = inputProp;
 
-  rect = this->prop.dim;
-
-  dest_rect = this->prop.dim;
-  tex = this->prop.tex;
+  rect = prop.rect;
+  dest_rect = prop.rect;
 
   if (sid.parent->name != "root") {
-    dest_rect.x = sid.parent->GetRect().x + prop.dim.x;
-    dest_rect.y = sid.parent->GetRect().y + prop.dim.y;
+    dest_rect.x = sid.parent->GetRect().x + prop.rect.x;
+    dest_rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
 
-  dest_rect.w = this->prop.dim.w;
-  dest_rect.h = this->prop.dim.h;
+  dest_rect.w = prop.rect.w;
+  dest_rect.h = prop.rect.h;
 
   hidden = false;
 
   name = sid.name;
 
-  offset = this->prop.offset;
-  nr = this->prop.nr;
-
   src_rect.x = 0;
   src_rect.y = 0;
-  src_rect.w = this->prop.offset;
-  src_rect.h = this->prop.offset;
+  src_rect.w = prop.offset;
+  src_rect.h = prop.offset;
 }
-
-Sprite::~Sprite() {}
 
 void Sprite::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Sprite.conf";
@@ -80,19 +73,19 @@ void Sprite::Begin(ShapeId sid, SpriteProp prop) {
 
 void Sprite::Draw() {
   if (!hidden) {
-    SDL_RenderTexture(Window::GetRenderer(), tex, &src_rect, &dest_rect);
-    src_rect.x = src_rect.x + offset;
-    if (src_rect.x == nr * offset) {
+    SDL_RenderTexture(Window::GetRenderer(), prop.tex, &src_rect, &dest_rect);
+    src_rect.x = src_rect.x + prop.offset;
+    if (src_rect.x == prop.nr * prop.offset) {
       src_rect.x = 0;
     }
   }
 }
 
-void Sprite::SetTex(SDL_Texture *tex) { this->tex = tex; }
+void Sprite::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Sprite::GetTex() { return prop.tex; }
 
-void Sprite::SetRect(SDL_FRect dim) {
-  dest_rect.x = dim.x;
-  dest_rect.y = dim.y;
-  dest_rect.w = dim.w;
-  dest_rect.h = dim.h;
-}
+void Sprite::SetOffset(int offset) { prop.offset = offset; }
+int Sprite::GetOffset() { return prop.offset; }
+
+void Sprite::SetNr(int nr) { prop.nr = nr; }
+int Sprite::GetNr() { return prop.nr; }

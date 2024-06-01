@@ -152,6 +152,8 @@ void ButtonTex::Update(SDL_Event *e) {
 
 void ButtonTex::SetHighlight(bool state) { highlight = state; }
 
+void ButtonTex::SetBorder(bool state) { drawBorder = state; }
+
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
   float dim[4];
   Root::ParseRect("rect", dim, conf);
@@ -160,16 +162,16 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
 
   Root *root = &Root::GetInstance();
 
-  SDL_Color borderColor = {0, 0, 0, 255};
+  SDL_FColor borderColor = {0, 0, 0, 255};
   bool drawBorder = true;
   if (conf->Get("border") == "")
     drawBorder = false;
   else
     borderColor = Widget::ParseVar("border", conf, root->GetVars());
 
-  SDL_Color highlightColor =
+  SDL_FColor highlightColor =
       Widget::ParseVar("highlight", conf, root->GetVars());
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
 
   ButtonTexProp prop;
@@ -200,3 +202,24 @@ ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
 
   return prop;
 }
+
+void ButtonTex::SetNormal(TexProp normal) { prop.normal = normal; }
+TexProp ButtonTex::GetNormal() { return prop.normal; }
+
+void ButtonTex::SetOver(TexProp over) { prop.over = over; }
+TexProp ButtonTex::GetOver() { return prop.over; }
+
+void ButtonTex::SetBackgroundColor(SDL_FColor backgroundColor) {
+  prop.backgroundColor = backgroundColor;
+}
+SDL_FColor ButtonTex::GetBackgroundColor() { return prop.backgroundColor; }
+
+void ButtonTex::SetBorderColor(SDL_FColor borderColor) {
+  prop.borderColor = borderColor;
+}
+SDL_FColor ButtonTex::GetBorderColor() { return prop.borderColor; }
+
+void ButtonTex::SetHighlightColor(SDL_FColor highlightColor) {
+  prop.highlightColor = highlightColor;
+}
+SDL_FColor ButtonTex::GetHighlightColor() { return prop.highlightColor; }

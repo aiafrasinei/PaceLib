@@ -7,14 +7,14 @@ using namespace PaceLib;
 Texture::Texture(ShapeId sid, TextureProp inputProp) {
   prop = inputProp;
 
-  if(prop.dstrect != nullptr) {
+  if (prop.dstrect != nullptr) {
     rect.x = (*prop.dstrect).x;
     rect.y = (*prop.dstrect).y;
     rect.w = (*prop.dstrect).w;
     rect.h = (*prop.dstrect).h;
   }
 
- if (sid.parent->name != "root") {
+  if (sid.parent->name != "root") {
     rect.x = sid.parent->GetRect().x + (*prop.dstrect).x;
     rect.y = sid.parent->GetRect().y + (*prop.dstrect).y;
   }
@@ -61,7 +61,7 @@ void Texture::Begin(ShapeId sid) {
     }
 
     double angle = conf->Get("angle").get<double>();
-    
+
     std::string flipstr = conf->Get("flip").get<std::string>();
     SDL_FlipMode flip;
     if(flipstr == "none") {
@@ -82,10 +82,8 @@ void Texture::Begin(ShapeId sid) {
       center = &temp;
     }
 
-    TextureProp nt = { tex,
-    srcrectInstance, 
-    dstrectInstance,
-    angle, center, flip};
+    TextureProp nt = {tex,   srcrectInstance, dstrectInstance,
+                      angle, center,          flip};
 
     sid.parent->Add(new Texture(sid, nt));
   }
@@ -130,3 +128,21 @@ void Texture::Draw() {
 void Texture::Begin(ShapeId sid, TextureProp inputProp) {
   sid.parent->Add(new Texture(sid, inputProp));
 }
+
+void Texture::SetTex(SDL_Texture *tex) { prop.tex = tex; }
+SDL_Texture *Texture::GetTex() { return prop.tex; }
+
+void Texture::SetSrcRect(SDL_FRect *srcrect) { prop.srcrect = srcrect; }
+SDL_FRect *Texture::GetSrcRect() { return prop.srcrect; }
+
+void Texture::SetDstRect(SDL_FRect *dstrect) { prop.dstrect = dstrect; }
+SDL_FRect *Texture::GetDstRect() { return prop.dstrect; }
+
+void Texture::SetAngle(double angle) { prop.angle = angle; }
+double Texture::GetAngle() { return prop.angle; }
+
+void Texture::SetCenter(SDL_FPoint *center) { prop.center = center; }
+SDL_FPoint *Texture::GetCenter() { return prop.center; }
+
+void Texture::SetFlip(SDL_FlipMode flip) { prop.flip = flip; }
+SDL_FlipMode Texture::GetFlip() { return prop.flip; }

@@ -120,10 +120,10 @@ MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
   Root *root = &Root::GetInstance();
 
   SDL_FRect dimr = {dim[0], dim[1], dim[2], dim[3]};
-  SDL_Color backgroundColor =
+  SDL_FColor backgroundColor =
       Widget::ParseVar("background", conf, root->GetVars());
-  SDL_Color borderColor = Widget::ParseVar("border", conf, root->GetVars());
-  SDL_Color textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+  SDL_FColor borderColor = Widget::ParseVar("border", conf, root->GetVars());
+  SDL_FColor textColor = Widget::ParseVar("text_color", conf, root->GetVars());
   std::vector<std::string> tarr =
       conf->Get("text_arr").get<std::vector<std::string>>();
   std::string font = conf->Get("font").get<std::string>();
@@ -137,3 +137,23 @@ MultiItemsProp TextArea::LoadTextAreaProp(Configuration *conf) {
                          borderColor};
   return prop;
 }
+
+void TextArea::SetScene(std::string scene) { prop.scene = scene; }
+std::string TextArea::GetScene() { return prop.scene; }
+
+void TextArea::SetFont(std::string font) { prop.font = font; }
+std::string TextArea::GetFont() { return prop.font; }
+
+void TextArea::SetText(std::vector<std::string> tarr) { prop.tarr = tarr; }
+std::vector<std::string> TextArea::GetText() { return prop.tarr; }
+
+void TextArea::SetTextColor(SDL_FColor color) { prop.textColor = color; }
+SDL_FColor TextArea::GetTextColor() { return prop.textColor; }
+
+void TextArea::SetBackgroundColor(SDL_FColor color) {
+  prop.backgroundColor = color;
+}
+SDL_FColor TextArea::GetBackgroundColor() { return prop.backgroundColor; }
+
+void TextArea::SetBorderColor(SDL_FColor color) { prop.borderColor = color; }
+SDL_FColor TextArea::GetBorderColor() { return prop.borderColor; }
