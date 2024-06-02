@@ -28,8 +28,6 @@ Texture::Texture(ShapeId sid, TextureProp inputProp) {
   wtype = WidgetType::TEXTURE;
 }
 
-Texture::~Texture() {}
-
 void Texture::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Texture.conf";
   if (std::filesystem::exists(path)) {

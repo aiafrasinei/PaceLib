@@ -8,8 +8,6 @@ namespace PaceLib {
 
 class ButtonTex : public Widget {
  public:
-  ~ButtonTex();
-
   // static methods
 
   // json configuration

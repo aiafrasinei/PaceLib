@@ -39,8 +39,6 @@ class Point : public Shape {
 
   void Draw();
 
-  ~Point();
-
  protected:
  private:
   PointProp prop;

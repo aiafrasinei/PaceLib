@@ -18,8 +18,6 @@ Line::Line(ShapeId sid, LineProp inputProp) {
   hidden = false;
 }
 
-Line::~Line() {}
-
 void Line::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Line.conf";
   if (std::filesystem::exists(path)) {

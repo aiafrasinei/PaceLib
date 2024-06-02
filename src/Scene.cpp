@@ -37,6 +37,7 @@ bool Scene::AddFont(std::string name, std::string font, std::string text,
   SDL_Surface *surface =
       TTF_RenderText_Solid(GetTtfContainer()->Get(font), text.c_str(), color);
   SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
+  
   font_atlas->Add(name, tex);
 
   return true;

@@ -7,8 +7,8 @@
 
 using namespace PaceLib;
 
-ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop) {
-  this->prop = prop;
+ComboBox::ComboBox(ShapeId sid, MultiItemsProp inputProp) {
+  prop = inputProp;
 
   rect = prop.rect;
 
@@ -16,8 +16,6 @@ ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop) {
     rect.x = sid.parent->GetRect().x + prop.rect.x;
     rect.y = sid.parent->GetRect().y + prop.rect.y;
   }
-
-  this->prop.rect = rect;
 
   hidden = false;
 
@@ -29,10 +27,8 @@ ComboBox::ComboBox(ShapeId sid, MultiItemsProp prop) {
 
   selected = -1;
   mainRendererSelected = false;
-  this->name = sid.name;
+  name = sid.name;
 }
-
-ComboBox::~ComboBox() {}
 
 void ComboBox::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_ComboBox.conf";

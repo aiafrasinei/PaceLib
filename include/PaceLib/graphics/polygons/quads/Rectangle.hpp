@@ -6,8 +6,6 @@ namespace PaceLib {
 
 class Rectangle : public Shape {
  public:
-  ~Rectangle();
-  
   // static methods
 
   // json configuration

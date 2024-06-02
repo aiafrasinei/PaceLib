@@ -27,8 +27,6 @@ Root::Root() {
   currentAbsoluteCoords = {0, 0};
 }
 
-Root::~Root() {}
-
 void Root::Draw() {
   SDL_SetRenderDrawColor(Window::GetRenderer(), Window::GetBackgroundColor().r,
                          Window::GetBackgroundColor().g,

@@ -20,8 +20,6 @@ Lines::Lines(ShapeId sid, VertsProp inputProp) {
   name = sid.name;
 }
 
-Lines::~Lines() {}
-
 void Lines::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Lines.conf";
   if (std::filesystem::exists(path)) {

@@ -25,8 +25,6 @@ Hotspot::Hotspot(ShapeId sid, HotspotProp inputProp) {
   wtype = WidgetType::HOTSPOT;
 }
 
-Hotspot::~Hotspot() {}
-
 void Hotspot::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Hotspot.conf";
   if (std::filesystem::exists(path)) {

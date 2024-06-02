@@ -41,9 +41,8 @@ class Button : public Label {
   void SetHighlight(bool state);
 
   void Draw();
+  
   void Update(SDL_Event *e);
-
-  ~Button();
 
  private:
   bool mouseOver;

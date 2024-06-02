@@ -8,10 +8,6 @@ namespace PaceLib {
 
 class Label : public Widget {
  public:
-  Label();
-  
-  ~Label();
-
   // static methods
 
   // json configuration

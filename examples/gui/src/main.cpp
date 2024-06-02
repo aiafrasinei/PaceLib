@@ -24,7 +24,7 @@ bool init() {
   Tab::BeginBlock("second");
     Text::Begin("text");
     Label::BeginBlock("out");
-    Tooltip::Begin("outo");
+      Tooltip::Begin("outo");
     Label::EndBlock();
     TextArea::Begin("texta");
     TextInput::Begin("in");
@@ -66,7 +66,7 @@ int main(int argc, const char *argv[]) {
   starter = new Init();
 
   starter->onInit = &init;
-
+  
   starter->Loop();
 
   return 0;

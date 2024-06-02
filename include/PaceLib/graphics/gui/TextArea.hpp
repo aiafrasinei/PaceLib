@@ -7,8 +7,6 @@ namespace PaceLib {
 
 class TextArea : public Widget {
  public:
-  ~TextArea();
-
   // static methods
 
   // json configuration

@@ -27,8 +27,6 @@ Label::Label(ShapeId sid, LabelProp inputProp) {
   textSize = 0;
 }
 
-Label::~Label() {}
-
 // load all info from conf file ( {dim, color}, {font_name, text}, align )
 void Label::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Label.conf";

@@ -56,10 +56,6 @@ class Hotspot : public Widget {
 
   void Update(SDL_Event *e);
 
-  HotspotProp *GetProp() { return &prop; }
-
-  ~Hotspot();
-
  private:
   Hotspot(ShapeId sid, HotspotProp inputProp);
 

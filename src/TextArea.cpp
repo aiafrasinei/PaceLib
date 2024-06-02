@@ -24,8 +24,6 @@ TextArea::TextArea(ShapeId sid, MultiItemsProp prop) {
   wtype = WidgetType::TEXTAREA;
 }
 
-TextArea::~TextArea() {}
-
 void TextArea::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_TextArea.conf";
   if (std::filesystem::exists(path)) {

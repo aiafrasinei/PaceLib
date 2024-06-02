@@ -46,9 +46,7 @@ class Line : public Shape {
   int GetY2();
 
   void Draw();
-
-  ~Line();
-
+  
  protected:
  private:
   LineProp prop;

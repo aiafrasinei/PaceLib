@@ -26,8 +26,6 @@ CheckBox::CheckBox(ShapeId sid, LabelProp prop) : Label(sid, prop) {
   textSize = 0;
 }
 
-CheckBox::~CheckBox() {}
-
 void CheckBox::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_CheckBox.conf";
   if (std::filesystem::exists(path)) {

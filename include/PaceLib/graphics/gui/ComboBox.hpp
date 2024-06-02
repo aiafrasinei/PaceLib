@@ -8,8 +8,6 @@ namespace PaceLib {
 
 class ComboBox : public Widget {
  public:
-  ~ComboBox();
-  
   // static methods
 
   // json configuration
@@ -48,7 +46,7 @@ class ComboBox : public Widget {
   void ReplaceItems(std::vector<std::string> items);
 
  private:
-  ComboBox(ShapeId sid, MultiItemsProp prop);
+  ComboBox(ShapeId sid, MultiItemsProp inputProp);
 
   MultiItemsProp prop;
 

@@ -23,10 +23,6 @@ ButtonTexGrid::ButtonTexGrid(ShapeId sid, ButtonTexGridProp inputProp) {
   wtype = WidgetType::BUTTONGRID;
 }
 
-ButtonTexGrid::ButtonTexGrid() {}
-
-ButtonTexGrid::~ButtonTexGrid() {}
-
 void ButtonTexGrid::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_ButtonGrid.conf";
   if (std::filesystem::exists(path)) {
@@ -160,3 +156,27 @@ ButtonTexGridProp ButtonTexGrid::LoadButtonTexGridProp(Configuration *conf) {
                             borderColor, highlightColor, drawBorder};
   return prop;
 }
+
+void ButtonTexGrid::SetScene(std::string scene) { prop.scene = scene; }
+std::string ButtonTexGrid::GetScene() { return prop.scene; }
+
+void ButtonTexGrid::SetDistance(int distance) { prop.distance = distance; }
+int ButtonTexGrid::GetDistance() { return prop.distance; }
+
+void ButtonTexGrid::SetNormal(TexProp normal) { prop.normal = normal; }
+TexProp ButtonTexGrid::GetNormal() { return prop.normal; }
+
+void ButtonTexGrid::SetOver(TexProp over) { prop.over = over; }
+TexProp ButtonTexGrid::GetOver() { return prop.over; }
+
+void ButtonTexGrid::SetBackgroundColor(SDL_Color color) { prop.backgroundColor = color; }
+SDL_Color ButtonTexGrid::GetBackgroundColor() { return prop.backgroundColor; }
+
+void ButtonTexGrid::SetBorderColor(SDL_Color color) { prop.borderColor = color; }
+SDL_Color ButtonTexGrid::GetBorderColor() { return prop.borderColor; }
+
+void ButtonTexGrid::SetHighlightColor(SDL_Color color) { prop.highlightColor = color; }
+SDL_Color ButtonTexGrid::GetHighlightColor() { return prop.highlightColor; }
+
+void ButtonTexGrid::SetDrawBorder(bool drawBorder) { prop.drawBorder = drawBorder; }
+bool ButtonTexGrid::GetDrawBorder() { return prop.drawBorder; }

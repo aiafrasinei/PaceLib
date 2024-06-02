@@ -7,6 +7,7 @@ using namespace PaceLib;
 
 Circle::Circle(ShapeId sid, CircleProp inputProp) {
   prop = inputProp;
+  
   color = prop.color;
 
   if (sid.parent->name != "root") {
@@ -22,8 +23,6 @@ Circle::Circle(ShapeId sid, CircleProp inputProp) {
 
   name = sid.name;
 }
-
-Circle::~Circle() {}
 
 void Circle::SetDrawType(DrawTypes rtype) { this->rtype = rtype; }
 

@@ -36,13 +36,32 @@ class ButtonTexGrid : public Widget {
 
   // end static methods
 
-  ButtonTexGridProp *GetProp() { return &prop; }
+  // setters, getters
+  void SetScene(std::string scene);
+  std::string GetScene();
+
+  void SetDistance(int distance);
+  int GetDistance();
+
+  void SetNormal(TexProp normal);
+  TexProp GetNormal();
+
+  void SetOver(TexProp over);
+  TexProp GetOver();
+
+  void SetBackgroundColor(SDL_Color color);
+  SDL_Color GetBackgroundColor();
+
+  void SetBorderColor(SDL_Color color);
+  SDL_Color GetBorderColor();
+
+  void SetHighlightColor(SDL_Color color);
+  SDL_Color GetHighlightColor();
+
+  void SetDrawBorder(bool drawBorder);
+  bool GetDrawBorder();
 
   void Draw();
-
-  ButtonTexGrid();
-
-  ~ButtonTexGrid();
 
  protected:
   ButtonTexGridProp prop;

@@ -55,8 +55,6 @@ class Triangle : public Shape {
 
   void Draw();
 
-  ~Triangle();
-
  protected:
  private:
   TriangleProp prop;

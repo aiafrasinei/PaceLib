@@ -33,9 +33,7 @@ class Points : public Shape {
   std::vector<SDL_Point> GetVerts();
 
   void Draw();
-
-  ~Points();
-
+  
  protected:
  private:
   VertsProp prop;

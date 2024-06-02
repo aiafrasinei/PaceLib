@@ -34,8 +34,6 @@ class Polygon : public Shape {
 
   void Draw();
 
-  ~Polygon();
-
  protected:
  private:
   std::vector<SDL_Vertex> verts;

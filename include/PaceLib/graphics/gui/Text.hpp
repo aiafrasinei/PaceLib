@@ -47,8 +47,6 @@ class Text : public Widget {
   void SetTex(SDL_Texture *tex);
   SDL_Texture * GetTex();
 
-  ~Text();
-
  protected:
  private:
   TextProp prop;

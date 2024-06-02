@@ -6,8 +6,6 @@ namespace PaceLib {
 
 class Texture : public Widget {
  public:
-  ~Texture();
-  
   // static methods
 
   // json configuration

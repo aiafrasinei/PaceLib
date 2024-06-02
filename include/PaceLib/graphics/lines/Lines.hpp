@@ -33,8 +33,6 @@ class Lines : public Shape {
 
   void Draw();
 
-  ~Lines();
-
  protected:
  private:
   VertsProp prop;

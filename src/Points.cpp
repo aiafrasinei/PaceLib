@@ -20,8 +20,6 @@ Points::Points(ShapeId sid, VertsProp inputProp) {
   name = sid.name;
 }
 
-Points::~Points() {}
-
 void Points::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Points.conf";
   if (std::filesystem::exists(path)) {
