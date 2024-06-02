@@ -9,4 +9,4 @@ class State {
   virtual void Loop(){};
 };
 
-}  // namespace PaceLib
+}

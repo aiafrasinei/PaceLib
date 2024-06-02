@@ -16,7 +16,7 @@ class Hotspot : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
+      "rect" : ["W_25%", "W_3%", "W_20%", "W_22%"],
       "background" : [80, 70, 80, 255],
       "type" : "rect",
       "texture" : ""
@@ -62,4 +62,4 @@ class Hotspot : public Widget {
   static HotspotProp LoadHotspotProp(Configuration *conf);
 };
 
-}  // namespace PaceLib
+}

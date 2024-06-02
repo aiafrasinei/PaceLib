@@ -24,8 +24,13 @@ void Rectangle::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
+<<<<<<< HEAD
     float dim[4];
     Root::ParseRect("dim", dim, conf);
+=======
+    int dim[4];
+    Root::ParseRect("rect", dim, conf);
+>>>>>>> 68be932 (Rename dim to rect in the json configurations)
 
     SDL_Color color = {conf->Get("color")[0], conf->Get("color")[1],
                        conf->Get("color")[2], conf->Get("color")[3]};

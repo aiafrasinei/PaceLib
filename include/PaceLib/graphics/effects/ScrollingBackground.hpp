@@ -29,4 +29,4 @@ class ScrollingBackground : public Hidable {
   float scrollingOffset;
 };
 
-}  // namespace PaceLib
+}

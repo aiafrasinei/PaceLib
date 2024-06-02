@@ -51,4 +51,4 @@ class Grid : public Widget {
   Grid(ShapeId sid, GridProp inputProp);
 };
 
-}  // namespace PaceLib
+}

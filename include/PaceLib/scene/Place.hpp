@@ -27,4 +27,4 @@ class Place {
   std::string name;
 };
 
-}  // namespace PaceLib
+}

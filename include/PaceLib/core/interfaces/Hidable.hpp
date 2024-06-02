@@ -15,4 +15,4 @@ protected:
   bool hidden;
 };
 
-}  // namespace PaceLib
+}

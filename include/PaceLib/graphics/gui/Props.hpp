@@ -196,4 +196,4 @@ struct GridProp {
   SDL_Color color;
 };
 
-}  // namespace PaceLib
+}

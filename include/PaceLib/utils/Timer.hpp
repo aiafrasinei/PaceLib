@@ -26,4 +26,4 @@ class Timer {
   bool started;
 };
 
-}  // namespace PaceLib
+}

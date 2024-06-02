@@ -66,4 +66,4 @@ class Triangle : public Shape {
   Triangle(ShapeId sid, TriangleProp inputProp);
 };
 
-}  // namespace PaceLib
+}

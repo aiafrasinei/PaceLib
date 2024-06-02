@@ -38,4 +38,4 @@ class Window {
  protected:
 };
 
-}  // namespace PaceLib
+}

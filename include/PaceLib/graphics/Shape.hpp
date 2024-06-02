@@ -150,4 +150,4 @@ class Shape : public Drawable,
   }
 };
 
-}  // namespace PaceLib
+}

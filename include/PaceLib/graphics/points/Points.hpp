@@ -35,4 +35,4 @@ class Points : public Shape {
   Points(ShapeId sid, VertsProp prop);
 };
 
-}  // namespace PaceLib
+}

@@ -45,4 +45,4 @@ class Circle : public Shape {
   Circle(ShapeId sid, CircleProp prop);
 };
 
-}  // namespace PaceLib
+}

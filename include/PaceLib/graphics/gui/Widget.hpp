@@ -66,4 +66,9 @@ struct ShapeId {
   Shape *parent;
   std::string name;
 };
+<<<<<<< HEAD
 }  // namespace PaceLib
+=======
+
+}
+>>>>>>> 68be932 (Rename dim to rect in the json configurations)

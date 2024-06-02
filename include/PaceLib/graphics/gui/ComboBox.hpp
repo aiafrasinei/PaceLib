@@ -16,7 +16,7 @@ class ComboBox : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_47%", "H_23%", "H_7.5%", "H_3%"],
+      "rect" : ["W_47%", "H_23%", "H_7.5%", "H_3%"],
       "color" : [100, 100, 70, 255],
       "font" : "default",
       "text" : "Start",
@@ -66,4 +66,9 @@ class ComboBox : public Widget {
 
   bool mainRendererSelected;
 };
+<<<<<<< HEAD
 }  // namespace PaceLib
+=======
+
+}
+>>>>>>> 68be932 (Rename dim to rect in the json configurations)

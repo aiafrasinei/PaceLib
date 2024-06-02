@@ -27,4 +27,4 @@ class Map {
   std::string name;
 };
 
-}  // namespace PaceLib
+}

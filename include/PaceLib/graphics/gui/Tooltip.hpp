@@ -50,4 +50,4 @@ class Tooltip : public Widget {
   static TooltipProp LoadTooltipProp(Configuration *conf);
 };
 
-}  // namespace PaceLib
+}

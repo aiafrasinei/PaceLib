@@ -18,4 +18,4 @@ inline int Third(int input) { return (int)(input / 3); }
 
 inline int Quarter(int input) { return (int)(input / 4); }
 
-}  // namespace PaceLib
+}

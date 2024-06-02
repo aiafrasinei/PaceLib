@@ -35,4 +35,4 @@ class Lines : public Shape {
   Lines(ShapeId sid, VertsProp prop);
 };
 
-}  // namespace PaceLib
+}

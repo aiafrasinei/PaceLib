@@ -30,4 +30,4 @@ class TtfContainer {
   std::string name;
 };
 
-}  // namespace PaceLib
+}

@@ -48,4 +48,8 @@ class Texture : public Widget {
   Texture(ShapeId sid, TextureProp inputProp);
 };
 
+<<<<<<< HEAD
 }  // namespace PaceLib
+=======
+}
+>>>>>>> 68be932 (Rename dim to rect in the json configurations)
