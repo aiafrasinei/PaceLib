@@ -92,4 +92,4 @@ class Root : public Widget {
   Root();
 };
 
-}  // namespace PaceLib
+}

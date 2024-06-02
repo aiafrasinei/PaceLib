@@ -12,4 +12,4 @@ class Updateable {
  protected:
 };
 
-}  // namespace PaceLib
+}

@@ -16,7 +16,7 @@ class ButtonTex : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_47%", "H_16%", "H_5%", "H_5%"],
+      "rect" : ["W_47%", "H_16%", "H_5%", "H_5%"],
       "tex_name" : "sn_yellow.png",
       "over_tex_name" : "",
       "background" : "$BACKGROUND",
@@ -74,4 +74,4 @@ class ButtonTex : public Widget {
   ButtonTex(ShapeId sid, ButtonTexProp prop);
 };
 
-}  // namespace PaceLib
+}

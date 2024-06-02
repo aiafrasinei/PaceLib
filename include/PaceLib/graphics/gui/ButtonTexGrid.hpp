@@ -16,7 +16,7 @@ class ButtonTexGrid : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["H_1%", "W_1%", "W_5%", "W_5%"],
+      "rect" : ["H_1%", "W_1%", "W_5%", "W_5%"],
       "distance" : 10.0,
       "tex_name" : "sn_yellow.png",
       "over_tex_name" : "",
@@ -72,4 +72,4 @@ class ButtonTexGrid : public Widget {
   static ButtonTexGridProp LoadButtonTexGridProp(Configuration *conf);
 };
 
-}  // namespace PaceLib
+}

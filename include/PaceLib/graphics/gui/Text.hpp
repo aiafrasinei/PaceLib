@@ -56,4 +56,4 @@ class Text : public Widget {
   Text(ShapeId sid, TextProp prop);
 };
 
-}  // namespace PaceLib
+}

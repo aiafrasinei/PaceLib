@@ -37,7 +37,7 @@ void Sprite::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     int dim[4];
-    Root::ParseRect("dim", dim, conf);
+    Root::ParseRect("rect", dim, conf);
 
     SDL_Texture *tex = Root::GetInstance()
                            .GetScene(conf->Get("scene").get<std::string>())

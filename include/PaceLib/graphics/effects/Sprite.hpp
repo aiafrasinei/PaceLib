@@ -14,7 +14,7 @@ class Sprite : public Shape {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["H_82%", "H_11%", "H_32%", "H_32%"],
+      "rect" : ["H_82%", "H_11%", "H_32%", "H_32%"],
       "tex_name" : "sprite_sheet.png",
       "offset" : 300,
       "nr" : 5
@@ -56,4 +56,4 @@ class Sprite : public Shape {
   Sprite(ShapeId sid, SpriteProp inputProp);
 };
 
-}  // namespace PaceLib
+}

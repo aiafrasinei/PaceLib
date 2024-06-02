@@ -17,7 +17,7 @@ class Tabber : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_3%", "W_30%", "W_19%", "W_19%"],
+      "rect" : ["W_3%", "W_30%", "W_19%", "W_19%"],
       "background" : [70, 80, 70, 255],
       "border" : "$BORDER",
       "header_background" : [40, 40, 40, 255],
@@ -125,4 +125,4 @@ class Tabber : public Widget {
   void ClearHeaderColor(SDL_Color col);
 };
 
-}  // namespace PaceLib
+}

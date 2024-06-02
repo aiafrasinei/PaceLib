@@ -16,7 +16,7 @@ class TextInput : public Label, public Focusable {
   example format:
   }
       "scene" : "Default",
-      "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+      "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
       "font" : "default",
       "text" : "",
       "text_color" : "$TEXT",
@@ -49,4 +49,4 @@ class TextInput : public Label, public Focusable {
   void InternalInit();
 };
 
-}  // namespace PaceLib
+}

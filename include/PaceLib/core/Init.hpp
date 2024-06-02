@@ -27,4 +27,4 @@ class Init {
   std::function<void(SDL_Event *)> onEvent = nullptr;
 };
 
-}  // namespace PaceLib
+}

@@ -62,4 +62,4 @@ class Texture : public Widget {
   Texture(ShapeId sid, TextureProp inputProp);
 };
 
-}  // namespace PaceLib
+}

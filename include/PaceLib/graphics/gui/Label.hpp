@@ -16,7 +16,7 @@ class Label : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+      "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
       "font" : "default",
       "text" : "Start",
       "text_color" : "$TEXT",
@@ -72,4 +72,4 @@ class Label : public Widget {
   Label(ShapeId sid, LabelProp inputProp);
 };
 
-}  // namespace PaceLib
+}

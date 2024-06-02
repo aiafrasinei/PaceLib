@@ -41,4 +41,4 @@ class Points : public Shape {
   Points(ShapeId sid, VertsProp inputProp);
 };
 
-}  // namespace PaceLib
+}

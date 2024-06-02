@@ -36,4 +36,4 @@ class Configuration {
   std::string fname;
 };
 
-}  // namespace PaceLib
+}

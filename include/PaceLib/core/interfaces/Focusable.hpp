@@ -15,4 +15,4 @@ class Focusable {
   bool focus;
 };
 
-}  // namespace PaceLib
+}

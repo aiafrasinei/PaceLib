@@ -167,7 +167,7 @@ void Label::InternalInit() {
 
 LabelProp Label::LoadLabelProp(Configuration *conf) {
   int dim[4];
-  Root::ParseRect("dim", dim, conf);
+  Root::ParseRect("rect", dim, conf);
 
   HorizontalAlign align;
   if (conf->Get("align") == "left")

@@ -14,7 +14,7 @@ class TextArea : public Widget {
   /* Loads wconf file
   {
       "scene" : "Default",
-      "dim" : ["W_1%", "H_11%", "W_10%", "H_14%"],
+      "rect" : ["W_1%", "H_11%", "W_10%", "H_14%"],
       "font" : "default",
       "text_arr" : [ "first", "second line", "third line"],
       "text_color" : "$TEXT",
@@ -71,4 +71,4 @@ class TextArea : public Widget {
   void InternalInit();
 };
 
-}  // namespace PaceLib
+}

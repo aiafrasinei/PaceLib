@@ -43,4 +43,4 @@ class TexContainer {
   SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
 };
 
-}  // namespace PaceLib
+}

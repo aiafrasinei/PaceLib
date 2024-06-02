@@ -10,4 +10,4 @@ class Drawable {
  protected:
 };
 
-}  // namespace PaceLib
+}

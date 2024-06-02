@@ -55,7 +55,7 @@ In the wconfs folder the corresponding json configurations:
 
 	{
 	    "scene" : "Default",
-	    "dim" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+	    "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
 	    "font" : "default",
 	    "text" : "Start",
 	    "text_color" : "$TEXT",

@@ -41,4 +41,4 @@ class Polygon : public Shape {
   Polygon(ShapeId sid, std::vector<SDL_Vertex> verts);
 };
 
-}  // namespace PaceLib
+}

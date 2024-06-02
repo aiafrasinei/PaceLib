@@ -54,4 +54,4 @@ class Line : public Shape {
   Line(ShapeId sid, LineProp inputProp);
 };
 
-}  // namespace PaceLib
+}

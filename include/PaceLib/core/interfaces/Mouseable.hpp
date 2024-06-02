@@ -18,4 +18,4 @@ class Mouseable {
  protected:
 };
 
-}  // namespace PaceLib
+}

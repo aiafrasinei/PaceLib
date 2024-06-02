@@ -49,4 +49,4 @@ class Circle : public Shape {
   Circle(ShapeId sid, CircleProp inputProp);
 };
 
-}  // namespace PaceLib
+}

@@ -15,4 +15,4 @@ class Hidable {
   bool hidden;
 };
 
-}  // namespace PaceLib
+}

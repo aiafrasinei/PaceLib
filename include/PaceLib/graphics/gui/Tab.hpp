@@ -18,7 +18,7 @@ class Tab : public Widget {
   example format:
   {
       "scene" : "Default",
-      "dim" : ["W_25%", "W_3%", "W_20%", "W_22%"],
+      "rect" : ["W_25%", "W_3%", "W_20%", "W_22%"],
       "background" : [80, 70, 80, 255]
       "border : [0, 0, 0, 255]"
   }*/
@@ -63,4 +63,4 @@ class Tab : public Widget {
   static TabProp LoadTabProp(Configuration *conf);
 };
 
-}  // namespace PaceLib
+}

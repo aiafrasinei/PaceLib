@@ -13,7 +13,7 @@ class Rectangle : public Shape {
   /* Loads wconf file
   example format:
   {
-      "dim" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+      "rect" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
       "color" : [40, 40, 40, 255]
   }*/
   static void Begin(ShapeId sid);
@@ -38,4 +38,4 @@ class Rectangle : public Shape {
   Rectangle(ShapeId sid, PropDimColor prop);
 };
 
-}  // namespace PaceLib
+}

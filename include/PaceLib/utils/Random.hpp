@@ -26,4 +26,4 @@ class Random {
   std::random_device rd;
 };
 
-}  // namespace PaceLib
+}

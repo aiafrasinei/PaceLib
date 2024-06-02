@@ -36,7 +36,7 @@ void ComboBox::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     int dim[4];
-    Root::ParseRect("dim", dim, conf);
+    Root::ParseRect("rect", dim, conf);
 
     Root *root = &Root::GetInstance();
 

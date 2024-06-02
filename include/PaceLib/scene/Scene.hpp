@@ -52,4 +52,4 @@ class Scene : public Drawable {
   std::string name;
 };
 
-}  // namespace PaceLib
+}
