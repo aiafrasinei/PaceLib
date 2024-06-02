@@ -19,8 +19,6 @@ Polygon::Polygon(ShapeId sid, std::vector<SDL_Vertex> verts) {
   name = sid.name;
 }
 
-Polygon::~Polygon() {}
-
 void Polygon::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Polygon.conf";
   if (std::filesystem::exists(path)) {

@@ -15,8 +15,6 @@ Point::Point(ShapeId sid, PointProp prop) {
   hidden = false;
 }
 
-Point::~Point() {}
-
 void Point::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Point.conf";
   if (std::filesystem::exists(path)) {

@@ -19,8 +19,6 @@ namespace PaceLib {
 
 class Root : public Widget {
  public:
-  ~Root();
-
   static Root &GetInstance() {
     static Root instance;
     return instance;

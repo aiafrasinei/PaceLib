@@ -32,10 +32,6 @@ class Point : public Shape {
 
   void Draw();
 
-  PointProp *GetProp() { return &prop; }
-
-  ~Point();
-
  protected:
  private:
   PointProp prop;

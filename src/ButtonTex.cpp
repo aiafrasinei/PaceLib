@@ -27,8 +27,6 @@ ButtonTex::ButtonTex(ShapeId sid, ButtonTexProp prop) {
   wtype = WidgetType::BUTTONTEX;
 }
 
-ButtonTex::~ButtonTex() {}
-
 void ButtonTex::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_ButtonTex.conf";
   if (std::filesystem::exists(path)) {

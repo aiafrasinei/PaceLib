@@ -33,11 +33,15 @@ class Line : public Shape {
   // end static methods
 
   void Draw();
+<<<<<<< HEAD
 
   LineProp *GetProp() { return &prop; }
 
   ~Line();
 
+=======
+  
+>>>>>>> 0d59a85 (Fix TextInput not printing key input, default constructors/destructors)
  protected:
  private:
   LineProp prop;

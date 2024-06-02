@@ -9,8 +9,6 @@ namespace PaceLib {
 
 class CheckBox : public Label {
  public:
-  ~CheckBox();
-
   // static methods
 
   // json configuration

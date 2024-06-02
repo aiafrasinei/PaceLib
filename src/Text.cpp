@@ -37,8 +37,6 @@ Text::Text(ShapeId sid, TextProp inputProp) {
   SDL_RenderTexture(Window::GetRenderer(), prop.tex, NULL, &rect);
 }
 
-Text::~Text() {}
-
 void Text::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Text.conf";
   if (std::filesystem::exists(path)) {

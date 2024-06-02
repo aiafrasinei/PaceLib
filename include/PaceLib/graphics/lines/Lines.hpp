@@ -28,8 +28,6 @@ class Lines : public Shape {
   // end static methods
   void Draw();
 
-  ~Lines();
-
  protected:
  private:
   VertsProp prop;

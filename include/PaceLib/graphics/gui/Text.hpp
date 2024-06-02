@@ -45,8 +45,6 @@ class Text : public Widget {
 
   TextProp *GetProp() { return &prop; }
 
-  ~Text();
-
  protected:
  private:
   TextProp prop;

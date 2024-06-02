@@ -19,8 +19,6 @@ Rectangle::Rectangle(ShapeId sid, PropDimColor prop) {
   this->name = sid.name;
 }
 
-Rectangle::~Rectangle() {}
-
 void Rectangle::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Rectangle.conf";
   if (std::filesystem::exists(path)) {

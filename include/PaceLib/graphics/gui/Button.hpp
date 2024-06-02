@@ -41,12 +41,16 @@ class Button : public Label {
   void SetHighlight(bool state);
 
   void Draw();
+  
   void Update(SDL_Event *e);
 
+<<<<<<< HEAD
   LabelProp *GetProp() { return &prop; }
 
   ~Button();
 
+=======
+>>>>>>> 0d59a85 (Fix TextInput not printing key input, default constructors/destructors)
  private:
   bool mouseOver;
 

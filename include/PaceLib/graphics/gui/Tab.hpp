@@ -10,8 +10,6 @@ namespace PaceLib {
 
 class Tab : public Widget {
  public:
-  ~Tab();
-
   // static methods
 
   // json configuration

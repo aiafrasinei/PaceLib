@@ -5,8 +5,10 @@
 
 using namespace PaceLib;
 
-Circle::Circle(ShapeId sid, CircleProp prop) {
-  this->prop = prop;
+Circle::Circle(ShapeId sid, CircleProp inputProp) {
+  prop = inputProp;
+  
+  color = prop.color;
 
   if (sid.parent->name != "root") {
     this->prop.x = sid.parent->GetRect().x + prop.x;
@@ -19,8 +21,6 @@ Circle::Circle(ShapeId sid, CircleProp prop) {
 
   this->name = sid.name;
 }
-
-Circle::~Circle() {}
 
 void Circle::SetDrawType(DrawTypes rtype) { this->rtype = rtype; }
 

@@ -23,8 +23,6 @@ Tab::Tab(ShapeId sid, TabProp prop) {
   wtype = WidgetType::TAB;
 }
 
-Tab::~Tab() {}
-
 void Tab::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Tab.conf";
   if (std::filesystem::exists(path)) {

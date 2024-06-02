@@ -36,8 +36,6 @@ class Circle : public Shape {
 
   void Draw();
 
-  ~Circle();
-
  protected:
  private:
   CircleProp prop;

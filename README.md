@@ -1,4 +1,4 @@
-# PaceLib 1.1.1
+# PaceLib 1.1.2
 
 WARNING:
 

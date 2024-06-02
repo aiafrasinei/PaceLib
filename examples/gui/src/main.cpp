@@ -22,6 +22,7 @@ bool init() {
   };
 
   Tab::BeginBlock("second");
+<<<<<<< HEAD
   Text::Begin("text");
   Label::BeginBlock("out");
   Tooltip::Begin("outo");
@@ -29,6 +30,15 @@ bool init() {
   TextArea::Begin("texta");
   TextInput::Begin("in");
   CheckBox::Begin("test");
+=======
+    Text::Begin("text");
+    Label::BeginBlock("out");
+      Tooltip::Begin("outo");
+    Label::EndBlock();
+    TextArea::Begin("texta");
+    TextInput::Begin("in");
+    CheckBox::Begin("test");
+>>>>>>> 0d59a85 (Fix TextInput not printing key input, default constructors/destructors)
   Tab::EndBlock();
 
   Tabber::BeginBlock("third");
@@ -66,7 +76,7 @@ int main(int argc, const char *argv[]) {
   starter = new Init();
 
   starter->onInit = &init;
-
+  
   starter->Loop();
 
   return 0;

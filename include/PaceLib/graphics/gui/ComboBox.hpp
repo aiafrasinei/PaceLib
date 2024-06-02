@@ -50,7 +50,7 @@ class ComboBox : public Widget {
   MultiItemsProp *GetProp() { return &prop; }
 
  private:
-  ComboBox(ShapeId sid, MultiItemsProp prop);
+  ComboBox(ShapeId sid, MultiItemsProp inputProp);
 
   MultiItemsProp prop;
 

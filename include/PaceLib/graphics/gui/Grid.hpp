@@ -42,12 +42,13 @@ class Grid : public Widget {
   ~Grid();
 
  protected:
-  GridProp prop;
-
-  Grid(ShapeId sid, GridProp inputProp);
 
  private:
   static GridProp LoadGridProp(Configuration *conf);
+
+  GridProp prop;
+
+  Grid(ShapeId sid, GridProp inputProp);
 };
 
 }  // namespace PaceLib

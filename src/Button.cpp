@@ -12,8 +12,6 @@ Button::Button(ShapeId sid, LabelProp inputProp) : Label(sid, inputProp) {
   mouseOver = false;
 }
 
-Button::~Button() {}
-
 // load all info from conf file ( {dim, color}, {font_name, text}, align )
 void Button::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Button.conf";

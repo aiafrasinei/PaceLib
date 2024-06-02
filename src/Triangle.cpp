@@ -40,8 +40,6 @@ Triangle::Triangle(ShapeId sid, TriangleProp prop) {
   this->name = sid.name;
 }
 
-Triangle::~Triangle() {}
-
 void Triangle::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Triangle.conf";
   if (std::filesystem::exists(path)) {

@@ -27,9 +27,7 @@ class Points : public Shape {
 
   // end static methods
   void Draw();
-
-  ~Points();
-
+  
  protected:
  private:
   VertsProp prop;
