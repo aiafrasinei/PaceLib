@@ -43,7 +43,7 @@ void Texture::Begin(ShapeId sid) {
     SDL_FRect *srcrectInstance = nullptr;
 
     nlohmann::json data = conf->Get("srcrect");
-    if(data.size() > 0) {
+    if (data.size() > 0) {
       float srcrect[4];
       Root::ParseRect("srcrect", srcrect, conf);
       SDL_FRect temp = {srcrect[0], srcrect[1], srcrect[2], srcrect[3]};
@@ -51,9 +51,9 @@ void Texture::Begin(ShapeId sid) {
     }
 
     SDL_FRect *dstrectInstance = nullptr;
-  
+
     data = conf->Get("dstrect");
-    if(data.size() > 0) {
+    if (data.size() > 0) {
       float destrect[4];
       Root::ParseRect("dstrect", destrect, conf);
       SDL_FRect temp = {destrect[0], destrect[1], destrect[2], destrect[3]};
@@ -64,7 +64,7 @@ void Texture::Begin(ShapeId sid) {
 
     std::string flipstr = conf->Get("flip").get<std::string>();
     SDL_FlipMode flip;
-    if(flipstr == "none") {
+    if (flipstr == "none") {
       flip = SDL_FlipMode::SDL_FLIP_NONE;
     } else if (flipstr == "vertical") {
       flip = SDL_FlipMode::SDL_FLIP_VERTICAL;
@@ -74,7 +74,7 @@ void Texture::Begin(ShapeId sid) {
 
     SDL_FPoint *center = nullptr;
     data = conf->Get("center");
-    if(data.size() > 0) {
+    if (data.size() > 0) {
       float cen[2];
       cen[0] = std::stoi(data[0].get<std::string>());
       cen[1] = std::stoi(data[1].get<std::string>());
@@ -117,7 +117,8 @@ void Texture::EndBlock() {
 
 void Texture::Draw() {
   if (!hidden) {
-    SDL_RenderTextureRotated(Window::GetRenderer(), prop.tex, prop.srcrect, prop.dstrect, prop.angle, prop.center, prop.flip);
+    SDL_RenderTextureRotated(Window::GetRenderer(), prop.tex, prop.srcrect,
+                             prop.dstrect, prop.angle, prop.center, prop.flip);
 
     for (Shape *w : shapes) {
       w->Draw();

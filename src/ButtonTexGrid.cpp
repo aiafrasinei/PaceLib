@@ -169,14 +169,22 @@ TexProp ButtonTexGrid::GetNormal() { return prop.normal; }
 void ButtonTexGrid::SetOver(TexProp over) { prop.over = over; }
 TexProp ButtonTexGrid::GetOver() { return prop.over; }
 
-void ButtonTexGrid::SetBackgroundColor(SDL_FColor color) { prop.backgroundColor = color; }
+void ButtonTexGrid::SetBackgroundColor(SDL_FColor color) {
+  prop.backgroundColor = color;
+}
 SDL_FColor ButtonTexGrid::GetBackgroundColor() { return prop.backgroundColor; }
 
-void ButtonTexGrid::SetBorderColor(SDL_FColor color) { prop.borderColor = color; }
+void ButtonTexGrid::SetBorderColor(SDL_FColor color) {
+  prop.borderColor = color;
+}
 SDL_FColor ButtonTexGrid::GetBorderColor() { return prop.borderColor; }
 
-void ButtonTexGrid::SetHighlightColor(SDL_FColor color) { prop.highlightColor = color; }
+void ButtonTexGrid::SetHighlightColor(SDL_FColor color) {
+  prop.highlightColor = color;
+}
 SDL_FColor ButtonTexGrid::GetHighlightColor() { return prop.highlightColor; }
 
-void ButtonTexGrid::SetDrawBorder(bool drawBorder) { prop.drawBorder = drawBorder; }
+void ButtonTexGrid::SetDrawBorder(bool drawBorder) {
+  prop.drawBorder = drawBorder;
+}
 bool ButtonTexGrid::GetDrawBorder() { return prop.drawBorder; }

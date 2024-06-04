@@ -81,7 +81,8 @@ void Hotspot::Draw() {
         SDL_RenderRect(Window::GetRenderer(), &prop.rect);
       } else if (prop.type == Hover::TEXTURE) {
         if (tex != nullptr) {
-          SDL_RenderTexture(Window::GetRenderer(), prop.tex, nullptr, &prop.rect);
+          SDL_RenderTexture(Window::GetRenderer(), prop.tex, nullptr,
+                            &prop.rect);
         }
       }
     }

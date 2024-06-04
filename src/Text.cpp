@@ -7,7 +7,7 @@ using namespace PaceLib;
 
 Text::Text(ShapeId sid, TextProp inputProp) {
   prop = inputProp;
-  //color = prop.color;
+  // color = prop.color;
 
   rect.x = prop.x;
   rect.y = prop.y;

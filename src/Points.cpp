@@ -40,7 +40,7 @@ void Points::Begin(ShapeId sid) {
     }
 
     SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
-                       conf->Get("color")[2], conf->Get("color")[3]};
+                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(new Points(sid, {verts, color}));
   }

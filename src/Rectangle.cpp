@@ -29,7 +29,7 @@ void Rectangle::Begin(ShapeId sid) {
     Root::ParseRect("rect", dim, conf);
 
     SDL_FColor color = {conf->Get("color")[0], conf->Get("color")[1],
-                       conf->Get("color")[2], conf->Get("color")[3]};
+                        conf->Get("color")[2], conf->Get("color")[3]};
 
     sid.parent->Add(
         new Rectangle(sid, {{dim[0], dim[1], dim[2], dim[3]}, color}));

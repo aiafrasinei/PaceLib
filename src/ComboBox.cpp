@@ -48,7 +48,8 @@ void ComboBox::Begin(ShapeId sid) {
     SDL_FColor highlightColor =
         Widget::ParseVar("highlight", conf, root->GetVars());
 
-    SDL_FColor textColor = Widget::ParseVar("text_color", conf, root->GetVars());
+    SDL_FColor textColor =
+        Widget::ParseVar("text_color", conf, root->GetVars());
     std::vector<std::string> tarr =
         conf->Get("text_arr").get<std::vector<std::string>>();
 
