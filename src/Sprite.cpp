@@ -29,8 +29,6 @@ Sprite::Sprite(ShapeId sid, SpriteProp inputProp) {
   src_rect.h = prop.offset;
 }
 
-Sprite::~Sprite() {}
-
 void Sprite::Begin(ShapeId sid) {
   std::string path = "wconfs/" + sid.name + "_Sprite.conf";
   if (std::filesystem::exists(path)) {

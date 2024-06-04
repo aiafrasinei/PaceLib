@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Widget.hpp"
+#include "../../core/interfaces/Rotateable.hpp"
 
 namespace PaceLib {
 
-class Texture : public Widget {
+class Texture : public Widget, public Rotateable {
  public:
   // static methods
 
@@ -46,8 +47,8 @@ class Texture : public Widget {
   void SetDstRect(SDL_Rect *dstrect);
   SDL_Rect *GetDstRect();
 
-  void SetAngle(double angle);
-  double GetAngle();
+  virtual void SetAngle(double angle);
+  virtual double GetAngle();
 
   void SetCenter(SDL_Point *center);
   SDL_Point *GetCenter();

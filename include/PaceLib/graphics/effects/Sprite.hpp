@@ -44,8 +44,6 @@ class Sprite : public Shape {
 
   void Draw();
 
-  ~Sprite();
-
  protected:
  private:
   SpriteProp prop;

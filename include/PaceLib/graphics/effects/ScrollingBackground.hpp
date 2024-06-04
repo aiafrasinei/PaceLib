@@ -12,7 +12,6 @@ namespace PaceLib {
 class ScrollingBackground : public Hidable {
  public:
   ScrollingBackground(SDL_Texture *tex, SDL_Rect shape);
-  ~ScrollingBackground();
 
   static ScrollingBackground *Begin(SDL_Texture *tex, SDL_Rect shape);
 

@@ -14,8 +14,6 @@ ScrollingBackground::ScrollingBackground(SDL_Texture *tex, SDL_Rect shape) {
   scrollingOffset = 0;
 }
 
-ScrollingBackground::~ScrollingBackground() {}
-
 ScrollingBackground *ScrollingBackground::Begin(SDL_Texture *tex,
                                                 SDL_Rect shape) {
   return new ScrollingBackground(tex, shape);

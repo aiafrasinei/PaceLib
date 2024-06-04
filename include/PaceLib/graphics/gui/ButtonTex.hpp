@@ -52,8 +52,6 @@ class ButtonTex : public Widget {
   void SetHighlightColor(SDL_Color highlightColor);
   SDL_Color GetHighlightColor();
 
-  bool drawBorder;
-
   void SetBorder(bool state);
   
   void SetHighlight(bool state);
@@ -71,7 +69,7 @@ class ButtonTex : public Widget {
 
   static ButtonTexProp LoadButtonTexProp(Configuration *conf);
 
-  ButtonTex(ShapeId sid, ButtonTexProp prop);
+  ButtonTex(ShapeId sid, ButtonTexProp inputProp);
 };
 
 }

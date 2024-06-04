@@ -4,8 +4,8 @@
 
 using namespace PaceLib;
 
-ButtonTex::ButtonTex(ShapeId sid, ButtonTexProp prop) {
-  this->prop = prop;
+ButtonTex::ButtonTex(ShapeId sid, ButtonTexProp inputProp) {
+  prop = inputProp;
 
   rect = prop.normal.rect;
 
@@ -14,11 +14,9 @@ ButtonTex::ButtonTex(ShapeId sid, ButtonTexProp prop) {
     rect.y = sid.parent->GetRect().y + prop.normal.rect.y;
   }
 
-  this->prop.normal.rect = rect;
-
   hidden = false;
 
-  this->name = sid.name;
+  name = sid.name;
 
   mouseOver = false;
 
@@ -152,7 +150,7 @@ void ButtonTex::Update(SDL_Event *e) {
 
 void ButtonTex::SetHighlight(bool state) { highlight = state; }
 
-void ButtonTex::SetBorder(bool state) { drawBorder = state; }
+void ButtonTex::SetBorder(bool state) { prop.drawBorder = state; }
 
 ButtonTexProp ButtonTex::LoadButtonTexProp(Configuration *conf) {
   int dim[4];
