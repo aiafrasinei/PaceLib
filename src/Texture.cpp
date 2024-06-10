@@ -36,10 +36,6 @@ void Texture::Begin(ShapeId sid) {
     float dim[4];
     Root::ParseRect("rect", dim, conf);
 
-    SDL_Texture *tex = Root::GetInstance()
-                           .GetScene(conf->Get("scene").get<std::string>())
-                           ->GetTex(conf->Get("tex_name").get<std::string>());
-
     SDL_FRect *srcrectInstance = nullptr;
 
     nlohmann::json data = conf->Get("srcrect");
@@ -58,6 +54,16 @@ void Texture::Begin(ShapeId sid) {
       Root::ParseRect("dstrect", destrect, conf);
       SDL_FRect temp = {destrect[0], destrect[1], destrect[2], destrect[3]};
       dstrectInstance = &temp;
+    }
+
+    SDL_Texture *tex = nullptr;
+    if(conf->Get("tex_name").get<std::string>() == "") {
+      tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+       dstrectInstance->w, dstrectInstance->h);
+    } else {
+      tex = Root::GetInstance()
+              .GetScene(conf->Get("scene").get<std::string>())
+              ->GetTex(conf->Get("tex_name").get<std::string>());
     }
 
     double angle = conf->Get("angle").get<double>();
