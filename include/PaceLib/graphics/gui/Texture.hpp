@@ -20,8 +20,16 @@ class Texture : public Widget, public Rotateable {
       "dstrect" : ["700", "300", "300", "300"],
       "angle" : 0.0,
       "center" : [],
-      "flip" : "none"
-  }*/
+      "flip" : "none",
+      "tex_access" : ""
+  }
+  
+  when "tex_name" is set to "":
+    a new texture is created with pixel format RGBA8888
+
+    using type from "tex_access" ("static", "streaming", "target")
+    "" means default (set to "streaming")
+  */
   static void Begin(ShapeId sid);
   static void Begin(std::string name);
 

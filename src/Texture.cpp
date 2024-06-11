@@ -55,8 +55,21 @@ void Texture::Begin(ShapeId sid) {
 
     SDL_Texture *tex = nullptr;
     if(conf->Get("tex_name").get<std::string>() == "") {
-      tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
-       dstrectInstance->w, dstrectInstance->h);
+      if(conf->Get("tex_access").get<std::string>() == "") {
+        tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+          dstrectInstance->w, dstrectInstance->h);
+      } else {
+        if(conf->Get("tex_access").get<std::string>() == "static") {
+          tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC,
+            dstrectInstance->w, dstrectInstance->h);
+        } else if (conf->Get("tex_access").get<std::string>() == "streaming") {
+          tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+            dstrectInstance->w, dstrectInstance->h);
+        } else if (conf->Get("tex_access").get<std::string>() == "target") {
+          tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
+            dstrectInstance->w, dstrectInstance->h);
+        }
+      }
     } else {
       tex = Root::GetInstance()
               .GetScene(conf->Get("scene").get<std::string>())

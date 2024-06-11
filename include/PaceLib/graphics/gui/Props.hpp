@@ -138,6 +138,7 @@ struct TextureProp {
   double angle;
   SDL_Point *center;
   SDL_RendererFlip flip;
+  SDL_TextureAccess tex_access;
 };
 
 struct MultiItemsProp {
