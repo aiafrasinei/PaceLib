@@ -8,10 +8,7 @@ Texture::Texture(ShapeId sid, TextureProp inputProp) {
   prop = inputProp;
 
   if (prop.dstrect != nullptr) {
-    rect.x = (*prop.dstrect).x;
-    rect.y = (*prop.dstrect).y;
-    rect.w = (*prop.dstrect).w;
-    rect.h = (*prop.dstrect).h;
+    rect = (*prop.dstrect);
   }
 
   if (sid.parent->name != "root") {
@@ -54,26 +51,32 @@ void Texture::Begin(ShapeId sid) {
     }
 
     SDL_Texture *tex = nullptr;
+    SDL_TextureAccess tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_STATIC;
     if(conf->Get("tex_name").get<std::string>() == "") {
       if(conf->Get("tex_access").get<std::string>() == "") {
         tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
           dstrectInstance->w, dstrectInstance->h);
+        tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_STREAMING;
       } else {
         if(conf->Get("tex_access").get<std::string>() == "static") {
           tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC,
             dstrectInstance->w, dstrectInstance->h);
+          tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_STATIC;
         } else if (conf->Get("tex_access").get<std::string>() == "streaming") {
           tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
             dstrectInstance->w, dstrectInstance->h);
+          tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_STREAMING;
         } else if (conf->Get("tex_access").get<std::string>() == "target") {
           tex = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
             dstrectInstance->w, dstrectInstance->h);
+          tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET;
         }
       }
     } else {
       tex = Root::GetInstance()
               .GetScene(conf->Get("scene").get<std::string>())
               ->GetTex(conf->Get("tex_name").get<std::string>());
+      tex_access = SDL_TextureAccess::SDL_TEXTUREACCESS_STATIC;
     }
 
     double angle = conf->Get("angle").get<double>();
@@ -99,7 +102,7 @@ void Texture::Begin(ShapeId sid) {
     }
 
     TextureProp nt = {tex,   srcrectInstance, dstrectInstance,
-                      angle, center,          flip};
+                      angle, center, flip, tex_access};
 
     sid.parent->Add(new Texture(sid, nt));
   }
