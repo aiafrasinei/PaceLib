@@ -58,6 +58,7 @@ add_executable (blank
     ../../src/Timer.cpp
     ../../src/Label.cpp
     ../../src/Button.cpp
+    ../../src/ButtonTex.cpp
     ../../src/CheckBox.cpp
     ../../src/Tab.cpp
     ../../src/Root.cpp

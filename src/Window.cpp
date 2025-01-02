@@ -35,9 +35,9 @@ Window::Window(Configuration *conf) {
       height = conf->Get("Height");
 
       if (conf->Get("Vsync") == "0") {
-        renderer = SDL_CreateRenderer(window, NULL, 0);
+        renderer = SDL_CreateRenderer(window, NULL);
       } else {
-        renderer = SDL_CreateRenderer(window, NULL, 0);
+        renderer = SDL_CreateRenderer(window, NULL);
       }
 
       if (renderer == nullptr) {

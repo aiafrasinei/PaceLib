@@ -33,9 +33,6 @@ void Texture::Begin(ShapeId sid) {
   if (std::filesystem::exists(path)) {
     Configuration *conf = new Configuration(path);
 
-    float dim[4];
-    Root::ParseRect("rect", dim, conf);
-
     SDL_FRect *srcrectInstance = nullptr;
 
     nlohmann::json data = conf->Get("srcrect");

@@ -134,7 +134,7 @@ void ComboBox::InternalInit() {
                    root->GetCurrentAbsoluteCoords().x + this->GetRect().w / 2,
                    root->GetCurrentAbsoluteCoords().y + this->GetRect().h +
                        this->GetRect().h / 3,
-                   /*prop.borderColor*/ {1.0, 1.0, 1.0, 1.0}});
+                   prop.borderColor});
 
   for (int i = 0; i < items.size(); i++) {
     SDL_FRect r = {root->GetCurrentAbsoluteCoords().x,

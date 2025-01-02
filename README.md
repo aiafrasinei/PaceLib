@@ -1,10 +1,4 @@
-# PaceLib 1.1.2
-
-WARNING:
-
-The SDL3 implementation works but is unstable until SDL3 is fully released.
-
-Use the SDL2 branch (PaceLib_SDL2).
+# PaceLib 1.1.3
 
 Features:
 
@@ -20,7 +14,7 @@ Features:
 Prerequisites:
 
 - c++20 compiler
-- SDL3, SDL3_image, SDL3_ttf
+- SDL3, SDL_image, SDL_ttf
 - cmake
 
 Documentation:
