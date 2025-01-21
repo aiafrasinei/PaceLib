@@ -12,4 +12,12 @@ Changelogs
 
 1.1.3:
 
-- todo
+- use SDL3 as default
+
+- Added tex_access to the Texture configuration
+
+- Use blend for text rendering
+
+1.1.4:
+
+- 
