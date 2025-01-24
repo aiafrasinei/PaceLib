@@ -130,8 +130,8 @@ void Tabber::BeginTabBlock(std::string text) {
 
   LabelProp prop = {tabber->GetScene(),
                     tabber->GetFont(),
-                    {tabx, Window::height * 1 / 100, 0,
-                     Window::height * (tabber->prop.headerHeight - 1) / 100},
+                    {tabx, (float)(Window::height * 1 / 100), 0,
+                    (float)(Window::height * (tabber->prop.headerHeight - 1) / 100)},
                     text,
                     tabber->GetButtonsTextColor(),
                     tabber->GetButtonsTextAlign(),

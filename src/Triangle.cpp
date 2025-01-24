@@ -9,19 +9,19 @@ Triangle::Triangle(ShapeId sid, TriangleProp inputProp) {
   color = prop.color;
 
   if (sid.parent->name == "root") {
-    points[0] = {static_cast<int>(prop.x1), static_cast<int>(prop.y1)};
-    points[1] = {static_cast<int>(prop.x2), static_cast<int>(prop.y2)};
-    points[2] = {static_cast<int>(prop.x3), static_cast<int>(prop.y3)};
-    points[3] = {static_cast<int>(prop.x1), static_cast<int>(prop.y1)};
+    points[0] = {prop.x1, prop.y1};
+    points[1] = {prop.x2, prop.y2};
+    points[2] = {prop.x3, prop.y3};
+    points[3] = {prop.x1, prop.y1};
   } else {
-    points[0] = {static_cast<int>(sid.parent->GetRect().x + prop.x1),
-                 static_cast<int>(sid.parent->GetRect().y + prop.y1)};
-    points[1] = {static_cast<int>(sid.parent->GetRect().x + prop.x2),
-                 static_cast<int>(sid.parent->GetRect().y + prop.y2)};
-    points[2] = {static_cast<int>(sid.parent->GetRect().x + prop.x3),
-                 static_cast<int>(sid.parent->GetRect().y + prop.y3)};
-    points[3] = {static_cast<int>(sid.parent->GetRect().x + prop.x1),
-                 static_cast<int>(sid.parent->GetRect().y + prop.y1)};
+    points[0] = {sid.parent->GetRect().x + prop.x1,
+                 sid.parent->GetRect().y + prop.y1};
+    points[1] = {sid.parent->GetRect().x + prop.x2,
+                 sid.parent->GetRect().y + prop.y2};
+    points[2] = {sid.parent->GetRect().x + prop.x3,
+                 sid.parent->GetRect().y + prop.y3};
+    points[3] = {sid.parent->GetRect().x + prop.x1,
+                 sid.parent->GetRect().y + prop.y1};
   }
 
   verts[0].position.x = points[0].x;

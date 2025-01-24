@@ -98,7 +98,7 @@ void TextInput::Update(SDL_Event *e) {
 
       int w, h;
       SDL_QueryTexture(to->GetTex(), nullptr, nullptr, &w, &h);
-      to->SetRect({rect.x, rect.y, w, h});
+      to->SetRect({rect.x, rect.y, (float)w, (float)h});
     }
 
     if (e->type == SDL_EVENT_KEY_DOWN) {
@@ -107,7 +107,7 @@ void TextInput::Update(SDL_Event *e) {
         to->SetText(to->GetText().substr(0, to->GetText().size() - 1));
         int w, h;
         SDL_QueryTexture(to->GetTex(), nullptr, nullptr, &w, &h);
-        to->SetRect({rect.x, rect.y, w, h});
+        to->SetRect({rect.x, rect.y, (float)w, (float)h});
       }
     }
   }

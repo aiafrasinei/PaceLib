@@ -25,8 +25,8 @@ void Polygon::Begin(ShapeId sid) {
     Configuration *conf = new Configuration(path);
 
     std::vector<float> all_verts = conf->Get("verts").get<std::vector<float>>();
-    std::vector<unsigned char> all_colors =
-        conf->Get("colors").get<std::vector<unsigned char>>();
+    std::vector<float> all_colors =
+        conf->Get("colors").get<std::vector<float>>();
 
     std::vector<SDL_Vertex> verts;
 
