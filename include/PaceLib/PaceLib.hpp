@@ -8,7 +8,7 @@
 #include "resources/TtfContainer.hpp"
 
 // utils
-#include "Version.h"
+#include "Version.hpp"
 #include "utils/Random.hpp"
 #include "utils/Scale.hpp"
 #include "utils/Timer.hpp"

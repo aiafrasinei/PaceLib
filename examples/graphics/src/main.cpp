@@ -22,7 +22,7 @@ bool init() {
   root->GetScene("Default")->AddTex("texs/bg.png", 0, 0, 400, 400);
   root->GetScene("Default")->AddTex("texs/sprite_sheet.png", 0, 0, 1500, 300);
 
-  Point::Begin({root, "point"}, {300.0, 10.0 , {255, 0, 0, 255} });
+  Point::Begin({root, "point"}, {300.0, 10.0 , {255, 0.0, 0.0, 255} });
 
   Line::Begin({root, "line"}, {200, 100, 300, 200, {50, 100, 50, 255}});
 
@@ -38,13 +38,13 @@ bool init() {
   Circle::Begin({root, "cir2"}, {400, 100, 30, {50, 50, 70, 255}});
   static_cast<Circle *>(root->Get("cir2"))->SetDrawType(DrawTypes::FILLED);
 
-  TextProp prop = {"Default",
-                   "lazy_font",
-                   600,
-                   100,
-                   nullptr,
-                   "some text",
-                   {150, 50, 50, 255}};
+  TextProp prop = {.scene = "Default",
+                   .font = "lazy_font",
+                   .x = 600,
+                   .y = 100,
+                   .tex = nullptr,
+                   .text = "some text",
+                   .color = {150, 50, 50, 255}};
   Text::Begin({root, "text"}, prop);
 
   Sprite::Begin({root, "sprite"},
@@ -54,7 +54,7 @@ bool init() {
                  5});
 
   scroll_background = ScrollingBackground::Begin(
-      root->GetScene("Default")->GetTex("bg.png"), {0, 0, Window::width, Window::height});
+      root->GetScene("Default")->GetTex("bg.png"), {0, 0, (float)Window::width, (float)Window::height});
 
   Polygon::Begin({root, "poly"});
 

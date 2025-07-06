@@ -18,6 +18,8 @@ Changelogs
 
 - Use blend for text rendering
 
+- Fix compiler warnings
+
 1.1.4:
 
 - 
