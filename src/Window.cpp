@@ -50,16 +50,9 @@ Window::Window(Configuration *conf) {
             Window::GetBackgroundColor().g, Window::GetBackgroundColor().b,
             Window::GetBackgroundColor().a);
 
-        int img_flags = IMG_INIT_PNG;
-        if (!(IMG_Init(img_flags) & img_flags)) {
-          SDL_Log("SDL_image could not initialize! SDL_image Error: %s",
-                  IMG_GetError());
-          success = false;
-        }
-
-        if (TTF_Init() == -1) {
+        if (TTF_Init() == false) {
           SDL_Log("SDL_ttf could not initialize! SDL_ttf Error: %s",
-                  TTF_GetError());
+                  SDL_GetError());
           success = false;
         }
       }
@@ -78,7 +71,6 @@ Window::~Window() {
   renderer = nullptr;
 
   TTF_Quit();
-  IMG_Quit();
   SDL_Quit();
 
   success = false;

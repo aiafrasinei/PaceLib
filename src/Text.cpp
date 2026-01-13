@@ -29,9 +29,9 @@ Text::Text(ShapeId sid, TextProp inputProp) {
   SDL_Texture *tex = root->GetScene(prop.scene)->GetFont(name);
   prop.tex = tex;
 
-  int w, h;
-  SDL_QueryTexture(prop.tex, nullptr, nullptr, &w, &h);
-  rect = {rect.x, rect.y, (float)w, (float)h};
+  float w, h;
+  SDL_GetTextureSize(prop.tex, &w, &h);
+  rect = {rect.x, rect.y, w, h};
 
   SDL_SetRenderDrawColor(Window::GetRenderer(), prop.color.r, prop.color.g,
                          prop.color.b, prop.color.a);

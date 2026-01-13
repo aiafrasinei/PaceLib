@@ -96,18 +96,18 @@ void TextInput::Update(SDL_Event *e) {
     if (e->type == SDL_EVENT_TEXT_INPUT) {
       to->SetText(to->GetText() + e->text.text);
 
-      int w, h;
-      SDL_QueryTexture(to->GetTex(), nullptr, nullptr, &w, &h);
-      to->SetRect({rect.x, rect.y, (float)w, (float)h});
+      float w, h;
+      SDL_GetTextureSize(to->GetTex(), &w, &h);
+      to->SetRect({rect.x, rect.y, w, h});
     }
 
     if (e->type == SDL_EVENT_KEY_DOWN) {
-      char keyDown = e->key.keysym.scancode;
+      char keyDown = e->key.scancode;
       if (keyDown == SDL_SCANCODE_BACKSPACE) {
         to->SetText(to->GetText().substr(0, to->GetText().size() - 1));
-        int w, h;
-        SDL_QueryTexture(to->GetTex(), nullptr, nullptr, &w, &h);
-        to->SetRect({rect.x, rect.y, (float)w, (float)h});
+        float w, h;
+        SDL_GetTextureSize(to->GetTex(), &w, &h);
+        to->SetRect({rect.x, rect.y, w, h});
       }
     }
   }

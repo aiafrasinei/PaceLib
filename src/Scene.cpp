@@ -35,7 +35,7 @@ bool Scene::AddTex(std::filesystem::path file_path, int x, int y, int w,
 bool Scene::AddFont(std::string name, std::string font, std::string text,
                     SDL_FColor color) {
   SDL_Surface *surface = TTF_RenderText_Blended(
-      GetTtfContainer()->Get(font), text.c_str(),
+      GetTtfContainer()->Get(font), text.c_str(),text.length(),
       {(Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a});
   SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
 
@@ -66,7 +66,7 @@ void Scene::Stop() {}
 
 void Scene::Update(SDL_Event *e) {
   if ((*e).type == SDL_EVENT_KEY_DOWN) {
-    switch ((*e).key.keysym.sym) {
+    switch ((*e).key.key) {
       case SDLK_LEFT:
         // if(current_tex_index>0)
         //    current_tex_index--;

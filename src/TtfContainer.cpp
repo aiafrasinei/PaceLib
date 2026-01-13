@@ -30,7 +30,7 @@ bool TtfContainer::Add(std::string name, std::filesystem::path file_path,
 
   if (ttf == nullptr) {
     SDL_Log("Failed to load font %s error: %s", file_path.filename().c_str(),
-            TTF_GetError());
+            SDL_GetError());
     return false;
   }
 

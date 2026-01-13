@@ -78,7 +78,7 @@ SDL_Texture *TexContainer::LoadTexture(SDL_Renderer *renderer,
   SDL_Surface *loaded_surface = IMG_Load(path.c_str());
   if (loaded_surface == nullptr) {
     SDL_Log("Unable to load image %s ! SDL_image Error: %s", path.c_str(),
-            IMG_GetError());
+            SDL_GetError());
   } else {
     new_tex = SDL_CreateTextureFromSurface(renderer, loaded_surface);
     if (new_tex == nullptr) {
