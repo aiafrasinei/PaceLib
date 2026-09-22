@@ -5,71 +5,71 @@
 #include "Widget.hpp"
 
 namespace PaceLib {
-  
+
 class Hotspot : public Widget {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "scene" : "Default",
-      "rect" : ["W_25%", "W_3%", "W_20%", "W_22%"],
-      "background" : [80, 70, 80, 255],
-      "type" : "rect",
-      "texture" : ""
-  }
-  More info:
-  "texture" : "" means do not use a texture
-  "type" can be: "rect", "filled", "texture"
-  */
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "scene" : "Default",
+        "rect" : ["W_25%", "W_3%", "W_20%", "W_22%"],
+        "background" : [80, 70, 80, 255],
+        "type" : "rect",
+        "texture" : ""
+    }
+    More info:
+    "texture" : "" means do not use a texture
+    "type" can be: "rect", "filled", "texture"
+    */
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the hotspot will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the hotspot will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
+    // programmatic
 
-  static void Begin(ShapeId sid, HotspotProp prop);
+    static void Begin(ShapeId sid, HotspotProp prop);
 
-  // end static methods
+    // end static methods
 
-  // setters, getters
-  void SetBackgroundColor(SDL_FColor backgroundColor);
-  SDL_FColor GetBackgroundColor();
+    // setters, getters
+    void SetBackgroundColor(SDL_FColor backgroundColor);
+    SDL_FColor GetBackgroundColor();
 
-  void SetHover(Hover type);
-  Hover GetHover();
+    void SetHover(Hover type);
+    Hover GetHover();
 
-  void SetTex(SDL_Texture *tex);
-  SDL_Texture *GetTex();
+    void SetTex(SDL_Texture *tex);
+    SDL_Texture *GetTex();
 
-  void SetHighlight(bool state);
+    void SetHighlight(bool state);
 
-  void SetHighlightColor(SDL_FColor color);
+    void SetHighlightColor(SDL_FColor color);
 
-  void Draw();
+    void Draw();
 
-  void Update(SDL_Event *e);
+    void Update(SDL_Event *e);
 
- private:
-  Hotspot(ShapeId sid, HotspotProp inputProp);
+  private:
+    Hotspot(ShapeId sid, HotspotProp inputProp);
 
-  HotspotProp prop;
+    HotspotProp prop;
 
-  bool mouseOver;
+    bool mouseOver;
 
-  bool isHighlight;
+    bool isHighlight;
 
-  SDL_FColor highlightColor;
+    SDL_FColor highlightColor;
 
-  SDL_Texture *tex;
+    SDL_Texture *tex;
 
-  static HotspotProp LoadHotspotProp(Configuration *conf);
+    static HotspotProp LoadHotspotProp(Configuration *conf);
 };
 
-}
+} // namespace PaceLib

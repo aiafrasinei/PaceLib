@@ -22,4 +22,4 @@ Changelogs
 
 1.1.4:
 
-- 
+- Adapt to latest SDL API changes

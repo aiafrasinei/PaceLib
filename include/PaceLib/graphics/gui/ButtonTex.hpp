@@ -7,71 +7,71 @@
 namespace PaceLib {
 
 class ButtonTex : public Widget {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "scene" : "Default",
-      "rect" : ["W_47%", "H_16%", "H_5%", "H_5%"],
-      "tex_name" : "sn_yellow.png",
-      "over_tex_name" : "",
-      "background" : "$BACKGROUND",
-      "border" : "$BORDER",
-      "highlight" : "$HIGHLIGHT"
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "scene" : "Default",
+        "rect" : ["W_47%", "H_16%", "H_5%", "H_5%"],
+        "tex_name" : "sn_yellow.png",
+        "over_tex_name" : "",
+        "background" : "$BACKGROUND",
+        "border" : "$BORDER",
+        "highlight" : "$HIGHLIGHT"
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the buttontex will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the buttontex will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
+    // programmatic
 
-  static void Begin(ShapeId sid, ButtonTexProp prop);
+    static void Begin(ShapeId sid, ButtonTexProp prop);
 
-  // end static methods
+    // end static methods
 
-  // getters, setters
-  void SetNormal(TexProp normal);
-  TexProp GetNormal();
+    // getters, setters
+    void SetNormal(TexProp normal);
+    TexProp GetNormal();
 
-  void SetOver(TexProp over);
-  TexProp GetOver();
+    void SetOver(TexProp over);
+    TexProp GetOver();
 
-  void SetBackgroundColor(SDL_FColor backgroundColor);
-  SDL_FColor GetBackgroundColor();
+    void SetBackgroundColor(SDL_FColor backgroundColor);
+    SDL_FColor GetBackgroundColor();
 
-  void SetBorderColor(SDL_FColor borderColor);
-  SDL_FColor GetBorderColor();
+    void SetBorderColor(SDL_FColor borderColor);
+    SDL_FColor GetBorderColor();
 
-  void SetHighlightColor(SDL_FColor highlightColor);
-  SDL_FColor GetHighlightColor();
+    void SetHighlightColor(SDL_FColor highlightColor);
+    SDL_FColor GetHighlightColor();
 
-  bool drawBorder;
+    bool drawBorder;
 
-  void SetBorder(bool state);
-  
-  void SetHighlight(bool state);
+    void SetBorder(bool state);
 
-  void Draw();
+    void SetHighlight(bool state);
 
-  void Update(SDL_Event *e);
+    void Draw();
 
- private:
-  bool mouseOver;
+    void Update(SDL_Event *e);
 
-  bool highlight;
+  private:
+    bool mouseOver;
 
-  ButtonTexProp prop;
+    bool highlight;
 
-  static ButtonTexProp LoadButtonTexProp(Configuration *conf);
+    ButtonTexProp prop;
 
-  ButtonTex(ShapeId sid, ButtonTexProp prop);
+    static ButtonTexProp LoadButtonTexProp(Configuration *conf);
+
+    ButtonTex(ShapeId sid, ButtonTexProp prop);
 };
 
-}
+} // namespace PaceLib

@@ -6,55 +6,55 @@
 namespace PaceLib {
 
 class Tooltip : public Widget {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  {
-      "scene" : "Default",
-      "font" : "default",
-      "text" : "this is a color label",
-      "text_color" : "$TEXT",
-      "align" : "mid",
-      "color" : [70, 80, 90, 255],
-      "border" : [70, 80, 90, 255]
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    {
+        "scene" : "Default",
+        "font" : "default",
+        "text" : "this is a color label",
+        "text_color" : "$TEXT",
+        "align" : "mid",
+        "color" : [70, 80, 90, 255],
+        "border" : [70, 80, 90, 255]
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the tooltip will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the tooltip will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
+    // programmatic
 
-  static void Begin(ShapeId sid, TooltipProp prop);
+    static void Begin(ShapeId sid, TooltipProp prop);
 
-  // end static methods
+    // end static methods
 
-  void SetText(std::string text);
-  std::string GeText();
+    void SetText(std::string text);
+    std::string GeText();
 
-  void SetTextColor(SDL_FColor color);
-  SDL_FColor GetTextColor();
+    void SetTextColor(SDL_FColor color);
+    SDL_FColor GetTextColor();
 
-  void SetBorderColor(SDL_FColor color);
-  SDL_FColor GetBorderColor();
+    void SetBorderColor(SDL_FColor color);
+    SDL_FColor GetBorderColor();
 
-  void Draw();
+    void Draw();
 
- private:
-  TooltipProp prop;
+  private:
+    TooltipProp prop;
 
-  int textSize;
+    int textSize;
 
-  Tooltip(ShapeId sid, TooltipProp prop);
+    Tooltip(ShapeId sid, TooltipProp prop);
 
-  void InternalInit();
+    void InternalInit();
 
-  static TooltipProp LoadTooltipProp(Configuration *conf);
+    static TooltipProp LoadTooltipProp(Configuration *conf);
 };
 
-}
+} // namespace PaceLib

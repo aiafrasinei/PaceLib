@@ -6,9 +6,8 @@ namespace PaceLib {
 
 class Updateable {
 
-public:
-  virtual void Update(SDL_Event *e) = 0;
-
+  public:
+    virtual void Update(SDL_Event *e) = 0;
 };
 
-}
+} // namespace PaceLib

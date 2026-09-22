@@ -3,10 +3,10 @@
 using namespace PaceLib;
 
 Map::Map(std::string name, SDL_Window *window, SDL_Renderer *renderer) {
-  this->name = name;
+    this->name = name;
 
-  this->window = window;
-  this->renderer = renderer;
+    this->window = window;
+    this->renderer = renderer;
 }
 
 Map::~Map() {}

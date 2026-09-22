@@ -4,15 +4,15 @@ namespace PaceLib {
 
 class Hidable {
 
-public:
-  bool IsHidden() { return hidden; }
+  public:
+    bool IsHidden() { return hidden; }
 
-  void Hide() { hidden = true; }
+    void Hide() { hidden = true; }
 
-  void Show() { hidden = false; }
+    void Show() { hidden = false; }
 
-protected:
-  bool hidden;
+  protected:
+    bool hidden;
 };
 
-}
+} // namespace PaceLib

@@ -8,56 +8,56 @@
 namespace PaceLib {
 
 class CheckBox : public Label {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "scene" : "Default",
-      "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
-      "font" : "default",
-      "text" : "Start",
-      "text_color" : "$TEXT",
-      "align" : "mid",
-      "background" : "$BACKGROUND",
-      "border" : "$BORDER",
-      "highlight" : "$HIGHLIGHT"
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "scene" : "Default",
+        "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+        "font" : "default",
+        "text" : "Start",
+        "text_color" : "$TEXT",
+        "align" : "mid",
+        "background" : "$BACKGROUND",
+        "border" : "$BORDER",
+        "highlight" : "$HIGHLIGHT"
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the checkbox will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the checkbox will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
-  static void Begin(ShapeId sid, LabelProp prop);
+    // programmatic
+    static void Begin(ShapeId sid, LabelProp prop);
 
-  // end static methods
+    // end static methods
 
-  CheckBox(ShapeId sid, LabelProp prop);
+    CheckBox(ShapeId sid, LabelProp prop);
 
-  void Draw();
+    void Draw();
 
-  void Update(SDL_Event *e);
+    void Update(SDL_Event *e);
 
-  bool IsChecked();
+    bool IsChecked();
 
- private:
-  bool mouseOver;
+  private:
+    bool mouseOver;
 
-  bool highlight;
+    bool highlight;
 
-  bool checked;
+    bool checked;
 
-  SDL_FRect midrect;
+    SDL_FRect midrect;
 
-  int textSize;
+    int textSize;
 
-  void InternalInit();
+    void InternalInit();
 };
 
-}
+} // namespace PaceLib

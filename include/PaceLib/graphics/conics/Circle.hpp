@@ -6,47 +6,47 @@
 namespace PaceLib {
 
 class Circle : public Shape {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "x" : 100,
-      "y" : 100,
-      "radius" : 100,
-      "color" : [0, 0, 0, 255]
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "x" : 100,
+        "y" : 100,
+        "radius" : 100,
+        "color" : [0, 0, 0, 255]
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the cicle will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the cicle will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
+    // programmatic
 
-  static void Begin(ShapeId sid, CircleProp prop);
+    static void Begin(ShapeId sid, CircleProp prop);
 
-  // end static methods
+    // end static methods
 
-  // setters, getters
-  void SetDrawType(DrawTypes rtype);
+    // setters, getters
+    void SetDrawType(DrawTypes rtype);
 
-  void SetRadius(int radius);
-  int GetRadius();
+    void SetRadius(int radius);
+    int GetRadius();
 
-  void Draw();
+    void Draw();
 
- protected:
- private:
-  CircleProp prop;
+  protected:
+  private:
+    CircleProp prop;
 
-  DrawTypes rtype;
+    DrawTypes rtype;
 
-  Circle(ShapeId sid, CircleProp inputProp);
+    Circle(ShapeId sid, CircleProp inputProp);
 };
 
-}
+} // namespace PaceLib

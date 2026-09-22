@@ -5,39 +5,39 @@
 namespace PaceLib {
 
 class Lines : public Shape {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "verts" : [ 0, 0, 10, 10, 100, 100 ]
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "verts" : [ 0, 0, 10, 10, 100, 100 ]
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the polygon will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the polygon will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
-  static void Begin(ShapeId sid, VertsProp prop);
+    // programmatic
+    static void Begin(ShapeId sid, VertsProp prop);
 
-  // end static methods
+    // end static methods
 
-  // setters, getters
-  void SetVerts(std::vector<SDL_FPoint> verts);
-  std::vector<SDL_FPoint> GetVerts();
+    // setters, getters
+    void SetVerts(std::vector<SDL_FPoint> verts);
+    std::vector<SDL_FPoint> GetVerts();
 
-  void Draw();
+    void Draw();
 
- protected:
- private:
-  VertsProp prop;
+  protected:
+  private:
+    VertsProp prop;
 
-  Lines(ShapeId sid, VertsProp inputProp);
+    Lines(ShapeId sid, VertsProp inputProp);
 };
 
-}
+} // namespace PaceLib

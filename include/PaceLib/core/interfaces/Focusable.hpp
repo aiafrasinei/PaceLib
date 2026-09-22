@@ -4,15 +4,15 @@ namespace PaceLib {
 
 class Focusable {
 
-public:
-  bool IsFocused() { return focus; }
+  public:
+    bool IsFocused() { return focus; }
 
-  void Focus() { focus = true; }
+    void Focus() { focus = true; }
 
-  void Unfocus() { focus = false; }
+    void Unfocus() { focus = false; }
 
-protected:
-  bool focus;
+  protected:
+    bool focus;
 };
 
-}
+} // namespace PaceLib

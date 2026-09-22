@@ -5,37 +5,37 @@
 namespace PaceLib {
 
 class Rectangle : public Shape {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "rect" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
-      "color" : [40, 40, 40, 255]
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "rect" : ["W_2%", "H_10%", "W_7.5%", "H_3%"],
+        "color" : [40, 40, 40, 255]
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the rectangle will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the rectangle will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
+    // programmatic
 
-  static void Begin(ShapeId sid, PropDimColor prop);
+    static void Begin(ShapeId sid, PropDimColor prop);
 
-  // end static methods
+    // end static methods
 
-  void Draw();
+    void Draw();
 
- protected:
- private:
-  PropDimColor prop;
+  protected:
+  private:
+    PropDimColor prop;
 
-  Rectangle(ShapeId sid, PropDimColor prop);
+    Rectangle(ShapeId sid, PropDimColor prop);
 };
 
-}
+} // namespace PaceLib

@@ -6,15 +6,14 @@ namespace PaceLib {
 
 class Mouseable {
 
-public:
-  std::function<void(void)> mouseLeftButtonDownCallback;
+  public:
+    std::function<void(void)> mouseLeftButtonDownCallback;
 
-  std::function<void(void)> mouseLeftButtonUpCallback;
+    std::function<void(void)> mouseLeftButtonUpCallback;
 
-  std::function<void(void)> mouseRightButtonDownCallback;
+    std::function<void(void)> mouseRightButtonDownCallback;
 
-  std::function<void(void)> mouseRightButtonUpCallback;
-
+    std::function<void(void)> mouseRightButtonUpCallback;
 };
 
-}
+} // namespace PaceLib

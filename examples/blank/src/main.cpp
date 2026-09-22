@@ -8,11 +8,11 @@ Init *starter = nullptr;
 void draw() { Window::SetBackgroundColor({10, 10, 90}); }
 
 int main(int argc, const char *argv[]) {
-  starter = new Init();
+    starter = new Init();
 
-  starter->onDraw = &draw;
+    starter->onDraw = &draw;
 
-  starter->Loop();
+    starter->Loop();
 
-  return 0;
+    return 0;
 }

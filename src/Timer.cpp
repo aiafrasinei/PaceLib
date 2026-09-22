@@ -4,64 +4,64 @@
 using namespace PaceLib;
 
 Timer::Timer() {
-  start_ticks = 0;
-  paused_ticks = 0;
+    start_ticks = 0;
+    paused_ticks = 0;
 
-  paused = false;
-  started = false;
+    paused = false;
+    started = false;
 }
 
 Timer::~Timer() {}
 
 void Timer::Start() {
-  started = true;
+    started = true;
 
-  paused = false;
+    paused = false;
 
-  start_ticks = SDL_GetTicks();
-  paused_ticks = 0;
+    start_ticks = SDL_GetTicks();
+    paused_ticks = 0;
 }
 
 void Timer::Stop() {
-  started = false;
+    started = false;
 
-  paused = false;
+    paused = false;
 
-  start_ticks = 0;
-  paused_ticks = 0;
+    start_ticks = 0;
+    paused_ticks = 0;
 }
 
 void Timer::Pause() {
-  if (started && !paused) {
-    paused = true;
+    if (started && !paused) {
+        paused = true;
 
-    paused_ticks = SDL_GetTicks() - start_ticks;
-    start_ticks = 0;
-  }
+        paused_ticks = SDL_GetTicks() - start_ticks;
+        start_ticks = 0;
+    }
 }
 
 void Timer::Unpause() {
-  if (started && paused) {
-    paused = false;
+    if (started && paused) {
+        paused = false;
 
-    start_ticks = SDL_GetTicks() - paused_ticks;
+        start_ticks = SDL_GetTicks() - paused_ticks;
 
-    paused_ticks = 0;
-  }
+        paused_ticks = 0;
+    }
 }
 
 Uint32 Timer::GetTicks() {
-  Uint32 time = 0;
+    Uint32 time = 0;
 
-  if (started) {
-    if (paused) {
-      time = paused_ticks;
-    } else {
-      time = SDL_GetTicks() - start_ticks;
+    if (started) {
+        if (paused) {
+            time = paused_ticks;
+        } else {
+            time = SDL_GetTicks() - start_ticks;
+        }
     }
-  }
 
-  return time;
+    return time;
 }
 
 bool Timer::IsStarted() { return started; }

@@ -8,48 +8,48 @@
 namespace PaceLib {
 
 class Button : public Label {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "scene" : "Default",
-      "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
-      "font" : "default",
-      "text" : "Start",
-      "text_color" : "$TEXT",
-      "align" : "mid",
-      "background" : "$BACKGROUND",
-      "border" : "$BORDER",
-      "highlight" : "$HIGHLIGHT"
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "scene" : "Default",
+        "rect" : ["H_82%", "H_11%", "W_7.5%", "H_3%"],
+        "font" : "default",
+        "text" : "Start",
+        "text_color" : "$TEXT",
+        "align" : "mid",
+        "background" : "$BACKGROUND",
+        "border" : "$BORDER",
+        "highlight" : "$HIGHLIGHT"
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the button will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the button will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programmatic
-  static void Begin(ShapeId sid, LabelProp prop);
+    // programmatic
+    static void Begin(ShapeId sid, LabelProp prop);
 
-  // end static methods
+    // end static methods
 
-  void SetHighlight(bool state);
+    void SetHighlight(bool state);
 
-  void Draw();
-  
-  void Update(SDL_Event *e);
+    void Draw();
 
- private:
-  bool mouseOver;
+    void Update(SDL_Event *e);
 
-  bool highlight;
+  private:
+    bool mouseOver;
 
-  Button(ShapeId sid, LabelProp inputProp);
+    bool highlight;
+
+    Button(ShapeId sid, LabelProp inputProp);
 };
 
-}
+} // namespace PaceLib

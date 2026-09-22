@@ -5,55 +5,55 @@
 namespace PaceLib {
 
 class Text : public Widget {
- public:
-  // static methods
+  public:
+    // static methods
 
-  // json configuration
+    // json configuration
 
-  /* Loads wconf file
-  example format:
-  {
-      "scene" : "Default",
-      "pos" : ["W_1%", "W_0.6%"],
-      "font" : "default",
-      "text" : "Text text text",
-      "color" : [140, 140, 140, 255]
-  }*/
-  static void Begin(ShapeId sid);
-  static void Begin(std::string name);
+    /* Loads wconf file
+    example format:
+    {
+        "scene" : "Default",
+        "pos" : ["W_1%", "W_0.6%"],
+        "font" : "default",
+        "text" : "Text text text",
+        "color" : [140, 140, 140, 255]
+    }*/
+    static void Begin(ShapeId sid);
+    static void Begin(std::string name);
 
-  // used when the text will have child elements
-  static void BeginBlock(std::string name);
-  static void EndBlock();
+    // used when the text will have child elements
+    static void BeginBlock(std::string name);
+    static void EndBlock();
 
-  // programatic
+    // programatic
 
-  static void Begin(ShapeId sid, TextProp prop);
+    static void Begin(ShapeId sid, TextProp prop);
 
-  // end static methods
+    // end static methods
 
-  void Draw();
+    void Draw();
 
-  // setters, getters
-  int GetWidth();
-  int GetHeight();
+    // setters, getters
+    int GetWidth();
+    int GetHeight();
 
-  void SetX(int x);
-  void SetY(int y);
+    void SetX(int x);
+    void SetY(int y);
 
-  std::string GetText();
-  void SetText(std::string text);
+    std::string GetText();
+    void SetText(std::string text);
 
-  void SetTex(SDL_Texture *tex);
-  SDL_Texture * GetTex();
+    void SetTex(SDL_Texture *tex);
+    SDL_Texture *GetTex();
 
- protected:
- private:
-  TextProp prop;
+  protected:
+  private:
+    TextProp prop;
 
-  static TextProp LoadTextProp(Configuration *conf);
+    static TextProp LoadTextProp(Configuration *conf);
 
-  Text(ShapeId sid, TextProp prop);
+    Text(ShapeId sid, TextProp prop);
 };
 
-}
+} // namespace PaceLib
